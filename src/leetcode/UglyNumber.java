@@ -1,0 +1,33 @@
+/*
+ * $Id$
+ *
+ * Copyright (c) 2012 Qunar.com. All Rights Reserved.
+ */
+package leetcode;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+//--------------------- Change Logs----------------------
+// <p>@author wit Initial Created at 2015年9月1日<p>
+//-------------------------------------------------------
+public class UglyNumber {
+
+    public boolean isUgly(int num) {
+        if (num <= 0) return false;
+        while (num % 2 == 0)
+            num /= 2;
+        while (num % 5 == 0)
+            num /= 5;
+        while (num % 3 == 0)
+            num /= 3;
+        return num == 1;
+    }
+
+    @Test
+    public void test() {
+        Assert.assertTrue(isUgly(8));
+        Assert.assertTrue(isUgly(6));
+        Assert.assertFalse(isUgly(14));
+    }
+}
