@@ -19,6 +19,21 @@ import org.junit.Test;
 //-------------------------------------------------------
 public class TwoSum {
 
+    /*
+    1 Two Sum
+    给一int数组及target,求两下标使和为target.有且仅有一组解
+    
+    Input: numbers={2, 7, 11, 15}, target=9
+    Output: index1=1, index2=2
+    
+    两种解法    
+    1map法
+        key为数值,value为下标.遍历keyset,判断target减去key的差是否在map.复杂度On
+    2双指针法
+         1排序    
+         2头指针在首,尾指针在尾.头尾和>target,尾指针向前,小于首指针向后.复杂度Onlgn 
+    */
+
     public int[] twoSum(int[] nums, int target) {
         HashMap<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++)
