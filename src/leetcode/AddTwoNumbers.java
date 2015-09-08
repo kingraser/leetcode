@@ -5,6 +5,8 @@
  */
 package leetcode;
 
+import java.math.BigInteger;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -24,21 +26,18 @@ public class AddTwoNumbers {
      */
 
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        StringBuilder s1 = new StringBuilder(), s2 = new StringBuilder();
-        for (; l1 != null; l1 = l1.next)
-            s1.append(l1.val);
-        for (; l2 != null; l2 = l2.next)
-            s2.append(l2.val);
-        java.math.BigInteger b1 = new java.math.BigInteger(s1.reverse().toString()),
-                b2 = new java.math.BigInteger(s2.reverse().toString());
-        s1.delete(0, s1.length()).append(b1.add(b2).toString()).reverse();
-        ListNode head = new ListNode(0), marcher = head;
-        for (int i = 0; i < s1.length(); i++) {
-            ListNode temp = new ListNode(Integer.parseInt(s1.substring(i, i + 1)));
-            marcher.next = temp;
-            marcher = temp;
-        }
+        char[] result = new StringBuilder().append(getNum(l1).add(getNum(l2))).reverse().toString().toCharArray();
+        ListNode head = new ListNode(0), marcher = head, temp;
+        for (int i = 0; i < result.length; i++, marcher.next = temp, marcher = temp)
+            temp = new ListNode(result[i] - '0');
         return head.next;
+    }
+
+    public BigInteger getNum(ListNode node) {
+        StringBuilder sb = new StringBuilder();
+        for (; node != null; node = node.next)
+            sb.append(node.val);
+        return new BigInteger(sb.reverse().toString());
     }
 
     @Test
