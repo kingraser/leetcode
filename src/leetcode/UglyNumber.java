@@ -12,6 +12,10 @@ import org.junit.Test;
 // <p>@author wit Initial Created at 2015年9月1日<p>
 //-------------------------------------------------------
 public class UglyNumber {
+    /*
+    ugly number：一个数的质因数只有2,3,5（1也是ugly number）
+    判断一个数是否是ugly number
+     */
 
     public boolean isUgly(int num) {
         if (num <= 0) return false;
