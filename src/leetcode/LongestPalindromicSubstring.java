@@ -64,7 +64,7 @@ public class LongestPalindromicSubstring {
     所以必有 P[i] = P[j] ,
     见下图。
                      j=2×id-i
-          mx的对称点 j是i关于id的对称点       id                       i          mx
+          mx的对称点 j是i关于id的对称点        id                       i          mx
     ------|----------|------------------------|------------------------|----------|------
                ------|------                                     ------|------
                      
@@ -74,12 +74,13 @@ public class LongestPalindromicSubstring {
     至于mx之后的部分是否对称,就只能老老实实去匹配了。
     
                      j=2×id-i
-          mx的对称点 j是i关于id的对称点       id                       i          mx
+          mx的对称点 j是i关于id的对称点        id                       i          mx
     ------|----------|------------------------|------------------------|----------|------
      -----#----------|----------#-----                      #----------|----------#
      
     其实，由于 P[id] = mx ,所以 S[id-mx] != S[id+mx] ,
-    那么当 P[j] > mx - i 的时候,可以肯定 P[i] = mx - i ,不需要再继续匹配了。
+    那么当 P[j] > mx - i 的时候,可以肯定 P[i] = mx - i ,不需要再继续匹配了
+    亦即只有P[j] == mx - i的情况需要匹配。
     不过在具体实现的时候即使不考虑这一点，也只是多一次匹配(必然会fail ),
     但是却要多加一个分支,所以上面的代码就不改了。
     */
@@ -136,8 +137,8 @@ public class LongestPalindromicSubstring {
         int[] p = new int[t.length()];
         int c = 0, r = 0, maxC = 0, maxL = 0;
         for (int i = 1, i1 = 2 * c - i; i < t.length() - 1; i++, i1 = 2 * c - i) {
-            p[i] = (r > i) ? Math.min(r - i, p[i1]) : 0;
-            for (; t.charAt(i + 1 + p[i]) == t.charAt(i - 1 - p[i]); p[i]++);
+            if (r > i) p[i] = Math.min(r - i, p[i1]);
+            if (r < i || p[i1] == r - i) for (; t.charAt(i + 1 + p[i]) == t.charAt(i - 1 - p[i]); p[i]++);
             if (i + p[i] > r) {
                 c = i;
                 r = i + p[i];
@@ -152,7 +153,6 @@ public class LongestPalindromicSubstring {
 
     @Test
     public void test() {
-        Assert.assertEquals("ccc", longestPalindromeIII("ccc"));
         Assert.assertEquals("aba", longestPalindromeI("abadd"));
         Assert.assertEquals("aba", longestPalindromeII("abadd"));
         Assert.assertEquals("aba", longestPalindromeIII("abadd"));
