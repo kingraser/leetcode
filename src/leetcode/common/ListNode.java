@@ -5,6 +5,9 @@
  */
 package leetcode.common;
 
+import com.google.common.base.MoreObjects;
+import com.google.common.base.MoreObjects.ToStringHelper;
+
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月6日<p>
 //-------------------------------------------------------
@@ -18,6 +21,14 @@ public class ListNode {
         val = x;
         next = null;
     }
+
+    @Override
+    public String toString() {
+        ListNode march = this;
+        ToStringHelper helper = MoreObjects.toStringHelper(ListNode.class);
+        for (; march != null; helper.add("val", march.val), march = march.next);
+        return helper.toString();
+    };
 
     @Override
     public boolean equals(Object o) {
