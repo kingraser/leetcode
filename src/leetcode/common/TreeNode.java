@@ -19,4 +19,14 @@ public class TreeNode {
     public TreeNode(int x) {
         val = x;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) return false;
+        if (!(o instanceof TreeNode)) return false;
+        TreeNode another = (TreeNode) o;
+        if (val != another.val) return false;
+        return (left == null ? another.left == null : left.equals(another.left))
+                && (right == null ? another.right == null : right.equals(another.right));
+    }
 }
