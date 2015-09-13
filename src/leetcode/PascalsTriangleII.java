@@ -1,6 +1,5 @@
 package leetcode;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Assert;
@@ -26,13 +25,10 @@ public class PascalsTriangleII {
     */
 
     public List<Integer> getRow(int k) {
-        Integer[] arr = new Integer[k + 1];
-        Arrays.fill(arr, 1, arr.length, 0);;
-        arr[0] = 1;
-        for (int i = 1; i <= k; i++)
-            for (int j = i; j > 0; j--)
-                arr[j] += arr[j - 1];
-        return Arrays.asList(arr);
+        List<Integer> res = Lists.newArrayList(1);
+        for (int j = 1; j <= k; j++)
+            res.add((int) ((double) res.get(res.size() - 1) * (k - j + 1) / j));
+        return res;
     }
 
     @Test
