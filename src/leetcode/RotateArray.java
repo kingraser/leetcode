@@ -5,6 +5,9 @@
  */
 package leetcode;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月14日<p>
 //-------------------------------------------------------
@@ -31,6 +34,13 @@ public class RotateArray {
         int swap = nums[i];
         nums[i] = nums[j];
         nums[j] = swap;
+    }
+
+    @Test
+    public void test() {
+        int[] expecteds = new int[] { 5, 6, 7, 1, 2, 3, 4 }, actuals = new int[] { 1, 2, 3, 4, 5, 6, 7 };
+        rotate(actuals, 3);
+        Assert.assertArrayEquals(expecteds, actuals);
     }
 
 }
