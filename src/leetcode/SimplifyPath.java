@@ -7,6 +7,9 @@ package leetcode;
 
 import java.util.List;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import com.google.common.collect.Lists;
 
 //--------------------- Change Logs----------------------
@@ -26,16 +29,23 @@ public class SimplifyPath {
     */
 
     public String simplifyPath(String path) {
+        path = path.replace(" ", "");
         String[] paths = path.split("/");
         StringBuffer sb = new StringBuffer("/");
         List<String> list = Lists.newArrayListWithCapacity(paths.length + 1);
         for (int i = 0; i < paths.length; i++)
-            if (paths[i].trim().equals(".") || "".equals(paths[i].trim())) continue;
-            else if ("..".equals(paths[i].trim()) && list.size() > 0) list.remove(list.size() - 1);
-            else list.add(paths[i].trim());
+            if (paths[i].length() == 0 || paths[i].equals(".")) continue;
+            else if ("..".equals(paths[i])) {
+                if (list.size() > 0) list.remove(list.size() - 1);
+            } else list.add(paths[i]);
         for (int i = 0; i < list.size(); sb.append(list.get(i++)).append("/"));
         if (sb.length() > 1) sb.deleteCharAt(sb.length() - 1);
         return sb.toString();
+    }
+
+    @Test
+    public void test() {
+        Assert.assertEquals("/", simplifyPath("/.."));
     }
 
 }
