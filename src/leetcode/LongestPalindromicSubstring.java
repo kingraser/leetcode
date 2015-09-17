@@ -135,7 +135,7 @@ public class LongestPalindromicSubstring {
     private String longestPalindromeIII(String s) {
         String t = preProcess(s);
         int[] p = new int[t.length()];
-        int c = 0, r = 0, maxC = 0, maxL = 0;
+        int c = 0, r = 0, maxC = 0, maxL = 0;//center radius 
         for (int i = 1, i1 = 2 * c - i; i < t.length() - 1; i++, i1 = 2 * c - i) {
             if (r > i) p[i] = Math.min(r - i, p[i1]);
             if (r < i || p[i1] == r - i) for (; t.charAt(i + 1 + p[i]) == t.charAt(i - 1 - p[i]); p[i]++);
