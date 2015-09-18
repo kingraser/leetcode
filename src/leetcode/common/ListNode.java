@@ -16,6 +16,15 @@ import com.google.common.collect.Lists;
 //-------------------------------------------------------
 public class ListNode {
 
+    public static ListNode generateNodes(Integer... array) {
+        ListNode head = new ListNode(array[0]), march = head;
+        for (int i = 1; i < array.length; i++) {
+            march.next = new ListNode(array[i]);
+            march = march.next;
+        }
+        return head;
+    }
+
     public int val;
 
     public ListNode next;
@@ -50,7 +59,7 @@ public class ListNode {
         if (!(o instanceof ListNode)) return false;
         ListNode another = (ListNode) o;
         if (val != another.val) return false;
-        return next == null ? another.next == null : next.equals(another);
+        return next == null ? another.next == null : next.equals(another.next);
     }
 
 }
