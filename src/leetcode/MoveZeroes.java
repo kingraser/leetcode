@@ -5,13 +5,8 @@
  */
 package leetcode;
 
-import java.util.Arrays;
-
-import javax.print.attribute.standard.NumberUpSupported;
-
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.validator.PublicClassValidator;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月21日<p>
