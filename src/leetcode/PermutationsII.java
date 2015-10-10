@@ -17,25 +17,27 @@ import com.google.common.collect.Lists;
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月10日<p>
 //-------------------------------------------------------
-public class Permutations {
+public class PermutationsII {
     /*
-    Given a collection of numbers, return all possible permutations.
+    Given a collection of numbers that might contain duplicates, 
+    return all possible unique permutations.
     
     For example,
-    [1,2,3] have the following permutations:
-    [1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2], and [3,2,1]. 
+    [1,1,2] have the following unique permutations:
+    [1,1,2], [1,2,1], and [2,1,1]. 
     */
 
-    public List<List<Integer>> permute(int[] num) {
-        return Lists.newArrayList(permuteII(num));
+    public List<List<Integer>> permuteUnique(int[] num) {
+        return Lists.newArrayList(permute(num));
     }
 
-    public List<LinkedList<Integer>> permuteII(int[] num) {
+    public List<LinkedList<Integer>> permute(int[] num) {
         List<LinkedList<Integer>> result = Lists.newArrayListWithCapacity(getPermuteNum(num.length));
         if (num.length == 0) result.add(Lists.newLinkedList());
         for (int i = 0; i < num.length; i++) {
+            if (i != 0 && num[i] == num[0]) continue;
             swap(num, 0, i);
-            List<LinkedList<Integer>> lists = permuteII(Arrays.copyOfRange(num, 1, num.length));
+            List<LinkedList<Integer>> lists = permute(Arrays.copyOfRange(num, 1, num.length));
             for (LinkedList<Integer> list : lists)
                 list.addFirst(num[0]);
             result.addAll(lists);
@@ -58,13 +60,8 @@ public class Permutations {
     @SuppressWarnings("unchecked")
     @Test
     public void test() {
-        Assert.assertEquals(1, getPermuteNum(1));
-        Assert.assertEquals(2, getPermuteNum(2));
-        Assert.assertEquals(6, getPermuteNum(3));
-        Assert.assertEquals(24, getPermuteNum(4));
-        Assert.assertEquals(120, getPermuteNum(5));
-        Assert.assertEquals(Lists.newArrayList(Lists.newArrayList(1, 2, 3), Lists.newArrayList(1, 3, 2),
-                Lists.newArrayList(2, 1, 3), Lists.newArrayList(2, 3, 1), Lists.newArrayList(3, 1, 2),
-                Lists.newArrayList(3, 2, 1)), permute(new int[] { 1, 2, 3 }));
+        Assert.assertEquals(Lists.newArrayList(Lists.newArrayList(1, 1, 2), Lists.newArrayList(1, 2, 1),
+                Lists.newArrayList(2, 1, 1)), permuteUnique(new int[] { 1, 1, 2 }));
     }
+
 }
