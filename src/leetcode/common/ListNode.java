@@ -42,8 +42,14 @@ public class ListNode {
     private String toString(List<ListNode> fathers) {
         ListNode march = this;
         ToStringHelper helper = MoreObjects.toStringHelper(ListNode.class);
-        for (; march != null && !thereIsCircle(march, fathers); fathers.add(march), helper.add("val",
-                march.val), march = march.next);
+        for (; march != null; march = march.next)
+            if (thereIsCircle(march, fathers)) {
+                helper.add("circle val", march.val);
+                break;
+            } else {
+                fathers.add(march);
+                helper.add("val", march.val);
+            }
         return helper.toString();
     }
 
@@ -55,8 +61,7 @@ public class ListNode {
 
     @Override
     public boolean equals(Object o) {
-        if (null == o) return false;
-        if (!(o instanceof ListNode)) return false;
+        if (null == o || !(o instanceof ListNode)) return false;
         ListNode another = (ListNode) o;
         if (val != another.val) return false;
         return next == null ? another.next == null : next.equals(another.next);
