@@ -12,6 +12,7 @@ import java.util.Map;
 //-------------------------------------------------------
 public class LRUCache {
 
+    //least recently used
     private Map<Integer, Integer> map;
 
     private int capacity;
