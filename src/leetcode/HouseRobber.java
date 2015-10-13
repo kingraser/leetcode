@@ -13,6 +13,15 @@ import org.junit.Test;
 //-------------------------------------------------------
 public class HouseRobber {
 
+    /*
+    You are a professional robber planning to rob houses along a street. 
+    Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them 
+    is that adjacent houses have security system connected 
+    and it will automatically contact the police if two adjacent houses were broken into on the same night.
+    Given a list of non-negative integers representing the amount of money of each house, 
+    determine the maximum amount of money you can rob tonight without alerting the police.
+    */
+
     public int rob(int[] nums) {
         int c = 0, p = 0, cur = 0, i = 0;
         for (; i < nums.length; cur = p + nums[i++], p = Math.max(p, c), c = cur);
