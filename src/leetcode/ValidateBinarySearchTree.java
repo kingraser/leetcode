@@ -5,9 +5,6 @@
  */
 package leetcode;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import leetcode.common.TreeNode;
 
 //--------------------- Change Logs----------------------
