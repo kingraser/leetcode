@@ -43,10 +43,9 @@ public class Subsets {
     */
 
     public List<List<Integer>> subsets(int[] nums) {
-        int size = 1 << nums.length;
-        List<List<Integer>> result = Lists.newArrayListWithCapacity(size);
+        List<List<Integer>> result = Lists.newArrayListWithCapacity(1 << nums.length);
         Arrays.sort(nums);
-        for (int i = 0; i < size; i++) {
+        for (int i = 0, size = 1 << nums.length; i < size; i++) {
             List<Integer> list = Lists.newArrayListWithCapacity(nums.length);
             for (int j = 0, l = i; l > 0; l >>= 1, j++)
                 if ((l & 1) == 1) list.add(nums[j]);
