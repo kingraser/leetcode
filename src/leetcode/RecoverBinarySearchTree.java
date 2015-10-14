@@ -37,7 +37,7 @@ public class RecoverBinarySearchTree {
         if (root.left != null) inOrder(root.left);
         if (prev != null && root.val < prev.val) {
             if (mistake1 == null) mistake1 = prev;
-            else mistake2 = root;
+            mistake2 = root;
         }
         prev = root;
         if (root.right != null) inOrder(root.right);
