@@ -21,6 +21,13 @@ public class TreeNode {
     }
 
     @Override
+    public String toString() {
+        return new StringBuilder("{\"val\":").append(val).append(",\"left\":")
+                .append(left == null ? null : left.toString()).append(",\"right\":")
+                .append(right == null ? null : right.toString()).append("}").toString();
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (o == null) return false;
         if (!(o instanceof TreeNode)) return false;
