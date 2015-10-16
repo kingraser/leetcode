@@ -45,7 +45,7 @@ public class PalindromePartitioning {
         List<List<String>> result = new LinkedList<>();
         char[] c = s.toCharArray();
         for (int end = s.length() - 1, i = end; i >= 0; i--)
-            if (isPalindrome(c, i, s.length() - 1)) {
+            if (isPalindrome(c, i, s.length() - 1)) {//可以用PalindromePartitioningII的dp法判断
                 List<List<String>> resultTemp = partition(s.substring(0, i));
                 if (resultTemp.isEmpty()) resultTemp.add(new ArrayList<>(s.length()));
                 for (List<String> list : resultTemp) {
