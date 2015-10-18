@@ -6,8 +6,12 @@
 package leetcode;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import com.google.common.collect.Lists;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月12日<p>
@@ -28,38 +32,46 @@ public class CombinationSumIII {
     [[1,2,6], [1,3,5], [2,3,4]]    
     */
 
-    public List<List<Integer>> combinationSum3(int k, int n) {
-        List<LinkedList<Integer>> res = combinationSum3(k, n, 1, 9);
-        List<List<Integer>> result = new ArrayList<>(res.size());
-        result.addAll(res);
-        return result;
+    @SuppressWarnings("unchecked")
+    @Test
+    public void test() {
+        List<List<Integer>> expected = Lists.newArrayList(Lists.newArrayList(1, 2, 6), Lists.newArrayList(1, 3, 5),
+                Lists.newArrayList(2, 3, 4));
+        Assert.assertEquals(expected, combinationSum3(3, 9));
     }
 
-    private LinkedList<LinkedList<Integer>> combinationSum3(int k, int n, int start, int end) {
-        LinkedList<LinkedList<Integer>> result = new LinkedList<>();
-        if (k == 2) {
-            if (n >= (end << 1) || n <= (start << 1)) return result;
-            for (; n - start > end; start++);
-            for (; start < n - start; start++) {
-                LinkedList<Integer> tempList = new LinkedList<Integer>();
-                tempList.add(start);
-                tempList.add(n - start);
-                result.add(tempList);
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        List<List<Integer>> res = new ArrayList<>(45);
+        combine(res, new ArrayList<>(9), 0, k, n, 1, 9);
+        return res;
+    }
+
+    private boolean combine(List<List<Integer>> res, List<Integer> cur, int sum, int k, int n, int start, int end) {
+        if (k == 1) {
+            if (n - sum >= start && n - sum <= end) {
+                cur.add(n - sum);
+                res.add(new ArrayList<>(cur));
+                cur.remove(cur.size() - 1);
+                return true;
             }
-        } else {
-            boolean hasFound = false;
-            for (; start < end - k + 2; start++) {
-                LinkedList<LinkedList<Integer>> tempList = combinationSum3(k - 1, n - start, start + 1, end);
-                if (!tempList.isEmpty()) {
-                    hasFound = true;
-                    end = tempList.getFirst().getLast();
-                    for (LinkedList<Integer> list : tempList)
-                        list.addFirst(start);
-                    result.addAll(tempList);
-                } else if (hasFound) break;
-            }
+            return false;
         }
-        return result;
+        //case1 剩下的元素不足k个
+        //case2 理论上的最小sum也大于n
+        //case3 理论上的最大sum也小于n
+        if (k > 10 - start || sum + (((k - 1 + (start << 1)) * k) >> 1) > n
+                || sum + (((end << 1) + 1 - k) * k >> 1) < n)
+            return false;
+        boolean hasFound = false;
+        for (int size = res.size(); start < end - k + 2; start++, size = res.size()) {
+            cur.add(start);
+            if (combine(res, cur, sum + start, k - 1, n, start + 1, end)) {
+                hasFound = true;
+                end = res.get(size).get(res.get(size).size() - 1);//new end
+            } else if (hasFound) start = end - k + 2;//break
+            cur.remove(cur.size() - 1);
+        }
+        return hasFound;
     }
 
 }
