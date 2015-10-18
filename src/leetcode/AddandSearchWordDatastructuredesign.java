@@ -5,9 +5,6 @@
  */
 package leetcode;
 
-import java.util.ArrayList;
-import java.util.List;
-
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月18日<p>
 //-------------------------------------------------------
@@ -18,7 +15,8 @@ public class AddandSearchWordDatastructuredesign {
     void addWord(word)
     bool search(word)
     
-    search(word) can search a literal word or a regular expression string containing only letters a-z or .. A . means it can represent any one letter.
+    search(word) can search a literal word or a regular expression string containing only letters a-z or .. 
+    A . means it can represent any one letter.
     
     For example:
     
@@ -35,14 +33,9 @@ public class AddandSearchWordDatastructuredesign {
 
         Character value;
 
-        List<TrieNode> nexts = new ArrayList<>();
+        TrieNode[] nexts = new TrieNode[26];
 
         boolean isLeaf = false;
-
-        // Initialize your data structure here.
-        public TrieNode() {
-            value = null;
-        }
 
         public TrieNode(char c) {
             value = c;
@@ -54,14 +47,15 @@ public class AddandSearchWordDatastructuredesign {
     // Adds a word into the data structure.
     public void addWord(String word) {
         TrieNode march = root;
-        A: for (char c : word.toCharArray()) {
-            for (TrieNode node : march.nexts)
-                if (node.value == c) {
-                    march = node;
-                    continue A;
-                }
+        for (char c : word.toCharArray()) {
+            int idx = c - 'a';
+            TrieNode next = march.nexts[idx];
+            if (next != null) {
+                march = next;
+                continue;
+            }
             TrieNode newNode = new TrieNode(c);
-            march.nexts.add(newNode);
+            march.nexts[idx] = newNode;
             march = newNode;
         }
         march.isLeaf = true;
@@ -74,13 +68,15 @@ public class AddandSearchWordDatastructuredesign {
     }
 
     public boolean search(char[] word, TrieNode node, int idx) {
-        if (word == null || word.length == 0) return node.isLeaf;
+        if (idx == word.length) return node.isLeaf;
         char c = word[idx];
         if (c == '.') {//深度优先搜索
             for (TrieNode tNode : node.nexts)
-                if (search(word, tNode, 1 + idx)) return true;
-        } else for (TrieNode tNode : node.nexts)
-            if (c == tNode.value) return search(word, tNode, 1 + idx);
+                if (tNode != null && search(word, tNode, 1 + idx)) return true;
+        } else {
+            int i = c - 'a';
+            if (node.nexts[i] != null) return search(word, node.nexts[i], 1 + idx);
+        }
         return false;
     }
 }
