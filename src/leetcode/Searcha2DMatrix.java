@@ -43,7 +43,7 @@ public class Searcha2DMatrix {
         return false;
     }
 
-    //O(log(n*m))
+    //O(log(n*m)) 可将数组视为一维
     public boolean searchMatrixII(int[][] A, int target) {
         if (A == null || A.length == 0 || A[0].length == 0) return false;
         int r = A.length, c = A[0].length, first = 0, last = r * c;

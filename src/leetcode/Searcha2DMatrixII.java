@@ -39,24 +39,11 @@ public class Searcha2DMatrixII {
         return false;
     }
 
-    //O(log(n*m))
-    public boolean searchMatrixII(int[][] A, int target) {
-        if (A == null || A.length == 0 || A[0].length == 0) return false;
-        int r = A.length, c = A[0].length, first = 0, last = r * c;
-        while (first < last) {
-            int mid = (first + last) >> 1, value = A[mid / c][mid % c];
-            if (value == target) return true;
-            else if (value < target) first = mid + 1;
-            else last = mid;
-        }
-        return false;
-    }
-
     @Test
     public void test() {
-        int[][] matrix = new int[][] { { 1, 3, 5, 7 }, { 10, 11, 16, 20 }, { 23, 30, 34, 50 } };
+        int[][] matrix = new int[][] { { 1, 4, 7, 11, 15 }, { 2, 5, 8, 12, 19 }, { 3, 6, 9, 16, 22 },
+                { 10, 13, 14, 17, 24 }, { 18, 21, 23, 26, 30 } };
         Assert.assertTrue(searchMatrix(matrix, 10));
-        Assert.assertTrue(searchMatrixII(matrix, 10));
-        Assert.assertFalse(searchMatrixII(new int[][] { { 1 } }, 2));
+        Assert.assertFalse(searchMatrix(new int[][] { { 1 } }, 2));
     }
 }
