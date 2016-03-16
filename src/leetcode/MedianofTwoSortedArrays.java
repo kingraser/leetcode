@@ -14,13 +14,13 @@ import org.junit.Test;
 public class MedianofTwoSortedArrays {
 
     /*
-    给两个有序int array 找出中位数(奇数时中间,偶数时中间两数的平均数)
-    
-    思想:转化为两个有序数列中找第k大的数,此题k=(m+n)/2
-    尝试二分法,一次排除k/2个数
-    若a[k/2]<b[k/2] 则a[start...k/2]可排除,否则b[start...k/2]可排除
-    复杂度O(log(min(m,n)))
-     */
+            给两个有序int array 找出中位数(奇数时中间,偶数时中间两数的平均数)
+            
+            思想:转化为两个有序数列中找第k大的数,此题k=(m+n)/2
+            尝试二分法,一次排除k/2个数
+            若a[k/2]<b[k/2] 则a[start...k/2]可排除,否则b[start...k/2]可排除
+            复杂度O(log(min(m,n)))
+    */
 
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
         if (nums1.length > nums2.length) return findMedianSortedArrays(nums2, nums1);
