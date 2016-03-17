@@ -5,11 +5,11 @@
  */
 package leetcode.common;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.MoreObjects.ToStringHelper;
-import com.google.common.collect.Lists;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月6日<p>
@@ -36,14 +36,14 @@ public class ListNode {
 
     @Override
     public String toString() {
-        return toString(Lists.newArrayList());
-    };
+        return toString(new HashSet<>());
+    }
 
-    private String toString(List<ListNode> fathers) {
+    private String toString(Set<ListNode> fathers) {
         ListNode march = this;
         ToStringHelper helper = MoreObjects.toStringHelper(ListNode.class);
         for (; march != null; march = march.next)
-            if (thereIsCircle(march, fathers)) {
+            if (fathers.contains(march)) {
                 helper.add("circle val", march.val);
                 break;
             } else {
@@ -51,12 +51,6 @@ public class ListNode {
                 helper.add("val", march.val);
             }
         return helper.toString();
-    }
-
-    private boolean thereIsCircle(ListNode node, List<ListNode> fathers) {
-        for (ListNode father : fathers)
-            if (node == father) return true;
-        return false;
     }
 
     @Override

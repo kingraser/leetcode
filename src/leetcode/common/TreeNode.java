@@ -14,9 +14,7 @@ public class TreeNode {
 
     public int val;
 
-    public TreeNode left;
-
-    public TreeNode right;
+    public TreeNode left, right;
 
     public TreeNode(int x) {
         val = x;
@@ -54,8 +52,7 @@ public class TreeNode {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null) return false;
-        if (!(o instanceof TreeNode)) return false;
+        if (o == null || !(o instanceof TreeNode)) return false;
         TreeNode another = (TreeNode) o;
         if (val != another.val) return false;
         return (left == null ? another.left == null : left.equals(another.left))

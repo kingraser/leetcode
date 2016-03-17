@@ -6,7 +6,6 @@
 package leetcode.common;
 
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月12日<p>
@@ -34,7 +33,7 @@ public class Interval {
     public boolean equals(Object o) {
         if (o == null || !(o instanceof Interval)) return false;
         Interval another = (Interval) o;
-        return Objects.equal(start, another.start) && Objects.equal(end, another.end);
+        return start == another.start && end == another.end;
     }
 
 }
