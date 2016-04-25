@@ -10,16 +10,19 @@ package leetcode.common;
 //-------------------------------------------------------
 public class Point {
 
-    public int x, y;
+  public int x = 0, y = 0;
 
-    public Point() {
-        x = 0;
-        y = 0;
-    }
+  public Point() {
+  }
 
-    public Point(int a, int b) {
-        x = a;
-        y = b;
-    }
+  public Point(int a, int b) {
+    x = a;
+    y = b;
+  }
+
+  @Override
+  public String toString() {
+    return ToString.toString(this);
+  }
 
 }
