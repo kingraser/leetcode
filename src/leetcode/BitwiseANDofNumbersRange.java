@@ -15,7 +15,7 @@ public class BitwiseANDofNumbersRange {
     return the bitwise AND of all numbers in this range, inclusive.    
     For example, given the range [5, 7], you should return 4.
     
-    等价于求m与n二进制编码中同为1的前缀.
+            等价于求m与n二进制编码中同为1的前缀.
     */
 
     public int rangeBitwiseAnd(int m, int n) {
