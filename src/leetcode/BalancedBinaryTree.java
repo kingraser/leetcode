@@ -7,12 +7,21 @@ package leetcode;
 
 import java.util.Objects;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import leetcode.common.TreeNode;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月13日<p>
 //-------------------------------------------------------
 public class BalancedBinaryTree {
+
+    @Test
+    public void test() {
+        Assert.assertTrue(isBalanced(TreeNode.generateTree("1,2,n,n,3,n,n")));
+        Assert.assertFalse(isBalanced(TreeNode.generateTree("1,n,2,n,3,n,n")));
+    }
 
     //Given a binary tree, determine if it is height-balanced. 
     public boolean isBalanced(TreeNode root) {
