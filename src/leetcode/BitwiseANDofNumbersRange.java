@@ -5,6 +5,9 @@
  */
 package leetcode;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月16日<p>
 //-------------------------------------------------------
@@ -17,6 +20,11 @@ public class BitwiseANDofNumbersRange {
     
             等价于求m与n二进制编码中同为1的前缀.
     */
+
+    @Test
+    public void test() {
+        Assert.assertEquals(4, rangeBitwiseAnd(5, 7));
+    }
 
     public int rangeBitwiseAnd(int m, int n) {
         int bit = 0;
