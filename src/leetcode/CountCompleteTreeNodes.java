@@ -5,6 +5,8 @@
  */
 package leetcode;
 
+import java.util.Objects;
+
 import leetcode.common.TreeNode;
 
 //--------------------- Change Logs----------------------
@@ -20,7 +22,7 @@ public class CountCompleteTreeNodes {
     */
 
     public int countNodes(TreeNode root) {
-        if (root == null) return 0;
+        if (Objects.isNull(root)) return 0;
         int hl = 0, hr = 0;
         for (TreeNode l = root.left; l != null; hl++, l = l.left);
         for (TreeNode r = root.right; r != null; hr++, r = r.right);
