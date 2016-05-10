@@ -16,19 +16,19 @@ import com.google.common.base.MoreObjects.ToStringHelper;
 //-------------------------------------------------------
 public class ToString {
 
-  public static String toString(Object object) {
-    if (Objects.isNull(object)) return "null";
-    ToStringHelper helper = MoreObjects.toStringHelper(object.getClass());
-    Field[] fields = object.getClass().getDeclaredFields();
-    try {
-      for (Field field : fields) {
-        field.setAccessible(true);
-        helper.add(field.getName(), field.get(object));
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
+    public static String toString(Object object) {
+        if (Objects.isNull(object)) return "null";
+        ToStringHelper helper = MoreObjects.toStringHelper(object.getClass());
+        Field[] fields = object.getClass().getDeclaredFields();
+        try {
+            for (Field field : fields) {
+                field.setAccessible(true);
+                helper.add(field.getName(), field.get(object));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return helper.toString();
     }
-    return helper.toString();
-  }
 
 }

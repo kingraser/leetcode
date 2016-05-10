@@ -17,48 +17,48 @@ import com.google.common.base.MoreObjects.ToStringHelper;
 //-------------------------------------------------------
 public class ListNode {
 
-  public static ListNode generateNodes(Integer... array) {
-    ListNode head = new ListNode(array[0]), march = head;
-    for (int i = 1; i < array.length; i++) {
-      march.next = new ListNode(array[i]);
-      march = march.next;
+    public static ListNode generateNodes(Integer... array) {
+        ListNode head = new ListNode(array[0]), march = head;
+        for (int i = 1; i < array.length; i++) {
+            march.next = new ListNode(array[i]);
+            march = march.next;
+        }
+        return head;
     }
-    return head;
-  }
 
-  public int val;
+    public int val;
 
-  public ListNode next = null;
+    public ListNode next = null;
 
-  public ListNode(int x) {
-    val = x;
-  }
+    public ListNode(int x) {
+        val = x;
+    }
 
-  @Override
-  public String toString() {
-    return toString(new HashSet<>());
-  }
+    @Override
+    public String toString() {
+        return toString(new HashSet<>());
+    }
 
-  private String toString(Set<ListNode> fathers) {
-    ListNode march = this;
-    ToStringHelper helper = MoreObjects.toStringHelper(ListNode.class);
-    for (; march != null; march = march.next)
-      if (fathers.contains(march)) {
-        helper.add("circle val", march.val);
-        break;
-      } else {
-        fathers.add(march);
-        helper.add("val", march.val);
-      }
-    return helper.toString();
-  }
+    private String toString(Set<ListNode> fathers) {
+        ListNode march = this;
+        ToStringHelper helper = MoreObjects.toStringHelper(ListNode.class);
+        for (; march != null; march = march.next)
+            if (fathers.contains(march)) {
+                helper.add("circle val", march.val);
+                break;
+            } else {
+                fathers.add(march);
+                helper.add("val", march.val);
+            }
+        return helper.toString();
+    }
 
-  @Override
-  public boolean equals(Object o) {
-    if (Objects.isNull(o) || !(o instanceof ListNode)) return false;
-    ListNode another = (ListNode) o;
-    if (!Objects.equals(val, another.val)) return false;
-    return Objects.equals(next, another.next);
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (Objects.isNull(o) || !(o instanceof ListNode)) return false;
+        ListNode another = (ListNode) o;
+        if (!Objects.equals(val, another.val)) return false;
+        return Objects.equals(next, another.next);
+    }
 
 }

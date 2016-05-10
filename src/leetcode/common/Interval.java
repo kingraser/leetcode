@@ -12,26 +12,26 @@ import java.util.Objects;
 //-------------------------------------------------------
 public class Interval {
 
-  public int start = 0, end = 0;
+    public int start = 0, end = 0;
 
-  public Interval() {
-  }
+    public Interval() {
+    }
 
-  public Interval(int s, int e) {
-    start = s;
-    end = e;
-  }
+    public Interval(int s, int e) {
+        start = s;
+        end = e;
+    }
 
-  @Override
-  public String toString() {
-    return ToString.toString(this);
-  }
+    @Override
+    public String toString() {
+        return ToString.toString(this);
+    }
 
-  @Override
-  public boolean equals(Object o) {
-    if (Objects.isNull(o) || !(o instanceof Interval)) return false;
-    Interval another = (Interval) o;
-    return Objects.equals(start, another.start) && Objects.equals(end, another.end);
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (Objects.isNull(o) || !(o instanceof Interval)) return false;
+        Interval another = (Interval) o;
+        return Objects.equals(start, another.start) && Objects.equals(end, another.end);
+    }
 
 }
