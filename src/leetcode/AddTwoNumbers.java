@@ -16,7 +16,7 @@ import leetcode.common.ListNode;
 public class AddTwoNumbers {
 
     /*
-             给两个链表,反向数位表示整数,返回一个链表表示和
+            给两个链表,反向数位表示整数,返回一个链表表示和
     (2 -> 4 -> 3)342 + (5 -> 6 -> 4)465
     Output: 7 -> 0 -> 8 807
     
