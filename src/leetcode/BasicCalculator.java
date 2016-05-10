@@ -8,6 +8,9 @@ package leetcode;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月22日<p>
 //-------------------------------------------------------
@@ -22,6 +25,12 @@ public class BasicCalculator {
     " 2-1 + 2 " = 3
     "(1+(4+5+2)-3)+(6+8)" = 23
     */
+    @Test
+    public void test() {
+        Assert.assertEquals(2, calculate("1 + 1"));
+        Assert.assertEquals(3, calculate(" 2-1 + 2 "));
+        Assert.assertEquals(23, calculate("(1+(4+5+2)-3)+(6+8)"));
+    }
 
     public int calculate(String s) {
         Deque<Integer> stack = new ArrayDeque<>(s.length());
