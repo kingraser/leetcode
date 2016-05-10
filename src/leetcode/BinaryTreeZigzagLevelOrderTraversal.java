@@ -7,7 +7,9 @@ package leetcode;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Queue;
 
 import org.junit.Assert;
@@ -53,9 +55,9 @@ public class BinaryTreeZigzagLevelOrderTraversal {
 
     private void traverse(TreeNode root, int level, List<List<Integer>> result, Boolean leftToRight) {
         if (root == null) return;
-        if (level > result.size()) result.add(Lists.newArrayList());
-        if (leftToRight) result.get(level - 1).add(root.val);
-        else result.get(level - 1).add(0, root.val);
+        if (level > result.size()) result.add(Lists.newLinkedList());
+        if (leftToRight) ((LinkedList<Integer>)result.get(level - 1)).addLast(root.val);
+        else ((LinkedList<Integer>)result.get(level - 1)).addFirst(root.val);
         traverse(root.left, level + 1, result, !leftToRight);
         traverse(root.right, level + 1, result, !leftToRight);
     }
@@ -63,7 +65,7 @@ public class BinaryTreeZigzagLevelOrderTraversal {
     //迭代
     public List<List<Integer>> zigzagLevelOrderII(TreeNode root) {
         List<List<Integer>> result = Lists.newArrayList();
-        if (null == root) return result;
+        if (Objects.isNull(root)) return result;
         Queue<TreeNode> q = Lists.newLinkedList(Arrays.asList(root, null));// level separator
         boolean leftToRight = true; //left to right         
         for (List<Integer> level = Lists.newArrayList(); !q.isEmpty();) {// one level's elements

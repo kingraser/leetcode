@@ -6,8 +6,13 @@
 package leetcode;
 
 import java.util.List;
+import java.util.Objects;
+
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.google.common.collect.Lists;
+
 
 import leetcode.common.TreeNode;
 
@@ -29,17 +34,22 @@ public class BinaryTreeRightSideView {
     You should return [1, 3, 4]. 
     */
 
+    @Test
+    public void test() {
+        Assert.assertEquals(Lists.newArrayList(1, 3, 4), rightSideView(TreeNode.generateTree("1,2,n,5,n,n,3,n,4,n,n")));
+    }
+
     public List<Integer> rightSideView(TreeNode root) {
         List<Integer> list = Lists.newArrayList();
         rightSideView(root, list, 0);
         return list;
     }
 
-    private void rightSideView(TreeNode root, List<Integer> list, int i) {
-        if (root == null) return;
-        if (list.size() == i) list.add(root.val);
-        rightSideView(root.right, list, i + 1);
-        rightSideView(root.left, list, i + 1);
+    private void rightSideView(TreeNode root, List<Integer> list, int level) {
+        if (Objects.isNull(root)) return;
+        if (Objects.equals(list.size(), level)) list.add(root.val);
+        rightSideView(root.right, list, level + 1);
+        rightSideView(root.left, list, level + 1);
     }
 
 }

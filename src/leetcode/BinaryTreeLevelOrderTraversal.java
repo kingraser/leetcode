@@ -5,7 +5,9 @@
  */
 package leetcode;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -41,14 +43,14 @@ public class BinaryTreeLevelOrderTraversal {
     */
 
     public List<List<Integer>> levelOrder(TreeNode root) {
-        List<List<Integer>> result = Lists.newArrayList();
+        List<List<Integer>> result = new ArrayList<>();
         traverse(root, 1, result);
         return result;
     }
 
     private void traverse(TreeNode root, int level, List<List<Integer>> result) {
-        if (root == null) return;
-        if (level > result.size()) result.add(Lists.newArrayList());
+        if (Objects.isNull(root)) return;
+        if (level > result.size()) result.add(new ArrayList<>());
         result.get(level - 1).add(root.val);
         traverse(root.left, level + 1, result);
         traverse(root.right, level + 1, result);
@@ -57,12 +59,7 @@ public class BinaryTreeLevelOrderTraversal {
     @SuppressWarnings("unchecked")
     @Test
     public void test() {
-        TreeNode root = new TreeNode(3), secl = new TreeNode(9), secr = new TreeNode(20), thirdl = new TreeNode(15),
-                thirdr = new TreeNode(7);
-        root.left = secl;
-        root.right = secr;
-        secr.left = thirdl;
-        secr.right = thirdr;
+        TreeNode root = TreeNode.generateTree("3,9,n,n,20,15,n,n,7,n,n");
         Assert.assertEquals(
                 Lists.newArrayList(Lists.newArrayList(3), Lists.newArrayList(9, 20), Lists.newArrayList(15, 7)),
                 levelOrder(root));

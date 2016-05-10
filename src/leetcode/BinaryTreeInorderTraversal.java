@@ -6,6 +6,7 @@
 package leetcode;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -40,7 +41,7 @@ public class BinaryTreeInorderTraversal {
     }
 
     private void inorderTraversal(TreeNode root, List<Integer> list) {
-        if (null == root) return;
+        if (Objects.isNull(root)) return;
         inorderTraversal(root.left, list);
         list.add(root.val);
         inorderTraversal(root.right, list);
@@ -48,10 +49,7 @@ public class BinaryTreeInorderTraversal {
 
     @Test
     public void test() {
-        TreeNode n1 = new TreeNode(1), n2 = new TreeNode(2), n3 = new TreeNode(3);
-        n1.right = n2;
-        n2.left = n3;
-        Assert.assertEquals(Lists.newArrayList(1, 3, 2), inorderTraversal(n1));
+        Assert.assertEquals(Lists.newArrayList(1, 3, 2), inorderTraversal(TreeNode.generateTree("1,n,2,3,n,n,n")));
     }
 
 }

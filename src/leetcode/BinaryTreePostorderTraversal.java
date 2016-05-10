@@ -6,6 +6,10 @@
 package leetcode;
 
 import java.util.List;
+import java.util.Objects;
+
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.google.common.collect.Lists;
 
@@ -31,6 +35,11 @@ public class BinaryTreePostorderTraversal {
     return [3,2,1]. 
     */
 
+    @Test
+    public void test() {
+        Assert.assertEquals(Lists.newArrayList(3, 2, 1), postorderTraversal(TreeNode.generateTree("1,n,2,3,n,n,n")));
+    }
+
     public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> list = Lists.newArrayList();
         postorderTraversal(root, list);
@@ -38,7 +47,7 @@ public class BinaryTreePostorderTraversal {
     }
 
     private void postorderTraversal(TreeNode root, List<Integer> list) {
-        if (root == null) return;
+        if (Objects.isNull(root)) return;
         postorderTraversal(root.left, list);
         postorderTraversal(root.right, list);
         list.add(root.val);

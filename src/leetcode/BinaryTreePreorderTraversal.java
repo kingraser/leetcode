@@ -44,9 +44,7 @@ public class BinaryTreePreorderTraversal {
 
     @Test
     public void test() {
-        TreeNode n1 = new TreeNode(1), n2 = new TreeNode(2), n3 = new TreeNode(3);
-        n1.right = n2;
-        n2.left = n3;
+        TreeNode n1 = TreeNode.generateTree("1,n,2,3,n,n,n");
         Assert.assertEquals(Lists.newArrayList(1, 2, 3), preorderTraversal(n1));
     }
 }

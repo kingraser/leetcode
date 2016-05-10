@@ -5,6 +5,11 @@
  */
 package leetcode;
 
+import java.util.Objects;
+
+import org.junit.Assert;
+import org.junit.Test;
+
 import leetcode.common.TreeNode;
 
 //--------------------- Change Logs----------------------
@@ -27,6 +32,11 @@ public class BinaryTreeMaximumPathSum {
     Return 6. 
     */
 
+    @Test
+    public void test() {
+        Assert.assertEquals(6, maxPathSum(TreeNode.generateTree("1,2,n,n,3,n,n")));
+    }
+
     public static Integer max;
 
     public int maxPathSum(TreeNode root) {
@@ -36,10 +46,9 @@ public class BinaryTreeMaximumPathSum {
     }
 
     public int PathSum(TreeNode root) {
-        if (root == null) return 0;
+        if (Objects.isNull(root)) return 0;
         int l = PathSum(root.left), r = PathSum(root.right), s = root.val;
-        if (l > 0) s += l;
-        if (r > 0) s += r;
+        s += (l > 0 ? l : 0) + (r > 0 ? r : 0);
         if (s > max) max = s;
         return Math.max(0, Math.max(r, l)) + root.val;
     }
