@@ -7,6 +7,7 @@ package leetcode;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import leetcode.common.UndirectedGraphNode;
 
@@ -42,23 +43,23 @@ public class CloneGraph {
 
     //dfs or bfs
     public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
-        if (node == null) return null;
-        Map<UndirectedGraphNode, UndirectedGraphNode> hm = new HashMap<>();
+        if (Objects.isNull(node)) return null;
+        Map<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<>();
         UndirectedGraphNode head = new UndirectedGraphNode(node.label);
-        hm.put(node, head);
-        dfs(hm, node);
+        map.put(node, head);
+        dfs(map, node);
         return head;
     }
 
-    public void dfs(Map<UndirectedGraphNode, UndirectedGraphNode> hm, UndirectedGraphNode node) {
-        if (node == null) return;
+    public void dfs(Map<UndirectedGraphNode, UndirectedGraphNode> map, UndirectedGraphNode node) {
+        if (Objects.isNull(node)) return;
         for (UndirectedGraphNode aneighbor : node.neighbors) {
-            if (!hm.containsKey(aneighbor)) {
+            if (!map.containsKey(aneighbor)) {
                 UndirectedGraphNode newneighbor = new UndirectedGraphNode(aneighbor.label);
-                hm.put(aneighbor, newneighbor);
-                dfs(hm, aneighbor);
+                map.put(aneighbor, newneighbor);
+                dfs(map, aneighbor);
             }
-            hm.get(node).neighbors.add(hm.get(aneighbor));
+            map.get(node).neighbors.add(map.get(aneighbor));
         }
     }
 }
