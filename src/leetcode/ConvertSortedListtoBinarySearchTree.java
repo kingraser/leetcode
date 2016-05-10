@@ -6,6 +6,7 @@
 package leetcode;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -29,7 +30,7 @@ public class ConvertSortedListtoBinarySearchTree {
 
     private TreeNode build(List<Integer> list, int left, int right) {
         if (left >= right) return null;
-        int mid = (left + right) / 2;
+        int mid = (left + right) >> 1;
         TreeNode root = new TreeNode(list.get(mid));
         root.left = build(list, left, mid);
         root.right = build(list, mid + 1, right);
@@ -45,13 +46,13 @@ public class ConvertSortedListtoBinarySearchTree {
 
     private int getLength(ListNode head) {//获取长度
         int len = 0;
-        for (ListNode n = head; n != null; len++, n = n.next);
+        for (ListNode n = head; Objects.nonNull(n); len++, n = n.next);
         return len;
     }
 
     private TreeNode build(int start, int end) {
         if (start > end) return null;
-        int mid = (start + end) / 2;
+        int mid = (start + end) >> 1;
         TreeNode left = build(start, mid - 1);
         TreeNode parent = new TreeNode(node.val);
         parent.left = left;
@@ -62,9 +63,8 @@ public class ConvertSortedListtoBinarySearchTree {
 
     @Test
     public void test() {
-        TreeNode expected = new TreeNode(2);
-        expected.left = new TreeNode(1);
-        expected.right = new TreeNode(3);
+        TreeNode expected=TreeNode.generateTree("2,1,n,n,3,n,n");
+        Assert.assertEquals(expected, sortedListToBST(ListNode.generateNodes(1, 2, 3)));
         Assert.assertEquals(expected, sortedListToBSTII(ListNode.generateNodes(1, 2, 3)));
     }
 
