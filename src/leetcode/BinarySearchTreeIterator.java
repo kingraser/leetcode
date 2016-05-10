@@ -5,8 +5,15 @@
  */
 package leetcode;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Stack;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import com.google.common.collect.Lists;
 
 import leetcode.common.TreeNode;
 
@@ -22,6 +29,16 @@ public class BinarySearchTreeIterator {
     Note: next() and hasNext() should run in average O(1) time and uses O(h) memory, 
     where h is the height of the tree. 
     */
+
+    @Test
+    public void test() {
+        BSTIterator iterator = new BSTIterator(TreeNode.generateTree("3,9,n,n,20,15,n,n,7,n,n"));
+        List<Integer> expected = new ArrayList<>();
+        while (iterator.hasNext())
+            expected.add(iterator.next());
+        Assert.assertEquals(Lists.newArrayList(9, 3, 15, 20, 7), expected);
+    }
+
     public class BSTIterator {
 
         private Stack<TreeNode> stack = new Stack<TreeNode>();
