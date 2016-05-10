@@ -33,16 +33,16 @@ public class Combinations {
       [1,4],
     ]
     */
-    
+
     /*
-    解法1
-    For example,[1,4]可表示为1001,[2,3]可表示为[0110],1代表元素被选取.
-    n=4时,10000(五位)足以覆盖所有情况.
-    1.用O(1)的Integer.bitCount判断1的个数,不为k略过
-    2.取出值为1的位的相应位数
-    
-    解法2
-    根据公式C(n,k)=C(n-1,k-1)+C(n-1,k)
+            解法1
+            For example,[1,4]可表示为1001,[2,3]可表示为[0110],1代表元素被选取.
+            n=4时,10000(五位)足以覆盖所有情况.
+            1.用O(1)的Integer.bitCount判断1的个数,不为k略过
+            2.取出值为1的位的相应位数
+            
+            解法2
+            根据公式C(n,k)=C(n-1,k-1)+C(n-1,k)
     */
 
     public List<List<Integer>> combine(int n, int k) {
