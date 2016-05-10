@@ -5,6 +5,7 @@
  */
 package leetcode;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,14 +35,13 @@ public class CombinationSum {
     For example, given candidate set 2,3,6,7 and target 7,
     A solution set is:
     [7]
-    [2, 2, 3]
-    
+    [2, 2, 3]    
     */
 
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         Arrays.sort(candidates);
-        List<List<Integer>> result = Lists.newArrayList();
-        dfs(candidates, target, 0, Lists.newLinkedList(), result);
+        List<List<Integer>> result = new ArrayList<>();
+        dfs(candidates, target, 0, new LinkedList<>(), result);
         return result;
     }
 
@@ -50,8 +50,11 @@ public class CombinationSum {
             result.add(Lists.newArrayList(list));
             return;
         }
-        for (int i = start; i < n.length && gap >= n[i]; list.addLast(n[i]), dfs(n, gap - n[i], i, list, result), list
-                .pollLast(), i++);
+        for (int i = start; i < n.length && gap >= n[i]; i++) {
+            list.addLast(n[i]);
+            dfs(n, gap - n[i], i, list, result);
+            list.pollLast();
+        }
     }
 
     @SuppressWarnings("unchecked")
