@@ -7,6 +7,9 @@ package leetcode;
 
 import java.util.Arrays;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月10日<p>
 //-------------------------------------------------------
@@ -21,6 +24,11 @@ public class Candy {
     
     What is the minimum candies you must give? 
     */
+
+    @Test
+    public void test() {
+        Assert.assertEquals(9, candy(new int[] { 1, 3, 5, 2, 4 }));
+    }
 
     public int candy(int[] ratings) {
         int[] candy = new int[ratings.length];
