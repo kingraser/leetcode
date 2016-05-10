@@ -6,6 +6,7 @@
 package leetcode;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -43,8 +44,8 @@ public class CombinationSumII {
 
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         Arrays.sort(candidates);
-        Set<List<Integer>> result = Sets.newHashSet();
-        dfs(candidates, target, 0, Lists.newLinkedList(), result);
+        Set<List<Integer>> result = new HashSet<>();
+        dfs(candidates, target, 0, new LinkedList<>(), result);
         return Lists.newArrayList(result);
     }
 
@@ -53,8 +54,11 @@ public class CombinationSumII {
             result.add(Lists.newArrayList(list));
             return;
         }
-        for (int i = start; i < n.length && gap >= n[i]; list.addLast(n[i]), dfs(n, gap - n[i], ++i, list, result), list
-                .pollLast());
+        for (int i = start; i < n.length && gap >= n[i];) {
+            list.addLast(n[i]);
+            dfs(n, gap - n[i], ++i, list, result);
+            list.pollLast();
+        }
     }
 
     @SuppressWarnings("unchecked")
