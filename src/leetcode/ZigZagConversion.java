@@ -14,7 +14,7 @@ import org.junit.Test;
 public class ZigZagConversion {
 
     /*
-    给定字符串PAYPALISHIRING 和行数3
+            给定字符串PAYPALISHIRING 和行数3
     P       A       H       N
     A   P   L   S   I   I   G
     Y       I       R
@@ -29,13 +29,15 @@ public class ZigZagConversion {
     Δ=2n-2    n                           3n-2                         5n-4
     */
 
-    public String convert(String s, int numRows) {
-        if (numRows < 2) return s;
-        StringBuilder result = new StringBuilder();
-        for (int i = 0, step = 2 * (numRows - 1); i < numRows; i++)
-            for (int j = i; j < s.length(); result.append(s.charAt(j)), j += step, result
-                    .append(i != 0 && i != numRows - 1 && j - 2 * i < s.length() ? s.charAt(j - 2 * i) : ""));
-        return result.toString();
+    public String convert(String s, int row) {
+        if (row == 1) return s;
+        char[] result = new char[s.length()];
+        for (int i = 0, k = 0, step = (row - 1) << 1, len = s.length(); i < row; i++)
+            for (int j = i; j < len; j = j + step) {
+                result[k++] = s.charAt(j);
+                if (i > 0 && i < row - 1 && j + step - 2 * i < len) result[k++] = s.charAt(j + step - 2 * i);
+            }
+        return new String(result);
     }
 
     @Test
