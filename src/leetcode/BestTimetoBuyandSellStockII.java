@@ -7,6 +7,11 @@ package leetcode;
 
 import java.util.List;
 
+import org.junit.Assert;
+import org.junit.Test;
+
+import com.google.common.collect.Lists;
+
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月14日<p>
 //-------------------------------------------------------
@@ -19,13 +24,19 @@ public class BestTimetoBuyandSellStockII {
     However, you may not engage in multiple transactions at the same time 
     (ie, you must sell the stock before you buy again).
     
-    贪心法,低进高出,把所有正的价格差价相加起来。
-    把原始价格序列变成差分序列,本题也可以做是最大 m 子段和,m = 数组长度。
+            贪心法,低进高出,把所有正的价格差价相加起来。
+            把原始价格序列变成差分序列,本题也可以做是最大m子段和,m = 数组长度。
     */
 
-    public int maxProfit(List<Integer> prices) {
+    @Test
+    public void test() {
+        Assert.assertEquals(6, maxProfit(Lists.newArrayList(1, 2, 3, 4, 5, 6, 7)));
+    }
+
+    public static int maxProfit(List<Integer> prices) {
         int sum = 0;
-        for (int i = 1; i < prices.size(); sum += Math.max(0, prices.get(i) - prices.get(i - 1)), i++);
+        for (int i = 1, len = prices.size(); i < len; i++)
+            sum += Math.max(0, prices.get(i) - prices.get(i - 1));
         return sum;
     }
 
