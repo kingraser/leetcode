@@ -34,10 +34,9 @@ public class TwoSum {
     */
 
     public int[] twoSum(int[] nums, int target) {
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int i = 0;;)
-            if (map.containsKey(target - nums[i])) return new int[] { map.get(target - nums[i]), i };
-            else map.put(nums[i], i++);
+        Map<Integer, Integer> map = new HashMap<>(nums.length << 1);
+        for (int i = 0, j = target - nums[0];; map.put(nums[i], i), j = target - nums[++i])
+            if (map.containsKey(j)) return new int[] { map.get(j), i };
     }
 
     public int[] twoSumII(int[] nums, int target) {
