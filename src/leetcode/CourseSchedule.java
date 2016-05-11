@@ -53,9 +53,9 @@ public class CourseSchedule {
         int[] indegree = new int[numCourses];
         Map<Integer, List<Integer>> courses = new HashMap<>(numCourses << 1);
         for (int[] pair : prerequisites) {
-            indegree[pair[1]]++;
-            courses.putIfAbsent(pair[0], new ArrayList<>(numCourses));
-            courses.get(pair[0]).add(pair[1]);
+            indegree[pair[0]]++;
+            courses.putIfAbsent(pair[1], new ArrayList<>(numCourses));
+            courses.get(pair[1]).add(pair[0]);
         }
         Queue<Integer> zeroDegrees = new LinkedList<>();
         for (int i = 0; i < indegree.length; i++)
