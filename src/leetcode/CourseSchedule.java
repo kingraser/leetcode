@@ -5,6 +5,17 @@
  */
 package leetcode;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Queue;
+
+import org.junit.Assert;
+import org.junit.Test;
+
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月18日<p>
 //-------------------------------------------------------
@@ -30,8 +41,29 @@ public class CourseSchedule {
     and to take course 0 you should also have finished course 1.
     So it is impossible.   
     */
-    
-    //判断课程图里是否有环
-    
+
+    @Test
+    public void test() {
+        Assert.assertTrue(canFinish(2, new int[][] { { 1, 0 } }));
+        Assert.assertFalse(canFinish(2, new int[][] { { 1, 0 }, { 0, 1 } }));
+    }
+
+    //Topological Sort
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        int[] indegree = new int[numCourses];
+        Map<Integer, List<Integer>> courses = new HashMap<>(numCourses << 1);
+        for (int[] pair : prerequisites) {
+            indegree[pair[1]]++;
+            courses.putIfAbsent(pair[0], new ArrayList<>(numCourses));
+            courses.get(pair[0]).add(pair[1]);
+        }
+        Queue<Integer> zeroDegrees = new LinkedList<>();
+        for (int i = 0; i < indegree.length; i++)
+            if (indegree[i] == 0) zeroDegrees.add(i);
+        for (Integer node; Objects.nonNull(node = zeroDegrees.poll()); numCourses--)
+            if (courses.containsKey(node)) for (int next : courses.get(node))
+                if (--indegree[next] == 0) zeroDegrees.add(next);
+        return numCourses == 0;
+    }
 
 }
