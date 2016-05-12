@@ -26,9 +26,9 @@ public class DistinctSubsequences {
     Return 3. 
     */
     /*
-    设状态为f(i,j),表示T[0,j]在S[0,i]里出现的次数。
-    首先,无论S[i]和T[j]是否相等,若不使用S[i],则f(i,j)=f(i−1,j);
-    若S[i]==T[j],则可以使用S[i],此时f(i,j)=f(i−1,j)+f(i−1,j−1)。
+            设状态为f(i,j),表示T[0,j]在S[0,i]里出现的次数。
+            首先,无论S[i]和T[j]是否相等,若不使用S[i],则f(i,j)=f(i−1,j);
+            若S[i]==T[j],则可以使用S[i],此时f(i,j)=f(i−1,j)+f(i−1,j−1)。
     */
 
     @Test
