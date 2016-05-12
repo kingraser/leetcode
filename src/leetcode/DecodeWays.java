@@ -30,7 +30,7 @@ public class DecodeWays {
     */
 
     /*
-    跟Climbing Stairs很类似,不过多加一些判断逻辑。   
+            跟Climbing Stairs很类似,不过多加一些判断逻辑。   
     */
 
     @Test
