@@ -30,12 +30,12 @@ public class DungeonGame {
     Any room can contain threats or power-ups, 
     even the first room the knight enters and the bottom-right room where the princess is imprisoned.
     */
-    
+
     /*
     dp[i][j]表示从i,j开始到达右下需要的最小值
-    状态转移方程dp[i][j] = Math.max(1, Math.min(dp[i + 1][j], dp[i][j + 1]) - dungeon[i][j]);
+            状态转移方程dp[i][j] = Math.max(1, Math.min(dp[i + 1][j], dp[i][j + 1]) - dungeon[i][j]);
     */
-    
+
     public int calculateMinimumHP(int[][] dungeon) {
         int width = dungeon[0].length, height = dungeon.length;
         int[][] dp = new int[height][width];
