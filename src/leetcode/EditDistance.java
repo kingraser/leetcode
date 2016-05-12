@@ -22,15 +22,16 @@ public class EditDistance {
     */
 
     /*
-    分析
-    设状态为 f[i][j],表示 A[0,i] 和 B[0,j] 之间的最小编辑距离。设 A[0,i] 的形式是 str1c,
-    B[0,j] 的形式是 str2d,
+            分析
+            设状态为f[i][j],表示 A[0,i]和B[0,j]之间的最小编辑距离。
+            设A[0,i]的形式是 str1c,
+    B[0,j]的形式是 str2d,
     1. 如果 c==d,则 f[i][j]=f[i-1][j-1];
     2. 如果 c!=d,
-    (a) 如果将 c 替换成 d,则 f[i][j]=f[i-1][j-1]+1;
-    (b) 如果在 c 后面添加一个 d,则 f[i][j]=f[i][j-1]+1;
-    (c) 如果将 c 删除,则 f[i][j]=f[i-1][j]+1;
-     */
+    (a) 如果将c替换成d,则 f[i][j]=f[i-1][j-1]+1;
+    (b) 如果在c后面添加一个d,则 f[i][j]=f[i][j-1]+1;
+    (c) 如果将c删除,则 f[i][j]=f[i-1][j]+1;
+    */
 
     public int minDistance(String word1, String word2) {
         int[][] A = new int[word1.length() + 1][word2.length() + 1];
