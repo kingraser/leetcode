@@ -37,7 +37,7 @@ public class FactorialTrailingZeroes {
         Since 100 ÷ 25 = 4, there are four multiples of 25 between 1 and 100.    
         Finally, we get 20 + 4 = 24 trailing zeroes in 100!
         The above example tell us, we need care about 5, 5×5, 5×5×5, 5×5×5×5 ....
-
+        
     Example Three
     
         By given number 4617.    
