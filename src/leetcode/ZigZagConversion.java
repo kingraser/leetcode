@@ -33,9 +33,9 @@ public class ZigZagConversion {
         if (row == 1) return s;
         char[] result = new char[s.length()];
         for (int i = 0, k = 0, step = (row - 1) << 1, len = s.length(); i < row; i++)
-            for (int j = i; j < len; j = j + step) {
+            for (int j = i, l = step - i; j < len; j += step, l += step) {
                 result[k++] = s.charAt(j);
-                if (i > 0 && i < row - 1 && j + step - 2 * i < len) result[k++] = s.charAt(j + step - 2 * i);
+                if (i > 0 && i < row - 1 && l < len) result[k++] = s.charAt(l);
             }
         return new String(result);
     }
