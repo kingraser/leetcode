@@ -19,14 +19,14 @@ public class NimGame {
     For example, if there are 4 stones in the heap, then you will never win the game: 
     no matter 1, 2, or 3 stones you remove, the last stone will always be removed by your friend. 
     */
-    
+
     /*
     dp题
-    初始:显然1,2,3时先手赢,4时后手赢
-    5,6,7时,可进入4的后手赢case
-    8则只能进入5,6,7的先手赢case.
-    如此往复可以推广至无穷
-    引理:游戏若能move 1...n个,则n的倍数为后手胜case
+            初始:显然1,2,3时先手赢,4时后手赢
+            5,6,7时,可进入4的后手赢case
+            8则只能进入5,6,7的先手赢case.
+            如此往复可以推广至无穷
+            引理:游戏若能move 1...n个,则n的倍数为后手胜case
     */
 
     public boolean canWinNim(int n) {
