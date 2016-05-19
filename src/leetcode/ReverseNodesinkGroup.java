@@ -49,17 +49,9 @@ public class ReverseNodesinkGroup {
 
     @Test
     public void test() {
-        ListNode l1 = new ListNode(1), l2 = new ListNode(2), l3 = new ListNode(3), l4 = new ListNode(4);
-        ListNode L1 = new ListNode(1), L2 = new ListNode(2), L3 = new ListNode(3), L4 = new ListNode(4);
-
-        l1.next = l2;
-        l2.next = l3;
-        l3.next = l4;
-
-        L2.next = L1;
-        L1.next = L4;
-        L4.next = L3;
-
-        Assert.assertEquals(L2, reverseKGroup(l1, 2));
+        Assert.assertEquals(ListNode.generateNodes(2, 1, 4, 3, 5),
+                reverseKGroup(ListNode.generateNodes(1, 2, 3, 4, 5), 2));
+        Assert.assertEquals(ListNode.generateNodes(3, 2, 1, 4, 5),
+                reverseKGroup(ListNode.generateNodes(1, 2, 3, 4, 5), 3));
     }
 }
