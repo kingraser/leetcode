@@ -27,24 +27,20 @@ public class AddTwoNumbers {
         return addTwoNumbers(l1, l2, 0);
     }
 
-    private ListNode addTwoNumbers(ListNode l1, ListNode l2, int carry) {
-        if (l1 == null) return addTwoNumbers(l2, carry);
-        if (l2 == null) return addTwoNumbers(l1, carry);
-        l1.next = addTwoNumbers(l1.next, l2.next, add(l1, l2.val + carry));
-        return l1;
-    }
-
-    private ListNode addTwoNumbers(ListNode l, int i) {
-        if (l == null) return i == 0 ? null : new ListNode(i);
-        if (add(l, i) == 1) l.next = addTwoNumbers(l.next, 1);
-        return l;
-    }
-
-    private int add(ListNode l, int i) {
-        l.val += i;
-        if (l.val < 10) return 0;
-        l.val -= 10;
-        return 1;
+    private ListNode addTwoNumbers(ListNode l1, ListNode l2, int c) {
+        ListNode node = null != l1 ? l1 : null != l2 ? l2 : c == 0 ? null : new ListNode(c);
+        if (null != node) {
+            int i1 = null == l1 ? 0 : l1.val, i2 = null == l2 ? 0 : l2.val, val = i1 + i2 + c;
+            if (val > 9) {
+                node.val = val - 10;
+                c = 1;
+            } else {
+                node.val = val;
+                c = 0;
+            }
+            node.next = addTwoNumbers(null == l1 ? null : l1.next, null == l2 ? null : l2.next, c);
+        }
+        return node;
     }
 
     @Test
