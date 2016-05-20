@@ -7,6 +7,11 @@ package leetcode;
 
 import java.util.Set;
 
+import org.junit.Assert;
+import org.junit.Test;
+
+import com.google.common.collect.Sets;
+
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月16日<p>
 //-------------------------------------------------------
@@ -23,9 +28,15 @@ public class WordBreak {
     */
 
     /*
-    设状态为f(i),表示 s[0,i]是否可以分词,则状态转移方程为
+            设状态为f(i),表示 s[0,i]是否可以分词,则状态转移方程为
     f(i) = any_of(f(j)&&s[j + 1, i] ∈ dict), 0 ≤ j < i
     */
+
+    @Test
+    public void test() {
+        Assert.assertTrue(wordBreak("leetcode", Sets.newHashSet("leet", "code")));
+    }
+
     public boolean wordBreak(String s, Set<String> dict) {
         boolean[] f = new boolean[s.length() + 1];
         f[0] = true; // 空字符串

@@ -6,9 +6,15 @@
 package leetcode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import com.google.common.collect.Sets;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月16日<p>
@@ -24,7 +30,14 @@ public class WordBreakII {
     For example, given
     s = "catsanddog",
     dict = ["cat", "cats", "and", "sand", "dog"]. 
+    A solution is ["cats and dog", "cat sand dog"]. 
     */
+
+    @Test
+    public void test() {
+        Assert.assertEquals(Arrays.asList("cat sand dog", "cats and dog"),
+                wordBreak("catsanddog", Sets.newHashSet("cat", "cats", "and", "sand", "dog")));
+    }
 
     public List<String> wordBreak(String s, Set<String> dic) {
         boolean[] f = new boolean[s.length() + 1];//长度为n的字符串有n+1个隔板
