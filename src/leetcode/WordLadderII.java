@@ -5,7 +5,10 @@
  */
 package leetcode;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -14,7 +17,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 //--------------------- Change Logs----------------------
@@ -41,95 +43,82 @@ public class WordLadderII {
       ]
     */
 
-    @SuppressWarnings("unchecked")
     @Test
     public void test() {
-        List<List<String>> expected = Lists.newArrayList(Lists.newArrayList("red", "ted", "tad", "tax"),
-                Lists.newArrayList("red", "ted", "tex", "tax"), Lists.newArrayList("red", "rex", "tex", "tax"));
-        Assert.assertEquals(expected,
-                findLadders("red", "tax", Sets.newHashSet("ted", "tex", "red", "tax", "tad", "den", "rex", "pee")));
+        Assert.assertEquals(Arrays.asList(Arrays.asList("a", "c")),
+                findLadders("a", "c", Sets.newHashSet("a", "b", "c")));
+        Assert.assertEquals(
+                Sets.newHashSet(Arrays.asList(Arrays.asList("red", "ted", "tad", "tax"),
+                        Arrays.asList("red", "ted", "tex", "tax"), Arrays.asList("red", "rex", "tex", "tax"))),
+                Sets.newHashSet(findLadders("red", "tax",
+                        Sets.newHashSet("ted", "tex", "red", "tax", "tad", "den", "rex", "pee"))));
     }
 
-    public List<List<String>> findLadders(String start, String end, Set<String> dict) {
-        List<Node> result = Lists.newLinkedList();
-        Set<String> visited = Sets.newHashSet(start);
-        LinkedList<Node> ladder = Lists.newLinkedList();
-        ladder.add(new Node(start));
-        for (boolean notFound = true; !ladder.isEmpty() && notFound;) {
-            Map<String, Node> levelMap = Maps.newHashMap();
-            for (int size = ladder.size(); size-- > 0;) {
-                Node parent = ladder.pollFirst();
-                char[] head = parent.val.toCharArray();
-                if (isOneChardiff(head, end)) {
-                    notFound = false;
-                    result.add(parent);
+    public List<List<String>> findLadders(String begin, String end, Set<String> list) {
+        Map<String, List<String>> path = new HashMap<>();
+        Set<String> result = bfs(Sets.newHashSet(begin), Sets.newHashSet(end), list, path, new HashSet<>());//generate the ladder 
+        return dfs(result, path, end);//find path
+    }
+
+    public Set<String> bfs(Set<String> s, Set<String> e, Set<String> l, Map<String, List<String>> map, Set<String> r) {
+        if (s.size() > e.size()) return bfs(e, s, l, map, r);//search from both sides
+        if (s.isEmpty()) return r;//no path
+        l.removeAll(s);
+        l.removeAll(e);//insure no circle
+        Set<String> next = new HashSet<>();//nodes in next level 
+        for (String str : s) {
+            char[] head = str.toCharArray();
+            for (char i = 0, origin; i < str.length(); head[i++] = origin)
+                for (origin = head[i], head[i] = 'a'; head[i] <= 'z'; head[i]++) {
+                    String word = new String(head);
+                    if (e.contains(word)) log(word, str, r, map);//record the node level information
+                    else if (l.contains(word)) log(word, str, next, map);
                 }
-                for (char i = 0; notFound && i < head.length; i++) {
-                    char origin = head[i];
-                    for (char j = 'a'; j <= 'z'; j++) {
-                        if (origin == j) continue;
-                        head[i] = j;
-                        String s = new String(head);
-                        if (dict.contains(s) && !visited.contains(s)) {
-                            if (levelMap.containsKey(s)) levelMap.get(s).parents.add(parent);
-                            else {
-                                Node node = new Node(s);
-                                node.parents.add(parent);
-                                levelMap.put(s, node);
-                                ladder.addLast(node);
-                            }
-                        }
-                    }
-                    head[i] = origin;
-                }
-            }
-            visited.addAll(levelMap.keySet());
         }
-        List<List<String>> answer = result.isEmpty() ? new LinkedList<>() : getLadder(result);
-        for (List<String> list : answer)
-            list.add(end);
-        return answer;
+        return r.isEmpty() ? bfs(next, e, l, map, r) : r;//stop when there is at least a path
     }
 
-    boolean isOneChardiff(char[] array, String s) {
-        int diff = 0;
-        for (int i = 0; i < array.length && diff < 2; i++)
-            if (array[i] != s.charAt(i)) diff++;
-        return diff == 1;
+    private void log(String word, String parent, Set<String> set, Map<String, List<String>> map) {
+        set.add(word);
+        map.putIfAbsent(word, new ArrayList<>());
+        map.get(word).add(parent);//ancestor list
     }
 
-    private List<List<String>> getLadder(List<Node> nodes) {
-        List<List<String>> result = new LinkedList<>();
-        if (nodes.isEmpty()) result.add(new LinkedList<>());
-        for (Node node : nodes) {
-            List<List<String>> lists = getLadder(node.parents);
+    private List<List<String>> dfs(Set<String> set, Map<String, List<String>> paths, String endWord) {
+        List<List<String>> result = new ArrayList<>();
+        if (set.isEmpty()) return result;
+        for (String s : set) {
+            List<List<String>> lists = dfs(s, paths), head = new ArrayList<>(), end = new ArrayList<>();
             for (List<String> list : lists)
-                list.add(node.val);
-            result.addAll(lists);
+                if (endWord.equals(list.get(0))) end.add(list);
+                else head.add(list);
+            result.addAll(end.isEmpty() ? head : join(head, end));//generate all possible paths
         }
         return result;
     }
 
-    public class Node {
+    private List<List<String>> join(List<List<String>> heads, List<List<String>> ends) {
+        List<List<String>> result = new ArrayList<>();
+        for (List<String> head : heads)
+            for (List<String> end : ends)
+                result.add(joinString(head, end));
+        return result;
+    }
 
-        String val;
+    private List<String> joinString(List<String> head, List<String> ends) {
+        List<String> result = new ArrayList<>(head);
+        for (int i = ends.size() - 2; i > -1; result.add(ends.get(i--)));
+        return result;
+    }
 
-        List<Node> parents = new LinkedList<>();
-
-        Node(String s) {
-            val = s;
+    private List<List<String>> dfs(String word, Map<String, List<String>> paths) {
+        List<List<String>> result = new ArrayList<>();
+        if (!paths.containsKey(word)) result.add(Lists.newArrayList(word));
+        else for (String parent : paths.get(word)) {
+            List<List<String>> lists = dfs(parent, paths);
+            lists.forEach(l -> l.add(word));//get head/end parts of the ladder
+            result.addAll(lists);
         }
-
-        @Override
-        public boolean equals(Object o) {
-            if (o == null || !(o instanceof Node)) return false;
-            Node other = (Node) o;
-            return val.equals(other.val);
-        }
-
-        @Override
-        public int hashCode() {
-            return val.hashCode();
-        }
+        return result;
     }
 }
