@@ -5,13 +5,12 @@
  */
 package leetcode;
 
-import java.util.LinkedList;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 //--------------------- Change Logs----------------------
@@ -42,31 +41,33 @@ public class WordLadder {
 
     @Test
     public void test() {
+        Assert.assertEquals(3,
+                ladderLength("hot", "dog", Sets.newHashSet("hot", "cog", "dog", "tot", "hog", "hop", "pot", "dot")));
         Assert.assertEquals(5, ladderLength("hit", "cog", Sets.newHashSet("hot", "dot", "dog", "lot", "log")));
     }
 
-    public int ladderLength(String start, String end, Set<String> dict) {
-        Set<String> visited = Sets.newHashSet(start);
-        LinkedList<String> ladder = Lists.newLinkedList(visited);
-        for (int level = 1; !ladder.isEmpty(); level++)
-            for (int size = ladder.size(); size-- > 0;) {
-                char[] head = ladder.pollFirst().toCharArray();
-                for (char i = 0; i < head.length; i++) {
-                    char origin = head[i];
-                    for (char j = 'a'; j <= 'z'; j++) {
-                        if (origin == j) continue;
-                        head[i] = j;
-                        String s = new String(head);
-                        if (s.equals(end)) return ++level;
-                        if (dict.contains(s) && !visited.contains(s)) {
-                            ladder.addLast(s);
-                            visited.add(s);
-                        }
-                    }
-                    head[i] = origin;
+    public int ladderLength(String beginWord, String endWord, Set<String> wordList) {
+        return solve(Sets.newHashSet(beginWord), Sets.newHashSet(endWord), wordList, 1);
+    }
+
+    public int solve(Set<String> start, Set<String> end, Set<String> wordList, int level) {
+        if (start.isEmpty()) return 0;
+        if (start.size() > end.size()) return solve(end, start, wordList, level);
+        wordList.removeAll(start);
+        wordList.removeAll(end);
+        Set<String> set = new HashSet<>();
+        for (String s : start) {
+            char[] head = s.toCharArray();
+            for (char i = 0, origin, j; i < s.length(); head[i++] = origin)
+                for (origin = head[i], j = 'a'; j <= 'z'; j++) {
+                    if (j == origin) continue;
+                    head[i] = j;
+                    String word = new String(head);
+                    if (end.contains(word)) return ++level;
+                    if (wordList.contains(word)) set.add(word);
                 }
-            }
-        return 0;
+        }
+        return solve(set, end, wordList, level + 1);
     }
 
 }
