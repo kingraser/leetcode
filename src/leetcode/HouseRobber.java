@@ -23,9 +23,13 @@ public class HouseRobber {
     */
 
     public int rob(int[] nums) {
-        int c = 0, p = 0, cur = 0, i = 0;
-        for (; i < nums.length; cur = p + nums[i++], p = Math.max(p, c), c = cur);
-        return Math.max(c, p);
+        int current = 0, previous = 0;//current for rob current, previous for rob previous
+        for (int i = 0; i < nums.length;) {
+            int newCurrent = previous + nums[i++];
+            previous = Math.max(previous, current);
+            current = newCurrent;
+        }
+        return Math.max(current, previous);
     }
 
     @Test
