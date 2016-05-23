@@ -80,8 +80,7 @@ public class WordLadderII {
 
     private void log(String word, String parent, Set<String> set, Map<String, List<String>> map) {
         set.add(word);
-        map.putIfAbsent(word, new ArrayList<>());
-        map.get(word).add(parent);//ancestor list
+        map.computeIfAbsent(word, k -> new ArrayList<>()).add(parent);//ancestor list
     }
 
     private List<List<String>> dfs(Set<String> set, Map<String, List<String>> paths, String endWord) {
