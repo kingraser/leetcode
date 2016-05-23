@@ -5,6 +5,7 @@
  */
 package leetcode;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 import org.junit.Assert;
@@ -58,10 +59,8 @@ public class AddandSearchWordDatastructuredesign {
 
     public void addWord(String word) {
         TrieNode march = root;
-        for (char c : word.toCharArray()) {
-            if (Objects.isNull(march.nexts[c -= 'a'])) march.nexts[c] = new TrieNode();
-            march = march.nexts[c];
-        }
+        for (char c : word.toCharArray())
+            march = march.nexts[c -= 'a'] == null ? march.nexts[c] = new TrieNode() : march.nexts[c];
         march.isLeaf = true;
     }
 
