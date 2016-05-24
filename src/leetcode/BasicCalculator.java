@@ -5,8 +5,7 @@
  */
 package leetcode;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.Stack;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -30,28 +29,29 @@ public class BasicCalculator {
         Assert.assertEquals(2, calculate("1 + 1"));
         Assert.assertEquals(3, calculate(" 2-1 + 2 "));
         Assert.assertEquals(23, calculate("(1+(4+5+2)-3)+(6+8)"));
+        Assert.assertEquals(-4, calculate("1-(5)"));
+        Assert.assertEquals(3, calculate("2-(5-6)"));
     }
 
+    //stack
     public int calculate(String s) {
-        Deque<Integer> stack = new ArrayDeque<>(s.length());
-        int result = 0, sign = 1;
-        stack.push(1);
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if (c == ' ') continue;
-            else if (c == '(') {
-                stack.push(stack.peekFirst() * sign);
-                sign = 1;
-            } else if (s.charAt(i) == ')') stack.pop();
-            else if (s.charAt(i) == '+') sign = 1;
-            else if (s.charAt(i) == '-') sign = -1;
+        Stack<Integer> stack = new Stack<>();
+        int result = 0, temp = 0, sign = 1;//1 for +, -1 for -
+        for (char c : s.toCharArray())
+            if ('0' <= c && c <= '9') temp = temp * 10 + c - '0';
             else {
-                int temp = s.charAt(i) - '0';
-                while (i + 1 < s.length() && Character.isDigit(s.charAt(i + 1)))
-                    temp = temp * 10 + s.charAt(++i) - '0';
-                result += sign * stack.peekFirst() * temp;
+                result += temp * sign;
+                temp = 0;
+                if (c == '+') sign = 1;
+                else if (c == '-') sign = -1;
+                else if (c == '(') {
+                    stack.push(result);
+                    stack.push(sign);
+                    result = 0;
+                    sign = 1;
+                } else if (c == ')') result = result * stack.pop() + stack.pop();
             }
-        }
-        return result;
+        return result += temp * sign;
     }
+
 }
