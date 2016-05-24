@@ -6,8 +6,9 @@
 package leetcode;
 
 import java.util.ArrayDeque;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.Deque;
+import java.util.Objects;
 import java.util.PriorityQueue;
 
 import org.junit.Assert;
@@ -50,30 +51,23 @@ public class SlidingWindowMaximum {
 
     @Test
     public void test() {
-        int[] expected = new int[] { 7, 7, 7, 7, 7 };
-        Assert.assertTrue(equals(expected, maxSlidingWindowII(new int[] { -7, -8, 7, 5, 7, 1, 6, 0 }, 4)));
-    }
-
-    private boolean equals(int[] a, int[] b) {
-        if (a == null && b == null) return true;
-        if (a == null || b == null || a.length != b.length) return false;
-        for (int i = 0; i < a.length; i++)
-            if (a[i] != b[i]) return false;
-        return true;
+        int[] expected = new int[] { 7, 7, 7, 7, 7 }, input = new int[] { -7, -8, 7, 5, 7, 1, 6, 0 },
+                expected2 = new int[] { 3, 3, 5, 5, 6, 7 }, input2 = new int[] { 1, 3, -1, -3, 5, 3, 6, 7 };
+        Assert.assertTrue(Objects.deepEquals(expected, maxSlidingWindow(input, 4)));
+        Assert.assertTrue(Objects.deepEquals(expected, maxSlidingWindowII(input, 4)));
+        Assert.assertTrue(Objects.deepEquals(expected2, maxSlidingWindow(input2, 3)));
+        Assert.assertTrue(Objects.deepEquals(expected2, maxSlidingWindowII(input2, 3)));
     }
 
     //dqueue
     public int[] maxSlidingWindow(int[] nums, int k) {
         if (k < 1) return nums;
         int[] result = new int[nums.length - k + 1];
-        Deque<Integer> q = new ArrayDeque<>();
-        for (int i = 0; i < nums.length; i++) {
-            while (!q.isEmpty() && q.peek() < i - k + 1)
-                q.poll();
-            while (!q.isEmpty() && nums[q.peekLast()] < nums[i])
-                q.pollLast();
-            q.offer(i);
-            if (i >= k - 1) result[i - k + 1] = nums[q.peek()];
+        Deque<Integer> q = new ArrayDeque<>(k);
+        for (int i = 0, l = k - 1; i < nums.length; i++) {
+            for (; !q.isEmpty() && q.peekLast() < nums[i]; q.pollLast());
+            q.offer(nums[i]);
+            if (i >= l) result[i - l] = q.peek() == nums[i - l] ? q.poll() : q.peek();
         }
         return result;
     }
@@ -82,19 +76,11 @@ public class SlidingWindowMaximum {
     public int[] maxSlidingWindowII(int[] nums, int k) {
         if (k < 1) return nums;
         int[] result = new int[nums.length - k + 1];
-        PriorityQueue<Integer> heap = new PriorityQueue<>(new Comparator<Integer>() {
-
-            @Override
-            public int compare(Integer o1, Integer o2) {
-                return -(Integer.valueOf(nums[o1]).compareTo(nums[o2]));
-            }
-        });
-        for (int i = 0; i < k; heap.add(i++));
-        result[0] = nums[heap.peek()];
-        for (int i = k; i < nums.length; i++) {
-            heap.remove(i - k);
-            heap.add(i);
-            result[i - k + 1] = nums[heap.peek()];
+        PriorityQueue<Integer> heap = new PriorityQueue<>(k, Collections.reverseOrder());
+        for (int i = 0, l = k - 1, len = nums.length; i < len; i++) {
+            if (i >= k) heap.remove(nums[i - k]);
+            heap.offer(nums[i]);
+            if (i >= l) result[i - l] = heap.peek();
         }
         return result;
     }
