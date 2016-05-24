@@ -5,8 +5,6 @@
  */
 package leetcode;
 
-import java.util.Objects;
-
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -25,13 +23,13 @@ public class BalancedBinaryTree {
 
     //Given a binary tree, determine if it is height-balanced. 
     public boolean isBalanced(TreeNode root) {
-        if (Objects.isNull(root)) return true;
+        if (null == root) return true;
         return isBalanced(root.left) && isBalanced(root.right)
                 && Math.abs(getDepth(root.left) - getDepth(root.right)) < 2;
     }
 
     private int getDepth(TreeNode root) {
-        if (Objects.isNull(root)) return 0;
+        if (null == root) return 0;
         return 1 + Math.max(getDepth(root.left), getDepth(root.right));
     }
 }
