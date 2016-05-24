@@ -56,8 +56,8 @@ public class BestTimetoBuyandSellStockIV {
     //BestTimetoBuyandSellStockII
     private int quickSolve(int[] prices) {
         int profit = 0;
-        for (int i = 1, len = prices.length; i < len; i++)
-            if (prices[i] > prices[i - 1]) profit += prices[i] - prices[i - 1];
+        for (int i = 0, len = prices.length - 1; i < len; i++)
+            if (prices[i++] < prices[i]) profit += prices[i--] - prices[i];
         return profit;
     }
 
