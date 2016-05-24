@@ -59,7 +59,7 @@ public class SlidingWindowMaximum {
         Assert.assertTrue(Objects.deepEquals(expected2, maxSlidingWindowII(input2, 3)));
     }
 
-    //dqueue
+    //dequeue
     public int[] maxSlidingWindow(int[] nums, int k) {
         if (k < 1) return nums;
         int[] result = new int[nums.length - k + 1];
