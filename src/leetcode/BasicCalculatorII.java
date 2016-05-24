@@ -36,37 +36,34 @@ public class BasicCalculatorII {
     }
 
     public int calculate(String s) {
-        int num = 0;
-        Stack<Integer> numbers = new Stack<>();
-        Stack<Character> operators = new Stack<>();
+        int temp = 0;
+        Stack<Integer> nums = new Stack<>(), operators = new Stack<>();
         for (char c : s.toCharArray())
             if (c == ' ') continue;
-            else if (Character.isDigit(c)) num = num * 10 + Character.digit(c, 10);
+            else if ('0' <= c && c <= '9') temp = temp * 10 + c - '0';
             else {
-                numbers.push(num);
-                num = 0;
+                nums.push(temp);
+                temp = 0;
                 while (!hasHigherPriority(c, operators))
-                    calculate(numbers, operators);
-                operators.push(c);
+                    calculate(nums, operators);
+                operators.push((int) c);
             }
-        numbers.push(num);
-        while (numbers.size() != 1)
-            calculate(numbers, operators);
-        return numbers.peek();
+        nums.push(temp);
+        while (nums.size() != 1)
+            calculate(nums, operators);
+        return nums.peek();
     }
 
-    private void calculate(Stack<Integer> numbers, Stack<Character> operators) {
-        char operator = operators.pop();
-        int a = numbers.pop(), b = numbers.pop(), c = 0;
+    private void calculate(Stack<Integer> nums, Stack<Integer> operators) {
+        int operator = operators.pop(), a = nums.pop(), b = nums.pop(), c = 0;
         if (operator == '+') c = b + a;
         else if (operator == '-') c = b - a;
         else if (operator == '*') c = b * a;
         else c = b / a;
-        numbers.push(c);
+        nums.push(c);
     }
 
-    private boolean hasHigherPriority(char c, Stack<Character> operators) {
-        return (operators.isEmpty()
-                || ((c == '*' || c == '/') && (operators.peek() == '+' || operators.peek() == '-')));
+    private boolean hasHigherPriority(char c, Stack<Integer> operators) {
+        return operators.isEmpty() || ((c == '*' || c == '/') && (operators.peek() == '+' || operators.peek() == '-'));
     }
 }
