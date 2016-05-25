@@ -5,13 +5,13 @@
  */
 package leetcode;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
 
 import leetcode.common.TreeNode;
 
@@ -37,11 +37,11 @@ public class BinaryTreePostorderTraversal {
 
     @Test
     public void test() {
-        Assert.assertEquals(Lists.newArrayList(3, 2, 1), postorderTraversal(TreeNode.generateTree("1,n,2,3,n,n,n")));
+        Assert.assertEquals(Arrays.asList(3, 2, 1), postorderTraversal(TreeNode.generateTree("1,n,2,3,n,n,n")));
     }
 
     public List<Integer> postorderTraversal(TreeNode root) {
-        List<Integer> list = Lists.newArrayList();
+        List<Integer> list = new ArrayList<>();
         postorderTraversal(root, list);
         return list;
     }

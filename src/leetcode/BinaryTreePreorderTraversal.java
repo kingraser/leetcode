@@ -5,12 +5,13 @@
  */
 package leetcode;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
 
 import leetcode.common.TreeNode;
 
@@ -34,17 +35,19 @@ public class BinaryTreePreorderTraversal {
     */
 
     public List<Integer> preorderTraversal(TreeNode root) {
-        List<Integer> list = Lists.newLinkedList();
-        if (root == null) return list;
-        list.add(root.val);
-        list.addAll(preorderTraversal(root.left));
-        list.addAll(preorderTraversal(root.right));
+        List<Integer> list = new ArrayList<>();
+        if (Objects.nonNull(root)) preorderTraversal(root, list);
         return list;
+    }
+
+    private void preorderTraversal(TreeNode root, List<Integer> list) {
+        list.add(root.val);
+        if (Objects.nonNull(root.left)) preorderTraversal(root.left, list);
+        if (Objects.nonNull(root.right)) preorderTraversal(root.right, list);
     }
 
     @Test
     public void test() {
-        TreeNode n1 = TreeNode.generateTree("1,n,2,3,n,n,n");
-        Assert.assertEquals(Lists.newArrayList(1, 2, 3), preorderTraversal(n1));
+        Assert.assertEquals(Arrays.asList(1, 2, 3), preorderTraversal(TreeNode.generateTree("1,n,2,3,n,n,n")));
     }
 }
