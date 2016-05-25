@@ -30,10 +30,9 @@ public class ClimbingStairs {
 
     public int climbStairs(int n) {
         int prev = 0, cur = 1;
-        for (int i = 1; i <= n; i++) {
-            int tmp = cur;
+        while (n-- > 0) {
             cur += prev;
-            prev = tmp;
+            prev = cur - prev;
         }
         return cur;
     }
