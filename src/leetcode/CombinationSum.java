@@ -7,13 +7,13 @@ package leetcode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月12日<p>
@@ -41,27 +41,23 @@ public class CombinationSum {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         Arrays.sort(candidates);
         List<List<Integer>> result = new ArrayList<>();
-        dfs(candidates, target, 0, new LinkedList<>(), result);
+        dfs(candidates, target, 0, new ArrayList<>(), result);
         return result;
     }
 
-    private void dfs(int[] n, int gap, int start, LinkedList<Integer> list, List<List<Integer>> result) {
-        if (gap == 0) {
-            result.add(Lists.newArrayList(list));
-            return;
-        }
-        for (int i = start; i < n.length && gap >= n[i]; i++) {
-            list.addLast(n[i]);
+    private void dfs(int[] n, int gap, int start, List<Integer> list, List<List<Integer>> result) {
+        if (gap == 0) result.add(new ArrayList<>(list));
+        else for (int i = start; i < n.length && gap >= n[i]; i++) {
+            list.add(n[i]);
             dfs(n, gap - n[i], i, list, result);
-            list.pollLast();
+            list.remove(list.size() - 1);
         }
     }
 
-    @SuppressWarnings("unchecked")
     @Test
     public void test() {
-        List<List<Integer>> expected = Lists.newArrayList(Lists.newArrayList(2, 2, 3), Lists.newArrayList(7));
-        Assert.assertEquals(expected, combinationSum(new int[] { 2, 3, 6, 7 }, 7));
+        Assert.assertEquals(Stream.of(Arrays.asList(2, 2, 3), Arrays.asList(7)).collect(Collectors.toSet()),
+                new HashSet<>(combinationSum(new int[] { 2, 3, 6, 7 }, 7)));
     }
 
 }

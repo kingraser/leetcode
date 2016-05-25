@@ -5,14 +5,16 @@
  */
 package leetcode;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月13日<p>
@@ -36,20 +38,20 @@ public class Combinations {
 
     /*
             解法1
-            For example,[1,4]可表示为1001,[2,3]可表示为[0110],1代表元素被选取.
-            n=4时,10000(五位)足以覆盖所有情况.
-            1.用O(1)的Integer.bitCount判断1的个数,不为k略过
-            2.取出值为1的位的相应位数
+    For example,[1,4]可表示为1001,[2,3]可表示为[0110],1代表元素被选取.
+    n=4时,10000(五位)足以覆盖所有情况.
+    1.用O(1)的Integer.bitCount判断1的个数,不为k略过
+    2.取出值为1的位的相应位数
             
             解法2
             根据公式C(n,k)=C(n-1,k-1)+C(n-1,k)
     */
 
     public List<List<Integer>> combine(int n, int k) {
-        List<List<Integer>> result = Lists.newArrayListWithCapacity(getCombinationCount(n, k));
+        List<List<Integer>> result = new ArrayList<>(getCombinationCount(n, k));
         for (int i = 0, size = (1 << n); i < size; i++) {
             if (Integer.bitCount(i) != k) continue;
-            List<Integer> list = Lists.newArrayListWithCapacity(k);
+            List<Integer> list = new ArrayList<>(k);
             for (int j = 1, l = i; l > 0; l >>= 1, j++)
                 if ((l & 1) == 1) list.add(j);
             result.add(list);
@@ -60,15 +62,15 @@ public class Combinations {
     private int getCombinationCount(int n, int k) {
         if ((k << 1) > n) k = n - k;
         Double result = (double) n;
-        for (; k > 1; result *= --n, result /= k--);
+        for (; k > 1; result /= k--, result *= --n);
         return result.intValue();
     }
 
     public List<List<Integer>> combineII(int n, int k) {
-        List<List<Integer>> result = Lists.newArrayListWithCapacity(getCombinationCount(n, k));
-        if (k == 1) for (int i = 0; i < n; result.add(Lists.newArrayList(++i)));
+        List<List<Integer>> result = new ArrayList<>(getCombinationCount(n, k));
+        if (k == 1) for (int i = 0; i < n; result.add(Stream.of(++i).collect(Collectors.toList())));
         else if (k == n) {
-            List<Integer> inner = Lists.newArrayListWithCapacity(n);
+            List<Integer> inner = new ArrayList<>(n);
             for (int i = 0; i < n; inner.add(++i));
             result.add(inner);
         } else {
@@ -89,12 +91,11 @@ public class Combinations {
         Assert.assertEquals(35, getCombinationCount(7, 3));
     }
 
-    @SuppressWarnings("unchecked")
     @Test
     public void test() {
-        Set<List<Integer>> expected = Sets.newHashSet(Lists.newArrayList(1, 2), Lists.newArrayList(1, 3),
-                Lists.newArrayList(1, 4), Lists.newArrayList(2, 3), Lists.newArrayList(2, 4), Lists.newArrayList(3, 4));
-        Assert.assertEquals(expected, Sets.newHashSet(combine(4, 2)));
-        Assert.assertEquals(expected, Sets.newHashSet(combineII(4, 2)));
+        Set<List<Integer>> expected = Stream.of(Arrays.asList(1, 2), Arrays.asList(1, 3), Arrays.asList(1, 4),
+                Arrays.asList(2, 3), Arrays.asList(2, 4), Arrays.asList(3, 4)).collect(Collectors.toSet());
+        Assert.assertEquals(expected, new HashSet<>(combine(4, 2)));
+        Assert.assertEquals(expected, new HashSet<>(combineII(4, 2)));
     }
 }
