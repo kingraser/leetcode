@@ -5,17 +5,16 @@
  */
 package leetcode;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月12日<p>
@@ -45,28 +44,25 @@ public class CombinationSumII {
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         Arrays.sort(candidates);
         Set<List<Integer>> result = new HashSet<>();
-        dfs(candidates, target, 0, new LinkedList<>(), result);
-        return Lists.newArrayList(result);
+        dfs(candidates, target, 0, new ArrayList<>(), result);
+        return new ArrayList<>(result);
     }
 
-    private void dfs(int[] n, int gap, int start, LinkedList<Integer> list, Set<List<Integer>> result) {
-        if (gap == 0) {
-            result.add(Lists.newArrayList(list));
-            return;
-        }
-        for (int i = start; i < n.length && gap >= n[i];) {
-            list.addLast(n[i]);
+    private void dfs(int[] n, int gap, int start, List<Integer> list, Set<List<Integer>> result) {
+        if (gap == 0) result.add(new ArrayList<>(list));
+        else for (int i = start; i < n.length && gap >= n[i];) {
+            list.add(n[i]);
             dfs(n, gap - n[i], ++i, list, result);
-            list.pollLast();
+            list.remove(list.size() - 1);
         }
     }
 
-    @SuppressWarnings("unchecked")
     @Test
     public void test() {
-        Set<List<Integer>> expected = Sets.newHashSet(Lists.newArrayList(1, 7), Lists.newArrayList(1, 2, 5),
-                Lists.newArrayList(2, 6), Lists.newArrayList(1, 1, 6));
-        Assert.assertEquals(expected, Sets.newHashSet(combinationSum2(new int[] { 10, 1, 2, 7, 6, 1, 5 }, 8)));
+        Assert.assertEquals(
+                Stream.of(Arrays.asList(1, 7), Arrays.asList(1, 2, 5), Arrays.asList(2, 6), Arrays.asList(1, 1, 6))
+                        .collect(Collectors.toSet()),
+                new HashSet<>(combinationSum2(new int[] { 10, 1, 2, 7, 6, 1, 5 }, 8)));
     }
 
 }
