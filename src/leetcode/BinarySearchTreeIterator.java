@@ -6,14 +6,13 @@
 package leetcode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Stack;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
 
 import leetcode.common.TreeNode;
 
@@ -32,11 +31,10 @@ public class BinarySearchTreeIterator {
 
     @Test
     public void test() {
-        BSTIterator iterator = new BSTIterator(TreeNode.generateTree("3,9,n,n,20,15,n,n,7,n,n"));
         List<Integer> expected = new ArrayList<>();
-        while (iterator.hasNext())
-            expected.add(iterator.next());
-        Assert.assertEquals(Lists.newArrayList(9, 3, 15, 20, 7), expected);
+        for (BSTIterator iterator = new BSTIterator(TreeNode.generateTree("3,9,n,n,20,15,n,n,7,n,n")); iterator
+                .hasNext(); expected.add(iterator.next()));
+        Assert.assertEquals(Arrays.asList(9, 3, 15, 20, 7), expected);
     }
 
     public class BSTIterator {
