@@ -5,6 +5,9 @@
  */
 package leetcode;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -41,7 +44,8 @@ public class BestTimetoBuyandSellStockIV {
     }
 
     public int maxProfit(int k, int[] prices) {
-        if (k >= (prices.length >> 1)) return quickSolve(prices);
+        if (k >= (prices.length >> 1)) //optimization if(k>=length/2) then turn to Best Time to Buy and Sell Stock II
+            return BestTimetoBuyandSellStockII.maxProfit(Arrays.stream(prices).boxed().collect(Collectors.toList()));
         int[][] t = new int[k + 1][prices.length];
         for (int i = 1; i <= k; i++) {
             int tmpMax = -prices[0];
@@ -51,14 +55,6 @@ public class BestTimetoBuyandSellStockIV {
             }
         }
         return t[k][prices.length - 1];
-    }
-
-    //BestTimetoBuyandSellStockII
-    private int quickSolve(int[] prices) {
-        int profit = 0;
-        for (int i = 0, len = prices.length - 1; i < len; i++)
-            if (prices[i++] < prices[i]) profit += prices[i--] - prices[i];
-        return profit;
     }
 
 }
