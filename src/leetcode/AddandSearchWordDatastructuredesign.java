@@ -5,12 +5,6 @@
  */
 package leetcode;
 
-import java.util.Arrays;
-import java.util.Objects;
-
-import org.junit.Assert;
-import org.junit.Test;
-
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月18日<p>
 //-------------------------------------------------------
@@ -35,46 +29,8 @@ public class AddandSearchWordDatastructuredesign {
     search("b..") -> true    
     */
 
-    @Test
-    public void test() {
-        AddandSearchWordDatastructuredesign trie = new AddandSearchWordDatastructuredesign();
-        trie.addWord("bad");
-        trie.addWord("dad");
-        trie.addWord("mad");
-        Assert.assertFalse(trie.search("pad"));
-        Assert.assertTrue(trie.search("bad"));
-        Assert.assertTrue(trie.search(".ad"));
-        Assert.assertTrue(trie.search("b.."));
-    }
-
-    public class TrieNode {
-
-        TrieNode[] nexts = new TrieNode[26];
-
-        boolean isLeaf = false;
-
-    }
-
-    private TrieNode root = new TrieNode();
-
-    public void addWord(String word) {
-        TrieNode march = root;
-        for (char c : word.toCharArray())
-            march = march.nexts[c -= 'a'] == null ? march.nexts[c] = new TrieNode() : march.nexts[c];
-        march.isLeaf = true;
-    }
-
-    public boolean search(String word) {
-        return search(word.toCharArray(), root, 0);
-    }
-
-    public boolean search(char[] word, TrieNode node, int idx) {
-        if (idx == word.length) return node.isLeaf;
-        if (word[idx] == '.' && Arrays.stream(node.nexts).filter(Objects::nonNull)
-                .filter(next -> search(word, next, 1 + idx)).findFirst().isPresent())
-            return true;
-        if (Objects.nonNull(node.nexts[word[idx] -= 'a'])) return search(word, node.nexts[word[idx]], 1 + idx);
-        return false;
-    }
+    /*
+    @see leetcode.common.Trie
+    */
 
 }
