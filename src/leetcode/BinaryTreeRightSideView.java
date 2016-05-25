@@ -5,14 +5,13 @@
  */
 package leetcode;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
-
 
 import leetcode.common.TreeNode;
 
@@ -36,20 +35,19 @@ public class BinaryTreeRightSideView {
 
     @Test
     public void test() {
-        Assert.assertEquals(Lists.newArrayList(1, 3, 4), rightSideView(TreeNode.generateTree("1,2,n,5,n,n,3,n,4,n,n")));
+        Assert.assertEquals(Arrays.asList(1, 3, 4), rightSideView(TreeNode.generateTree("1,2,n,5,n,n,3,n,4,n,n")));
     }
 
     public List<Integer> rightSideView(TreeNode root) {
-        List<Integer> list = Lists.newArrayList();
-        rightSideView(root, list, 0);
+        List<Integer> list = new ArrayList<>();
+        if (Objects.nonNull(root)) rightSideView(root, list, 0);
         return list;
     }
 
     private void rightSideView(TreeNode root, List<Integer> list, int level) {
-        if (Objects.isNull(root)) return;
-        if (Objects.equals(list.size(), level)) list.add(root.val);
-        rightSideView(root.right, list, level + 1);
-        rightSideView(root.left, list, level + 1);
+        if (level == list.size()) list.add(root.val);
+        if (Objects.nonNull(root.right)) rightSideView(root.right, list, ++level);
+        if (Objects.nonNull(root.left)) rightSideView(root.left, list, level);
     }
 
 }
