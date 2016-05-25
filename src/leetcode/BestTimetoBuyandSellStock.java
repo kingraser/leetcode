@@ -5,12 +5,11 @@
  */
 package leetcode;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月14日<p>
@@ -28,7 +27,7 @@ public class BestTimetoBuyandSellStock {
 
     @Test
     public void test() {
-        Assert.assertEquals(6, maxProfit(Lists.newArrayList(1, 2, 3, 4, 5, 6, 7)));
+        Assert.assertEquals(6, maxProfit(Arrays.asList(1, 2, 3, 4, 5, 6, 7)));
     }
 
     public int maxProfit(List<Integer> prices) {
