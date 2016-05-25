@@ -6,13 +6,14 @@
 package leetcode;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
 
 import leetcode.common.TreeNode;
 
@@ -49,8 +50,8 @@ public class BinaryTreePaths {
 
     @Test
     public void test() {
-        Assert.assertEquals(Lists.newArrayList("1->2->5", "1->3"),
-                binaryTreePaths(TreeNode.generateTree("1,2,n,5,n,n,3,n,n")));
+        Assert.assertEquals(Stream.of("1->2->5", "1->3").collect(Collectors.toSet()),
+                new HashSet<>(binaryTreePaths(TreeNode.generateTree("1,2,n,5,n,n,3,n,n"))));
     }
 
 }
