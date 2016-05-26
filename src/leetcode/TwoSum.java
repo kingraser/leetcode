@@ -5,10 +5,8 @@
  */
 package leetcode;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.junit.Assert;
@@ -35,18 +33,17 @@ public class TwoSum {
 
     public int[] twoSum(int[] nums, int target) {
         Map<Integer, Integer> map = new HashMap<>(nums.length << 1);
-        for (int i = 0, j = target - nums[0];; map.put(nums[i], i), j = target - nums[++i])
+        for (int i = 0, j = 0;; map.put(nums[i], i), j = target - nums[++i])
             if (map.containsKey(j)) return new int[] { map.get(j), i };
     }
 
     public int[] twoSumII(int[] nums, int target) {
         Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; map.put(nums[i], i++));
-        List<Integer> list = new ArrayList<>(map.keySet());
-        Collections.sort(list);
-        for (int l = 0, r = nums.length - 1;;)
-            if (list.get(l) + list.get(r) == target) return new int[] { map.get(list.get(l)), map.get(list.get(r)) };
-            else if (list.get(l) + list.get(r) > target) r--;
+        Arrays.sort(nums);
+        for (int l = 0, r = nums.length - 1, v = nums[l] + nums[r];; v = nums[l] + nums[r])
+            if (v == target) return new int[] { map.get(nums[l]), map.get(nums[r]) };
+            else if (v > target) r--;
             else l++;
     }
 
