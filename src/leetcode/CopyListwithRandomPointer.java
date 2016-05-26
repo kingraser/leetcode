@@ -5,9 +5,8 @@
  */
 package leetcode;
 
+import java.util.HashMap;
 import java.util.Map;
-
-import com.google.common.collect.Maps;
 
 import leetcode.common.RandomListNode;
 
@@ -24,7 +23,7 @@ public class CopyListwithRandomPointer {
     */
 
     public RandomListNode copyRandomList(RandomListNode head) {
-        Map<RandomListNode, RandomListNode> map = Maps.newHashMap();
+        Map<RandomListNode, RandomListNode> map = new HashMap<>();
         for (RandomListNode n = head; n != null; map.put(n, new RandomListNode(n.label)), n = n.next);
         for (RandomListNode n = head; n != null; map.get(n).next = map.get(n.next), map.get(n).random = map
                 .get(n.random), n = n.next);
