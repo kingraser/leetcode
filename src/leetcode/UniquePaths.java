@@ -5,15 +5,12 @@
  */
 package leetcode;
 
-import java.util.Arrays;
-
 import org.junit.Assert;
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月17日<p>
 //-------------------------------------------------------
-@SuppressWarnings("unused")
 public class UniquePaths {
 
     /*
@@ -27,13 +24,13 @@ public class UniquePaths {
     /*
     0 dfs O(n^4)
     1 dp
-        设状态为 f[i][j],表示从起点 (1, 1) 到达 (i, j) 的路线条数,
-        则状态转移方程为:f[i][j]=f[i-1][j]+f[i][j-1]
+            设状态为f[i][j],表示从起点 (1, 1)到达(i, j)的路线条数,
+            则状态转移方程为:f[i][j]=f[i-1][j]+f[i][j-1]
     2 math 
-        一个 m 行,n 列的矩阵,机器人从左上走到右下总共需要的步数是 m + n − 2,
-        其中向下走的步数是 m − 1,因此问题变成了在 m + n − 2 个操作中,
-        选择 m–1 个时间点向下走,选择方式有多少种。
-        C(m-1,m+n-2);
+            一个m行,n列的矩阵,机器人从左上走到右下总共需要的步数是 m+n−2,
+            其中向下走的步数是m−1,因此问题变成了在m+n−2个操作中,
+            选择m–1个时间点向下走,选择方式有多少种。
+    C(m-1,m+n-2);
     */
 
     public int uniquePathsZero(int m, int n) {
@@ -42,8 +39,8 @@ public class UniquePaths {
         return uniquePaths(m - 1, n) + uniquePaths(m, n - 1);
     }
 
-    // 左边的 f[j],表示更新后的 f[j],与公式中的 f[i[[j] 对应
-    // 右边的 f[j],表示老的 f[j],与公式中的 f[i-1][j] 对应
+    // 左边的f[j],表示更新后的f[j],与公式中的f[i][j]对应
+    // 右边的f[j],表示老的f[j],与公式中的f[i-1][j]对应
     public int uniquePaths(int m, int n) {
         int[] f = new int[n];
         for (f[0] = 1; m-- > 0;)
@@ -59,7 +56,9 @@ public class UniquePaths {
 
     @Test
     public void test() {
+        Assert.assertEquals(56, uniquePathsZero(4, 6));
         Assert.assertEquals(56, uniquePaths(4, 6));
+        Assert.assertEquals(56, uniquePathsII(4, 6));
     }
 
 }
