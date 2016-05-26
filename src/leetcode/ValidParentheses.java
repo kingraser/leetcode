@@ -17,10 +17,10 @@ public class ValidParentheses {
     public boolean isVachalid(String s) {
         ImmutableMap<Character, Character> map = ImmutableMap.of('}', '{', ')', '(', ']', '[');
         if ((s.length() & 1) == 1) return false;//odd
-        Stack<Character> stack = new Stack<Character>();
-        for (int i = 0; i < s.length(); i++)
-            if (!map.containsKey(s.charAt(i))) stack.add(s.charAt(i));
-            else if (stack.isEmpty() || stack.pop() != map.get(s.charAt(i))) return false;
+        Stack<Character> stack = new Stack<>();
+        for (char c : s.toCharArray())
+            if (map.containsKey(c) && (stack.isEmpty() || stack.pop() != map.get(c))) return false;
+            else stack.push(c);
         return stack.isEmpty();
     }
 }
