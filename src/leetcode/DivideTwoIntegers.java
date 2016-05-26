@@ -5,6 +5,9 @@
  */
 package leetcode;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月12日<p>
 //-------------------------------------------------------
@@ -19,7 +22,16 @@ public class DivideTwoIntegers {
             从而加速。
     */
 
-    public static int divide(int dividend, int divisor) {
+    @Test
+    public void test() {
+        Assert.assertEquals(2, divide(5, 2));
+        Assert.assertEquals(2, divide(4, 2));
+        Assert.assertEquals(Integer.MAX_VALUE, divide(6, 0));
+        Assert.assertEquals(Integer.MAX_VALUE, divide(Integer.MIN_VALUE, -1));
+        Assert.assertEquals(Integer.MIN_VALUE, divide(Integer.MIN_VALUE, 1));
+    }
+
+    public int divide(int dividend, int divisor) {
         if (divisor == 0) return Integer.MAX_VALUE;
         long beichu = Math.abs((long) dividend), chushu = Math.abs((long) divisor), res = 0, i = 1;
         while (beichu != 0)
@@ -27,14 +39,11 @@ public class DivideTwoIntegers {
                 chushu <<= 1;
                 i <<= 1;
             } else if (i > 1) {
-                i >>= 1;
-                chushu >>= 1;
-                res += i;
-                beichu -= chushu;
-                chushu = Math.abs(divisor);
+                res += (i >>= 1);
+                beichu -= (chushu >>= 1);
+                chushu = Math.abs((long) divisor);
                 i = 1;
             } else break;
-
         if (dividend >= 0 && divisor > 0 || dividend < 0 && divisor < 0)
             return res > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) res;
         return -res < Integer.MIN_VALUE ? Integer.MAX_VALUE : (int) -res;
