@@ -7,7 +7,6 @@ package leetcode;
 
 import java.math.BigInteger;
 import java.util.Arrays;
-import java.util.Comparator;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -24,19 +23,10 @@ public class LargestNumber {
     */
 
     public String largestNumber(int[] num) {
-        Integer[] nums = new Integer[num.length];
-        for (int i = 0; i < num.length; nums[i] = num[i], i++);
-        Arrays.sort(nums, new Comparator<Integer>() {
-
-            @Override
-            public int compare(Integer i1, Integer i2) {
-                return new BigInteger(new StringBuilder().append(i2).append(i1).toString())
-                        .compareTo(new BigInteger(new StringBuilder().append(i1).append(i2).toString()));
-            }
-        });
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < nums.length; sb.append(nums[i++]));
-        return new BigInteger(sb.toString()).toString();
+        Arrays.stream(num).boxed().sorted((i1, i2) -> new BigInteger(String.valueOf(i2) + String.valueOf(i1))
+                .compareTo(new BigInteger(String.valueOf(i1) + String.valueOf(i2)))).forEach(i -> sb.append(i));
+        return sb.toString();
     }
 
     @Test
