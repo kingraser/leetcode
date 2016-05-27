@@ -22,16 +22,16 @@ public class JumpGame {
     A = [2,3,1,1,4], return true.    
     A = [3,2,1,0,4], return false. 
     
-    由于每层最多可以跳 A[i] 步,也可以跳 0 或 1 步,
-    因此如果能到达最高层,则说明每一层都可以到达。
-    有了这个条件,说明可以用贪心法。
-    思路一:正向,从 0 出发,一层一层往上跳,
-    看最后能不能超过最高层,能超过,说明能到达,否则不能到达。
-    思路二:逆向,从最高层下楼梯,一层一层下降,看最后能不能下降到第 0 层。
-    思路三:如果不敢用贪心,可以用动规,
-    设状态为 f[i],表示从第 0 层出发,走到 A[i] 时剩余的最大步数
-    则状态转移方程为:
-        f [i] = max(f [i − 1], A[i − 1]) − 1, i > 0
+            由于每层最多可以跳 A[i]步,也可以跳 0或 1步,
+            因此如果能到达最高层,则说明每一层都可以到达。
+            有了这个条件,说明可以用贪心法。
+            思路一:正向,从 0出发,一层一层往上跳,
+            看最后能不能超过最高层,能超过,说明能到达,否则不能到达。
+            思路二:逆向,从最高层下楼梯,一层一层下降,看最后能不能下降到第 0层。
+            思路三:如果不敢用贪心,可以用动规,
+            设状态为 f[i],表示从第 0层出发,走到 A[i]时剩余的最大步数
+            则状态转移方程为:
+        f[i] = max(f[i − 1], A[i − 1]) − 1, i > 0
     */
 
     public boolean canJump(int A[]) {
@@ -42,10 +42,10 @@ public class JumpGame {
 
     public boolean canJumpII(int[] A) {
         if (A.length == 0) return true;
-        int left_most = A.length - 1;// 逆向下楼梯,最左能下降到第几层
+        int leftMost = A.length - 1;// 逆向下楼梯,最左能下降到第几层
         for (int i = A.length - 2; i >= 0; --i)
-            if (i + A[i] >= left_most) left_most = i;
-        return left_most == 0;
+            if (i + A[i] >= leftMost) leftMost = i;
+        return leftMost == 0;
     }
 
     public boolean canJumpIII(int A[]) {
