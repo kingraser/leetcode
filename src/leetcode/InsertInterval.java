@@ -5,6 +5,7 @@
  */
 package leetcode;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -53,9 +54,9 @@ public class InsertInterval {
 
     @Test
     public void test() {
-        Assert.assertEquals(Lists.newArrayList(new Interval(1, 5), new Interval(6, 9)),
+        Assert.assertEquals(Arrays.asList(new Interval(1, 5), new Interval(6, 9)),
                 insert(Lists.newArrayList(new Interval(1, 3), new Interval(6, 9)), new Interval(2, 5)));
-        Assert.assertEquals(Lists.newArrayList(new Interval(1, 2), new Interval(3, 10), new Interval(12, 16)),
+        Assert.assertEquals(Arrays.asList(new Interval(1, 2), new Interval(3, 10), new Interval(12, 16)),
                 insert(Lists.newArrayList(new Interval(1, 2), new Interval(3, 5), new Interval(6, 7),
                         new Interval(8, 10), new Interval(12, 16)), new Interval(4, 9)));
     }
