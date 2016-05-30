@@ -6,6 +6,7 @@
 package leetcode;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -16,13 +17,10 @@ import org.junit.Test;
 public class ValidAnagram {
 
     public boolean isAnagram(String s, String t) {
-        return sort(s).equals(sort(t));
-    }
-
-    private String sort(String s) {
-        char[] chars = s.toCharArray();
-        Arrays.sort(chars);
-        return new String(chars);
+        char[] sArray = s.toCharArray(), tArray = t.toCharArray();
+        Arrays.sort(sArray);
+        Arrays.sort(tArray);
+        return Objects.deepEquals(sArray, tArray);
     }
 
     @Test
