@@ -5,13 +5,17 @@
  */
 package leetcode;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月12日<p>
@@ -32,46 +36,37 @@ public class CombinationSumIII {
     [[1,2,6], [1,3,5], [2,3,4]]    
     */
 
-    @SuppressWarnings("unchecked")
     @Test
     public void test() {
-        List<List<Integer>> expected = Lists.newArrayList(Lists.newArrayList(1, 2, 6), Lists.newArrayList(1, 3, 5),
-                Lists.newArrayList(2, 3, 4));
-        Assert.assertEquals(expected, combinationSum3(3, 9));
+        Assert.assertEquals(Stream.of(Arrays.asList(1, 2, 6), Arrays.asList(1, 3, 5), Arrays.asList(2, 3, 4))
+                .collect(Collectors.toSet()), new HashSet<>(combinationSum3(3, 9)));
     }
 
     public List<List<Integer>> combinationSum3(int k, int n) {
-        List<List<Integer>> res = new ArrayList<>(45);
-        combine(res, new ArrayList<>(9), 0, k, n, 1, 9);
+        List<List<Integer>> res = new ArrayList<>();
+        combine(res, new ArrayDeque<>(9), n, k, 1, 9);
         return res;
     }
 
-    private boolean combine(List<List<Integer>> res, List<Integer> cur, int sum, int k, int n, int start, int end) {
+    private void combine(List<List<Integer>> r, Deque<Integer> deque, int sum, int k, int start, int end) {
+        if (!isPossible(sum, k, start, end)) return;
         if (k == 1) {
-            if (n - sum >= start && n - sum <= end) {
-                cur.add(n - sum);
-                res.add(new ArrayList<>(cur));
-                cur.remove(cur.size() - 1);
-                return true;
-            }
-            return false;
+            deque.addLast(sum);
+            r.add(new ArrayList<>(deque));
+            deque.pollLast();
+        } else for (int size = r.size(); isPossible(sum, k, start, end); size = r.size()) {
+            deque.addLast(start);
+            combine(r, deque, sum - start, k - 1, ++start, end);
+            if (r.size() > size) end = r.get(size).get(r.get(size).size() - 1);//new end
+            deque.pollLast();
         }
-        //case1 剩下的元素不足k个
-        //case2 理论上的最小sum也大于n
-        //case3 理论上的最大sum也小于n
-        if (k > 10 - start || sum + (((k - 1 + (start << 1)) * k) >> 1) > n
-                || sum + (((end << 1) + 1 - k) * k >> 1) < n)
-            return false;
-        boolean hasFound = false;
-        for (int size = res.size(); start < end - k + 2; start++, size = res.size()) {
-            cur.add(start);
-            if (combine(res, cur, sum + start, k - 1, n, start + 1, end)) {
-                hasFound = true;
-                end = res.get(size).get(res.get(size).size() - 1);//new end
-            } else if (hasFound) start = end - k + 2;//break
-            cur.remove(cur.size() - 1);
-        }
-        return hasFound;
+    }
+
+    //case1 剩下的元素至少k个
+    //case2 理论上的最小和小于等于sum
+    //case3 理论上的最大和大于等于sum
+    private boolean isPossible(int sum, int k, int start, int end) {
+        return start + k - 2 < end && (k - 1 + (start << 1)) * k <= (sum <<= 1) && ((end << 1) + 1 - k) * k >= sum;
     }
 
 }
