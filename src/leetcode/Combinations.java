@@ -68,16 +68,16 @@ public class Combinations {
 
     public List<List<Integer>> combineII(int n, int k) {
         List<List<Integer>> result = new ArrayList<>(getCombinationCount(n, k));
-        if (k == 1) for (int i = 0; i < n; result.add(Stream.of(++i).collect(Collectors.toList())));
+        if (k == 1) for (int i = 0; i < n; result.add(new ArrayList<>(Arrays.asList(++i))));
         else if (k == n) {
             List<Integer> inner = new ArrayList<>(n);
             for (int i = 0; i < n; inner.add(++i));
             result.add(inner);
         } else {
-            for (List<Integer> sub : combineII(n - 1, k - 1)) {
-                sub.add(n);
-                result.add(sub);
-            }
+            combineII(n - 1, k - 1).forEach(l -> {
+                l.add(n);
+                result.add(l);
+            });
             result.addAll(combineII(n - 1, k));
         }
         return result;

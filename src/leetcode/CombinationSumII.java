@@ -5,8 +5,10 @@
  */
 package leetcode;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -44,16 +46,16 @@ public class CombinationSumII {
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         Arrays.sort(candidates);
         Set<List<Integer>> result = new HashSet<>();
-        dfs(candidates, target, 0, new ArrayList<>(), result);
+        dfs(candidates, target, 0, new ArrayDeque<>(target / candidates[0]), result);
         return new ArrayList<>(result);
     }
 
-    private void dfs(int[] n, int gap, int start, List<Integer> list, Set<List<Integer>> result) {
-        if (gap == 0) result.add(new ArrayList<>(list));
+    private void dfs(int[] n, int gap, int start, Deque<Integer> deque, Set<List<Integer>> result) {
+        if (gap == 0) result.add(new ArrayList<>(deque));
         else for (int i = start; i < n.length && gap >= n[i];) {
-            list.add(n[i]);
-            dfs(n, gap - n[i], ++i, list, result);
-            list.remove(list.size() - 1);
+            deque.addLast(n[i]);
+            dfs(n, gap - n[i], ++i, deque, result);
+            deque.pollLast();
         }
     }
 
