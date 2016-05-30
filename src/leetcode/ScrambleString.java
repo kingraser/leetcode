@@ -52,15 +52,15 @@ public class ScrambleString {
     */
 
     /*
-    首先想到的是递归(即深搜),对两个string进行分割,然后比较四对字符串。
-    代码虽然简单,但是复杂度比较高。
-    有两种加速策略,一种是剪枝,提前返回;一种是加缓存,缓存中间结果,即memorization(翻译为记忆化搜索)。
-    剪枝可以五花八门,要充分观察,充分利用信息,找到能让节点提前返回的条件。
-    例如,判断两个字符串是否互为scamble,至少要求每个字符在两个字符串中出现的次数要相等,如果不相等则返回false。
-    加缓存,可以用数组或HashMap。本题维数较高,用HashMap,map和unordered_map均可。
-    既然可以用记忆化搜索,这题也一定可以用动规。
-    设状态为f[i][j][n],表示长度为n,起点为s1[i]和起点为s2[j]两个字符串是否互为scramble,
-    则状态转移方程为f[i][j][n] = (f[i][j][k] && f[i+k][j+k][n-k]) || (f[i][j+n-k][k] && f[i+k][j][n-k])
+            首先想到的是递归(即深搜),对两个string进行分割,然后比较四对字符串。
+            代码虽然简单,但是复杂度比较高。
+            有两种加速策略,一种是剪枝,提前返回;一种是加缓存,缓存中间结果,即memorization(翻译为记忆化搜索)。
+            剪枝可以五花八门,要充分观察,充分利用信息,找到能让节点提前返回的条件。
+            例如,判断两个字符串是否互为scamble,至少要求每个字符在两个字符串中出现的次数要相等,如果不相等则返回false。
+            加缓存,可以用数组或HashMap。本题维数较高,用HashMap,map和unordered_map均可。
+            既然可以用记忆化搜索,这题也一定可以用动规。
+            设状态为f[i][j][n],表示长度为n,起点为s1[i]和起点为s2[j]两个字符串是否互为scramble,
+            则状态转移方程为f[i][j][n] = (f[i][j][k] && f[i+k][j+k][n-k]) || (f[i][j+n-k][k] && f[i+k][j][n-k])
     */
 
     public boolean isScramble(String s1, String s2) {
@@ -86,7 +86,7 @@ public class ScrambleString {
     @Test
     public void test() {
         Assert.assertTrue(isScramble("great", "rgtae"));
-        Assert.assertTrue(isScramble("great", "rgtae"));
+        Assert.assertTrue(isScramble("great", "rgeat"));
     }
 
 }
