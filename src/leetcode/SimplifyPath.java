@@ -5,12 +5,12 @@
  */
 package leetcode;
 
-import java.util.List;
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Deque;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月15日<p>
@@ -30,16 +30,14 @@ public class SimplifyPath {
 
     public String simplifyPath(String path) {
         path = path.replace(" ", "");
-        String[] paths = path.split("/");
-        StringBuffer sb = new StringBuffer("/");
-        List<String> list = Lists.newArrayListWithCapacity(paths.length + 1);
-        for (int i = 0; i < paths.length; i++)
-            if (paths[i].length() == 0 || paths[i].equals(".")) continue;
-            else if ("..".equals(paths[i])) {
-                if (list.size() > 0) list.remove(list.size() - 1);
-            } else list.add(paths[i]);
-        for (int i = 0; i < list.size(); sb.append(list.get(i++)).append("/"));
-        if (sb.length() > 1) sb.deleteCharAt(sb.length() - 1);
+        Deque<String> deque = new ArrayDeque<>();
+        Arrays.stream(path.split("/")).filter(s -> s.length() > 0 && !s.equals(".")).forEach(s -> {
+            if ("..".equals(s)) deque.pollLast();
+            else deque.addLast(s);
+        });
+        if (deque.isEmpty()) return "/";
+        StringBuffer sb = new StringBuffer();
+        deque.forEach(s -> sb.append("/").append(s));
         return sb.toString();
     }
 
