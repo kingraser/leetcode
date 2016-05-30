@@ -29,15 +29,11 @@ public class SpiralMatrixII {
 
     public int[][] generateMatrix(int n) {
         int[][] ret = new int[n][n];
-        for (int left = 0, right = n - 1, top = 0, bottom = n - 1, count = 1; left <= right && top <= bottom;) {
-            for (int i = left; i <= right; ret[top][i++] = count++);
-            top++;
-            for (int i = top; i <= bottom; ret[i++][right] = count++);
-            right--;
-            for (int i = right; i >= left; ret[bottom][i--] = count++);
-            bottom--;
-            for (int i = bottom; i >= top; ret[i--][left] = count++);
-            left++;
+        for (int left = -1, right = n - 1, top = 0, bottom = n - 1, count = 1; left <= right && top <= bottom;) {
+            for (int i = ++left; i <= right; ret[top][i++] = count++);
+            for (int i = ++top; i <= bottom; ret[i++][right] = count++);
+            for (int i = --right; i >= left; ret[bottom][i--] = count++);
+            for (int i = --bottom; i >= top; ret[i--][left] = count++);
         }
         return ret;
     }

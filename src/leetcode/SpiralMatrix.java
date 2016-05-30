@@ -34,12 +34,12 @@ public class SpiralMatrix {
     public List<Integer> spiralOrder(int[][] matrix) {
         List<Integer> res = new ArrayList<>();
         if (matrix == null || matrix.length == 0) return res;
-        for (int rowBegin = 0, rowEnd = matrix.length - 1, colBegin = -1, colEnd = matrix[0].length
-                - 1; rowBegin <= rowEnd && colBegin <= colEnd;) {
-            for (int i = ++colBegin; i <= colEnd; res.add(matrix[rowBegin][i++]));
-            for (int i = ++rowBegin; i <= rowEnd; res.add(matrix[i++][colEnd]));
-            for (int i = --colEnd; i >= colBegin; res.add(matrix[rowEnd][i--]));
-            for (int i = --rowEnd; i >= rowBegin; res.add(matrix[i--][colBegin]));
+        for (int top = 0, bottom = matrix.length - 1, left = -1, right = matrix[0].length
+                - 1; top <= bottom && left <= right;) {
+            for (int i = ++left; i <= right; res.add(matrix[top][i++]));
+            for (int i = ++top; i <= bottom; res.add(matrix[i++][right]));
+            for (int i = --right; i >= left; res.add(matrix[bottom][i--]));
+            for (int i = --bottom; i >= top; res.add(matrix[i--][left]));
         }
         return res;
     }
