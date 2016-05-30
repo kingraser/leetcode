@@ -5,7 +5,13 @@
  */
 package leetcode;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.HashMap;
 import java.util.Map;
+
+import org.junit.Assert;
+import org.junit.Test;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月12日<p>
@@ -19,17 +25,24 @@ public class ContainsDuplicateIII {
     and the difference between i and j is at most k.   
     */
 
+    @Test
+    public void test() {
+        Assert.assertFalse(containsNearbyAlmostDuplicate(new int[] { -3, 3 }, 2, 4));
+    }
+
     //I am the very one who published the unprecedented O(n) algorithm with bucketing 
     public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
         if (k < 1 || t < 0) return false;
-        Map<Long, Long> map = new java.util.LinkedHashMap<>();
-        for (int i = 0; i < nums.length; i++) {
-            long j = t == 0 ? (long) nums[i] - Integer.MIN_VALUE : (((long) nums[i] - Integer.MIN_VALUE) / t);
-            if (map.containsKey(j) || (map.containsKey(j - 1) && Math.abs(map.get(j - 1) - nums[i]) <= t)
-                    || (map.containsKey(j + 1) && Math.abs(map.get(j + 1) - nums[i]) <= t))
-                return true;
-            if (map.keySet().size() == k) map.remove(map.keySet().iterator().next());
-            map.put(j, (long) nums[i]);
+        Map<Long, Long> map = new HashMap<>(k << 1);
+        Deque<Long> deque = new ArrayDeque<>(k << 1);
+        for (int i = 0, newt = t == 0 ? 1 : t; i < nums.length; i++) {
+            long hash = ((long) nums[i] - Integer.MIN_VALUE) / newt;
+            if (map.containsKey(hash)) return true;
+            if (map.containsKey(hash - 1) && Math.abs(map.get(hash - 1) - nums[i]) <= t) return true;
+            if (map.containsKey(hash + 1) && Math.abs(map.get(hash + 1) - nums[i]) <= t) return true;
+            if (deque.size() == k) map.remove(deque.pollFirst());
+            map.put(hash, (long) nums[i]);
+            deque.addLast(hash);
         }
         return false;
     }
