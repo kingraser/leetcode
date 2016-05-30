@@ -22,16 +22,15 @@ public class MedianofTwoSortedArrays {
             复杂度O(log(min(m,n)))
     */
 
-    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        if (nums1.length > nums2.length) return findMedianSortedArrays(nums2, nums1);
-        int k = (nums1.length + nums2.length - 1) >> 1, l = 0, r = Math.min(k, nums1.length);
-        for (int mid1 = (l + r) >> 1, mid2 = k - mid1; l < r; mid1 = (l + r) >> 1, mid2 = k - mid1)
-            if (nums1[mid1] < nums2[mid2]) l = mid1 + 1;
+    public double findMedianSortedArrays(int[] A, int[] B) {
+        if (A.length > B.length) return findMedianSortedArrays(B, A);
+        int k = (A.length + B.length - 1) >> 1, l = 0, r = Math.min(k, A.length);
+        for (int mid1; l < r;)
+            if (A[mid1 = (l + r) >> 1] < B[k - mid1]) l = mid1 + 1;
             else r = mid1;
-        double a = l == 0 ? nums2[k - l] : Math.max(nums1[l - 1], nums2[k - l]);
-        if (((nums1.length + nums2.length) & 1) == 1) return a;//odd
-        return (a + (l == nums1.length ? nums2[k - l + 1]
-                : k - l + 1 < nums2.length ? Math.min(nums1[l], nums2[k - l + 1]) : nums1[l])) / 2;
+        double a = l == 0 ? B[k - l] : Math.max(A[l - 1], B[k - l]);
+        if (((A.length + B.length) & 1) == 1) return a;//odd
+        return (a + (l == A.length ? B[k - l + 1] : k - l + 1 < B.length ? Math.min(A[l], B[k - l + 1]) : A[l])) / 2;
     }
 
     @Test
