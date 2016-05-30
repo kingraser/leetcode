@@ -5,15 +5,14 @@
  */
 package leetcode;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月13日<p>
@@ -43,10 +42,10 @@ public class Subsets {
     */
 
     public List<List<Integer>> subsets(int[] nums) {
-        List<List<Integer>> result = Lists.newArrayListWithCapacity(1 << nums.length);
+        List<List<Integer>> result = new ArrayList<>(1 << nums.length);
         Arrays.sort(nums);
         for (int i = 0, size = 1 << nums.length; i < size; i++) {
-            List<Integer> list = Lists.newArrayListWithCapacity(nums.length);
+            List<Integer> list = new ArrayList<>(nums.length);
             for (int j = 0, l = i; l > 0; l >>= 1, j++)
                 if ((l & 1) == 1) list.add(nums[j]);
             result.add(list);
@@ -54,12 +53,11 @@ public class Subsets {
         return result;
     }
 
-    @SuppressWarnings("unchecked")
     @Test
     public void test() {
-        Set<List<Integer>> expected = Sets.newHashSet(Lists.newArrayList(1), Lists.newArrayList(2),
-                Lists.newArrayList(3), Lists.newArrayList(1, 2), Lists.newArrayList(1, 3), Lists.newArrayList(2, 3),
-                Lists.newArrayList(1, 2, 3), Lists.newArrayList());
-        Assert.assertEquals(expected, Sets.newHashSet(subsets(new int[] { 1, 2, 3 })));
+        Set<List<Integer>> expected = new HashSet<>(
+                Arrays.asList(Arrays.asList(1), Arrays.asList(2), Arrays.asList(3), Arrays.asList(1, 2),
+                        Arrays.asList(1, 3), Arrays.asList(2, 3), Arrays.asList(1, 2, 3), Arrays.asList()));
+        Assert.assertEquals(expected, new HashSet<>(subsets(new int[] { 1, 2, 3 })));
     }
 }
