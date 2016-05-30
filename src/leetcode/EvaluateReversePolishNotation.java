@@ -31,11 +31,12 @@ public class EvaluateReversePolishNotation {
         Assert.assertEquals(6, evalRPN(new String[] { "4", "13", "5", "/", "+" }));
     }
 
+    Set<String> operators = Sets.newHashSet("+", "-", "*", "/");
+
     public int evalRPN(String[] tokens) {
-        Set<String> set = Sets.newHashSet("+", "-", "*", "/");
         Stack<Integer> integers = new Stack<>();
         for (String s : tokens)
-            if (set.contains(s)) {
+            if (operators.contains(s)) {
                 int right = integers.pop(), left = integers.pop();
                 if (s.equals("+")) left += right;
                 else if (s.equals("-")) left -= right;
