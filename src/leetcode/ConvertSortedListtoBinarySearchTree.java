@@ -5,13 +5,11 @@
  */
 package leetcode;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
 
 import leetcode.common.ListNode;
 import leetcode.common.TreeNode;
@@ -23,7 +21,7 @@ public class ConvertSortedListtoBinarySearchTree {
 
     //Given a singly linked list where elements are sorted in ascending order, convert it to a height balanced BST. 
     public TreeNode sortedListToBST(ListNode head) {
-        List<Integer> list = Lists.newArrayList();
+        List<Integer> list = new ArrayList<>();
         for (; null != head; list.add(head.val), head = head.next);
         return build(list, 0, list.size());
     }
@@ -37,35 +35,10 @@ public class ConvertSortedListtoBinarySearchTree {
         return root;
     }
 
-    static ListNode node;
-
-    public TreeNode sortedListToBSTII(ListNode head) {
-        node = head;//传引用
-        return build(0, getLength(head) - 1);
-    }
-
-    private int getLength(ListNode head) {//获取长度
-        int len = 0;
-        for (ListNode n = head; Objects.nonNull(n); len++, n = n.next);
-        return len;
-    }
-
-    private TreeNode build(int start, int end) {
-        if (start > end) return null;
-        int mid = (start + end) >> 1;
-        TreeNode left = build(start, mid - 1);
-        TreeNode parent = new TreeNode(node.val);
-        parent.left = left;
-        node = node.next;
-        parent.right = build(mid + 1, end);
-        return parent;
-    }
-
     @Test
     public void test() {
-        TreeNode expected=TreeNode.generateTree("2,1,n,n,3,n,n");
+        TreeNode expected = TreeNode.generateTree("2,1,n,n,3,n,n");
         Assert.assertEquals(expected, sortedListToBST(ListNode.generateNodes(1, 2, 3)));
-        Assert.assertEquals(expected, sortedListToBSTII(ListNode.generateNodes(1, 2, 3)));
     }
 
 }
