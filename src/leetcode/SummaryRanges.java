@@ -5,12 +5,12 @@
  */
 package leetcode;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月14日<p>
@@ -24,7 +24,7 @@ public class SummaryRanges {
     */
 
     public List<String> summaryRanges(int[] nums) {
-        List<String> result = Lists.newArrayListWithCapacity(nums.length);
+        List<String> result = new ArrayList<>(nums.length);
         for (int i = 0; i < nums.length; i++) {
             int start = nums[i];
             for (; i + 1 < nums.length && nums[i + 1] == nums[i] + 1; i++);
@@ -36,7 +36,7 @@ public class SummaryRanges {
 
     @Test
     public void test() {
-        Assert.assertEquals(Lists.newArrayList("0->2", "4->5", "7"), summaryRanges(new int[] { 0, 1, 2, 4, 5, 7 }));
+        Assert.assertEquals(Arrays.asList("0->2", "4->5", "7"), summaryRanges(new int[] { 0, 1, 2, 4, 5, 7 }));
     }
 
 }
