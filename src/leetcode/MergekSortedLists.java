@@ -5,8 +5,12 @@
  */
 package leetcode;
 
-import java.util.Comparator;
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.PriorityQueue;
+
+import org.junit.Assert;
+import org.junit.Test;
 
 import leetcode.common.ListNode;
 
@@ -17,22 +21,20 @@ public class MergekSortedLists {
 
     /*优先队列*/
 
+    @Test
+    public void test() {
+        Assert.assertEquals(ListNode.generateNodes(1, 2, 3, 4, 5, 6, 7, 8, 9), mergeKLists(new ListNode[] {
+                ListNode.generateNodes(1, 3, 5), ListNode.generateNodes(2, 4, 6), ListNode.generateNodes(7, 8, 9) }));
+    }
+
     public ListNode mergeKLists(ListNode[] lists) {
         if (lists == null || lists.length == 0) return null;
-        ListNode head = new ListNode(0), march = head, temp;
-        PriorityQueue<ListNode> set = new PriorityQueue<>(lists.length, new Comparator<ListNode>() {
-
-            public int compare(ListNode o1, ListNode o2) {
-                return o1.val == o2.val ? 0 : o1.val < o2.val ? -1 : 1;
-            }
-        });
-        for (int i = 0; i < lists.length; i++)
-            if (lists[i] != null) set.add(lists[i]);
-        while (!set.isEmpty()) {
-            temp = set.poll();
-            if (temp.next != null) set.add(temp.next);
-            march.next = temp;
+        ListNode head = new ListNode(0), march = head;
+        PriorityQueue<ListNode> set = new PriorityQueue<>((n1, n2) -> n1.val - n2.val);
+        Arrays.stream(lists).filter(Objects::nonNull).forEach(n -> set.add(n));
+        while ((march.next = set.poll()) != null) {
             march = march.next;
+            if (march.next != null) set.add(march.next);
         }
         return head.next;
     }
