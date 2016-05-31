@@ -9,7 +9,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016��1��20��;
+//@author wangwenlong Initial Created at 2016年1月20日;
 //-------------------------------------------------------
 public class LongestIncreasingPathinaMatrix {
 
