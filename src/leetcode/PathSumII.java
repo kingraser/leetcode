@@ -5,12 +5,14 @@
  */
 package leetcode;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Deque;
 import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
 
 import leetcode.common.TreeNode;
 
@@ -40,28 +42,24 @@ public class PathSumII {
     */
 
     public List<List<Integer>> pathSum(TreeNode root, int sum) {
-        List<List<Integer>> result = Lists.newArrayList();
-        pathSum(root, sum, Lists.newArrayList(), result);
+        List<List<Integer>> result = new ArrayList<>();
+        pathSum(root, sum, new ArrayDeque<>(), result);
         return result;
     }
 
-    public void pathSum(TreeNode root, int sum, List<Integer> list, List<List<Integer>> result) {
+    public void pathSum(TreeNode root, int sum, Deque<Integer> deque, List<List<Integer>> result) {
         if (null == root) return;
-        list.add(root.val);
-        sum -= root.val;
-        if (sum == 0 && root.left == null && root.right == null) result.add(Lists.newArrayList(list));
-        pathSum(root.left, sum, list, result);
-        pathSum(root.right, sum, list, result);
-        list.remove(list.size() - 1);
+        deque.add(root.val);
+        if ((sum -= root.val) == 0 && root.left == null && root.right == null) result.add(new ArrayList<>(deque));
+        pathSum(root.left, sum, deque, result);
+        pathSum(root.right, sum, deque, result);
+        deque.removeLast();
     }
 
-    @SuppressWarnings("unchecked")
     @Test
     public void test() {
-        TreeNode root = new TreeNode(0);
-        root.left = new TreeNode(1);
-        root.right = new TreeNode(1);
-        List<List<Integer>> expected = Lists.newArrayList(Lists.newArrayList(0, 1), Lists.newArrayList(0, 1));
-        Assert.assertEquals(expected, pathSum(root, 1));
+        TreeNode root = TreeNode.generateTree("5,4,11,7,n,n,2,n,n,n,8,13,n,n,4,5,n,n,1,n,n");
+        List<List<Integer>> expected = Arrays.asList(Arrays.asList(5, 4, 11, 2), Arrays.asList(5, 8, 4, 5));
+        Assert.assertEquals(expected, pathSum(root, 22));
     }
 }
