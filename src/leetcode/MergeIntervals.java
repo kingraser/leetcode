@@ -5,15 +5,12 @@
  */
 package leetcode;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
 
 import leetcode.common.Interval;
 
@@ -31,33 +28,18 @@ public class MergeIntervals {
 
     public List<Interval> merge(List<Interval> intervals) {
         if (intervals == null || intervals.isEmpty()) return intervals;
-        Collections.sort(intervals, new Comparator<Interval>() {
-
-            @Override
-            public int compare(Interval interval1, Interval interval2) {
-                return interval1.start - interval2.start;
-            }
+        List<Interval> r = new ArrayList<>(intervals.size());
+        intervals.stream().sorted((i1, i2) -> i1.start - i2.start).forEach(i -> {
+            if (r.isEmpty() || i.start > r.get(r.size() - 1).end) r.add(i);
+            else if (i.end > r.get(r.size() - 1).end) r.get(r.size() - 1).end = i.end;
         });
-
-        // merge
-        List<Interval> result = Lists.newArrayList();
-        Iterator<Interval> iterator = intervals.iterator();
-        Interval mover = iterator.next();
-        while (iterator.hasNext()) {
-            Interval current = iterator.next();
-            if (mover.end < current.start) {
-                result.add(mover);
-                mover = current;
-            } else mover.end = Math.max(mover.end, current.end);
-        }
-        result.add(mover);
-        return result;
+        return r;
     }
 
     @Test
     public void test() {
-        Assert.assertEquals(Lists.newArrayList(new Interval(1, 6), new Interval(8, 10), new Interval(15, 18)), merge(
-                Lists.newArrayList(new Interval(1, 3), new Interval(2, 6), new Interval(8, 10), new Interval(15, 18))));
+        Assert.assertEquals(Arrays.asList(new Interval(1, 6), new Interval(8, 10), new Interval(15, 18)), merge(
+                Arrays.asList(new Interval(1, 3), new Interval(2, 6), new Interval(8, 10), new Interval(15, 18))));
     }
 
 }
