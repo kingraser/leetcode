@@ -5,14 +5,16 @@
  */
 package leetcode;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月10日<p>
@@ -27,18 +29,18 @@ public class Permutations {
     */
 
     public List<List<Integer>> permute(int[] num) {
-        return Lists.newArrayList(permuteII(num));
+        return permute(num, 0);
     }
 
-    public List<LinkedList<Integer>> permuteII(int[] num) {
-        List<LinkedList<Integer>> result = Lists.newArrayListWithCapacity(getPermuteNum(num.length));
-        if (num.length == 0) result.add(Lists.newLinkedList());
-        for (int i = 0; i < num.length; i++) {
-            swap(num, 0, i);
-            List<LinkedList<Integer>> lists = permuteII(Arrays.copyOfRange(num, 1, num.length));
-            for (LinkedList<Integer> list : lists)
-                list.addFirst(num[0]);
-            result.addAll(lists);
+    private List<List<Integer>> permute(int[] num, int start) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (start == num.length) result.add(new ArrayList<>(num.length));
+        for (int i = start; i < num.length; swap(num, start, i++)) {
+            swap(num, start, i);
+            permute(num, start + 1).forEach(l -> {
+                l.add(num[start]);
+                result.add(l);
+            });
         }
         return result;
     }
@@ -49,22 +51,10 @@ public class Permutations {
         num[j] = temp;
     }
 
-    private int getPermuteNum(int n) {
-        int result = n;
-        for (; --n > 1; result *= n);
-        return result;
-    }
-
-    @SuppressWarnings("unchecked")
     @Test
     public void test() {
-        Assert.assertEquals(1, getPermuteNum(1));
-        Assert.assertEquals(2, getPermuteNum(2));
-        Assert.assertEquals(6, getPermuteNum(3));
-        Assert.assertEquals(24, getPermuteNum(4));
-        Assert.assertEquals(120, getPermuteNum(5));
-        Assert.assertEquals(Lists.newArrayList(Lists.newArrayList(1, 2, 3), Lists.newArrayList(1, 3, 2),
-                Lists.newArrayList(2, 1, 3), Lists.newArrayList(2, 3, 1), Lists.newArrayList(3, 1, 2),
-                Lists.newArrayList(3, 2, 1)), permute(new int[] { 1, 2, 3 }));
+        Set<List<Integer>> expected = Stream.of(Arrays.asList(1, 2, 3), Arrays.asList(1, 3, 2), Arrays.asList(2, 1, 3),
+                Arrays.asList(2, 3, 1), Arrays.asList(3, 1, 2), Arrays.asList(3, 2, 1)).collect(Collectors.toSet());
+        Assert.assertEquals(expected, new HashSet<>(permute(new int[] { 1, 2, 3 })));
     }
 }
