@@ -5,12 +5,11 @@
  */
 package leetcode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月11日<p>
@@ -19,8 +18,9 @@ public class NQueensII {
 
     public int totalNQueens(int n) {
         int sum = 0;
-        List<Integer> queenList = Lists.newArrayList(0);
-        for (int i = 0; i != -1; queenList.add(i)) {//-1表示尝试过1-9，结束
+        List<Integer> queenList = new ArrayList<>();
+        for (int i = 0; i != -1;) {//-1表示尝试过1-9，结束 
+            queenList.add(i);
             if (queenList.size() == n) {//找到一个解
                 sum++;//解记录
                 queenList.remove(n - 1);//去掉刚刚加入皇后,开始回溯

@@ -6,12 +6,11 @@
 package leetcode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月11日<p>
@@ -51,7 +50,7 @@ public class NQueens {
      */
     private int back(int n, List<Integer> queenList) {
         int next = -1;
-        while (next == -1 && queenList.size() > 0)
+        while (next == -1 && !queenList.isEmpty())
             next = getNext(1 + queenList.remove(queenList.size() - 1), n, queenList);
         return next;//返回
     }
@@ -62,12 +61,12 @@ public class NQueens {
      * @return OJ规定的格式
      */
     private List<String> parse(int n, List<Integer> queenList) {
-        List<String> result = Lists.newArrayList();
+        List<String> result = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            StringBuilder sb = new StringBuilder();
-            for (int j = 0; j < n; sb.append('.'), j++);
-            sb.setCharAt(queenList.get(i), 'Q');
-            result.add(sb.toString());
+            char[] array = new char[n];
+            Arrays.fill(array, '.');
+            array[queenList.get(i)] = 'Q';
+            result.add(new String(array));
         }
         return result;
     }
@@ -84,12 +83,10 @@ public class NQueens {
         return true;
     }
 
-    @SuppressWarnings("unchecked")
     @Test
     public void test() {
-        List<List<String>> expected = Lists.newArrayList(Lists.newArrayList(".Q..", "...Q", "Q...", "..Q."),
-                Lists.newArrayList("..Q.", "Q...", "...Q", ".Q.."));
-
+        List<List<String>> expected = Arrays.asList(Arrays.asList(".Q..", "...Q", "Q...", "..Q."),
+                Arrays.asList("..Q.", "Q...", "...Q", ".Q.."));
         Assert.assertEquals(expected, solveNQueens(4));
     }
 
