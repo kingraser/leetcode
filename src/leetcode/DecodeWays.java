@@ -44,9 +44,8 @@ public class DecodeWays {
         for (int i = 1; i <= s.length(); ++i) {
             if (s.charAt(i - 1) == '0') cur = 0;
             if (i < 2 || !(s.charAt(i - 2) == '1' || (s.charAt(i - 2) == '2' && s.charAt(i - 1) <= '6'))) prev = 0;
-            int tmp = cur;
-            cur = prev + cur;
-            prev = tmp;
+            cur += prev;
+            prev = cur - prev;
         }
         return cur;
     }
