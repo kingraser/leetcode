@@ -25,7 +25,7 @@ public class ExcelSheetColumnNumber {
 
     public int titleToNumber(String s) {
         int n = 0;
-        for (int i = s.length() - 1, radix = 1; i >= 0; n += (s.charAt(i) - '@') * radix, radix *= 26, i--);
+        for (int i = s.length() - 1, radix = 1; i >= 0; n += (s.charAt(i--) - '@') * radix, radix *= 26);
         return n;
     }
 
