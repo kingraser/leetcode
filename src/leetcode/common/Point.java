@@ -5,6 +5,9 @@
  */
 package leetcode.common;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月16日<p>
 //-------------------------------------------------------
@@ -22,7 +25,7 @@ public class Point {
 
     @Override
     public String toString() {
-        return ToString.toString(this);
+        return ReflectionToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
 }

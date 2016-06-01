@@ -21,6 +21,12 @@ public class TreeNode {
         val = x;
     }
 
+    public TreeNode(int x, TreeNode left, TreeNode right) {
+        val = x;
+        this.left = left;
+        this.right = right;
+    }
+
     /*
        1
       / \
@@ -35,20 +41,8 @@ public class TreeNode {
         Stack<TreeNode> stack = new Stack<>();
         for (int i = nodes.length - 1; i >= 0; i--)
             if (nodes[i].charAt(0) == 'n') stack.push(null);
-            else {
-                TreeNode node = new TreeNode(Integer.parseInt(nodes[i]));
-                node.left = stack.pop();
-                node.right = stack.pop();
-                stack.push(node);
-            }
+            else stack.push(new TreeNode(Integer.parseInt(nodes[i]), stack.pop(), stack.pop()));
         return stack.peek();
-    }
-
-    @Override
-    public String toString() {
-        return new StringBuilder("{").append(String.format("val:%s", val)).append(",left:")
-                .append(Objects.isNull(left) ? null : left.toString()).append(",right:")
-                .append(Objects.isNull(right) ? null : right.toString()).append("}").toString();
     }
 
     @Override

@@ -18,6 +18,7 @@ import com.google.common.base.MoreObjects.ToStringHelper;
 public class ListNode {
 
     public static ListNode generateNodes(Integer... array) {
+        if (array == null || array.length == 0) return null;
         ListNode head = new ListNode(array[0]), march = head;
         for (int i = 1; i < array.length; i++) {
             march.next = new ListNode(array[i]);
@@ -43,21 +44,19 @@ public class ListNode {
         ListNode march = this;
         ToStringHelper helper = MoreObjects.toStringHelper(ListNode.class);
         for (; march != null; march = march.next)
-            if (fathers.contains(march)) {
+            if (fathers.add(march)) helper.add("val", march.val);
+            else {
                 helper.add("circle val", march.val);
                 break;
-            } else {
-                fathers.add(march);
-                helper.add("val", march.val);
             }
         return helper.toString();
     }
 
     @Override
     public boolean equals(Object o) {
-        if (Objects.isNull(o) || !(o instanceof ListNode)) return false;
+        if (null == o || !(o instanceof ListNode)) return false;
         ListNode another = (ListNode) o;
-        if (!Objects.equals(val, another.val)) return false;
+        if (val != another.val) return false;
         return Objects.equals(next, another.next);
     }
 

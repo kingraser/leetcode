@@ -5,14 +5,15 @@
  */
 package leetcode.common;
 
-import java.util.Objects;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月12日<p>
 //-------------------------------------------------------
 public class Interval {
 
-    public int start = 0, end = 0;
+    public Integer start, end;
 
     public Interval() {
     }
@@ -24,14 +25,14 @@ public class Interval {
 
     @Override
     public String toString() {
-        return ToString.toString(this);
+        return ReflectionToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
     @Override
     public boolean equals(Object o) {
-        if (Objects.isNull(o) || !(o instanceof Interval)) return false;
+        if (null == o || !(o instanceof Interval)) return false;
         Interval another = (Interval) o;
-        return Objects.equals(start, another.start) && Objects.equals(end, another.end);
+        return start == another.start && end == another.end;
     }
 
 }
