@@ -5,6 +5,9 @@
  */
 package leetcode;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import leetcode.common.ListNode;
 
 //--------------------- Change Logs----------------------
@@ -12,23 +15,30 @@ import leetcode.common.ListNode;
 //-------------------------------------------------------
 public class ReverseLinkedList {
 
+    @Test
+    public void test() {
+        Assert.assertEquals(ListNode.generateNodes(5, 4, 3, 2, 1), reverseList(ListNode.generateNodes(1, 2, 3, 4, 5)));
+        Assert.assertEquals(ListNode.generateNodes(5, 4, 3, 2, 1),
+                reverseListII(ListNode.generateNodes(1, 2, 3, 4, 5)));
+    }
+
     //迭代
     public ListNode reverseList(ListNode head) {
-        if (head == null) return head;
-        ListNode prev, curr = head, next = head.next;
-        head.next = null;
+        if (head == null || head.next == null) return head;
+        ListNode prev, curr = head, next = curr.next;
         while (curr != null && next != null) {
             prev = curr;
             curr = next;
-            next = next.next;
+            next = curr.next;
             curr.next = prev;
         }
+        head.next = null;
         return curr;
     }
 
     //递归
     public ListNode reverseListII(ListNode head) {
-        if (head == null) return head;
+        if (head == null || head.next == null) return head;
         ListNode next = head.next;
         head.next = null;
         return reverseList(head, next);

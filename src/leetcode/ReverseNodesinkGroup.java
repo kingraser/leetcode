@@ -36,12 +36,12 @@ public class ReverseNodesinkGroup {
 
     public ListNode reverseList(ListNode head, ListNode end) {
         if (head == null) return head;
-        ListNode prev, curr = head, next = head.next;
+        ListNode prev, curr = head, next = curr.next;
         head.next = null;
-        while (curr != end && next != null) {
+        while (curr != end) {
             prev = curr;
             curr = next;
-            next = next.next;
+            next = curr.next;
             curr.next = prev;
         }
         return curr;
