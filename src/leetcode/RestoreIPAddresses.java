@@ -5,13 +5,12 @@
  */
 package leetcode;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月14日<p>
@@ -30,37 +29,34 @@ public class RestoreIPAddresses {
 
     @Test
     public void test() {
-        Assert.assertEquals(Lists.newArrayList("255.255.11.135", "255.255.111.35"), restoreIpAddresses("25525511135"));
+        Assert.assertEquals(Arrays.asList("255.255.11.135", "255.255.111.35"), restoreIpAddresses("25525511135"));
     }
 
     public List<String> restoreIpAddresses(String s) {
-        List<String> result = Lists.newArrayList();
-        dfs(result, s.toCharArray(), Lists.newArrayList(0));
+        List<String> result = new ArrayList<>();
+        dfs(result, s.toCharArray(), new char[s.length() + 4], 0, 4);//s.length + 4 for 4 possible '.'
         return result;
     }
 
-    private void dfs(List<String> result, char[] s, List<Integer> list) {
-        int idx = list.get(list.size() - 1), len = s.length - idx, todo = 5 - list.size();
-        if (len == 0 && todo == 0) {
-            result.add(getIp(s, list));
-            return;
-        }
-        if (len > todo * 3 || len < todo) return;
-        for (int num = 0, end = idx + Math.min(3, len); idx < end; idx++) {
-            num = num * 10 + (s[idx] - '0');
-            if (num < 256) {
-                list.add(idx + 1);
-                dfs(result, s, list);
-                list.remove(list.size() - 1);
+    /**
+     * @param result 结果集
+     * @param s 字串
+     * @param l 带'.'的字串
+     * @param i s的下标
+     * @param todo 还剩几部分要处理
+     */
+    private void dfs(List<String> result, char[] s, char[] l, int i, int todo) {
+        if (s.length - i > todo * 3 || s.length - i < todo) return;//不可能满足条件
+        if (i == s.length && todo == 0) result.add(new String(l, 0, i + 3));//保存结果 3 for 3 '.'
+        else for (int n = 0, end = Math.min(i + 3, s.length); i < end; i++) {
+            n = n * 10 + (s[i] - '0');
+            if (n < 256) {
+                l[i + 4 - todo] = s[i];//4-todo for num of '.' already added
+                l[i + 5 - todo] = '.';//add '.'
+                dfs(result, s, l, i + 1, todo - 1);
             }
-            if (num == 0) break;
+            if (n == 0) break;//format like 05 is illegal
         }
-    }
-
-    private String getIp(char[] s, List<Integer> list) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < list.size() - 1; sb.append(Arrays.copyOfRange(s, list.get(i), list.get(++i))).append('.'));
-        return sb.deleteCharAt(sb.length() - 1).toString();
     }
 
 }
