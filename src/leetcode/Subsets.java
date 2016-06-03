@@ -5,8 +5,10 @@
  */
 package leetcode;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -41,6 +43,7 @@ public class Subsets {
     ]    
     */
 
+    //二进制法
     public List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> result = new ArrayList<>(1 << nums.length);
         Arrays.sort(nums);
@@ -53,11 +56,27 @@ public class Subsets {
         return result;
     }
 
+    public List<List<Integer>> subsetsII(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>(1 << nums.length);
+        dfs(result, new ArrayDeque<>(), 0, nums);
+        return result;
+    }
+
+    private void dfs(List<List<Integer>> result, Deque<Integer> deque, int start, int[] nums) {
+        result.add(new ArrayList<>(deque));
+        for (int i = start; i < nums.length; i++) {
+            deque.addLast(nums[i]);
+            dfs(result, deque, i + 1, nums);
+            deque.pollLast();
+        }
+    }
+
     @Test
     public void test() {
         Set<List<Integer>> expected = new HashSet<>(
                 Arrays.asList(Arrays.asList(1), Arrays.asList(2), Arrays.asList(3), Arrays.asList(1, 2),
                         Arrays.asList(1, 3), Arrays.asList(2, 3), Arrays.asList(1, 2, 3), Arrays.asList()));
         Assert.assertEquals(expected, new HashSet<>(subsets(new int[] { 1, 2, 3 })));
+        Assert.assertEquals(expected, new HashSet<>(subsetsII(new int[] { 1, 2, 3 })));
     }
 }
