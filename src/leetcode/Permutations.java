@@ -29,13 +29,13 @@ public class Permutations {
     */
 
     public List<List<Integer>> permute(int[] nums) {
-        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        List<List<Integer>> result = new ArrayList<>();
         dfs(result, Arrays.stream(nums).boxed().collect(Collectors.toList()), 0);
         return result;
     }
 
     void dfs(List<List<Integer>> result, List<Integer> list, int idx) {
-        if (idx == list.size()) result.add(new ArrayList<>(list));
+        if (idx == list.size() - 1) result.add(new ArrayList<>(list));
         else for (int i = idx; i < list.size(); i++) {
             if (idx != i) Collections.swap(list, idx, i);
             dfs(result, list, idx + 1);

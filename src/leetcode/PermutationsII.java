@@ -5,14 +5,16 @@
  */
 package leetcode;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月10日<p>
@@ -27,41 +29,33 @@ public class PermutationsII {
     [1,1,2], [1,2,1], and [2,1,1]. 
     */
 
-    public List<List<Integer>> permuteUnique(int[] num) {
-        return Lists.newArrayList(permute(num));
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        dfs(result, Arrays.stream(nums).boxed().collect(Collectors.toList()), 0);
+        return result;
     }
 
-    public List<LinkedList<Integer>> permute(int[] num) {
-        List<LinkedList<Integer>> result = Lists.newArrayListWithCapacity(getPermuteNum(num.length));
-        if (num.length == 0) result.add(Lists.newLinkedList());
-        for (int i = 0; i < num.length; i++) {
-            if (i != 0 && num[i] == num[0]) continue;
-            swap(num, 0, i);
-            List<LinkedList<Integer>> lists = permute(Arrays.copyOfRange(num, 1, num.length));
-            for (LinkedList<Integer> list : lists)
-                list.addFirst(num[0]);
-            result.addAll(lists);
+    private void dfs(List<List<Integer>> result, List<Integer> list, int idx) {
+        if (idx == list.size() - 1) result.add(new ArrayList<>(list));
+        else {
+            Set<Integer> set = new HashSet<>();
+            for (int i = idx; i < list.size(); i++) {
+                if (!set.add(list.get(i))) continue;
+                if (idx != i) Collections.swap(list, idx, i);
+                dfs(result, list, idx + 1);
+                if (idx != i) Collections.swap(list, i, idx);
+            }
         }
-        return result;
     }
 
-    private void swap(int[] num, int i, int j) {
-        int temp = num[i];
-        num[i] = num[j];
-        num[j] = temp;
-    }
-
-    private int getPermuteNum(int n) {
-        int result = n;
-        for (; --n > 1; result *= n);
-        return result;
-    }
-
-    @SuppressWarnings("unchecked")
     @Test
     public void test() {
-        Assert.assertEquals(Lists.newArrayList(Lists.newArrayList(1, 1, 2), Lists.newArrayList(1, 2, 1),
-                Lists.newArrayList(2, 1, 1)), permuteUnique(new int[] { 1, 1, 2 }));
+        List<List<Integer>> expected = Arrays.asList(Arrays.asList(1, 1, 2), Arrays.asList(1, 2, 1),
+                Arrays.asList(2, 1, 1));
+        Assert.assertEquals(new HashSet<>(expected), new HashSet<>(permuteUnique(new int[] { 1, 1, 2 })));
+        expected = Arrays.asList(Arrays.asList(2, 1, 2, 1), Arrays.asList(2, 1, 1, 2), Arrays.asList(2, 2, 1, 1),
+                Arrays.asList(1, 2, 2, 1), Arrays.asList(1, 2, 1, 2), Arrays.asList(1, 1, 2, 2));
+        Assert.assertEquals(new HashSet<>(expected), new HashSet<>(permuteUnique(new int[] { 2, 1, 2, 1 })));
     }
 
 }
