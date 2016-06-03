@@ -29,18 +29,19 @@ public class WordBreak {
 
     /*
             设状态为f(i),表示 s[0,i]是否可以分词,则状态转移方程为
-    f(i) = any_of(f(j)&&s[j + 1, i] ∈ dict), 0 ≤ j < i
+    f(i) = any_of( f(j) && s[j + 1, i] ∈ dict ), 0 ≤ j < i
     */
 
     @Test
     public void test() {
-        Assert.assertTrue(wordBreak("leetcode", Sets.newHashSet("leet", "code")));
+        Set<String> dict = Sets.newHashSet("leet", "code");
+        Assert.assertTrue(wordBreak("leetcode", dict));
     }
 
     public boolean wordBreak(String s, Set<String> dict) {
         boolean[] f = new boolean[s.length() + 1];
         f[0] = true; // 空字符串
-        for (int i = 1, size = s.length(); i <= size; ++i)
+        for (int i = 1; i <= s.length(); ++i)
             for (int j = i - 1; !f[i] && j >= 0; --j)
                 if (f[j] && dict.contains(s.substring(j, i))) f[i] = true;
         return f[s.length()];
