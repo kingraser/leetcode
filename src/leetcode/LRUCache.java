@@ -5,6 +5,7 @@
  */
 package leetcode;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 //--------------------- Change Logs----------------------
@@ -19,7 +20,7 @@ public class LRUCache {
 
     public LRUCache(int capacity) {
         this.capacity = capacity;
-        map = new java.util.LinkedHashMap<Integer, Integer>(capacity, 1, true);
+        map = new LinkedHashMap<>(capacity, 1, true);
     }
 
     public int get(int key) {
@@ -28,7 +29,7 @@ public class LRUCache {
     }
 
     public void set(int key, int value) {
-        if (!map.containsKey(key) && (map.size() == capacity)) map.remove(map.keySet().iterator().next());
+        if (!map.containsKey(key) && map.size() == capacity) map.remove(map.keySet().iterator().next());
         map.put(key, value);
     }
 }
