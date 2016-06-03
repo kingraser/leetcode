@@ -5,8 +5,10 @@
  */
 package leetcode;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -44,11 +46,11 @@ public class Combinations {
     2.取出值为1的位的相应位数
             
             解法2
-            根据公式C(n,k)=C(n-1,k-1)+C(n-1,k)
+            深搜遍历所有组合，返回长度为k的
     */
 
     public List<List<Integer>> combine(int n, int k) {
-        List<List<Integer>> result = new ArrayList<>(getCombinationCount(n, k));
+        List<List<Integer>> result = new ArrayList<>();
         for (int i = 0, size = (1 << n); i < size; i++) {
             if (Integer.bitCount(i) != k) continue;
             List<Integer> list = new ArrayList<>(k);
@@ -59,36 +61,19 @@ public class Combinations {
         return result;
     }
 
-    private int getCombinationCount(int n, int k) {
-        if ((k << 1) > n) k = n - k;
-        Double result = (double) n;
-        for (; k > 1; result /= k--, result *= --n);
-        return result.intValue();
-    }
-
     public List<List<Integer>> combineII(int n, int k) {
-        List<List<Integer>> result = new ArrayList<>(getCombinationCount(n, k));
-        if (k == 1) for (int i = 0; i < n; result.add(new ArrayList<>(Arrays.asList(++i))));
-        else if (k == n) {
-            List<Integer> inner = new ArrayList<>(n);
-            for (int i = 0; i < n; inner.add(++i));
-            result.add(inner);
-        } else {
-            combineII(n - 1, k - 1).forEach(l -> {
-                l.add(n);
-                result.add(l);
-            });
-            result.addAll(combineII(n - 1, k));
-        }
+        List<List<Integer>> result = new ArrayList<>();
+        if (k >= 0 && k <= n) dfs(result, new ArrayDeque<>(), n, k, 1);
         return result;
     }
 
-    @Test
-    public void testGetCombinationCount() {
-        Assert.assertEquals(10, getCombinationCount(5, 2));
-        Assert.assertEquals(10, getCombinationCount(5, 3));
-        Assert.assertEquals(6, getCombinationCount(4, 2));
-        Assert.assertEquals(35, getCombinationCount(7, 3));
+    private void dfs(List<List<Integer>> result, Deque<Integer> deque, int n, int k, int start) {
+        if (deque.size() == k) result.add(new ArrayList<>(deque));
+        else for (int i = start; n - i + 1 >= k - deque.size(); i++) {
+            deque.addLast(i);
+            dfs(result, deque, n, k, i + 1);
+            deque.pollLast();
+        }
     }
 
     @Test

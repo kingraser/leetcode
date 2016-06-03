@@ -11,7 +11,6 @@ import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -45,12 +44,12 @@ public class CombinationSumII {
 
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         Arrays.sort(candidates);
-        Set<List<Integer>> result = new HashSet<>();
+        List<List<Integer>> result = new ArrayList<>();
         dfs(candidates, target, 0, new ArrayDeque<>(target / candidates[0]), result);
         return new ArrayList<>(result);
     }
 
-    private void dfs(int[] n, int gap, int start, Deque<Integer> deque, Set<List<Integer>> result) {
+    private void dfs(int[] n, int gap, int start, Deque<Integer> deque, List<List<Integer>> result) {
         if (gap == 0) result.add(new ArrayList<>(deque));
         else for (int i = start; i < n.length && gap >= n[i];) {
             deque.addLast(n[i]);

@@ -42,22 +42,19 @@ public class CombinationSumIII {
                 .collect(Collectors.toSet()), new HashSet<>(combinationSum3(3, 9)));
     }
 
+    private static final int end = 9;
+
     public List<List<Integer>> combinationSum3(int k, int n) {
         List<List<Integer>> res = new ArrayList<>();
-        combine(res, new ArrayDeque<>(9), n, k, 1, 9);
+        dfs(res, new ArrayDeque<>(9), n, k, 1);
         return res;
     }
 
-    private void combine(List<List<Integer>> r, Deque<Integer> deque, int sum, int k, int start, int end) {
-        if (!isPossible(sum, k, start, end)) return;
-        if (k == 1) {
-            deque.addLast(sum);
-            r.add(new ArrayList<>(deque));
-            deque.pollLast();
-        } else for (int size = r.size(); isPossible(sum, k, start, end); size = r.size()) {
+    private void dfs(List<List<Integer>> r, Deque<Integer> deque, int sum, int k, int start) {
+        if (k == 0 && sum == 0) r.add(new ArrayList<>(deque));
+        else while (isPossible(sum, k, start)) {
             deque.addLast(start);
-            combine(r, deque, sum - start, k - 1, ++start, end);
-            if (r.size() > size) end = r.get(size).get(r.get(size).size() - 1);//new end
+            dfs(r, deque, sum - start, k - 1, ++start);
             deque.pollLast();
         }
     }
@@ -65,8 +62,8 @@ public class CombinationSumIII {
     //case1 剩下的元素至少k个
     //case2 理论上的最小和小于等于sum
     //case3 理论上的最大和大于等于sum
-    private boolean isPossible(int sum, int k, int start, int end) {
-        return start + k - 2 < end && (k - 1 + (start << 1)) * k <= (sum <<= 1) && ((end << 1) + 1 - k) * k >= sum;
+    private boolean isPossible(int sum, int k, int start) {
+        return start + k - 1 <= end && (k - 1 + (start << 1)) * k <= (sum <<= 1) && ((end << 1) + 1 - k) * k >= sum;
     }
 
 }
