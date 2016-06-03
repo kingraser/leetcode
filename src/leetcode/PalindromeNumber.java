@@ -14,8 +14,8 @@ import org.junit.Test;
 public class PalindromeNumber {
 
     /*
-    解法一：转字符串，翻转匹配
-    解法二：按位匹配
+            解法一：转字符串，翻转匹配
+            解法二：按位匹配
     */
 
     public boolean isPalindrome(int x) {
@@ -25,8 +25,7 @@ public class PalindromeNumber {
     public boolean isPalindromeII(int x) {
         if (x < 0) return false;
         if (x < 10) return true;
-        int n = (int) Math.log10(x);
-        for (int i = n, a = (int) Math.pow(10, i), b = (int) Math.pow(10, n - i); i > n / 2; i--, a /= 10, b *= 10)
+        for (int a = (int) Math.pow(10, (int) Math.log10(x)), b = 1; a > b; a /= 10, b *= 10)
             if (x / a % 10 != x / b % 10) return false;
         return true;
     }
