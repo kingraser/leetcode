@@ -16,20 +16,21 @@ import org.junit.Test;
 public class ThreeSumClosest {
 
     /*
-    16 3Sum Closest
-    给一int数组及target,求三下标使和最接近target.有且只有一组解
+    3Sum Closest
+            给一int数组及target,求三下标使和最接近target.有且只有一组解
     map法不适用了,转为2sum+水位法
-     */
+    */
 
-    @SuppressWarnings("unused")
     public int threeSumClosest(int[] nums, int target) {
-        int result = 0, min = Integer.MAX_VALUE;
+        Integer result = null;
         Arrays.sort(nums);
         for (int i = 0; i < nums.length - 2; i++)
-            for (int j = i + 1, k = nums.length - 1, s = nums[i] + nums[j] + nums[k], d = Math
-                    .abs(s - target), x; j < k; result = d < min ? s : result, min = Math.min(min, d), x = s < target
-                            ? j++ : k--, s = nums[i] + nums[j] + nums[k], d = Math.abs(s - target))
-                if (d == 0) return target;
+            for (int l = i + 1, r = nums.length - 1, sum; l < r;) {
+                if ((sum = nums[i] + nums[l] + nums[r]) == target) return target;
+                if (result == null || Math.abs(result - target) > Math.abs(sum - target)) result = sum;
+                if (sum < target) l++;
+                else r--;
+            }
         return result;
     }
 
