@@ -24,8 +24,8 @@ public class RotateList {
     */
 
     /*
-    先遍历一遍,得出链表长度len,注意 k可能大于len,因此令k%=len。
-    将尾节点next指针指向首节点,形成一个环,接着往后跑len−k步,从这里断开,就是要求的结果了。
+            先遍历一遍,得出链表长度len,注意 k可能大于len,因此令k%=len。
+            将尾节点next指针指向首节点,形成一个环,接着往后跑len−k步,从这里断开,就是要求的结果了。
     */
 
     public ListNode rotateRight(ListNode head, int k) {
@@ -34,7 +34,7 @@ public class RotateList {
         ListNode p = head;
         for (; p.next != null; len++, p = p.next);// 求长度
         p.next = head; // 首尾相连
-        for (int step = 0, length = (len - k % len) % len; step < length; p = p.next, step++); //接着往后跑
+        for (int step = 0, length = len - k % len; step < length; p = p.next, step++); //接着往后跑
         head = p.next; // 新的首节点
         p.next = null; // 断开环
         return head;
