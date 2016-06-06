@@ -6,10 +6,13 @@
 package leetcode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
+
+import org.junit.Assert;
+import org.junit.Test;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月18日<p>
@@ -42,35 +45,29 @@ public class TheSkylineProblem {
     the three lines of height 5 should be merged into one in the final output as such: [...[2 3], [4 5], [12 7], ...]
     */
 
+    @Test
+    public void test() {
+        List<int[]> expected = Arrays.asList(new int[] { 2, 10 }, new int[] { 3, 15 }, new int[] { 7, 12 },
+                new int[] { 12, 0 }, new int[] { 15, 10 }, new int[] { 20, 8 }, new int[] { 24, 0 });
+        int[][] input = new int[][] { { 2, 9, 10 }, { 3, 7, 15 }, { 5, 12, 12 }, { 15, 20, 10 }, { 19, 24, 8 } };
+        Assert.assertArrayEquals(expected.stream().toArray(), getSkyline(input).stream().toArray());
+    }
+
     public List<int[]> getSkyline(int[][] buildings) {
         List<int[]> res = new ArrayList<>();
-        List<Node> nodes = new ArrayList<>();
+        PriorityQueue<Node> nodes = new PriorityQueue<>((n1, n2) -> n1.x != n2.x ? n1.x - n2.x
+                : n1.isLeft + n2.isLeft == 0 ? n2.y - n1.y
+                        : n1.isLeft + n2.isLeft == 2 ? n1.y - n2.y : n1.isLeft == 0 ? -1 : 1);
         for (int[] building : buildings) {
             nodes.add(new Node(building[0], building[2], 0));
             nodes.add(new Node(building[1], building[2], 1));
         }
-        Collections.sort(nodes, new Comparator<Node>() {
-
-            @Override
-            public int compare(Node n1, Node n2) {
-                if (n1.x != n2.x) return n1.x - n2.x;
-                if (n1.isLeft + n2.isLeft == 0) return n2.y - n1.y;
-                if (n1.isLeft + n2.isLeft == 2) return n1.y - n2.y;
-                return n1.isLeft == 0 ? -1 : 1;
-            }
-        });
-        PriorityQueue<Integer> heap = new PriorityQueue<>(new Comparator<Integer>() {
-
-            @Override
-            public int compare(Integer i1, Integer i2) {
-                return -i1.compareTo(i2);
-            }
-        });
+        PriorityQueue<Integer> heap = new PriorityQueue<>(Collections.reverseOrder());
         heap.add(0);
-        for (Node node : nodes) {
-            int pre = heap.peek();
-            if (node.isLeft == 0) heap.add(node.y);
-            else heap.remove(node.y);
+        for (Node node; !nodes.isEmpty();) {
+            Integer pre = heap.peek();
+            if ((node = nodes.poll()).isLeft == 0) heap.add(node.y);//left node
+            else heap.remove(node.y);//right node
             if (pre != heap.peek()) res.add(new int[] { node.x, heap.peek() });
         }
         return res;
@@ -80,10 +77,10 @@ public class TheSkylineProblem {
 
         int x, y, isLeft;
 
-        public Node(int X, int Y, int left) {
-            x = X;
-            y = Y;
-            isLeft = left;
+        public Node(int x, int y, int isLeft) {
+            this.x = x;
+            this.y = y;
+            this.isLeft = isLeft;//0 for left 1 for right
         }
     }
 }
