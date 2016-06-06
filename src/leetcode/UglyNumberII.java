@@ -5,8 +5,6 @@
  */
 package leetcode;
 
-import java.util.ArrayList;
-
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -16,26 +14,13 @@ import org.junit.Test;
 public class UglyNumberII {
 
     /*
-    找到第n个ugly number
-     */
+            找到第n个ugly number
+    */
 
-    private static ArrayList<Integer> list = new ArrayList<>(10000);
-
-    static int index2 = 0, index3 = 0, index5 = 0, factor2 = 2, factor3 = 3, factor5 = 5, min = 2;
-
-    static {
-        list.add(1);
-    }
+    private static final int[] primes = new int[] { 2, 3, 5 };
 
     public int nthUglyNumber(int n) {
-        if (list.size() >= n) return list.get(n - 1);
-        for (int i = list.size(); i < n; min = Math.min(Math.min(factor2, factor3), factor5), i++) {
-            list.add(min);
-            if (factor2 == min) factor2 = 2 * list.get(++index2);
-            if (factor3 == min) factor3 = 3 * list.get(++index3);
-            if (factor5 == min) factor5 = 5 * list.get(++index5);
-        }
-        return list.get(list.size() - 1);
+        return SuperUglyNumber.nthSuperUglyNumber(n, primes);
     }
 
     @Test
