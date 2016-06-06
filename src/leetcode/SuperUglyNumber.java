@@ -32,7 +32,7 @@ public class SuperUglyNumber {
         Assert.assertEquals(32, nthSuperUglyNumber(12, new int[] { 2, 7, 13, 19 }));
     }
 
-    public int nthSuperUglyNumber(int n, int[] primes) {
+    public static int nthSuperUglyNumber(int n, int[] primes) {
         int[] result = new int[n], indexes = new int[primes.length];
         result[0] = 1;
         Arrays.fill(result, 1, result.length, Integer.MAX_VALUE);
