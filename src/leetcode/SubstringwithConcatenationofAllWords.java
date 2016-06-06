@@ -5,14 +5,14 @@
  */
 package leetcode;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月12日<p>
@@ -30,30 +30,25 @@ public class SubstringwithConcatenationofAllWords {
     */
 
     public List<Integer> findSubstring(String s, String[] words) {
-        List<Integer> result = Lists.newArrayList();
+        List<Integer> result = new ArrayList<>();
         if (words == null || words.length == 0 || words[0].length() * words.length > s.length()) return result;
-        Map<String, Integer> dictionary = Maps.newHashMapWithExpectedSize(words.length),
-                current = Maps.newHashMapWithExpectedSize(words.length);
-        int size = words[0].length(), len = size * words.length;
-        for (int i = 0; i < words.length; i++)
-            dictionary.put(words[i], dictionary.containsKey(words[i]) ? dictionary.get(words[i]) + 1 : 1);
-        A: for (int i = 0, end = s.length() - len + 1; i < end; i++) {
-            current.clear();
-            for (int j = 0; j < words.length; j++) {
+        Map<String, Integer> dictionary = new HashMap<>();
+        Arrays.stream(words).forEach(str -> dictionary.compute(str, (k, v) -> v == null ? 1 : v + 1));
+        A: for (int i = 0, size = words[0].length(), end = s.length() - size * words.length; i <= end; i++) {
+            Map<String, Integer> current = new HashMap<>(dictionary);
+            for (Integer j = 0, v; j < words.length; j++) {
                 String word = s.substring(i + j * size, i + (j + 1) * size);
-                if (!dictionary.containsKey(word)
-                        || (current.containsKey(word) && current.get(word) + 1 > dictionary.get(word)))
-                    continue A;
-                current.put(word, current.containsKey(word) ? current.get(word) + 1 : 1);
+                if ((v = current.get(word)) == null) continue A;
+                else if (v == 1) current.remove(word);
+                else current.put(word, v - 1);
             }
-            if (dictionary.equals(current)) result.add(i);
+            if (current.isEmpty()) result.add(i);
         }
         return result;
     }
 
     @Test
     public void test() {
-        Assert.assertEquals(Lists.newArrayList(0, 9),
-                findSubstring("barfoothefoobarman", new String[] { "foo", "bar" }));
+        Assert.assertEquals(Arrays.asList(0, 9), findSubstring("barfoothefoobarman", new String[] { "foo", "bar" }));
     }
 }
