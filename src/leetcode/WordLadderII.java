@@ -45,13 +45,13 @@ public class WordLadderII {
 
     @Test
     public void test() {
-        Assert.assertEquals(Arrays.asList(Arrays.asList("a", "c")),
-                findLadders("a", "c", Sets.newHashSet("a", "b", "c")));
-        Assert.assertEquals(
-                Sets.newHashSet(Arrays.asList(Arrays.asList("red", "ted", "tad", "tax"),
-                        Arrays.asList("red", "ted", "tex", "tax"), Arrays.asList("red", "rex", "tex", "tax"))),
-                Sets.newHashSet(findLadders("red", "tax",
-                        Sets.newHashSet("ted", "tex", "red", "tax", "tad", "den", "rex", "pee"))));
+        List<List<String>> expected = Arrays.asList(Arrays.asList("a", "c"));
+        Set<String> dict = Sets.newHashSet("a", "b", "c");
+        Assert.assertEquals(expected, findLadders("a", "c", dict));
+        expected = Arrays.asList(Arrays.asList("red", "ted", "tad", "tax"), Arrays.asList("red", "ted", "tex", "tax"),
+                Arrays.asList("red", "rex", "tex", "tax"));
+        dict = Sets.newHashSet("ted", "tex", "red", "tax", "tad", "den", "rex", "pee");
+        Assert.assertEquals(new HashSet<>(expected), new HashSet<>(findLadders("red", "tax", dict)));
     }
 
     public List<List<String>> findLadders(String begin, String end, Set<String> list) {
@@ -70,6 +70,7 @@ public class WordLadderII {
             char[] head = str.toCharArray();
             for (char i = 0, origin; i < str.length(); head[i++] = origin)
                 for (origin = head[i], head[i] = 'a'; head[i] <= 'z'; head[i]++) {
+                    if (head[i] == origin) continue;
                     String word = new String(head);
                     if (e.contains(word)) log(word, str, r, map);//record the node level information
                     else if (l.contains(word)) log(word, str, next, map);
@@ -85,7 +86,6 @@ public class WordLadderII {
 
     private List<List<String>> dfs(Set<String> set, Map<String, List<String>> paths, String endWord) {
         List<List<String>> result = new ArrayList<>();
-        if (set.isEmpty()) return result;
         for (String s : set) {
             List<List<String>> lists = dfs(s, paths), head = new ArrayList<>(), end = new ArrayList<>();
             for (List<String> list : lists)
