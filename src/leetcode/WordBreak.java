@@ -22,14 +22,14 @@ public class WordBreak {
     
     For example, given
     s = "leetcode",
-    dict = ["leet", "code"].
+    dictionary = ["leet", "code"].
     
     Return true because "leetcode" can be segmented as "leet code". 
     */
 
     /*
-            设状态为f(i),表示 s[0,i]是否可以分词,则状态转移方程为
-    f(i) = any_of( f(j) && s[j + 1, i] ∈ dict ), 0 ≤ j < i
+            设状态为cuts(i),表示 s[0,i)是否可以分词,则状态转移方程为
+    cuts(i) = any_of(cuts(j) && dictionary.contains(s[j, i))), 0 ≤ j < i
     */
 
     @Test
@@ -39,11 +39,11 @@ public class WordBreak {
     }
 
     public boolean wordBreak(String s, Set<String> dict) {
-        boolean[] f = new boolean[s.length() + 1];
-        f[0] = true; // 空字符串
-        for (int i = 1; i <= s.length(); ++i)
-            for (int j = i - 1; !f[i] && j >= 0; --j)
-                if (f[j] && dict.contains(s.substring(j, i))) f[i] = true;
-        return f[s.length()];
+        boolean[] cuts = new boolean[s.length() + 1];//长度为n的字符串有n+1个隔板
+        cuts[0] = true;//空字符串
+        for (int i = 1; i <= s.length(); i++)
+            for (int j = i - 1; !cuts[i] && j >= 0; j--)
+                if (cuts[j] && dict.contains(s.substring(j, i))) cuts[i] = true;
+        return cuts[s.length()];
     }
 }
