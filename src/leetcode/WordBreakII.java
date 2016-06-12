@@ -7,7 +7,7 @@ package leetcode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -35,37 +35,40 @@ public class WordBreakII {
 
     @Test
     public void test() {
-        Assert.assertEquals(Arrays.asList("cat sand dog", "cats and dog"),
-                wordBreak("catsanddog", Sets.newHashSet("cat", "cats", "and", "sand", "dog")));
+        Set<String> dict = Sets.newHashSet("cat", "cats", "and", "sand", "dog");
+        List<String> expected = Arrays.asList("cat sand dog", "cats and dog");
+        Assert.assertEquals(Sets.newHashSet(expected), new HashSet<>(wordBreak("catsanddog", dict)));
     }
 
     public List<String> wordBreak(String s, Set<String> dic) {
-        boolean[] f = new boolean[s.length() + 1];//长度为n的字符串有n+1个隔板
-        boolean[][] prev = new boolean[s.length() + 1][s.length()];//prev[i][j]为true,表示s[j, i)是一个合法单词,可以从j处切开 第一行未用
-        f[0] = true;
-        for (int i = 1; i <= s.length(); ++i)
-            for (int j = i - 1; j >= 0; --j)
-                if (f[j] && dic.contains(s.substring(j, i))) {
-                    f[i] = true;
-                    prev[i][j] = true;
+        boolean[] cuts = new boolean[s.length() + 1];//长度为n的字符串有n+1个隔板
+        boolean[][] words = new boolean[s.length()][s.length() + 1];//words[i][j]为true,表示s[i, j)是一个合法单词且可以从i处切开
+        cuts[0] = true;
+        for (int i = 1; i <= s.length(); i++)
+            for (int j = i - 1; j >= 0; j--)
+                if (cuts[j] && dic.contains(s.substring(j, i))) {
+                    cuts[i] = true;
+                    words[j][i] = true;
                 }
-        List<String> result = new LinkedList<>();
-        genPath(s, prev, s.length(), new ArrayList<>(s.length()), result);
+        List<String> result = new ArrayList<>();
+        genPath(s, words, s.length(), new ArrayList<>(), result);
         return result;
     }
 
-    private void genPath(String s, boolean[][] prev, int cur, List<String> path, List<String> result) {// DFS 遍历树,生成路径
-        if (cur == 0) {
+    // DFS 遍历树,生成路径
+    private void genPath(String s, boolean[][] words, int tail, List<String> path, List<String> result) {
+        if (tail == 0) {
             StringBuilder sb = new StringBuilder();
             for (int i = path.size() - 1; i >= 0; i--)
                 sb.append(path.get(i)).append(" ");
             result.add(sb.deleteCharAt(sb.length() - 1).toString());
+            return;
         }
-        for (int i = 0; i < s.length(); i++)
-            if (prev[cur][i]) {
-                path.add(s.substring(i, cur));
-                genPath(s, prev, i, path, result);
-                if (!path.isEmpty()) path.remove(path.size() - 1);
+        for (int i = tail - 1; i >= 0; i--)
+            if (words[i][tail]) {
+                path.add(s.substring(i, tail));
+                genPath(s, words, i, path, result);
+                path.remove(path.size() - 1);
             }
     }
 }
