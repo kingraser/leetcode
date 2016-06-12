@@ -42,23 +42,23 @@ public class AdditiveNumber {
     }
 
     public boolean isAdditiveNumber(String num) {
-        for (int i = 0, n = num.length(), len = (n >> 1); i++ <= len;) {
-            if (num.charAt(0) == '0' && i > 1) return false;
-            BigInteger x1 = new BigInteger(num.substring(0, i));
-            for (int j = 1; Math.max(j, i) <= n - i - j; ++j) {
-                if (num.charAt(i) == '0' && j > 1) break;
-                BigInteger x2 = new BigInteger(num.substring(i, i + j));
-                if (isValid(x1, x2, j + i, num)) return true;
-            }
-        }
+        if (num.charAt(0) == '0') return isValid(BigInteger.ZERO, 1, num);
+        for (int i = 1, half = (num.length() >> 1); i <= half; i++) 
+            if(isValid(new BigInteger(num.substring(0, i)), i, num)) return true;
         return false;
     }
 
-    private boolean isValid(BigInteger x1, BigInteger x2, int start, String num) {
+    private boolean isValid(BigInteger a, int start, String num) {
+        if (num.charAt(start) == '0') return isValid(a, BigInteger.ZERO, start + 1, num);
+        for (int i = 1; Math.max(start, i) <= num.length() - start - i; i++)
+            if (isValid(a, new BigInteger(num.substring(start, start + i)), start + i, num)) return true;
+        return false;
+    }
+
+    private boolean isValid(BigInteger a, BigInteger b, int start, String num) {
         if (start == num.length()) return true;
-        x2 = x2.add(x1);
-        x1 = x2.subtract(x1);
-        String sum = x2.toString();
-        return num.startsWith(sum, start) && isValid(x1, x2, start + sum.length(), num);
+        BigInteger aPlusb = a.add(b);
+        String sum = aPlusb.toString();
+        return num.startsWith(sum, start) && isValid(b, aPlusb, start + sum.length(), num);
     }
 }
