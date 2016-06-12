@@ -8,7 +8,6 @@ package leetcode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -48,18 +47,18 @@ public class BinaryTreeLevelOrderTraversal {
     }
 
     private void traverse(TreeNode root, int level, List<List<Integer>> result) {
-        if (Objects.isNull(root)) return;
+        if (root == null) return;
         if (level == result.size()) result.add(new ArrayList<>());
         result.get(level).add(root.val);
-        traverse(root.left, ++level, result);
-        traverse(root.right, level, result);
+        traverse(root.left, level + 1, result);
+        traverse(root.right, level + 1, result);
     }
 
     @Test
     public void test() {
         TreeNode root = TreeNode.generateTree("3,9,n,n,20,15,n,n,7,n,n");
-        Assert.assertEquals(Arrays.asList(Arrays.asList(3), Arrays.asList(9, 20), Arrays.asList(15, 7)),
-                levelOrder(root));
+        List<List<Integer>> expected = Arrays.asList(Arrays.asList(3), Arrays.asList(9, 20), Arrays.asList(15, 7));
+        Assert.assertEquals(expected, levelOrder(root));
     }
 
 }
