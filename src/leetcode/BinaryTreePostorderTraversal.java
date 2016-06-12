@@ -8,7 +8,6 @@ package leetcode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -47,7 +46,7 @@ public class BinaryTreePostorderTraversal {
     }
 
     private void postorderTraversal(TreeNode root, List<Integer> list) {
-        if (Objects.isNull(root)) return;
+        if (root == null) return;
         postorderTraversal(root.left, list);
         postorderTraversal(root.right, list);
         list.add(root.val);
