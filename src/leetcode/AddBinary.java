@@ -33,13 +33,14 @@ public class AddBinary {
     }
 
     public String addBinaryII(String a, String b) {
-        StringBuilder result = new StringBuilder();
-        for (int i = a.length() - 1, j = b.length() - 1, ia, ib, c = 0; i > -1 || j > -1 || c == 1;) {
-            ia = (i > -1) ? Character.getNumericValue(a.charAt(i--)) : 0;
-            ib = (j > -1) ? Character.getNumericValue(b.charAt(j--)) : 0;
-            result.append(ia ^ ib ^ c);
+        char[] result = new char[Math.max(a.length(), b.length()) + 1];
+        int idx = result.length - 1;
+        for (int i = a.length() - 1, j = b.length() - 1, ia, ib, c = 0; i >= 0 || j >= 0 || c > 0;) {
+            ia = i < 0 ? 0 : a.charAt(i--) == '0' ? 0 : 1;
+            ib = j < 0 ? 0 : b.charAt(j--) == '0' ? 0 : 1;
+            result[idx--] = (ia ^ ib ^ c) == 1 ? '1' : '0';
             c = ((ia + ib + c) > 1) ? 1 : 0;
         }
-        return result.reverse().toString();
+        return new String(result, ++idx, result.length - idx);
     }
 }
