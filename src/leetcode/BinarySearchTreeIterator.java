@@ -8,7 +8,6 @@ package leetcode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.Stack;
 
 import org.junit.Assert;
@@ -39,7 +38,7 @@ public class BinarySearchTreeIterator {
 
     public class BSTIterator {
 
-        private Stack<TreeNode> stack = new Stack<TreeNode>();
+        private Stack<TreeNode> stack = new Stack<>();
 
         public BSTIterator(TreeNode root) {
             pushLeft(root);
@@ -56,10 +55,8 @@ public class BinarySearchTreeIterator {
         }
 
         private void pushLeft(TreeNode node) {
-            while (Objects.nonNull(node)) {
+            for (; node != null; node = node.left)
                 stack.push(node);
-                node = node.left;
-            }
         }
     }
 }
