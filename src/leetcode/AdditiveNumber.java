@@ -43,8 +43,8 @@ public class AdditiveNumber {
 
     public boolean isAdditiveNumber(String num) {
         if (num.charAt(0) == '0') return isValid(BigInteger.ZERO, 1, num);
-        for (int i = 1, half = (num.length() >> 1); i <= half; i++) 
-            if(isValid(new BigInteger(num.substring(0, i)), i, num)) return true;
+        for (int i = 1, half = (num.length() >> 1); i <= half; i++)
+            if (isValid(new BigInteger(num.substring(0, i)), i, num)) return true;
         return false;
     }
 
