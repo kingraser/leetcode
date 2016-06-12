@@ -41,9 +41,10 @@ public class WordLadder {
 
     @Test
     public void test() {
-        Assert.assertEquals(3,
-                ladderLength("hot", "dog", Sets.newHashSet("hot", "cog", "dog", "tot", "hog", "hop", "pot", "dot")));
-        Assert.assertEquals(5, ladderLength("hit", "cog", Sets.newHashSet("hot", "dot", "dog", "lot", "log")));
+        Set<String> dict = Sets.newHashSet("hot", "cog", "dog", "tot", "hog", "hop", "pot", "dot");
+        Assert.assertEquals(3, ladderLength("hot", "dog", dict));
+        dict = Sets.newHashSet("hot", "dot", "dog", "lot", "log");
+        Assert.assertEquals(5, ladderLength("hit", "cog", dict));
     }
 
     public int ladderLength(String beginWord, String endWord, Set<String> wordList) {
