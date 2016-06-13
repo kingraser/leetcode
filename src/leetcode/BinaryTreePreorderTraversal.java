@@ -8,7 +8,6 @@ package leetcode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -36,14 +35,14 @@ public class BinaryTreePreorderTraversal {
 
     public List<Integer> preorderTraversal(TreeNode root) {
         List<Integer> list = new ArrayList<>();
-        if (Objects.nonNull(root)) preorderTraversal(root, list);
+        if (root != null) preorderTraversal(root, list);
         return list;
     }
 
     private void preorderTraversal(TreeNode root, List<Integer> list) {
         list.add(root.val);
-        if (Objects.nonNull(root.left)) preorderTraversal(root.left, list);
-        if (Objects.nonNull(root.right)) preorderTraversal(root.right, list);
+        if (root.left != null) preorderTraversal(root.left, list);
+        if (root.right != null) preorderTraversal(root.right, list);
     }
 
     @Test
