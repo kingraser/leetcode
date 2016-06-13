@@ -37,16 +37,16 @@ public class BestTimetoBuyandSellStockIII {
     public int maxProfit(List<Integer> prices) {
         if (prices.size() < 2) return 0;
         int[] f = new int[prices.size()], g = new int[prices.size()];
-        for (int i = 1, valley = prices.get(0), len = prices.size(); i < len; i++) {
+        for (int i = 1, valley = prices.get(0); i < prices.size(); i++) {
             valley = Math.min(valley, prices.get(i));
             f[i] = Math.max(f[i - 1], prices.get(i) - valley);
         }
-        for (int len = prices.size(), i = len - 2, peak = prices.get(i + 1); i > -1; i--) {
+        for (int i = prices.size() - 2, peak = prices.get(i + 1); i >= 0; i--) {
             peak = Math.max(peak, prices.get(i));
             g[i] = Math.max(g[i], peak - prices.get(i));
         }
         int maxProfit = 0;
-        for (int i = 0, len = prices.size(); i < len; i++)
+        for (int i = 0; i < prices.size(); i++)
             maxProfit = Math.max(maxProfit, f[i] + g[i]);
         return maxProfit;
     }
