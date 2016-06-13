@@ -5,12 +5,12 @@
  */
 package leetcode;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Deque;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -37,21 +37,34 @@ public class BinaryTreePaths {
     */
 
     public List<String> binaryTreePaths(TreeNode root) {
-        List<String> answer = new ArrayList<String>();
-        if (Objects.nonNull(root)) searchBT(root, "", answer);
-        return answer;
+        List<String> result = new ArrayList<>();
+        dfs(root, new ArrayDeque<>(), result);
+        return result;
     }
 
-    private void searchBT(TreeNode root, String path, List<String> answer) {
-        if (Objects.isNull(root.left) && Objects.isNull(root.right)) answer.add(path + root.val);
-        if (Objects.nonNull(root.left)) searchBT(root.left, path + root.val + "->", answer);
-        if (Objects.nonNull(root.right)) searchBT(root.right, path + root.val + "->", answer);
+    private void dfs(TreeNode root, Deque<TreeNode> deque, List<String> result) {
+        if (root == null) return;
+        if (root.left == null && root.right == null) {
+            save(deque, result, root);//leaf
+            return;
+        }
+        deque.offerLast(root);
+        dfs(root.left, deque, result);
+        dfs(root.right, deque, result);
+        deque.pollLast();
+    }
+
+    private void save(Deque<TreeNode> deque, List<String> result, TreeNode root) {
+        StringBuilder sb = new StringBuilder();
+        deque.forEach(s -> sb.append(s.val).append("->"));
+        result.add(sb.append(root.val).toString());
     }
 
     @Test
     public void test() {
-        Assert.assertEquals(Stream.of("1->2->5", "1->3").collect(Collectors.toSet()),
-                new HashSet<>(binaryTreePaths(TreeNode.generateTree("1,2,n,5,n,n,3,n,n"))));
+        List<String> expected = Arrays.asList("1->2->5", "1->3");
+        TreeNode root = TreeNode.generateTree("1,2,n,5,n,n,3,n,n");
+        Assert.assertEquals(new HashSet<>(expected), new HashSet<>(binaryTreePaths(root)));
     }
 
 }
