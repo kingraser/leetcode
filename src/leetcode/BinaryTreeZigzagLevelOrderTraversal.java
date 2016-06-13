@@ -5,7 +5,6 @@
  */
 package leetcode;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -41,19 +40,10 @@ public class BinaryTreeZigzagLevelOrderTraversal {
     */
 
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        List<List<Integer>> result = new ArrayList<>();
-        traverse(root, 0, result);
+        List<List<Integer>> result = BinaryTreeLevelOrderTraversal.levelOrder(root);
         for (int i = 1; i < result.size(); i += 2)//odd reverse
             Collections.reverse(result.get(i));
         return result;
-    }
-
-    private void traverse(TreeNode root, int level, List<List<Integer>> result) {
-        if (root == null) return;
-        if (level == result.size()) result.add(new ArrayList<>());
-        result.get(level).add(root.val);
-        traverse(root.left, ++level, result);
-        traverse(root.right, level, result);
     }
 
     @Test
