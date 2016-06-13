@@ -32,7 +32,7 @@ public class BestTimetoBuyandSellStock {
 
     public int maxProfit(List<Integer> prices) {
         int profit = 0;//差价,也就是利润
-        for (int i = 1, len = prices.size(), curMin = prices.get(0); i < len; i++) {
+        for (int i = 1, curMin = prices.get(0); i < prices.size(); i++) {
             profit = Math.max(profit, prices.get(i) - curMin);
             curMin = Math.min(curMin, prices.get(i));
         }
