@@ -5,6 +5,9 @@
  */
 package leetcode;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月16日<p>
 //-------------------------------------------------------
@@ -19,14 +22,17 @@ public class FindMinimuminRotatedSortedArrayII {
     Find the minimum element.    
     The array may contain duplicates.
     */
+
+    @Test
+    public void test() {
+        Assert.assertEquals(0, findMin(new int[] { 4, 5, 6, 7, 0, 0, 1, 1, 1, 2 }));
+    }
+
     public int findMin(int[] A) {
-        int beg = 0, end = A.length - 1, mid = (beg + end) / 2;
-        for (; beg < end && A[end] <= A[beg]; mid = (beg + end) / 2) {
-            if (A[end] == A[beg]) {
-                beg++;
-                continue;
-            }
-            if (A[mid] < A[beg]) end = mid;
+        int beg = 0, end = A.length - 1, mid;
+        while (beg < end && A[end] <= A[beg]) {
+            if (A[end] == A[beg]) beg++;
+            else if (A[mid = (beg + end) >> 1] < A[beg]) end = mid;
             else beg = mid + 1;
         }
         return A[beg];
