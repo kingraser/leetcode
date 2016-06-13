@@ -5,7 +5,8 @@
  */
 package leetcode;
 
-import java.util.Objects;
+import org.junit.Assert;
+import org.junit.Test;
 
 import leetcode.common.TreeNode;
 
@@ -22,11 +23,19 @@ public class CountCompleteTreeNodes {
     */
 
     public int countNodes(TreeNode root) {
-        if (Objects.isNull(root)) return 0;
-        int hl = 0, hr = 0;
-        for (TreeNode l = root.left; l != null; hl++, l = l.left);
-        for (TreeNode r = root.right; r != null; hr++, r = r.right);
+        if (root == null) return 0;
+        int hl = getDepth(root.left, true), hr = getDepth(root.right, false);
         if (hl == hr) return (2 << hl) - 1;
         return 1 + countNodes(root.left) + countNodes(root.right);
+    }
+
+    private int getDepth(TreeNode node, boolean isLeft) {
+        if (node == null) return 0;
+        return 1 + getDepth(isLeft ? node.left : node.right, isLeft);
+    }
+
+    @Test
+    public void test() {
+        Assert.assertEquals(5, countNodes(TreeNode.generateTree("3,9,n,n,20,15,n,n,7,n,n")));
     }
 }
