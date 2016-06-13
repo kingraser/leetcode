@@ -40,13 +40,13 @@ public class BinaryTreeLevelOrderTraversal {
     ]   
     */
 
-    public List<List<Integer>> levelOrder(TreeNode root) {
+    public static List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> result = new ArrayList<>();
         traverse(root, 0, result);
         return result;
     }
 
-    private void traverse(TreeNode root, int level, List<List<Integer>> result) {
+    private static void traverse(TreeNode root, int level, List<List<Integer>> result) {
         if (root == null) return;
         if (level == result.size()) result.add(new ArrayList<>());
         result.get(level).add(root.val);

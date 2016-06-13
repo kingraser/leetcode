@@ -5,7 +5,6 @@
  */
 package leetcode;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -43,18 +42,9 @@ public class BinaryTreeLevelOrderTraversalII {
     */
 
     public List<List<Integer>> levelOrder(TreeNode root) {
-        List<List<Integer>> result = new ArrayList<>();
-        traverse(root, 0, result);
+        List<List<Integer>> result = BinaryTreeLevelOrderTraversal.levelOrder(root);
         Collections.reverse(result);
         return result;
-    }
-
-    private void traverse(TreeNode root, int level, List<List<Integer>> result) {
-        if (root == null) return;
-        if (level == result.size()) result.add(new ArrayList<>());
-        result.get(level).add(root.val);
-        traverse(root.left, level + 1, result);
-        traverse(root.right, level + 1, result);
     }
 
     @Test
