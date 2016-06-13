@@ -34,8 +34,8 @@ public class BestTimetoBuyandSellStockII {
 
     public static int maxProfit(List<Integer> prices) {
         int sum = 0;
-        for (int i = 0, len = prices.size() - 1; i < len; i++)
-            if (prices.get(i++) < prices.get(i)) sum += prices.get(i--) - prices.get(i);
+        for (int i = 1; i < prices.size(); i++)
+            sum += Math.max(0, prices.get(i) - prices.get(i - 1));
         return sum;
     }
 
