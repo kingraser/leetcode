@@ -5,9 +5,6 @@
  */
 package leetcode;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -25,11 +22,9 @@ public class BestTimetoBuyandSellStockIV {
     */
 
     /*
-            最大m子段和 m=k
-    DP: t(i,j) is the max profit for up to i transactions by time j (0<=i<=K, 0<=j<=T).
-    tmpMax means the maximum profit of just doing at most i-1 transactions, 
-    using at most first j-1 prices, and buying the stock at price[j] 
-    which is used for the next loop.
+            最大m子段和 
+    DP: t(i,j) is the max profit for up to i transactions by time j (0<=i<=K, 0<=j<=T)
+    t(i, j) = max(t(i, j-1), max(t(i-1, k) + prices[j])) i <= k < j    
     */
 
     @Test
@@ -44,16 +39,12 @@ public class BestTimetoBuyandSellStockIV {
     }
 
     public int maxProfit(int k, int[] prices) {
-        if (k >= (prices.length >> 1)) //optimization if(k>=length/2) then turn to Best Time to Buy and Sell Stock II
-            return BestTimetoBuyandSellStockII.maxProfit(Arrays.stream(prices).boxed().collect(Collectors.toList()));
         int[][] t = new int[k + 1][prices.length];
-        for (int i = 1; i <= k; i++) {
-            int tmpMax = -prices[0];
-            for (int j = 1, len = prices.length; j < len; j++) {
-                t[i][j] = Math.max(t[i][j - 1], prices[j] + tmpMax);
-                tmpMax = Math.max(tmpMax, t[i - 1][j - 1] - prices[j]);
+        for (int i = 1; i <= k; i++)
+            for (int j = 1, max = -prices[0]; j < prices.length; j++) {
+                t[i][j] = Math.max(t[i][j - 1], max + prices[j]);
+                max = Math.max(max, t[i - 1][j - 1] - prices[j]);
             }
-        }
         return t[k][prices.length - 1];
     }
 
