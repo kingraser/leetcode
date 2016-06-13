@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Queue;
 
 import org.junit.Assert;
@@ -52,13 +51,12 @@ public class CourseScheduleII {
         Map<Integer, List<Integer>> courses = new HashMap<>(numCourses);
         for (int[] pair : prerequisites) {
             indegree[pair[0]]++;
-            courses.putIfAbsent(pair[1], new ArrayList<>());
-            courses.get(pair[1]).add(pair[0]);
+            courses.computeIfAbsent(pair[1], k -> new ArrayList<>()).add(pair[0]);
         }
         Queue<Integer> zeroDegrees = new LinkedList<>();
         for (int i = 0; i < indegree.length; i++)
             if (indegree[i] == 0) zeroDegrees.add(i);
-        for (Integer node, i = 0; Objects.nonNull(node = zeroDegrees.poll()); result[i++] = node, numCourses--)
+        for (Integer node, i = 0; (node = zeroDegrees.poll()) != null; result[i++] = node, numCourses--)
             if (courses.containsKey(node)) for (int next : courses.get(node))
                 if (--indegree[next] == 0) zeroDegrees.add(next);
         return numCourses == 0 ? result : new int[] {};
