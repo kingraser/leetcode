@@ -5,7 +5,6 @@
  */
 package leetcode;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -39,8 +38,8 @@ public class DecodeWays {
     }
 
     public int numDecodings(String s) {
-        if (StringUtils.isBlank(s) || s.charAt(0) == '0') return 0;
-        int prev = 0, cur = 1;
+        if (s == null || s.length() == 0 || s.charAt(0) == '0') return 0;
+        int prev = 0, cur = 1;//prev for ways of i-2, cur for ways of i-1
         for (int i = 1; i <= s.length(); ++i) {
             if (s.charAt(i - 1) == '0') cur = 0;
             if (i < 2 || !(s.charAt(i - 2) == '1' || (s.charAt(i - 2) == '2' && s.charAt(i - 1) <= '6'))) prev = 0;
