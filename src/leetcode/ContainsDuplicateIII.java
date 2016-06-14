@@ -33,8 +33,8 @@ public class ContainsDuplicateIII {
     //I am the very one who published the unprecedented O(n) algorithm with bucketing 
     public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
         if (k < 1 || t < 0) return false;
-        Map<Long, Long> map = new HashMap<>(k << 1);
-        Deque<Long> deque = new ArrayDeque<>(k << 1);
+        Map<Long, Long> map = new HashMap<>();
+        Deque<Long> deque = new ArrayDeque<>();
         for (int i = 0, newt = t == 0 ? 1 : t; i < nums.length; i++) {
             long hash = ((long) nums[i] - Integer.MIN_VALUE) / newt;
             if (map.containsKey(hash)) return true;
