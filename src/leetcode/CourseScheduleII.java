@@ -5,12 +5,13 @@
  */
 package leetcode;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Deque;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -49,11 +50,11 @@ public class CourseScheduleII {
     public int[] findOrder(int numCourses, int[][] prerequisites) {
         int[] result = new int[numCourses], indegree = new int[numCourses];
         Map<Integer, List<Integer>> courses = new HashMap<>(numCourses);
-        for (int[] pair : prerequisites) {
+        Arrays.stream(prerequisites).forEach(pair -> {
             indegree[pair[0]]++;
             courses.computeIfAbsent(pair[1], k -> new ArrayList<>()).add(pair[0]);
-        }
-        Queue<Integer> zeroDegrees = new LinkedList<>();
+        });
+        Deque<Integer> zeroDegrees = new ArrayDeque<>();
         for (int i = 0; i < indegree.length; i++)
             if (indegree[i] == 0) zeroDegrees.add(i);
         for (Integer node, i = 0; (node = zeroDegrees.poll()) != null; result[i++] = node, numCourses--)

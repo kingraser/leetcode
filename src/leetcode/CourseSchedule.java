@@ -5,12 +5,13 @@
  */
 package leetcode;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Deque;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -50,12 +51,12 @@ public class CourseSchedule {
     //Topological Sort
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         int[] indegree = new int[numCourses];
-        Map<Integer, List<Integer>> courses = new HashMap<>(numCourses << 1);
-        for (int[] pair : prerequisites) {
+        Map<Integer, List<Integer>> courses = new HashMap<>();
+        Arrays.stream(prerequisites).forEach(pair -> {
             indegree[pair[0]]++;
             courses.computeIfAbsent(pair[1], k -> new ArrayList<>()).add(pair[0]);
-        }
-        Queue<Integer> zeroDegrees = new LinkedList<>();
+        });
+        Deque<Integer> zeroDegrees = new ArrayDeque<>();
         for (int i = 0; i < indegree.length; i++)
             if (indegree[i] == 0) zeroDegrees.add(i);
         for (Integer node; (node = zeroDegrees.poll()) != null; numCourses--)
