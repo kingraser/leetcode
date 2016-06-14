@@ -20,12 +20,8 @@ public class CountPrimes {
         BitSet bs = new BitSet(n);
         bs.set(0, 2);
         int idx = 0, count = 0;
-        while (idx < n) {
-            idx = bs.nextClearBit(idx + 1);
-            if (idx >= n) return count;
-            count++;
+        for (; (idx = bs.nextClearBit(idx + 1)) < n; count++)
             for (int i = idx << 1; i < n; bs.set(i), i += idx);
-        }
         return count;
     }
 
