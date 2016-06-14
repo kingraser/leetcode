@@ -38,11 +38,11 @@ public class GameofLife {
 
     public void gameOfLife(int[][] b) {
         for (int i = 0; i < b.length; i++)
-            for (int j = 0, live = getLivesAround(b, i, j); j < b[0].length; live = getLivesAround(b, i, ++j))
-                if (b[i][j] == 0 && live == 3) b[i][j] = 3;
-                else if (b[i][j] == 1 && (live < 2 || live > 3)) b[i][j] = 2;
+            for (int j = 0, live; j < b[0].length; j++)
+                if ((live = getLivesAround(b, i, j)) == 3 && b[i][j] == 0) b[i][j] = 3;//3 for now dead and then lives 
+                else if (b[i][j] == 1 && (live < 2 || live > 3)) b[i][j] = 2;//2 for now lives and then dead
         for (int i = 0; i < b.length; i++)
-            for (int j = 0; j < b[0].length; b[i][j++] %= 2);
+            for (int j = 0; j < b[0].length; b[i][j++] &= 1);// %2
     }
 
     private int getLivesAround(int[][] b, int row, int col) {
