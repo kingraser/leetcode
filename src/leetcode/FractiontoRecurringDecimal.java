@@ -5,6 +5,12 @@
  */
 package leetcode;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.junit.Assert;
+import org.junit.Test;
+
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月16日<p>
 //-------------------------------------------------------
@@ -19,27 +25,26 @@ public class FractiontoRecurringDecimal {
     Given numerator = 2, denominator = 3, return "0.(6)".
     */
 
+    @Test
+    public void test() {
+        Assert.assertEquals("0.5", fractionToDecimal(1, 2));
+        Assert.assertEquals("2", fractionToDecimal(2, 1));
+        Assert.assertEquals("0.(6)", fractionToDecimal(2, 3));
+        Assert.assertEquals("0", fractionToDecimal(0, 3));
+        Assert.assertEquals("-0.(6)", fractionToDecimal(-2, 3));
+        Assert.assertEquals("10.05", fractionToDecimal(1005, 100));
+        Assert.assertEquals("10000.0(05)", fractionToDecimal(9900005, 990));
+    }
+
     public String fractionToDecimal(int numerator, int denominator) {
         if (numerator == 0) return "0";
-        StringBuilder res = new StringBuilder(((numerator > 0) ^ (denominator > 0)) ? "-" : "");// "+" or "-"
         long num = Math.abs((long) numerator), den = Math.abs((long) denominator);
-        res.append(num / den); // integral part
-        num %= den;
-        if (num == 0) return res.toString();
-        res.append(".");// fractional part
-        java.util.HashMap<Long, Integer> map = new java.util.HashMap<Long, Integer>();
-        map.put(num, res.length());
-        while (num != 0) {
-            num *= 10;
-            res.append(num / den);
-            num %= den;
-            if (map.containsKey(num)) {
-                int index = map.get(num);
-                res.insert(index, "(");
-                res.append(")");
-                break;
-            } else map.put(num, res.length());
-        }
+        StringBuilder res = new StringBuilder(((numerator > 0) ^ (denominator > 0)) ? "-" : "").append(num / den);
+        if ((num %= den) == 0) return res.toString();
+        res.append(".");
+        for (Map<Long, Integer> map = new HashMap<>(); num != 0; res.append((num *= 10) / den), num %= den)
+            if (map.containsKey(num)) return res.insert(map.get(num), "(").append(")").toString();
+            else map.put(num, res.length());
         return res.toString();
     }
 
