@@ -35,6 +35,7 @@ public class DecodeWays {
     @Test
     public void test() {
         Assert.assertEquals(2, numDecodings("12"));
+        Assert.assertEquals(2, numDecodings("1023"));
     }
 
     public int numDecodings(String s) {
