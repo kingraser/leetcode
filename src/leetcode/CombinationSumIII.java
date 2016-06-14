@@ -11,8 +11,6 @@ import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -38,8 +36,9 @@ public class CombinationSumIII {
 
     @Test
     public void test() {
-        Assert.assertEquals(Stream.of(Arrays.asList(1, 2, 6), Arrays.asList(1, 3, 5), Arrays.asList(2, 3, 4))
-                .collect(Collectors.toSet()), new HashSet<>(combinationSum3(3, 9)));
+        List<List<Integer>> expected = Arrays.asList(Arrays.asList(1, 2, 6), Arrays.asList(1, 3, 5),
+                Arrays.asList(2, 3, 4));
+        Assert.assertEquals(new HashSet<>(expected), new HashSet<>(combinationSum3(3, 9)));
     }
 
     private static final int end = 9;
