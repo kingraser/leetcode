@@ -36,16 +36,16 @@ public class DecodeWays {
     public void test() {
         Assert.assertEquals(2, numDecodings("12"));
         Assert.assertEquals(2, numDecodings("1023"));
+        Assert.assertEquals(0, numDecodings("10023"));
     }
 
     public int numDecodings(String s) {
-        if (s == null || s.length() == 0 || s.charAt(0) == '0') return 0;
+        if (s == null || s.length() == 0) return 0;
         int prev = 0, cur = 1;//prev for ways of i-2, cur for ways of i-1
-        for (int i = 1; i <= s.length(); ++i) {
-            if (s.charAt(i - 1) == '0') cur = 0;
-            if (i < 2 || !(s.charAt(i - 2) == '1' || (s.charAt(i - 2) == '2' && s.charAt(i - 1) <= '6'))) prev = 0;
-            cur += prev;
-            prev = cur - prev;
+        for (int i = 0; i < s.length() && cur > 0; i++) {
+            if (s.charAt(i) == '0') cur = 0;
+            if (i < 1 || !(s.charAt(i - 1) == '1' || (s.charAt(i - 1) == '2' && s.charAt(i) <= '6'))) prev = 0;
+            prev = (cur += prev) - prev;
         }
         return cur;
     }
