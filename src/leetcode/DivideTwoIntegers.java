@@ -34,18 +34,17 @@ public class DivideTwoIntegers {
     public int divide(int dividend, int divisor) {
         if (divisor == 0) return Integer.MAX_VALUE;
         long beichu = Math.abs((long) dividend), chushu = Math.abs((long) divisor), res = 0, i = 1;
-        while (beichu != 0)
+        while (beichu >= chushu || i > 1)
             if (beichu >= chushu) {
                 chushu <<= 1;
                 i <<= 1;
-            } else if (i > 1) {
+            } else {
                 res += (i >>= 1);
                 beichu -= (chushu >>= 1);
                 chushu = Math.abs((long) divisor);
                 i = 1;
-            } else break;
-        if (dividend >= 0 && divisor > 0 || dividend < 0 && divisor < 0)
-            return res > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) res;
-        return -res < Integer.MIN_VALUE ? Integer.MAX_VALUE : (int) -res;
+            }
+        if ((dividend >= 0) ^ (divisor > 0)) return -res < Integer.MIN_VALUE ? Integer.MAX_VALUE : (int) -res;
+        return res > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) res;
     }
 }
