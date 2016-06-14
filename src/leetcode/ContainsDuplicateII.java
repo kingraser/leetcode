@@ -6,6 +6,7 @@
 package leetcode;
 
 import java.util.HashMap;
+import java.util.Map;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月12日<p>
@@ -19,7 +20,7 @@ public class ContainsDuplicateII {
     */
 
     public boolean containsNearbyDuplicate(int[] nums, int k) {
-        HashMap<Integer, Integer> map = new HashMap<>();
+        Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++)
             if (map.containsKey(nums[i]) && i - map.get(nums[i]) <= k) return true;
             else map.put(nums[i], i);

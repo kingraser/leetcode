@@ -6,6 +6,7 @@
 package leetcode;
 
 import java.util.HashSet;
+import java.util.Set;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月12日<p>
@@ -18,7 +19,7 @@ public class ContainsDuplicate {
     */
 
     public boolean containsDuplicate(int[] nums) {
-        HashSet<Integer> set = new HashSet<>(nums.length);
+        Set<Integer> set = new HashSet<>();
         for (int i : nums)
             if (!set.add(i)) return true;
         return false;
