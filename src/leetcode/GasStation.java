@@ -21,22 +21,19 @@ public class GasStation {
     */
 
     /*
-    首先想到的是 O(N^2) 的解法,对每个点进行模拟。
+            首先想到的是 O(N^2) 的解法,对每个点进行模拟。
     O(N) 的解法是,设置两个变量,sum判断当前的指针的有效性;
     total则判断整个数组是否有解,有就返回通过sum得到的下标,没有则返回 -1。
     */
 
     public int canCompleteCircuit(int[] gas, int[] cost) {
-        int total = 0, j = -1;
-        for (int i = 0, sum = 0; i < gas.length; i++) {
-            sum += gas[i] - cost[i];
-            total += gas[i] - cost[i];
-            if (sum < 0) {
-                j = i;
+        int total = 0, start = 0;
+        for (int i = 0, sum = 0; i < gas.length; total += gas[i] - cost[i], i++)
+            if ((sum += gas[i] - cost[i]) < 0) {
+                start = i + 1;
                 sum = 0;
             }
-        }
-        return total >= 0 ? j + 1 : -1;
+        return total < 0 ? -1 : start;
     }
 
 }
