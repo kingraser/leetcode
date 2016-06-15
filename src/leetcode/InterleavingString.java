@@ -23,11 +23,11 @@ public class InterleavingString {
     */
 
     /*
-    设状态f[i][j],表示s1[0,i]和s2[0,j],匹配s3[0,i+j]。
-    如果s1的最后一个字符等于s3的最后一个字符,则f[i][j]=f[i-1][j];
-    如果s2的最后一个字符等于s3的最后一个字符,则f[i][j]=f[i][j-1]。
-    因此状态转移方程如下:
-    f[i][j]=(s1[i-1]==s3[i+j-1]&&f[i-1][j])||(s2[j-1]==s3[i+j-1]&&f[i][j-1]);
+            设状态f[i][j],表示s1[0,i]和s2[0,j],匹配s3[0,i+j]。
+            如果s1的最后一个字符等于s3的最后一个字符,则f[i][j] = f[i-1][j];
+            如果s2的最后一个字符等于s3的最后一个字符,则f[i][j] = f[i][j-1]。
+            因此状态转移方程如下:
+    f[i][j] = (s1[i-1] == s3[i+j-1] && f[i-1][j]) || (s2[j-1] == s3[i+j-1] && f[i][j-1]);
     */
 
     public boolean isInterleave(String s1, String s2, String s3) {
