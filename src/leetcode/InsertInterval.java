@@ -37,12 +37,12 @@ public class InsertInterval {
     public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
         for (ListIterator<Interval> it = intervals.listIterator(); it.hasNext();) {
             Interval interval = it.next();
+            if (interval.end < newInterval.start) continue;
             if (newInterval.end < interval.start) {
                 it.previous();
                 it.add(newInterval);
                 return intervals;
-            } else if (interval.end < newInterval.start) continue;
-            else {
+            } else {
                 newInterval.start = Math.min(interval.start, newInterval.start);
                 newInterval.end = Math.max(interval.end, newInterval.end);
                 it.remove();
