@@ -29,7 +29,7 @@ public class HappyNumber {
     public boolean isHappy(int n) {
         Set<Integer> set = Sets.newHashSet(n);
         for (int result = 0; n != 1; n = result, result = 0) {
-            for (int radix = n % 10; n != 0; result += radix * radix, n /= 10, radix = n % 10);
+            for (int radix; n != 0; result += (radix = n % 10) * radix, n /= 10);
             if (!set.add(result)) return false;
         }
         return true;
