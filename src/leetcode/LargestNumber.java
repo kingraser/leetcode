@@ -24,8 +24,9 @@ public class LargestNumber {
 
     public String largestNumber(int[] num) {
         StringBuilder sb = new StringBuilder();
-        Arrays.stream(num).boxed().sorted((i1, i2) -> new BigInteger(String.valueOf(i2) + String.valueOf(i1))
-                .compareTo(new BigInteger(String.valueOf(i1) + String.valueOf(i2)))).forEach(i -> sb.append(i));
+        Arrays.stream(num).boxed().sorted(
+                (i1, i2) -> new BigInteger(String.valueOf(i2) + i1).compareTo(new BigInteger(String.valueOf(i1) + i2)))
+                .forEach(sb::append);
         return sb.toString();
     }
 
