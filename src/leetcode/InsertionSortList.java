@@ -5,6 +5,9 @@
  */
 package leetcode;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import leetcode.common.ListNode;
 
 //--------------------- Change Logs----------------------
@@ -12,17 +15,23 @@ import leetcode.common.ListNode;
 //-------------------------------------------------------
 public class InsertionSortList {
 
+    @Test
+    public void test() {
+        Assert.assertEquals(ListNode.generateNodes(1, 2, 3, 4, 5),
+                insertionSortList(ListNode.generateNodes(5, 3, 2, 1, 4)));
+    }
+
     //Sort a linked list using insertion sort.
     public ListNode insertionSortList(ListNode head) {
-        ListNode dummy = new ListNode(Integer.MIN_VALUE);//dummy.next = head
+        ListNode prev = new ListNode(Integer.MIN_VALUE);//prev.next = head
         for (ListNode cur = head; cur != null;) {
-            ListNode pos = findInsertPos(dummy, cur.val);
+            ListNode pos = findInsertPos(prev, cur.val);
             ListNode tmp = cur.next;
             cur.next = pos.next;
             pos.next = cur;
             cur = tmp;
         }
-        return dummy.next;
+        return prev.next;
     }
 
     ListNode findInsertPos(ListNode head, int x) {
