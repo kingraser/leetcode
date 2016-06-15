@@ -13,7 +13,7 @@ import org.junit.Test;
 //-------------------------------------------------------
 public class HIndexII {
 
-    //详见HIndex，区别在收入数组已经排序为升序
+    //详见HIndex，区别在输入数组已经排序为升序
 
     public int hIndex(int[] citations) {
         for (int i = 0; i < citations.length; i++)
