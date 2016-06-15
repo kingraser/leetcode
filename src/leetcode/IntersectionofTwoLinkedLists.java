@@ -15,11 +15,11 @@ public class IntersectionofTwoLinkedLists {
     Write a program to find the node at which the intersection of two singly linked lists begins.
     For example, the following two linked lists:
     
-    A:          a1 → a2
-                                           ↘
-                          c1 → c2 → c3
-                                           ↗            
-    B:    b1 → b2 → b3
+    A:     a1 → a2
+                                                       ↘
+                    c1 → c2 → c3
+                                                       ↗            
+    B:b1 → b2 → b3
     
     begin to intersect at node c1.    
     Notes:    
@@ -31,14 +31,7 @@ public class IntersectionofTwoLinkedLists {
 
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         ListNode p1 = headA, p2 = headB;
-        if (p1 == null || p2 == null) return null;
-        while (p1 != null && p2 != null && p1 != p2) {
-            p1 = p1.next;
-            p2 = p2.next;
-            if (p1 == p2) return p1;
-            if (p1 == null) p1 = headB;
-            if (p2 == null) p2 = headA;
-        }
+        for (; p1 != p2; p1 = p1 == null ? headB : p1.next, p2 = p2 == null ? headA : p2.next);
         return p1;
     }
 
