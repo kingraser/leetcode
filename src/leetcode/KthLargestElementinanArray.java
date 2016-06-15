@@ -39,7 +39,7 @@ public class KthLargestElementinanArray {
     private int findKth(int[] nums, int k, boolean isLarge) {
         if (k > (nums.length + 1) >> 1) return findKth(nums, nums.length - k + 1, !isLarge);
         PriorityQueue<Integer> queue = new PriorityQueue<>(nums.length, (i1, i2) -> isLarge ? i2 - i1 : i1 - i2);
-        Arrays.stream(nums).forEach(i -> queue.add(i));
+        Arrays.stream(nums).forEach(queue::add);
         for (; --k > 0; queue.poll());
         return queue.poll();
     }
