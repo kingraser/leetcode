@@ -49,7 +49,7 @@ public class IncreasingTripletSubsequence {
         Arrays.fill(min, Integer.MAX_VALUE);
         A: for (int i = 0; i < nums.length; i++) {
             for (int j = 0; j < min.length; j++)
-                if (nums[i] <= min[j]) {
+                if (nums[i] < min[j]) {
                     min[j] = nums[i];
                     continue A;
                 }
