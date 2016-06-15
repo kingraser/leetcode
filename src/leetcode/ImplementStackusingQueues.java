@@ -5,7 +5,7 @@
  */
 package leetcode;
 
-import java.util.LinkedList;
+import java.util.ArrayDeque;
 import java.util.Queue;
 
 //--------------------- Change Logs----------------------
@@ -13,21 +13,19 @@ import java.util.Queue;
 //-------------------------------------------------------
 public class ImplementStackusingQueues {
 
-    Queue<Integer> stack = new LinkedList<>();
+    Queue<Integer> queue = new ArrayDeque<>();
 
     int top;
 
     public void push(int x) {
         top = x;
-        stack.add(x);
+        queue.add(x);
     }
 
     public void pop() {
-        for (int i = 0; i < stack.size() - 2; i++)
-            stack.add(stack.poll());
-        top = stack.poll();
-        stack.add(top);
-        stack.poll();
+        for (int i = 0; i < queue.size() - 1; i++)
+          queue.add((top = queue.poll()));
+        queue.poll();
     }
 
     public int top() {
@@ -35,6 +33,6 @@ public class ImplementStackusingQueues {
     }
 
     public boolean empty() {
-        return stack.isEmpty();
+        return queue.isEmpty();
     }
 }
