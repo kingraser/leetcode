@@ -30,16 +30,13 @@ public class IsomorphicStrings {
         Assert.assertFalse(isIsomorphic("foo", "bar"));
     }
 
+    private int i;
+
     public boolean isIsomorphic(String s, String t) {
         if (s.length() != t.length()) return false;
-        Map<Character, Character> sMap = new HashMap<>(), tMap = new HashMap<>();
-        for (int i = 0; i < s.length(); i++) {
-            Character sc = s.charAt(i), tc = t.charAt(i), tc1 = sMap.get(sc), sc1 = tMap.get(tc);
-            if (sc1 == null && tc1 == null) {
-                sMap.put(sc, tc);
-                tMap.put(tc, sc);
-            } else if (sc != sc1 || tc != tc1) return false;
-        }
+        Map<Character, Character> map = new HashMap<>();
+        for (i = 0; i < s.length(); i++)
+            if (map.computeIfAbsent(s.charAt(i), k -> t.charAt(i)) != t.charAt(i)) return false;
         return true;
     }
 }
