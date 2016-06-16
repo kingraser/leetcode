@@ -46,22 +46,21 @@ public class LongestIncreasingPathinaMatrix {
     int[] dx = { 1, -1, 0, 0 }, dy = { 0, 0, 1, -1 };
 
     public int longestIncreasingPath(int[][] matrix) {
-        if (matrix.length == 0) return 0;
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) return 0;
         int[][] dis = new int[matrix.length][matrix[0].length];
         int ans = 0;
         for (int i = 0; i < matrix.length; i++)
             for (int j = 0; j < matrix[0].length; j++)
-                ans = Math.max(ans, dfs(i, j, matrix.length, matrix[0].length, matrix, dis));
+                ans = Math.max(ans, dfs(i, j, matrix, dis));
         return ans;
     }
 
-    int dfs(int x, int y, int m, int n, int[][] matrix, int[][] dis) {
+    private int dfs(int x, int y, int[][] matrix, int[][] dis) {
         if (dis[x][y] != 0) return dis[x][y];
-        for (int i = 0; i < 4; i++) {
-            int nx = x + dx[i], ny = y + dy[i];
-            if (nx >= 0 && ny >= 0 && nx < m && ny < n && matrix[nx][ny] > matrix[x][y])
-                dis[x][y] = Math.max(dis[x][y], dfs(nx, ny, m, n, matrix, dis));
-        }
+        for (int i = 0, nx, ny; i < 4; i++)
+            if ((nx = x + dx[i]) >= 0 && (ny = y + dy[i]) >= 0 && nx < matrix.length && ny < matrix[0].length
+                    && matrix[nx][ny] > matrix[x][y])
+                dis[x][y] = Math.max(dis[x][y], dfs(nx, ny, matrix, dis));
         return ++dis[x][y];
     }
 
