@@ -16,11 +16,8 @@ public class LinkedListCycle {
 
     // 设置两个指针,一个快一个慢
     public boolean hasCycle(ListNode head) {
-        for (ListNode slow = head, fast = head; fast != null && fast.next != null;) {
-            slow = slow.next;
-            fast = fast.next.next;
-            if (slow == fast) return true;
-        }
+        for (ListNode slow = head, fast = head; fast != null && fast.next != null;)
+            if ((slow = slow.next) == (fast = fast.next.next)) return true;
         return false;
     }
 
