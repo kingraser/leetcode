@@ -8,8 +8,8 @@ package leetcode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -39,12 +39,21 @@ public class LetterCombinationsofaPhoneNumber {
 
     public List<String> letterCombinations(String s) {
         if (s == null || s.length() == 0) return new ArrayList<>();
-        LinkedList<String> ans = new LinkedList<>(Arrays.asList(""));
-        for (int i = 0; i < s.length(); i++)
-            for (String t; (t = ans.peekFirst()).length() == i; t = ans.pollFirst())
-                for (char c : map[s.charAt(i) - '2'].toCharArray())
-                    ans.add(t + c);
-        return ans;
+        int length = getLength(s);
+        char[][] result = new char[length][s.length()];
+        for (int i = 0, k = 0; i < s.length(); i++)
+            for (length /= map[s.charAt(i) - '2'].length(), k = 0; k < result.length;)
+                for (int j = 0; j < map[s.charAt(i) - '2'].length(); j++)
+                    for (int l = 0; l < length; l++)
+                        result[k++][i] = map[s.charAt(i) - '2'].charAt(j);
+        return Arrays.stream(result).map(a -> new String(a)).collect(Collectors.toList());
+    }
+
+    private int getLength(String s) {
+        int result = 1;
+        for (char c : s.toCharArray())
+            result *= map[c - '2'].length();
+        return result;
     }
 
     @Test
