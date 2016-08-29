@@ -36,12 +36,14 @@ public class Trie {
 
     }
 
-    public TrieNode root = new TrieNode();
+    public TrieNode root = new TrieNode(), march;
 
     public void add(String word) {
-        TrieNode march = root;
-        for (char c : word.toCharArray())
-            march = march.nexts[c -= 'a'] == null ? march.nexts[c] = new TrieNode() : march.nexts[c];
+        march = root;
+        word.chars().forEach(c -> {
+            if (Objects.isNull(march.nexts[c -= 'a'])) march.nexts[c] = new TrieNode();
+            march = march.nexts[c];
+        });
         march.isLeaf = true;
     }
 
