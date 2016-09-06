@@ -43,16 +43,16 @@ public class PathSumII {
 
     public List<List<Integer>> pathSum(TreeNode root, int sum) {
         List<List<Integer>> result = new ArrayList<>();
-        pathSum(root, sum, new ArrayDeque<>(), result);
+        dfs(root, sum, new ArrayDeque<>(), result);
         return result;
     }
 
-    public void pathSum(TreeNode root, int sum, Deque<Integer> deque, List<List<Integer>> result) {
+    public void dfs(TreeNode root, int sum, Deque<Integer> deque, List<List<Integer>> result) {
         if (null == root) return;
         deque.add(root.val);
         if ((sum -= root.val) == 0 && root.left == null && root.right == null) result.add(new ArrayList<>(deque));
-        pathSum(root.left, sum, deque, result);
-        pathSum(root.right, sum, deque, result);
+        dfs(root.left, sum, deque, result);
+        dfs(root.right, sum, deque, result);
         deque.removeLast();
     }
 

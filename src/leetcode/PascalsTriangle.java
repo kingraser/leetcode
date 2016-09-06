@@ -31,11 +31,9 @@ public class PascalsTriangle {
 
     List<List<Integer>> generate(int numRows) {
         List<List<Integer>> res = new ArrayList<>(numRows);
-        for (int i = 0; i < numRows; i++) {
-            res.add(new ArrayList<>(i + 1));
-            for (int j = 0; j < i + 1; j++)
+        for (int i = 0, j; i < numRows; i++)
+            for (res.add(new ArrayList<>(i + 1)), j = 0; j < i + 1; j++)
                 res.get(i).add(j == 0 || j == i ? 1 : res.get(i - 1).get(j) + res.get(i - 1).get(j - 1));
-        }
         return res;
     }
 

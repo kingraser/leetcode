@@ -34,8 +34,8 @@ public class SpiralMatrix {
     public List<Integer> spiralOrder(int[][] matrix) {
         List<Integer> res = new ArrayList<>();
         if (matrix == null || matrix.length == 0) return res;
-        for (int top = 0, bottom = matrix.length - 1, left = -1, right = matrix[0].length
-                - 1; top <= bottom && left <= right;) {
+        for (int top = 0, bottom = matrix.length - 1, left = -1, right = matrix[0].length - 1; top <= bottom
+                && left <= right;) {
             for (int i = ++left; i <= right; res.add(matrix[top][i++]));
             for (int i = ++top; i <= bottom; res.add(matrix[i++][right]));
             for (int i = --right; i >= left; res.add(matrix[bottom][i--]));

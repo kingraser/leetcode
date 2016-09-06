@@ -37,9 +37,9 @@ public class PopulatingNextRightPointersinEachNodeII {
     */
 
     /*
-    要处理一个节点,可能需要最右边的兄弟节点,首先想到用广搜。
-    但广搜不是常数空间的,本题要求常数空间。
-    注意,这题的代码原封不动,也可以解决 Populating Next Right Pointers in Each Node I.
+            要处理一个节点,可能需要最右边的兄弟节点,首先想到用广搜。
+            但广搜不是常数空间的,本题要求常数空间。
+            注意,这题的代码原封不动,也可以解决 Populating Next Right Pointers in Each Node I.
     */
 
     //bfs

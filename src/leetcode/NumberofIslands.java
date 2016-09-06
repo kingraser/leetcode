@@ -34,19 +34,18 @@ public class NumberofIslands {
             for (int j = 0; j < grid[0].length; j++)
                 if (grid[i][j] == '1' && !visited[i][j]) {
                     islands++;
-                    check(grid, i, j, visited);
+                    dfs(grid, i, j, visited);
                 }
         return islands;
     }
 
-    private void check(char[][] grid, int i, int j, boolean[][] visited) {
-        if (i > -1 && i < grid.length && j > -1 && j < grid[0].length && grid[i][j] == '1') {
-            visited[i][j] = true;
-            if (!visited[i + 1][j]) check(grid, i + 1, j, visited);
-            if (!visited[i - 1][j]) check(grid, i - 1, j, visited);
-            if (!visited[i][j + 1]) check(grid, i, j + 1, visited);
-            if (!visited[i][j - 1]) check(grid, i, j - 1, visited);
-        }
+    private int[] dx = new int[] { 1, -1, 0, 0 }, dy = new int[] { 0, 0, 1, -1 };
+
+    private void dfs(char[][] grid, int i, int j, boolean[][] visited) {
+        if (i < 0 || i == grid.length || j < 0 || j == grid[0].length || visited[i][j] || grid[i][j] == '0') return;
+        visited[i][j] = true;
+        for (int k = 0; k < 4; k++)
+            dfs(grid, i + dx[k], j + dy[k], visited);
     }
 
 }

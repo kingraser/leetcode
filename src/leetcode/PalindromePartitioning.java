@@ -60,8 +60,8 @@ public class PalindromePartitioning {
 
     private boolean[][] getPalindromeMap(char[] s) {
         boolean[][] map = new boolean[s.length][s.length];
-        for (int j = 1; j < s.length; j++)
-            for (int i = 0; i + j < s.length; i++)
+        for (int i = 0; i < s.length; i++)
+            for (int j = 1; i + j < s.length; j++)
                 map[i][i + j] = s[i] == s[i + j] && isPalindrome(i + 1, i + j - 1, map);
         return map;
     }

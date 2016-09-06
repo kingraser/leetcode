@@ -6,6 +6,7 @@
 package leetcode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,6 +15,9 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.google.common.collect.Sets;
+
+import leetcode.common.Trie;
+import leetcode.common.Trie.TrieNode;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月22日<p>
@@ -47,23 +51,19 @@ public class WordSearchII {
 
     @Test
     public void test() {
-        char[][] board = new char[][] { "oaan".toCharArray(), "etae".toCharArray(), "ihkr".toCharArray(),
-                "iflv".toCharArray() };
-        Set<String> expected = Sets.newHashSet("eat", "oath"),
-                actual = Sets.newHashSet(findWords(board, new String[] { "oath", "pea", "eat", "rain" }));
-        Assert.assertEquals(expected, actual);
+        Assert.assertEquals(Sets.newHashSet("eat", "oath"), new HashSet<>(findWords(
+                new char[][] { "oaan".toCharArray(), "etae".toCharArray(), "ihkr".toCharArray(), "iflv".toCharArray() },
+                new String[] { "oath", "pea", "eat", "rain" })));
     }
 
     public List<String> findWords(char[][] board, String[] words) {
         Trie trie = new Trie();
-        for (String word : words)
-            trie.insert(word);
+        Arrays.stream(words).forEach(w -> trie.add(w));
         Set<String> res = new HashSet<>();
-        boolean[][] visited = new boolean[board.length][board[0].length];
-        char[] s = new char[board.length * board[0].length];
         for (int i = 0; i < board.length; i++)
             for (int j = 0; j < board[0].length; j++)
-                dfs(board, visited, trie.root, i, j, trie, res, s, 0);
+                dfs(board, new boolean[board.length][board[0].length], trie.root, i, j, trie, res,
+                        new char[board.length * board[0].length], 0);
         return new ArrayList<String>(res);
     }
 
@@ -83,27 +83,4 @@ public class WordSearchII {
         visited[x][y] = false;
         idx--;
     }
-
-    class TrieNode {
-
-        TrieNode[] nexts = new TrieNode[26];
-
-        boolean isLeaf = false;
-
-    }
-
-    class Trie {
-
-        TrieNode root = new TrieNode();
-
-        void insert(String word) {
-            TrieNode march = root;
-            for (int i = 0, idx; i < word.length(); march = march.nexts[idx]) {
-                idx = word.charAt(i++) - 'a';
-                if (march.nexts[idx] == null) march.nexts[idx] = new TrieNode();
-            }
-            march.isLeaf = true;
-        }
-    }
-
 }

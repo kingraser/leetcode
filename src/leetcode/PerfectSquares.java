@@ -17,16 +17,16 @@ public class PerfectSquares {
     /*
     1数论法
         Lagrange's four-square theorem
-        任一自然数可以写成4个平方数的和
+            任一自然数可以写成4个平方数的和
     
-        拓展：任一自然数
+            拓展：任一自然数
                     是平方数,当且仅当该数的质因数在质因分解中出现偶数次。
                     是两个平方数的和，当且仅当其模4余3的质因数出现
                     是三个平方数的和，当且仅当该数不是 4^a(8b+7)的形式（a，b为整数）
                     
     2DP法
-        初始化，令dp[y * y] = 1，其中y * y <= n
-        状态转移方程：dp[x + y * y] = min(dp[x + y * y], dp[x] + 1)
+            初始化，令dp[y * y] = 1，其中y * y <= n
+            状态转移方程：dp[x + y * y] = min(dp[x + y * y], dp[x] + 1)
     */
 
     public int numSquares(int n) {

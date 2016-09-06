@@ -8,7 +8,7 @@ package leetcode;
 import java.util.ArrayDeque;
 import java.util.Collections;
 import java.util.Deque;
-import java.util.Objects;
+
 import java.util.PriorityQueue;
 
 import org.junit.Assert;
@@ -51,12 +51,14 @@ public class SlidingWindowMaximum {
 
     @Test
     public void test() {
-        int[] expected = new int[] { 7, 7, 7, 7, 7 }, input = new int[] { -7, -8, 7, 5, 7, 1, 6, 0 },
-                expected2 = new int[] { 3, 3, 5, 5, 6, 7 }, input2 = new int[] { 1, 3, -1, -3, 5, 3, 6, 7 };
-        Assert.assertTrue(Objects.deepEquals(expected, maxSlidingWindow(input, 4)));
-        Assert.assertTrue(Objects.deepEquals(expected, maxSlidingWindowII(input, 4)));
-        Assert.assertTrue(Objects.deepEquals(expected2, maxSlidingWindow(input2, 3)));
-        Assert.assertTrue(Objects.deepEquals(expected2, maxSlidingWindowII(input2, 3)));
+        int[] expected = new int[] { 7, 7, 7, 7, 7 }, input = new int[] { -7, -8, 7, 5, 7, 1, 6, 0 };
+        Assert.assertArrayEquals(expected, maxSlidingWindow(input, 4));
+        Assert.assertArrayEquals(expected, maxSlidingWindowII(input, 4));
+
+        expected = new int[] { 3, 3, 5, 5, 6, 7 };
+        input = new int[] { 1, 3, -1, -3, 5, 3, 6, 7 };
+        Assert.assertArrayEquals(expected, maxSlidingWindow(input, 3));
+        Assert.assertArrayEquals(expected, maxSlidingWindowII(input, 3));
     }
 
     //dequeue

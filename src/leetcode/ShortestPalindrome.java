@@ -24,8 +24,8 @@ public class ShortestPalindrome {
     */
 
     /*
-    找到以s[0]开头的最长回文子串,记为s(0,i+1)
-    返回s(i+1).reverse + s
+            找到以s[0]开头的最长回文子串,记为s(0,i+1)
+            返回s(i+1).reverse + s
     */
 
     public String shortestPalindrome(String s) {
@@ -35,8 +35,8 @@ public class ShortestPalindrome {
     }
 
     private boolean isNotPalindrome(String s, int end) {
-        for (int i = 0; i < end; i++, end--)
-            if (s.charAt(i) != s.charAt(end)) return true;
+        for (int i = 0; i < end;)
+            if (s.charAt(i++) != s.charAt(end--)) return true;
         return false;
     }
 

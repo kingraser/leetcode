@@ -16,10 +16,8 @@ public class StringtoInteger {
     public int myAtoi(String str) {
         str = str.trim();
         for (int i = 0; i < str.length(); i++)
-            if (!Character.isDigit(str.charAt(i)) && (i != 0 || (str.charAt(i) != '+' && str.charAt(i) != '-'))) {
+            if (!Character.isDigit(str.charAt(i)) && (i != 0 || (str.charAt(i) != '+' && str.charAt(i) != '-')))
                 str = str.substring(0, i);
-                break;
-            }
         if (str.length() == 0 || !Character.isDigit(str.charAt(str.length() - 1))) return 0;
         java.math.BigInteger bigInteger = new java.math.BigInteger(str);
         if (bigInteger.compareTo(new java.math.BigInteger(Integer.toString(Integer.MIN_VALUE))) == -1)
@@ -45,6 +43,7 @@ public class StringtoInteger {
     @Test
     public void test() {
         Assert.assertEquals(2147483647, myAtoiII("2147483648"));
+        Assert.assertEquals(2147483647, myAtoi("2147483648"));
     }
 
 }

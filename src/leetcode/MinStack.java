@@ -5,6 +5,7 @@
  */
 package leetcode;
 
+import java.util.Objects;
 import java.util.Stack;
 
 //--------------------- Change Logs----------------------
@@ -31,8 +32,7 @@ public class MinStack {
     }
 
     public void pop() {
-        if (stack.peek().equals(minStack.peek())) minStack.pop();
-        stack.pop();
+        if (Objects.equals(stack.pop(), minStack.peek())) minStack.pop();
     }
 
     public int top() {

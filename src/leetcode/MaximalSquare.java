@@ -51,11 +51,9 @@ public class MaximalSquare {
                 max = 1;
             }
         for (int i = 1; i < matrix.length; i++)
-            for (int j = 1; j < matrix[0].length; j++) {
+            for (int j = 1; j < matrix[0].length; max = Math.max(max, A[i][j++]))
                 if (matrix[i][j] == '0') A[i][j] = 0;
                 else A[i][j] = 1 + min(A[i - 1][j], A[i - 1][j - 1], A[i][j - 1]);
-                if (max < A[i][j]) max = A[i][j];
-            }
         return max * max;
     }
 

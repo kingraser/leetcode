@@ -27,6 +27,12 @@ public class TreeNode {
         this.right = right;
     }
 
+    public TreeNode(TreeNode node) {
+        val = node.val;
+        if (Objects.nonNull(node.left)) left = new TreeNode(node.left);
+        if (Objects.nonNull(node.right)) right = new TreeNode(node.right);
+    }
+
     /*
        1
       / \
@@ -49,7 +55,17 @@ public class TreeNode {
     public boolean equals(Object o) {
         if (Objects.isNull(o) || !(o instanceof TreeNode)) return false;
         TreeNode another = (TreeNode) o;
-        if (!Objects.equals(val, another.val)) return false;
+        if (val != another.val) return false;
         return Objects.equals(left, another.left) && Objects.equals(right, another.right);
+    }
+
+    @Override
+    public String toString() {
+        return toString(this);
+    }
+
+    private String toString(TreeNode node) {
+        if (Objects.isNull(node)) return "n";
+        return String.format("%s,%s,%s", node.val, toString(node.left), toString(node.right));
     }
 }

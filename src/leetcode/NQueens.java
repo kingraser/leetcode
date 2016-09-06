@@ -62,12 +62,12 @@ public class NQueens {
      */
     private List<String> parse(int n, List<Integer> queenList) {
         List<String> result = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
+        queenList.forEach(i -> {
             char[] array = new char[n];
             Arrays.fill(array, '.');
-            array[queenList.get(i)] = 'Q';
+            array[i] = 'Q';
             result.add(new String(array));
-        }
+        });
         return result;
     }
 

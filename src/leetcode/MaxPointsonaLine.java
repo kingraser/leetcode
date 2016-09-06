@@ -23,25 +23,20 @@ public class MaxPointsonaLine {
     find the maximum number of points that lie on the same straight line.
     */
 
-    static Integer s, m, v;//相同点数same,当前循环最多点数max,临时变量val
-
     public int maxPoints(Point[] p) {
-        int l = p.length, r = Math.min(1, l), i = 0;//r为结果result
-        Map<Double, Integer> k = new HashMap<>(l);
-        for (s = 1, m = 0; i + r < l; r = Math.max(r, m + s), k.clear(), i++, s = 1, m = 0)
-            for (int j = i + 1; j < l && l - j + m >= r; getK(p[i], p[j++], k));
-        return r;
+        int result = 0;
+        for (int i = 0, same = 1; i < p.length; i++, same = 1) {
+            Map<Double, Integer> map = new HashMap<>();
+            for (int j = i + 1; j < p.length; j++)
+                if (p[i].equals(p[j])) same++;
+                else map.compute(getGradient(p[i], p[j]), (k, v) -> v == null ? 1 : v + 1);
+            result = Math.max(result, same + map.values().stream().max((i1, i2) -> i1 - i2).orElse(0));
+        }
+        return result;
     }
 
-    private void getK(Point p1, Point p2, Map<Double, Integer> map) {
-        double x = p1.x - p2.x, y = p1.y - p2.y, k = x == 0 ? Double.NaN : y == 0 ? 0 : y / x;
-        if (x == 0 && y == 0) s++;
-        else {
-            v = map.get(k);
-            v = v == null ? 1 : ++v;
-            map.put(k, v);
-            if (v > m) m = v;
-        }
+    private Double getGradient(Point p1, Point p2) {
+        return p1.x == p2.x ? Double.NaN : p1.y == p2.y ? 0 : ((double) (p1.y - p2.y)) / (p1.x - p2.x);
     }
 
     @Test

@@ -27,7 +27,7 @@ public class SingleNumberIII {
     Your algorithm should run in linear runtime complexity. 
     Could you implement it using only constant space complexity?
     */
-    
+
     /*
             先全部异或,出现两次的全部抵消,剩下的结果就是两个数(a和b)的异或
             又两数不同,所以异或的结果肯定会有位为1,说明a和该位和b的该位不同

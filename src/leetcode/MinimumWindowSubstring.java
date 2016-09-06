@@ -35,7 +35,7 @@ public class MinimumWindowSubstring {
             if (tMap[s.charAt(end)] == 0) continue;
             if (++sMap[s.charAt(end)] <= tMap[s.charAt(end)]) count++;
             if (count < t.length()) continue;
-            for (char c = s.charAt(start); tMap[c] == 0 || sMap[c] > tMap[c]; sMap[c]--, c = s.charAt(++start));
+            for (char c; tMap[c = s.charAt(start++)] == 0 || sMap[c] > tMap[c]; sMap[c]--);
             if (minLen > (end - start + 1)) {
                 minLen = end - start + 1;
                 minStart = start;

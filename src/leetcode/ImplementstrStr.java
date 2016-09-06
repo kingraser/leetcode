@@ -21,13 +21,12 @@ public class ImplementstrStr {
     5Rabin-Karp()
     */
 
-    public int strStr(String l, String s) {
+    public int strStr(String l, String s) {//l for long; s for short
         return null == l || null == s ? -1 : l.indexOf(s);
     }
 
     public int strStrII(String l, String s) {
-        if (l == null || s == null) return -1;
-        A: for (int i = 0; i <= l.length() - s.length(); i++) {
+        if (s != null && l != null && l.length() > 0) A: for (int i = 0; i <= l.length() - s.length(); i++) {
             for (int j = 0; j < s.length(); j++)
                 if (l.charAt(i + j) != s.charAt(j)) continue A;
             return i;
@@ -36,15 +35,14 @@ public class ImplementstrStr {
     }
 
     public int strStrIII(String l, String s) {
-        if (l == null || s == null || l.length() < s.length()) return -1;
-        int[] next = getNext(s);
-        A: for (int i = 0, j = 0; i <= l.length() - s.length(); i++) {
-            for (j = 0; j < s.length(); j++)
-                if (l.charAt(i + j) != s.charAt(j)) {
-                    j = next[j];
-                    if (j == -1) continue A;
-                }
-            if (j == s.length()) return i - s.length();
+        if (s != null && l != null && l.length() > 0) {
+            int[] next = getNext(s);
+            for (int i = 0, j = 0; i - j <= l.length() - s.length();)
+                if (j == s.length()) return i - s.length();
+                else if (j == -1 || l.charAt(i) == s.charAt(j)) {
+                    i++;
+                    j++;
+                } else j = next[j];
         }
         return -1;
     }
@@ -54,9 +52,7 @@ public class ImplementstrStr {
         next[0] = -1;
         for (int i = 1, j = 0; i < s.length() - 1;) {
             for (; j > -1 && s.charAt(i) != s.charAt(j); j = next[j]);
-            i++;
-            j++;
-            if (s.charAt(i) == s.charAt(j)) next[i] = next[j];
+            if (s.charAt(++i) == s.charAt(++j)) next[i] = next[j];
             else next[i] = j;
         }
         return next;
@@ -65,5 +61,11 @@ public class ImplementstrStr {
     @Test
     public void test() {
         Assert.assertEquals(-1, strStr("mississippi", "sippia"));
+        Assert.assertEquals(-1, strStrII("mississippi", "sippia"));
+        Assert.assertEquals(-1, strStrIII("mississippi", "sippia"));
+
+        Assert.assertEquals(6, strStr("mississippia", "sippia"));
+        Assert.assertEquals(6, strStrII("mississippia", "sippia"));
+        Assert.assertEquals(6, strStrIII("mississippia", "sippia"));
     }
 }

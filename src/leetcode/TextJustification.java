@@ -5,13 +5,13 @@
  */
 package leetcode;
 
+import java.util.Arrays;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月17日<p>
@@ -35,35 +35,40 @@ public class TextJustification {
     words: ["This", "is", "an", "example", "of", "text", "justification."]
     L: 16. 
     
-    Return the formatted lines as:
-    
+    Return the formatted lines as:    
         [
             "This    is    an",
             "example  of text",
             "justification.  "
         ]
-    
     */
 
-    public List<String> fullJustify(String[] W, int m) {
-        LinkedList<String> r = Lists.newLinkedList(), q = Lists.newLinkedList();
-        for (int i = 0, l = 0, L = W.length; i < L; r.add(get(q, m, new StringBuilder(q.poll()), l, i == L)), l = 0)
-            for (; i < L && m - l - q.size() - W[i].length() > -1; q.add(W[i]), l += W[i++].length());
-        return r;
-
+    public List<String> fullJustify(String[] words, int maxWidth) {
+        LinkedList<String> result = new LinkedList<>(), line = new LinkedList<>();
+        for (int i = 0, len; i < words.length; result.add(getLine(line, maxWidth, len, i == words.length)))
+            for (len = 0; i < words.length && len + line.size() + words[i].length() <= maxWidth; i++) {
+                line.add(words[i]);
+                len += words[i].length();
+            }
+        return result;
     }
 
-    //a间隔数 b间隔的空格数 c额外的空格数 f最后行标志,true=>最后一行 m=>max
-    private String get(LinkedList<String> q, int m, StringBuilder sb, int l, boolean f) {        
-        for (int a = q.size(), b = a == 0 ? 0 : f ? 1 : ((m - l) / a), c = f || a == 0 ? 0 : (m - l) % a; !q.isEmpty(); sb.append(q.poll()), c--)
-            for (int i = 0; i < (c > 0 ? b + 1 : b); sb.append(" "), i++);
-        for (int i = sb.length(); i < m; sb.append(" "), i++);
+    private String getLine(Deque<String> line, int maxWidth, int length, boolean isLastLine) {
+        int intervals = line.size() - 1, spaces = isLastLine ? 1 : ((maxWidth - length) / intervals),
+                extraSpaces = isLastLine ? 0 : ((maxWidth - length) % intervals);
+        StringBuilder sb = new StringBuilder(line.pollFirst());
+        while (!line.isEmpty()) {
+            for (int i = 0; i++ < spaces; sb.append(' '));
+            if (extraSpaces-- > 0) sb.append(' ');
+            sb.append(line.poll());
+        }
+        for (; sb.length() < maxWidth; sb.append(' '));
         return sb.toString();
     }
 
     @Test
     public void test() {
-        Assert.assertEquals(Lists.newArrayList("This    is    an", "example  of text", "justification.  "),
+        Assert.assertEquals(Arrays.asList("This    is    an", "example  of text", "justification.  "),
                 fullJustify(new String[] { "This", "is", "an", "example", "of", "text", "justification." }, 16));
     }
 

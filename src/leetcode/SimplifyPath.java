@@ -29,21 +29,21 @@ public class SimplifyPath {
     */
 
     public String simplifyPath(String path) {
-        path = path.replace(" ", "");
         Deque<String> deque = new ArrayDeque<>();
-        Arrays.stream(path.split("/")).filter(s -> s.length() > 0 && !s.equals(".")).forEach(s -> {
+        Arrays.stream(path.split("/")).map(String::trim).filter(s -> s.length() > 0 && !s.equals(".")).forEach(s -> {
             if ("..".equals(s)) deque.pollLast();
             else deque.addLast(s);
         });
-        if (deque.isEmpty()) return "/";
-        StringBuffer sb = new StringBuffer();
-        deque.forEach(s -> sb.append("/").append(s));
-        return sb.toString();
+        StringBuffer sb = new StringBuffer("/");
+        deque.forEach(s -> sb.append(s).append("/"));
+        return sb.substring(0, sb.length() - (sb.length() > 1 ? 1 : 0));
     }
 
     @Test
     public void test() {
         Assert.assertEquals("/", simplifyPath("/.."));
+        Assert.assertEquals("/home", simplifyPath("/home/"));
+        Assert.assertEquals("/c", simplifyPath("/a/./b/../../c/"));
     }
 
 }

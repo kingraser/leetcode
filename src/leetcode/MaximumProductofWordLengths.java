@@ -5,6 +5,9 @@
  */
 package leetcode;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 //--------------------- Change Logs----------------------
 //@author wangwenlong Initial Created at 2015年12月29日;
 //-------------------------------------------------------
@@ -35,6 +38,13 @@ public class MaximumProductofWordLengths {
     Return 0
     No such pair of words. 
     */
+
+    @Test
+    public void test() {
+        Assert.assertEquals(16, maxProduct(new String[] { "abcw", "baz", "foo", "bar", "xtfn", "abcdef" }));
+        Assert.assertEquals(4, maxProduct(new String[] { "a", "ab", "abc", "d", "cd", "bcd", "abcd" }));
+        Assert.assertEquals(0, maxProduct(new String[] { "a", "aa", "aaa", "aaaa" }));
+    }
 
     public int maxProduct(String[] words) {
         int[] mask = new int[words.length];

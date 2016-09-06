@@ -5,6 +5,9 @@
  */
 package leetcode;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月18日<p>
 //-------------------------------------------------------
@@ -16,14 +19,17 @@ public class MinimumSizeSubarraySum {
     the subarray [4,3] has the minimal length under the problem constraint. 
     */
 
+    @Test
+    public void test() {
+        Assert.assertEquals(2, minSubArrayLen(7, new int[] { 2, 3, 1, 2, 4, 3 }));
+    }
+
     public int minSubArrayLen(int s, int[] nums) {
-        int start = 0, sum = 0, res = 0, len;
-        for (int i = 0; i < nums.length; i++) {
-            sum += nums[i];
-            if (sum < s) continue;
+        int res = 0;
+        for (int i = 0, start = 0, sum = 0; i < nums.length;) {
+            if ((sum += nums[i++]) < s) continue;
             for (; sum >= s; sum -= nums[start++]);
-            len = i - start + 2;
-            if (res > len || res == 0) res = len;
+            res = res == 0 ? i - start + 1 : Math.min(res, i - start + 1);
         }
         return res;
     }

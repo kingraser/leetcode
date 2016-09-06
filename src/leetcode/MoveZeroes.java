@@ -5,6 +5,8 @@
  */
 package leetcode;
 
+import java.util.Arrays;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -29,7 +31,7 @@ public class MoveZeroes {
     public void moveZeroes(int[] nums) {
         for (int nz = 0, z = 0; nz < nums.length;) {//not-zero and zero
             for (; z < nums.length && nums[z] != 0; z++);
-            for (; nz <= z || nz < nums.length && nums[nz] == 0; nz++);
+            for (; (nz = z + 1) < nums.length && nums[nz] == 0; nz++);
             if (nz < nums.length) {
                 nums[z++] = nums[nz];
                 nums[nz++] = 0;
@@ -42,7 +44,7 @@ public class MoveZeroes {
         int i = 0;
         for (int num : nums)
             if (num != 0) nums[i++] = num;
-        for (; i < nums.length; nums[i++] = 0);
+        Arrays.fill(nums, i, nums.length, 0);
     }
 
     @Test

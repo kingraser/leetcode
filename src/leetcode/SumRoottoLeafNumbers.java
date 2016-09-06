@@ -5,6 +5,9 @@
  */
 package leetcode;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import leetcode.common.TreeNode;
 
 //--------------------- Change Logs----------------------
@@ -24,6 +27,11 @@ public class SumRoottoLeafNumbers {
     
     Return the sum = 12 + 13 = 25. 
     */
+
+    @Test
+    public void test() {
+        Assert.assertEquals(25, sumNumbers(TreeNode.generateTree("1,2,n,n,3,n,n")));
+    }
 
     public int sumNumbers(TreeNode root) {
         return dfs(root, 0);

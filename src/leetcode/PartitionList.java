@@ -30,10 +30,10 @@ public class PartitionList {
         for (ListNode cur = head; cur != null; cur = cur.next)
             if (cur.val < x) {
                 l.next = cur;
-                l = cur;
+                l = l.next;
             } else {
                 r.next = cur;
-                r = cur;
+                r = r.next;
             }
         l.next = right.next;
         r.next = null;

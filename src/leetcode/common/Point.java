@@ -5,7 +5,9 @@
  */
 package leetcode.common;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import java.util.Objects;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 //--------------------- Change Logs----------------------
@@ -13,19 +15,31 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 //-------------------------------------------------------
 public class Point {
 
-    public int x = 0, y = 0;
+  public int x = 0, y = 0;
 
-    public Point() {
-    }
+  public Point() {
+  }
 
-    public Point(int a, int b) {
-        x = a;
-        y = b;
-    }
+  public Point(int x, int y) {
+    this.x = x;
+    this.y = y;
+  }
 
-    @Override
-    public String toString() {
-        return ReflectionToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
-    }
+  @Override
+  public int hashCode() {
+    return 2 * x + 3 * y;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (Objects.isNull(obj) || !(obj instanceof Point)) return false;
+    Point point = (Point) obj;
+    return x == point.x && y == point.y;
+  }
+
+  @Override
+  public String toString() {
+    return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+  }
 
 }

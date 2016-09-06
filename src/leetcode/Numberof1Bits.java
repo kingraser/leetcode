@@ -23,7 +23,7 @@ public class Numberof1Bits {
 
     public int hammingWeightII(int n) {
         int result = 0;
-        for (; n != 0; n >>>= 1)
+        for (; n != 0; n >>= 1)
             if ((n & 1) == 1) result++;
         return result;
     }

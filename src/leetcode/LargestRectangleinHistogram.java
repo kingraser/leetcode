@@ -55,11 +55,11 @@ public class LargestRectangleinHistogram {
             结尾时入栈元素0,重复合并一次。
     */
 
-    public int largestRectangleArea(int[] height) {
+    public static int largestRectangleArea(int[] height) {
         Stack<Integer> stack = new Stack<>();
         int max = 0;
-        for (int i = 0, v = 0; i < height.length + 1; v = (i < height.length ? height[i] : 0))
-            if (stack.empty() || height[stack.peek()] <= v) stack.push(i++);
+        for (int i = 0, v; i < height.length + 1;)
+            if (stack.empty() || height[stack.peek()] <= (v = i < height.length ? height[i] : 0)) stack.push(i++);
             else while (!stack.isEmpty() && height[stack.peek()] > v)
                 max = Math.max(max, height[stack.pop()] * (stack.empty() ? i : i - stack.peek() - 1));
         return max;
