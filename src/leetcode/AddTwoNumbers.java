@@ -5,6 +5,8 @@
  */
 package leetcode;
 
+import java.util.Objects;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -28,12 +30,11 @@ public class AddTwoNumbers {
     }
 
     private ListNode addTwoNumbers(ListNode l1, ListNode l2, int c) {
-        ListNode node = null != l1 ? l1 : null != l2 ? l2 : c == 0 ? null : new ListNode(c);
-        if (node == null) return null;
-        int val = (null == l1 ? 0 : l1.val) + (null == l2 ? 0 : l2.val) + c;
+        ListNode node = Objects.isNull(l1) ? Objects.isNull(l2) ? c == 0 ? null : new ListNode(c) : l2 : l1;
+        if (Objects.isNull(node)) return null;
+        int val = (Objects.isNull(l1) ? 0 : l1.val) + (Objects.isNull(l2) ? 0 : l2.val) + c;
         node.val = val % 10;
-        c = val / 10;
-        node.next = addTwoNumbers(null == l1 ? null : l1.next, null == l2 ? null : l2.next, c);
+        node.next = addTwoNumbers(Objects.isNull(l1) ? null : l1.next, Objects.isNull(l2) ? null : l2.next, val / 10);
         return node;
     }
 
