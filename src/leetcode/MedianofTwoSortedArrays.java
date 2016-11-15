@@ -13,28 +13,40 @@ import org.junit.Test;
 //-------------------------------------------------------
 public class MedianofTwoSortedArrays {
 
-    /*
-            给两个有序int array 找出中位数(奇数时中间,偶数时中间两数的平均数)
-            
-            思想:转化为两个有序数列中找第k大的数,此题k=(m+n)/2
-            尝试二分法,一次排除k/2个数
-            若a[k/2]<b[k/2] 则a[start...k/2]可排除,否则b[start...k/2]可排除
-            复杂度O(log(min(m,n)))
-    */
+  /*
+  There are two sorted arrays nums1 and nums2 of size m and n respectively.  
+  Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).
+  
+  Example 1:
+  
+  nums1 = [1, 3]
+  nums2 = [2]
+  
+  The median is 2.0
+  
+  Example 2:
+  
+  nums1 = [1, 2]
+  nums2 = [3, 4]
+  
+  The median is (2 + 3)/2 = 2.5
+  */
 
-    public double findMedianSortedArrays(int[] A, int[] B) {
-        if (A.length > B.length) return findMedianSortedArrays(B, A);
-        int k = (A.length + B.length - 1) >> 1, l = 0, r = Math.min(k, A.length);
-        for (int mid1; l < r;)
-            if (A[mid1 = (l + r) >> 1] < B[k - mid1]) l = mid1 + 1;
-            else r = mid1;
-        double a = l == 0 ? B[k - l] : Math.max(A[l - 1], B[k - l]);
-        if (((A.length + B.length) & 1) == 1) return a;//odd
-        return (a + (l == A.length ? B[k - l + 1] : k - l + 1 < B.length ? Math.min(A[l], B[k - l + 1]) : A[l])) / 2;
-    }
+  public double findMedianSortedArrays(int[] A, int[] B) {
+    if (A.length > B.length) return findMedianSortedArrays(B, A);//make sure A is shorter than B
+    int half = (A.length + B.length - 1) >> 1, left = 0, right = Math.min(half, A.length);
+    for (int mid; left < right;)
+      if (A[mid = (left + right) >> 1] < B[half - mid]) left = mid + 1;
+      else right = mid;
+    double a = left == 0 ? B[half - left] : Math.max(A[left - 1], B[half - left]);
+    if (((A.length + B.length) & 1) == 1) return a;//odd
+    double b = left == A.length ? B[half - left + 1]
+        : half - left + 1 < B.length ? Math.min(A[left], B[half - left + 1]) : A[left];
+    return (a + b) / 2;
+  }
 
-    @Test
-    public void test() {
-        Assert.assertEquals(1, findMedianSortedArrays(new int[] { 1 }, new int[] { 1 }), 0);
-    }
+  @Test
+  public void test() {
+    Assert.assertEquals(1d, findMedianSortedArrays(new int[] { 1 }, new int[] { 1 }), 0);
+  }
 }
