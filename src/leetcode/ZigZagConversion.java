@@ -32,10 +32,10 @@ public class ZigZagConversion {
     public String convert(String s, int row) {
         if (row == 1) return s;
         char[] result = new char[s.length()];
-        for (int i = 0, k = 0, step = (row - 1) << 1, len = s.length(); i < row; i++)
-            for (int j = i, l = step - i; j < len; j += step, l += step) {
+        for (int i = 0, k = 0, step = (row - 1) << 1; i < row; i++)
+            for (int j = i, i2 = i << 1; j < s.length();) {
                 result[k++] = s.charAt(j);
-                if (i > 0 && i < row - 1 && l < len) result[k++] = s.charAt(l);
+                if ((j += step) - i2 < s.length() && i > 0 && i < row - 1) result[k++] = s.charAt(j - i2);
             }
         return new String(result);
     }
