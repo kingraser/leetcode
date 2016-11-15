@@ -41,7 +41,7 @@ public class ArithmeticSlicesIISubsequence {
         add(list.get(i), (int) distance, count + 1);
       }
     }
-    return result;
+    return (int) result;
   }
 
   private void add(Map<Integer, Integer> map, int key, int value) {
