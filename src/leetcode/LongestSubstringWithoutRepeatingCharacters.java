@@ -13,33 +13,31 @@ import org.junit.Test;
 //-------------------------------------------------------
 public class LongestSubstringWithoutRepeatingCharacters {
 
-    /*
-            如题
-    abcabcbb is "abc", which the length is 3.
-    bbbbb the longest substring is "b", with the length of 1.
-            思路:维护一个窗口,窗口内无重复字母+水位法.
-            窗口围护方法
-            无重复,后指针向后.
-            有重复,前指针向后,至无重复为止
-    */
+  /*
+  Given a string, find the length of the longest substring without repeating characters. 
+  Examples:  
+  Given "abcabcbb", the answer is "abc", which the length is 3.
+  Given "bbbbb", the answer is "b", with the length of 1.  
+  Given "pwwkew", the answer is "wke", with the length of 3. Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
+  */
 
-    public int lengthOfLongestSubstring(String s) {
-        int max = 0, len = 0;
-        int[] map = new int[128];
-        for (int i = 0, first = 0, c; i < s.length(); map[c] = ++i)
-            if (map[c = s.charAt(i)] != 0) {
-                if (max < len) max = len;
-                if (first < map[c]) first = map[c];
-                len = i - first + 1;
-            } else len++;
-        return max < len ? len : max;
-    }
+  public int lengthOfLongestSubstring(String s) {
+    int max = 0, len = 0;
+    int[] map = new int[128];
+    for (int i = 0, first = 0, c; i < s.length(); map[c] = ++i)
+      if (map[c = s.charAt(i)] != 0) {
+        if (max < len) max = len;
+        if (first < map[c]) first = map[c];
+        len = i - first + 1;
+      } else len++;
+    return max < len ? len : max;
+  }
 
-    @Test
-    public void test() {
-        Assert.assertEquals(2, lengthOfLongestSubstring("abba"));
-        Assert.assertEquals(3, lengthOfLongestSubstring("abcabcbb"));
-        Assert.assertEquals(1, lengthOfLongestSubstring("bbbbb"));
-    }
+  @Test
+  public void test() {
+    Assert.assertEquals(2, lengthOfLongestSubstring("abba"));
+    Assert.assertEquals(3, lengthOfLongestSubstring("abcabcbb"));
+    Assert.assertEquals(1, lengthOfLongestSubstring("bbbbb"));
+  }
 
 }
