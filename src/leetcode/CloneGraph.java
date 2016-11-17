@@ -50,9 +50,9 @@ public class CloneGraph {
     public void dfs(Map<UndirectedGraphNode, UndirectedGraphNode> map, UndirectedGraphNode node) {
         if (map.containsKey(node)) return;
         map.put(node, new UndirectedGraphNode(node.label));
-        for (UndirectedGraphNode neighbor : node.neighbors) {
+        node.neighbors.forEach(neighbor -> {
             dfs(map, neighbor);
             map.get(node).neighbors.add(map.get(neighbor));
-        }
+        });
     }
 }
