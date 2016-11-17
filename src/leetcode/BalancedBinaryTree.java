@@ -5,6 +5,8 @@
  */
 package leetcode;
 
+import java.util.Objects;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -15,21 +17,26 @@ import leetcode.common.TreeNode;
 //-------------------------------------------------------
 public class BalancedBinaryTree {
 
-    @Test
-    public void test() {
-        Assert.assertTrue(isBalanced(TreeNode.generateTree("1,2,n,n,3,n,n")));
-        Assert.assertFalse(isBalanced(TreeNode.generateTree("1,n,2,n,3,n,n")));
-    }
+  /*
+  Given a binary tree, determine if it is height-balanced.
+  
+  For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ by more than 1. 
+  */
 
-    //Given a binary tree, determine if it is height-balanced. 
-    public boolean isBalanced(TreeNode root) {
-        if (null == root) return true;
-        return isBalanced(root.left) && isBalanced(root.right)
-                && Math.abs(getDepth(root.left) - getDepth(root.right)) < 2;
-    }
+  @Test
+  public void test() {
+    Assert.assertTrue(isBalanced(TreeNode.generateTree("1,2,n,n,3,n,n")));
+    Assert.assertFalse(isBalanced(TreeNode.generateTree("1,n,2,n,3,n,n")));
+  }
 
-    private int getDepth(TreeNode root) {
-        if (null == root) return 0;
-        return 1 + Math.max(getDepth(root.left), getDepth(root.right));
-    }
+  // Given a binary tree, determine if it is height-balanced.
+  public boolean isBalanced(TreeNode root) {
+    if (Objects.isNull(root)) return true;
+    return isBalanced(root.left) && isBalanced(root.right) && Math.abs(getDepth(root.left) - getDepth(root.right)) < 2;
+  }
+
+  private int getDepth(TreeNode root) {
+    if (Objects.isNull(root)) return 0;
+    return 1 + Math.max(getDepth(root.left), getDepth(root.right));
+  }
 }
