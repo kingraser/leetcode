@@ -45,8 +45,8 @@ public class CombinationSumII {
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         Arrays.sort(candidates);
         List<List<Integer>> result = new ArrayList<>();
-        dfs(candidates, target, 0, new ArrayDeque<>(target / candidates[0]), result);
-        return new ArrayList<>(result);
+        dfs(candidates, target, 0, new ArrayDeque<>(), result);
+        return result;
     }
 
     private void dfs(int[] n, int gap, int start, Deque<Integer> deque, List<List<Integer>> result) {

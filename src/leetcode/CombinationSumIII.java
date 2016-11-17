@@ -45,7 +45,7 @@ public class CombinationSumIII {
 
     public List<List<Integer>> combinationSum3(int k, int n) {
         List<List<Integer>> res = new ArrayList<>();
-        dfs(res, new ArrayDeque<>(9), n, k, 1);
+        dfs(res, new ArrayDeque<>(), n, k, 1);
         return res;
     }
 
