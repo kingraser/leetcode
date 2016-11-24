@@ -55,21 +55,18 @@ public class LFUCache {
   class Cache {
     Node head = null;
     final int capacity;
-    final float loadFactor = 1f;
     Map<Integer, Integer> valueMap;
     Map<Integer, Node> nodeMap;
 
     public Cache(int capacity) {
       this.capacity = capacity;
-      valueMap = new HashMap<>(this.capacity, loadFactor);
-      nodeMap = new HashMap<>(this.capacity, loadFactor);
+      valueMap = new HashMap<>(this.capacity, 1f);
+      nodeMap = new HashMap<>(this.capacity, 1f);
     }
 
     public int get(int key) {
-      Integer val = valueMap.get(key);
-      if (Objects.isNull(val)) return -1;
-      increase(key);
-      return val;
+      if (valueMap.containsKey(key)) increase(key);
+      return valueMap.getOrDefault(key, -1);
     }
 
     private void increase(int key) {
@@ -84,20 +81,17 @@ public class LFUCache {
 
     private void remove(Node node) {
       if (head == node) head = node.next;
-      else {
-        node.prev.next = node.next;
-        if (Objects.nonNull(node.next)) node.next.prev = node.prev;
-      }
+      else node.prev.next = node.next;
+      if (Objects.nonNull(node.next)) node.next.prev = node.prev;
     }
 
     public void set(int key, int value) {
       if (0 == this.capacity) return;
-      if (valueMap.containsKey(key)) increase(key);
+      if (Objects.nonNull(valueMap.put(key, value))) increase(key);
       else {
         if (valueMap.size() == this.capacity) remove();
         add(key);
       }
-      valueMap.put(key, value);
     }
 
     private void add(int key) {
