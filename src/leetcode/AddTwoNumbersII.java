@@ -1,7 +1,7 @@
 package leetcode;
 
+import static leetcode.common.ListNode.list;
 import static leetcode.ReverseLinkedList.reverseList;
-
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -26,8 +26,7 @@ public class AddTwoNumbersII {
 
   @Test
   public void test() {
-    assertEquals(ListNode.generateNodes(7, 8, 0, 7),
-        addTwoNumbers(ListNode.generateNodes(7, 2, 4, 3), ListNode.generateNodes(5, 6, 4)));
+    assertEquals(list(7, 8, 0, 7), addTwoNumbers(list(7, 2, 4, 3), list(5, 6, 4)));
   }
 
   public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
