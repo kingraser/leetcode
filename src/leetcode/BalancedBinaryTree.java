@@ -5,9 +5,12 @@
  */
 package leetcode;
 
+import static leetcode.common.TreeNode.tree;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Objects;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import leetcode.common.TreeNode;
@@ -25,8 +28,8 @@ public class BalancedBinaryTree {
 
   @Test
   public void test() {
-    Assert.assertTrue(isBalanced(TreeNode.generateTree("1,2,n,n,3,n,n")));
-    Assert.assertFalse(isBalanced(TreeNode.generateTree("1,n,2,n,3,n,n")));
+    assertTrue(isBalanced(tree("1,2,n,n,3,n,n")));
+    assertFalse(isBalanced(tree("1,n,2,n,3,n,n")));
   }
 
   // Given a binary tree, determine if it is height-balanced.
