@@ -12,12 +12,10 @@ import java.util.List;
 // <p>@author wit Initial Created at 2015年10月16日<p>
 //-------------------------------------------------------
 public class UndirectedGraphNode {
+  public int label;
+  public List<UndirectedGraphNode> neighbors = new ArrayList<>();
 
-    public int label;
-
-    public List<UndirectedGraphNode> neighbors = new ArrayList<>();
-
-    public UndirectedGraphNode(int x) {
-        label = x;
-    }
+  public UndirectedGraphNode(int x) {
+    label = x;
+  }
 }
