@@ -5,7 +5,8 @@
  */
 package leetcode;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -44,7 +45,7 @@ public class BattleshipsinaBoard {
   @Test
   public void test() {
     char[][] board = new char[][] { "X..X".toCharArray(), "...X".toCharArray(), "...X".toCharArray() };
-    Assert.assertEquals(2, countBattleships(board));
+    assertEquals(2, countBattleships(board));
   }
 
   static final int[] dRow = new int[] { -1, 1, 0, 0 }, dCol = new int[] { 0, 0, -1, 1 };
