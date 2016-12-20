@@ -28,13 +28,12 @@ public class AddStrings {
     Assert.assertEquals("10", addStrings("9", "1"));
   }
 
-  public String addStrings(String num1, String num2) {
-    int l1 = num1.length(), l2 = num2.length(), idx = Math.max(l1, l2);
-    char[] result = new char[idx + 1];
-    for (int i1 = l1 - 1, i2 = l2 - 1, c = 0, v; i1 >= 0 || i2 >= 0 || c > 0; c = v > 9 ? 1 : 0, i1--, i2--)
-      result[idx--] = (char) ((v = (i1 >= 0 ? num1.charAt(i1) : '0') + (i2 >= 0 ? num2.charAt(i2) : '0') - 2 * '0' + c)
-          % 10 - '0');
-    return new String(result, ++idx, result.length - idx);
+  public String addStrings(String n1, String n2) {
+    int l1 = n1.length(), l2 = n2.length(), k = Math.max(l1, l2);
+    char[] A = new char[k + 1];
+    for (int i = --l1, j = --l2, c = 0, v; i >= 0 || j >= 0 || c > 0; c = v > 9 ? 1 : 0)
+      A[k--] = (char) ((v = (i < 0 ? 0 : n1.charAt(i--) - '0') + (j < 0 ? 0 : n2.charAt(j--) - '0') + c) % 10 + '0');
+    return new String(A, ++k, A.length - k);
   }
 
 }
