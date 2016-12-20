@@ -80,7 +80,6 @@ public class AllOoneDataStructure {
         nodeMap.put(key, node.prev);
       }
       if (node.keys.isEmpty()) remove(node);
-
     }
 
     public String getMaxKey() {
