@@ -5,10 +5,11 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -16,39 +17,37 @@ import org.junit.Test;
 //-------------------------------------------------------
 public class BestTimetoBuyandSellStockIII {
 
-    /* 
-    Say you have an array for which the i-th element is the price of a given stock on day i.
-    Design an algorithm to find the maximum profit. You may complete at most two transactions.
-    Note: You may not engage in multiple transactions at the same time 
-    (ie, you must sell the stock before you buy again).
-    
-            设状态f(i),表示区间[0, i](0≤i≤n−1)的最大利润,
-            状态g(i),表示区间[i, n − 1](0≤i≤n−1)的最大利润,
-            则最终答案为 max{f(i)+g(i)},0≤i≤n−1。
-            允许在一天内买进又卖出,相当于不交易,因为题目的规定是最多两次,而不是一定要两次。
-            将原数组变成差分数组,本题也可以看做是最大m子段和,m=2
-    */
+  /* 
+  Say you have an array for which the i-th element is the price of a given stock on day i.
+  Design an algorithm to find the maximum profit. You may complete at most two transactions.
+  Note: You may not engage in multiple transactions at the same time 
+  (ie, you must sell the stock before you buy again).
+  
+  let f(i) represents max profit in [0, i](0≤i≤n−1)
+      s(i) represents max profit in [i, n − 1](0≤i≤n−1)
+  The answer is max{f(i)+g(i)}(0≤i≤n−1)
+  */
 
-    @Test
-    public void test() {
-        Assert.assertEquals(6, maxProfit(Arrays.asList(1, 2, 3, 4, 5, 6, 7)));
-    }
+  @Test
+  public void test() {
+    assertEquals(6, maxProfit(Arrays.asList(1, 2, 3, 4, 5, 6, 7)));
+  }
 
-    public int maxProfit(List<Integer> prices) {
-        if (prices.size() < 2) return 0;
-        int[] f = new int[prices.size()], g = new int[prices.size()];
-        for (int i = 1, valley = prices.get(0); i < prices.size(); i++) {
-            valley = Math.min(valley, prices.get(i));
-            f[i] = Math.max(f[i - 1], prices.get(i) - valley);
-        }
-        for (int i = prices.size() - 2, peak = prices.get(i + 1); i >= 0; i--) {
-            peak = Math.max(peak, prices.get(i));
-            g[i] = Math.max(g[i], peak - prices.get(i));
-        }
-        int maxProfit = 0;
-        for (int i = 0; i < prices.size(); i++)
-            maxProfit = Math.max(maxProfit, f[i] + g[i]);
-        return maxProfit;
+  public int maxProfit(List<Integer> prices) {
+    if (prices.size() < 2) return 0;
+    int[] f = new int[prices.size()], s = new int[prices.size()];
+    for (int i = 1, min = prices.get(0); i < prices.size(); i++) {
+      min = Math.min(min, prices.get(i));
+      f[i] = Math.max(f[i - 1], prices.get(i) - min);
     }
+    for (int i = prices.size() - 2, max = prices.get(i + 1); i >= 0; i--) {
+      max = Math.max(max, prices.get(i));
+      s[i] = Math.max(s[i], max - prices.get(i));
+    }
+    int maxProfit = 0;
+    for (int i = 0; i < prices.size(); i++)
+      maxProfit = Math.max(maxProfit, f[i] + s[i]);
+    return maxProfit;
+  }
 
 }
