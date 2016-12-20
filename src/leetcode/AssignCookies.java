@@ -5,9 +5,10 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -45,8 +46,8 @@ public class AssignCookies {
 
   @Test
   public void test() {
-    Assert.assertEquals(1, findContentChildren(new int[] { 1, 2, 3 }, new int[] { 1, 1 }));
-    Assert.assertEquals(2, findContentChildren(new int[] { 1, 2 }, new int[] { 1, 2, 3 }));
+    assertEquals(1, findContentChildren(new int[] { 1, 2, 3 }, new int[] { 1, 1 }));
+    assertEquals(2, findContentChildren(new int[] { 1, 2 }, new int[] { 1, 2, 3 }));
   }
 
   public int findContentChildren(int[] g, int[] s) {
