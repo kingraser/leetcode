@@ -5,9 +5,11 @@
  */
 package leetcode;
 
+import static leetcode.common.ListNode.list;
+import static org.junit.Assert.assertEquals;
+
 import java.util.Objects;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import leetcode.common.ListNode;
@@ -41,8 +43,7 @@ public class AddTwoNumbers {
 
   @Test
   public void test() {
-    Assert.assertEquals(ListNode.generateNodes(7, 0, 8),
-        addTwoNumbers(ListNode.generateNodes(2, 4, 3), ListNode.generateNodes(5, 6, 4)));
+    assertEquals(list(7, 0, 8), addTwoNumbers(list(2, 4, 3), list(5, 6, 4)));
   }
 
 }
