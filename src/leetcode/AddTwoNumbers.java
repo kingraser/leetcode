@@ -26,11 +26,11 @@ public class AddTwoNumbers {
   Output: 7 -> 0 -> 8
   */
 
-  public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+  public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
     return addTwoNumbers(l1, l2, 0);
   }
 
-  private ListNode addTwoNumbers(ListNode l1, ListNode l2, int c) {
+  private static ListNode addTwoNumbers(ListNode l1, ListNode l2, int c) {
     ListNode node = Objects.isNull(l1) ? Objects.isNull(l2) ? c == 0 ? null : new ListNode(c) : l2 : l1;
     if (Objects.isNull(node)) return null;
     int val = (Objects.isNull(l1) ? 0 : l1.val) + (Objects.isNull(l2) ? 0 : l2.val) + c;
