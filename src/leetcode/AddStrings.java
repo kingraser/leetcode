@@ -5,7 +5,8 @@
  */
 package leetcode;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -25,7 +26,7 @@ public class AddStrings {
 
   @Test
   public void test() {
-    Assert.assertEquals("10", addStrings("9", "1"));
+    assertEquals("10", addStrings("9", "1"));
   }
 
   public String addStrings(String n1, String n2) {
