@@ -15,43 +15,43 @@ import org.junit.Test;
 //-------------------------------------------------------
 public class BasicCalculator {
 
-    /*
-    Implement a basic calculator to evaluate a simple expression string.    
-    The expression string may contain open ( and closing parentheses ), the plus + or minus sign -, non-negative integers and empty spaces .    
-    You may assume that the given expression is always valid.    
-    Some examples:    
-    "1 + 1" = 2
-    " 2-1 + 2 " = 3
-    "(1+(4+5+2)-3)+(6+8)" = 23
-    */
-    @Test
-    public void test() {
-        Assert.assertEquals(2, calculate("1 + 1"));
-        Assert.assertEquals(3, calculate(" 2-1 + 2 "));
-        Assert.assertEquals(23, calculate("(1+(4+5+2)-3)+(6+8)"));
-        Assert.assertEquals(-4, calculate("1-(5)"));
-        Assert.assertEquals(3, calculate("2-(5-6)"));
-    }
+  /*
+  Implement a basic calculator to evaluate a simple expression string.    
+  The expression string may contain open ( and closing parentheses ), the plus + or minus sign -, non-negative integers and empty spaces .    
+  You may assume that the given expression is always valid.    
+  Some examples:    
+  "1 + 1" = 2
+  " 2-1 + 2 " = 3
+  "(1+(4+5+2)-3)+(6+8)" = 23
+  */
 
-    //stack
-    public int calculate(String s) {
-        Stack<Integer> stack = new Stack<>();
-        int result = 0, temp = 0, sign = 1;//1 for +, -1 for -
-        for (char c : s.toCharArray())
-            if ('0' <= c && c <= '9') temp = temp * 10 + c - '0';
-            else {
-                result += temp * sign;
-                temp = 0;
-                if (c == '+') sign = 1;
-                else if (c == '-') sign = -1;
-                else if (c == '(') {
-                    stack.push(result);
-                    stack.push(sign);
-                    result = 0;
-                    sign = 1;
-                } else if (c == ')') result = result * stack.pop() + stack.pop();
-            }
-        return result += temp * sign;
-    }
+  @Test
+  public void test() {
+    Assert.assertEquals(2, calculate("1 + 1"));
+    Assert.assertEquals(3, calculate(" 2-1 + 2 "));
+    Assert.assertEquals(23, calculate("(1+(4+5+2)-3)+(6+8)"));
+    Assert.assertEquals(-4, calculate("1-(5)"));
+    Assert.assertEquals(3, calculate("2-(5-6)"));
+  }
+
+  public int calculate(String s) {
+    Stack<Integer> stack = new Stack<>();
+    int result = 0, temp = 0, sign = 1;//1 for +, -1 for -
+    for (char c : s.toCharArray())
+      if ('0' <= c && c <= '9') temp = temp * 10 + c - '0';
+      else {
+        result += temp * sign;
+        temp = 0;
+        if (c == '+') sign = 1;
+        else if (c == '-') sign = -1;
+        else if (c == '(') {
+          stack.push(result);
+          stack.push(sign);
+          result = 0;
+          sign = 1;
+        } else if (c == ')') result = result * stack.pop() + stack.pop();
+      }
+    return result += temp * sign;
+  }
 
 }
