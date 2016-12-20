@@ -5,9 +5,10 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -44,7 +45,7 @@ public class ArithmeticSlices {
 
   @Test
   public void test() {
-    Assert.assertEquals(3, numberOfArithmeticSlices(new int[] { 1, 2, 3, 4 }));
+    assertEquals(3, numberOfArithmeticSlices(new int[] { 1, 2, 3, 4 }));
   }
 
   public int numberOfArithmeticSlices(int[] A) {

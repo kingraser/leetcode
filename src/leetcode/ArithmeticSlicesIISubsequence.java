@@ -5,12 +5,13 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -57,9 +58,9 @@ public class ArithmeticSlicesIISubsequence {
   */
   @Test
   public void test() {
-    Assert.assertEquals(7, numberOfArithmeticSlices(new int[] { 2, 4, 6, 8, 10 }));
-    Assert.assertEquals(5, numberOfArithmeticSlices(new int[] { 7, 7, 7, 7 }));
-    Assert.assertEquals(1030,
+    assertEquals(7, numberOfArithmeticSlices(new int[] { 2, 4, 6, 8, 10 }));
+    assertEquals(5, numberOfArithmeticSlices(new int[] { 7, 7, 7, 7 }));
+    assertEquals(1030,
         numberOfArithmeticSlices(new int[] { 79, 20, 64, 28, 67, 81, 60, 58, 97, 85, 92, 96, 82, 89, 46, 50, 15, 2, 36,
             44, 54, 2, 90, 37, 7, 79, 26, 40, 34, 67, 64, 28, 60, 89, 46, 31, 9, 95, 43, 19, 47, 64, 48, 95, 80, 31, 47,
             19, 72, 99, 28, 46, 13, 9, 64, 4, 68, 74, 50, 28, 69, 94, 93, 3, 80, 78, 23, 80, 43, 49, 77, 18, 68, 28, 13,
