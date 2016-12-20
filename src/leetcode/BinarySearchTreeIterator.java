@@ -5,13 +5,18 @@
  */
 package leetcode;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Stack;
+import static leetcode.common.TreeNode.tree;
+import static org.junit.Assert.assertEquals;
 
-import org.junit.Assert;
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.Iterator;
+import java.util.Objects;
+
 import org.junit.Test;
+
+import com.google.common.collect.Lists;
 
 import leetcode.common.TreeNode;
 
@@ -20,43 +25,35 @@ import leetcode.common.TreeNode;
 //-------------------------------------------------------
 public class BinarySearchTreeIterator {
 
-    /*
-    Implement an iterator over a binary search tree (BST). 
-    Your iterator will be initialized with the root node of a BST.    
-    Calling next() will return the next smallest number in the BST.    
-    Note: next() and hasNext() should run in average O(1) time and uses O(h) memory, 
-    where h is the height of the tree. 
-    */
+  /*
+  Implement an iterator over a binary search tree (BST). 
+  Your iterator will be initialized with the root node of a BST.    
+  Calling next() will return the next smallest number in the BST.    
+  Note: next() and hasNext() should run in average O(1) time and uses O(h) memory, 
+  where h is the height of the tree. 
+  */
 
-    @Test
-    public void test() {
-        List<Integer> expected = new ArrayList<>();
-        for (BSTIterator iterator = new BSTIterator(TreeNode.generateTree("3,9,n,n,20,15,n,n,7,n,n")); iterator
-                .hasNext(); expected.add(iterator.next()));
-        Assert.assertEquals(Arrays.asList(9, 3, 15, 20, 7), expected);
+  @Test
+  public void test() {
+    assertEquals(Arrays.asList(3, 9, 20, 15, 7), Lists.newArrayList(new BSTIterator(tree("3,9,n,n,20,15,n,n,7,n,n"))));
+  }
+
+  public class BSTIterator implements Iterator<Integer> {
+    private Deque<TreeNode> deque = new ArrayDeque<>();
+
+    public BSTIterator(TreeNode root) {
+      if (Objects.nonNull(root)) deque.add(root);
     }
 
-    public class BSTIterator {
-
-        private Stack<TreeNode> stack = new Stack<>();
-
-        public BSTIterator(TreeNode root) {
-            pushLeft(root);
-        }
-
-        public boolean hasNext() {
-            return !stack.isEmpty();
-        }
-
-        public int next() {
-            TreeNode node = stack.pop();
-            pushLeft(node.right);
-            return node.val;
-        }
-
-        private void pushLeft(TreeNode node) {
-            for (; node != null; node = node.left)
-                stack.push(node);
-        }
+    public boolean hasNext() {
+      return !deque.isEmpty();
     }
+
+    public Integer next() {
+      TreeNode node = deque.pollFirst();
+      if (Objects.nonNull(node.left)) deque.addLast(node.left);
+      if (Objects.nonNull(node.right)) deque.addLast(node.right);
+      return node.val;
+    }
+  }
 }
