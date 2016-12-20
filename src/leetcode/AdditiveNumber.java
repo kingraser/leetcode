@@ -5,9 +5,11 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.math.BigInteger;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -35,10 +37,10 @@ public class AdditiveNumber {
 
   @Test
   public void test() {
-    Assert.assertTrue(isAdditiveNumber("112358"));
-    Assert.assertTrue(isAdditiveNumber("199100199"));
-    Assert.assertFalse(isAdditiveNumber("1203"));
-    Assert.assertFalse(isAdditiveNumber("1023"));
+    assertTrue(isAdditiveNumber("112358"));
+    assertTrue(isAdditiveNumber("199100199"));
+    assertFalse(isAdditiveNumber("1203"));
+    assertFalse(isAdditiveNumber("1023"));
   }
 
   public boolean isAdditiveNumber(String num) {
