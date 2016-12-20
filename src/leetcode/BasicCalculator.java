@@ -5,9 +5,10 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Stack;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -27,11 +28,11 @@ public class BasicCalculator {
 
   @Test
   public void test() {
-    Assert.assertEquals(2, calculate("1 + 1"));
-    Assert.assertEquals(3, calculate(" 2-1 + 2 "));
-    Assert.assertEquals(23, calculate("(1+(4+5+2)-3)+(6+8)"));
-    Assert.assertEquals(-4, calculate("1-(5)"));
-    Assert.assertEquals(3, calculate("2-(5-6)"));
+    assertEquals(2, calculate("1 + 1"));
+    assertEquals(3, calculate(" 2-1 + 2 "));
+    assertEquals(23, calculate("(1+(4+5+2)-3)+(6+8)"));
+    assertEquals(-4, calculate("1-(5)"));
+    assertEquals(3, calculate("2-(5-6)"));
   }
 
   public int calculate(String s) {
@@ -53,5 +54,4 @@ public class BasicCalculator {
       }
     return result += temp * sign;
   }
-
 }
