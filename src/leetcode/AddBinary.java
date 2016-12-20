@@ -5,7 +5,8 @@
  */
 package leetcode;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -21,7 +22,7 @@ public class AddBinary {
 
   @Test
   public void test() {
-    Assert.assertEquals("100", addBinary("11", "1"));
+    assertEquals("100", addBinary("11", "1"));
   }
 
   public String addBinary(String a, String b) {
