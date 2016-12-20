@@ -1,5 +1,7 @@
 package leetcode;
-import org.junit.Assert;
+
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 /*
@@ -42,8 +44,8 @@ public class ArrangingCoins {
 
   @Test
   public void test() {
-    Assert.assertEquals(2, arrangeCoins(5));
-    Assert.assertEquals(3, arrangeCoins(8));
+    assertEquals(2, arrangeCoins(5));
+    assertEquals(3, arrangeCoins(8));
   }
 
   public int arrangeCoins(int n) {
