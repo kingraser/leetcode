@@ -5,6 +5,8 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -12,11 +14,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.PriorityQueue;
-import java.util.Queue;
 import java.util.Set;
+import java.util.TreeSet;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -79,14 +79,14 @@ public class DesignTwitter {
      */
     public List<Integer> getNewsFeed(int userId) {
       List<Integer> result = new ArrayList<>();
-      Queue<Tweet> queue = new PriorityQueue<>((t1, t2) -> t2.time - t1.time);
+      TreeSet<Tweet> heap = new TreeSet<>((t1, t2) -> t2.time - t1.time);
       User user = getUser(userId);
-      if (Objects.nonNull(user.newest)) queue.add(user.newest);
-      user.followees.stream().map(id -> getUser(id).newest).filter(Objects::nonNull).forEach(queue::add);
-      while (result.size() < 10 && !queue.isEmpty()) {
-        Tweet t = queue.poll();
+      if (Objects.nonNull(user.newest)) heap.add(user.newest);
+      user.followees.stream().map(id -> getUser(id).newest).filter(Objects::nonNull).forEach(heap::add);
+      while (result.size() < 10 && !heap.isEmpty()) {
+        Tweet t = heap.pollFirst();
         result.add(t.id);
-        if (Objects.nonNull(t.prev)) queue.add(t.prev);
+        if (Objects.nonNull(t.prev)) heap.add(t.prev);
       }
       return result;
     }
@@ -139,7 +139,7 @@ public class DesignTwitter {
     twitter.postTweet(1, 5);
 
     // User 1's news feed should return a list with 1 tweet id -> [5].
-    Assert.assertEquals(Arrays.asList(5), twitter.getNewsFeed(1));
+    assertEquals(Arrays.asList(5), twitter.getNewsFeed(1));
 
     // User 1 follows user 2.
     twitter.follow(1, 2);
@@ -150,13 +150,13 @@ public class DesignTwitter {
     // User 1's news feed should return a list with 2 tweet ids -> [6, 5].
     // Tweet id 6 should precede tweet id 5 because it is posted after tweet id
     // 5.
-    Assert.assertEquals(Arrays.asList(6, 5), twitter.getNewsFeed(1));
+    assertEquals(Arrays.asList(6, 5), twitter.getNewsFeed(1));
 
     // User 1 unfollows user 2.
     twitter.unfollow(1, 2);
 
     // User 1's news feed should return a list with 1 tweet id -> [5],
     // since user 1 is no longer following user 2.
-    Assert.assertEquals(Arrays.asList(5), twitter.getNewsFeed(1));
+    assertEquals(Arrays.asList(5), twitter.getNewsFeed(1));
   }
 }
