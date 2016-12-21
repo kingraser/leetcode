@@ -5,10 +5,13 @@
  */
 package leetcode;
 
+import static leetcode.common.ListNode.list;
+import static leetcode.common.TreeNode.tree;
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import leetcode.common.ListNode;
@@ -19,26 +22,23 @@ import leetcode.common.TreeNode;
 //-------------------------------------------------------
 public class ConvertSortedListtoBinarySearchTree {
 
-    //Given a singly linked list where elements are sorted in ascending order, convert it to a height balanced BST. 
-    public TreeNode sortedListToBST(ListNode head) {
-        List<Integer> list = new ArrayList<>();
-        for (; null != head; list.add(head.val), head = head.next);
-        return build(list, 0, list.size());
-    }
+  //Given a singly linked list where elements are sorted in ascending order, convert it to a height balanced BST. 
+  public TreeNode sortedListToBST(ListNode head) {
+    List<Integer> list = new ArrayList<>();
+    for (; null != head; list.add(head.val), head = head.next);
+    return build(list, 0, list.size());
+  }
 
-    private TreeNode build(List<Integer> list, int left, int right) {
-        if (left >= right) return null;
-        int mid = (left + right) >> 1;
-        TreeNode root = new TreeNode(list.get(mid));
-        root.left = build(list, left, mid);
-        root.right = build(list, mid + 1, right);
-        return root;
-    }
+  private TreeNode build(List<Integer> list, int left, int right) {
+    if (left >= right) return null;
+    int mid = (left + right) >> 1;
+    return new TreeNode(list.get(mid), build(list, left, mid), build(list, mid + 1, right));
+  }
 
-    @Test
-    public void test() {
-        TreeNode expected = TreeNode.generateTree("2,1,n,n,3,n,n");
-        Assert.assertEquals(expected, sortedListToBST(ListNode.generateNodes(1, 2, 3)));
-    }
+  @Test
+  public void test() {
+    TreeNode expected = tree("2,1,n,n,3,n,n");
+    assertEquals(expected, sortedListToBST(list(1, 2, 3)));
+  }
 
 }
