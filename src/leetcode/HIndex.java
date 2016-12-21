@@ -5,70 +5,68 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月6日<p>
 //-------------------------------------------------------
 public class HIndex {
-    /*
-            给定一个非负整数数组,每个元素代表一篇论文的引用数。
-            计算该数组的引用因子
-            所谓引用因子x即有x篇文章的引用数大于等于x，其余文章引用数小于x
-            
-    eg{3, 0, 6, 1, 5}的引用因子是3
-            因为3,5,6，有3篇文章的引用数至少为3，其余0,1 引用数小于3 
-            
-            解法
-            
-    1O(n*log(n))
-        1排序
-        2顺序查找（优化：二分查找）
-     
-    2O(n)
-        1one pass获取各引用数下的文章数
-        2one pass查找
-    */
+  /*
+  Given an array of citations (each citation is a non-negative integer) of a researcher, write a function to compute the researcher's h-index.
+  
+  According to the definition of h-index on Wikipedia: "A scientist has index h if h of his/her N papers have at least h citations each, and the other N − h papers have no more than h citations each."
+  
+  For example, given citations = [3, 0, 6, 1, 5], which means the researcher has 5 papers in total and each of them had received 3, 0, 6, 1, 5 citations respectively. Since the researcher has 3 papers with at least 3 citations each and the remaining two with no more than 3 citations each, his h-index is 3.
+  
+  Note: If there are several possible values for h, the maximum one is taken as the h-index.
+  
+  Hint:
+  
+    An easy approach is to sort the array first.
+    What are the possible values of h-index?
+    A faster approach is to use extra space     
+  */
 
-    //1 O(n*log(n))
-    public int hIndex(int[] citations) {
-        Arrays.sort(citations);
-        for (int i = 0; i < citations.length; i++)
-            if (citations[i] >= citations.length - i) return citations.length - i;
-        return 0;
-    }
+  //1 O(n*log(n))
+  public int hIndex(int[] citations) {
+    Arrays.sort(citations);
+    for (int i = 0; i < citations.length; i++)
+      if (citations[i] >= citations.length - i) return citations.length - i;
+    return 0;
+  }
 
-    //1 O(n*log(n)) optimization
-    public int hIndexI(int[] citations) {
-        Arrays.sort(citations);
-        int l = 0, r = citations.length - 1;
-        for (int m; l <= r;)
-            if (citations[m = (l + r) >> 1] < citations.length - m) l = m + 1;
-            else r = m - 1;
-        return citations.length - l;
-    }
+  //1 O(n*log(n)) optimization
+  public int hIndexI(int[] citations) {
+    Arrays.sort(citations);
+    int l = 0, r = citations.length - 1;
+    for (int m; l <= r;)
+      if (citations[m = (l + r) >> 1] < citations.length - m) l = m + 1;
+      else r = m - 1;
+    return citations.length - l;
+  }
 
-    //2 O(n)
-    public int hIndexII(int[] citations) {
-        int[] array = new int[citations.length + 1];
-        Arrays.stream(citations).forEach(i -> array[i > citations.length ? citations.length : i]++);
-        for (int i = citations.length, t = 0; i >= 0; i--)
-            if ((t += array[i]) >= i) return i;
-        return 0;
-    }
+  //2 O(n)
+  public int hIndexII(int[] citations) {
+    int[] array = new int[citations.length + 1];
+    Arrays.stream(citations).forEach(i -> array[Math.min(citations.length, i)]++);
+    for (int i = citations.length, t = 0; i >= 0; i--)
+      if ((t += array[i]) >= i) return i;
+    return 0;
+  }
 
-    @Test
-    public void test() {
-        Assert.assertEquals(3, hIndex(new int[] { 3, 0, 6, 1, 5 }));
-        Assert.assertEquals(1, hIndex(new int[] { 100 }));
+  @Test
+  public void test() {
+    assertEquals(3, hIndex(new int[] { 3, 0, 6, 1, 5 }));
+    assertEquals(1, hIndex(new int[] { 100 }));
 
-        Assert.assertEquals(3, hIndexI(new int[] { 3, 0, 6, 1, 5 }));
-        Assert.assertEquals(1, hIndexI(new int[] { 100 }));
+    assertEquals(3, hIndexI(new int[] { 3, 0, 6, 1, 5 }));
+    assertEquals(1, hIndexI(new int[] { 100 }));
 
-        Assert.assertEquals(3, hIndexII(new int[] { 3, 0, 6, 1, 5 }));
-        Assert.assertEquals(1, hIndexII(new int[] { 100 }));
-    }
+    assertEquals(3, hIndexII(new int[] { 3, 0, 6, 1, 5 }));
+    assertEquals(1, hIndexII(new int[] { 100 }));
+  }
 }
