@@ -5,7 +5,8 @@
  */
 package leetcode;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -13,38 +14,36 @@ import org.junit.Test;
 //-------------------------------------------------------
 public class DivideTwoIntegers {
 
-    /*
-    Divide two integers without using multiplication, division and mod operator.
-    If it is overflow, return MAX_INT. 
-    
-            不能用乘、除和取模,那剩下的,还有加、减和位运算。
-            最简单的方法,是不断减去被除数。在这个基础上,可以做一点优化,每次把被除数翻倍,
-            从而加速。
-    */
+  /*
+  Divide two integers without using multiplication, division and mod operator.
+  If it is overflow, return MAX_INT. 
+  
+  Divide is multiple sub operation. You can double the divisor to accelerate.
+  */
 
-    @Test
-    public void test() {
-        Assert.assertEquals(2, divide(5, 2));
-        Assert.assertEquals(2, divide(4, 2));
-        Assert.assertEquals(Integer.MAX_VALUE, divide(6, 0));
-        Assert.assertEquals(Integer.MAX_VALUE, divide(Integer.MIN_VALUE, -1));
-        Assert.assertEquals(Integer.MIN_VALUE, divide(Integer.MIN_VALUE, 1));
-    }
+  @Test
+  public void test() {
+    assertEquals(2, divide(5, 2));
+    assertEquals(2, divide(4, 2));
+    assertEquals(Integer.MAX_VALUE, divide(6, 0));
+    assertEquals(Integer.MAX_VALUE, divide(Integer.MIN_VALUE, -1));
+    assertEquals(Integer.MIN_VALUE, divide(Integer.MIN_VALUE, 1));
+  }
 
-    public int divide(int dividend, int divisor) {
-        if (divisor == 0) return Integer.MAX_VALUE;
-        long beichu = Math.abs((long) dividend), chushu = Math.abs((long) divisor), res = 0, i = 1;
-        while (beichu >= chushu || i > 1)
-            if (beichu >= chushu) {
-                chushu <<= 1;
-                i <<= 1;
-            } else {
-                res += (i >>= 1);
-                beichu -= (chushu >>= 1);
-                chushu = Math.abs((long) divisor);
-                i = 1;
-            }
-        if ((dividend >= 0) ^ (divisor > 0)) return -res < Integer.MIN_VALUE ? Integer.MAX_VALUE : (int) -res;
-        return res > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) res;
-    }
+  public int divide(int dividend, int divisor) {
+    if (divisor == 0) return Integer.MAX_VALUE;
+    long beichu = Math.abs((long) dividend), chushu = Math.abs((long) divisor), res = 0, i = 1;
+    while (beichu >= chushu || i > 1)
+      if (beichu >= chushu) {
+        chushu <<= 1;
+        i <<= 1;
+      } else {
+        res += (i >>= 1);
+        beichu -= (chushu >>= 1);
+        chushu = Math.abs((long) divisor);
+        i = 1;
+      }
+    if ((dividend >= 0) ^ (divisor > 0)) return -res < Integer.MIN_VALUE ? Integer.MAX_VALUE : (int) -res;
+    return res > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) res;
+  }
 }
