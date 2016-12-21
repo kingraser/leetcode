@@ -5,7 +5,8 @@
  */
 package leetcode;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -30,16 +31,19 @@ public class EliminationGame {
   */
 
   /*
-      第一次从左往右删除的时候，奇数都被删掉了，剩下的都是偶数。如果我们对所有数都除以2，那么得到一个1到n/2的新数列。
-      下一次我们从右往左删出，那么返回的结果应该是调用递归的结果lastRemaining(n/2)在数组1到n/2之间的镜像。
-      何为镜像，比如1, 2, 3, 4这个数字，2的镜像就是3, 1的镜像是4
+  At the first time, odds are deleted, lefts are even
+  If for every number we divide 2, we get a new array from 1 to n/2
+  Next time we delete from right to left, the result should be mirror value of lastRemaining(n/2) in 1 ... n/2
+  What is mirror value, for example 1, 2, 3, 4
+  mirror(2)=3, mirror(1)=4
   */
+
   public int lastRemaining(int n) {
     return n == 1 ? 1 : (1 + (n >>= 1) - lastRemaining(n)) << 1;
   }
 
   @Test
   public void test() {
-    Assert.assertEquals(6, lastRemaining(9));
+    assertEquals(6, lastRemaining(9));
   }
 }
