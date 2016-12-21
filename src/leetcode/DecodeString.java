@@ -5,9 +5,10 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Stack;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -32,9 +33,9 @@ public class DecodeString {
 
   @Test
   public void test() {
-    Assert.assertEquals("aaabcbc", decodeString("3[a]2[bc]"));
-    Assert.assertEquals("accaccacc", decodeString("3[a2[c]]"));
-    Assert.assertEquals("abcabccdcdcdef", decodeString("2[abc]3[cd]ef"));
+    assertEquals("aaabcbc", decodeString("3[a]2[bc]"));
+    assertEquals("accaccacc", decodeString("3[a2[c]]"));
+    assertEquals("abcabccdcdcdef", decodeString("2[abc]3[cd]ef"));
   }
 
   public String decodeString(String s) {
