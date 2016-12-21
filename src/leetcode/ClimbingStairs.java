@@ -5,7 +5,8 @@
  */
 package leetcode;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -13,36 +14,27 @@ import org.junit.Test;
 //-------------------------------------------------------
 public class ClimbingStairs {
 
-    /*    
-    You are climbing a stair case. It takes n steps to reach to the top.    
-    Each time you can either climb 1 or 2 steps. 
-    In how many distinct ways can you climb to the top? 
-    */
+  /*    
+  You are climbing a stair case. It takes n steps to reach to the top.    
+  Each time you can either climb 1 or 2 steps. 
+  In how many distinct ways can you climb to the top? 
+  */
 
-    /*
-            设f(n)表示爬n阶楼梯的不同方法数,为了爬到第n阶楼梯,有两个选择:
-                从第n−1阶前进1步;
-                从第n−1阶前进2步;    
-            因此,有f(n)=f(n−1)+f(n−2)。这是一个斐波那契数列。
-            方法1,递归,太慢;方法2,迭代。
-            方法3,数学公式。
-    */
+  /*
+  Let f(n) represents ways to get n step.
+  To get to n, you can climb 1 step from n-1 or 2 steps from n-2
+  So f(n)=f(n−1)+f(n−2)
+  */
 
-    public int climbStairs(int n) {
-        int prev = 0, cur = 1;
-        for (; n-- > 0; prev = (cur += prev) - prev);
-        return cur;
-    }
+  public int climbStairs(int n) {
+    int prev = 0, cur = 1;
+    for (; n-- > 0; prev = (cur += prev) - prev);
+    return cur;
+  }
 
-    public int climbStairsI(int n) {
-        return (int) ((Math.pow((1 + Math.sqrt(5)) / 2, n + 1) + Math.pow((1 - Math.sqrt(5)) / 2, n + 1)) / Math.sqrt(5)
-                + 0.5);
-    }
-
-    @Test
-    public void test() {
-        Assert.assertEquals(3, climbStairs(3));
-        Assert.assertEquals(3, climbStairsI(3));
-    }
+  @Test
+  public void test() {
+    assertEquals(3, climbStairs(3));
+  }
 
 }
