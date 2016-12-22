@@ -5,13 +5,14 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Stack;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import com.google.common.collect.Lists;
@@ -36,20 +37,17 @@ public class FlattenNestedListIterator {
 
   @Test
   public void test() {
-    Assert
-        .assertEquals(Arrays.asList(1, 1, 2, 1, 1),
-            Lists.newArrayList(new NestedIterator(Arrays.asList(
-                new NestedInteger(Arrays.asList(new NestedInteger(1), new NestedInteger(1))), new NestedInteger(2),
-                new NestedInteger(Arrays.asList(new NestedInteger(1), new NestedInteger(1)))))));
-    Assert.assertEquals(Arrays.asList(1, 4, 6),
+    assertEquals(Arrays.asList(1, 1, 2, 1, 1),
+        Lists.newArrayList(new NestedIterator(
+            Arrays.asList(new NestedInteger(Arrays.asList(new NestedInteger(1), new NestedInteger(1))),
+                new NestedInteger(2), new NestedInteger(Arrays.asList(new NestedInteger(1), new NestedInteger(1)))))));
+    assertEquals(Arrays.asList(1, 4, 6),
         Lists.newArrayList(new NestedIterator(Arrays.asList(new NestedInteger(1), new NestedInteger(
             Arrays.asList(new NestedInteger(4), new NestedInteger(Arrays.asList(new NestedInteger(6)))))))));
   }
 
   public class NestedIterator implements Iterator<Integer> {
-
     private Integer next;
-
     private Stack<Iterator<NestedInteger>> stack = new Stack<>();
 
     public NestedIterator(List<NestedInteger> nestedList) {
