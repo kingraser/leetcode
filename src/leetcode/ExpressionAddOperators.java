@@ -5,11 +5,12 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import com.google.common.collect.Sets;
@@ -42,23 +43,23 @@ public class ExpressionAddOperators {
     if (num.length() == 0 && curNum == target) res.add(out);
     for (int i = 1; i <= num.length(); ++i) {
       String cur = num.substring(0, i);
-      long curVal = Long.parseLong(cur);
+      long val = Long.parseLong(cur);
       if (cur.length() > 1 && cur.charAt(0) == '0') return;
       String next = num.substring(i);
       if (out.length() > 0) {
-        dfs(next, target, curVal, curNum + curVal, out + "+" + cur, res);
-        dfs(next, target, -curVal, curNum - curVal, out + "-" + cur, res);
-        dfs(next, target, diff * curVal, (curNum - diff) + diff * curVal, out + "*" + cur, res);
-      } else dfs(next, target, curVal, curVal, cur, res);
+        dfs(next, target, val, curNum + val, out + "+" + cur, res);
+        dfs(next, target, -val, curNum - val, out + "-" + cur, res);
+        dfs(next, target, diff * val, (curNum - diff) + diff * val, out + "*" + cur, res);
+      } else dfs(next, target, val, val, cur, res);
     }
   }
 
   @Test
   public void test() {
-    Assert.assertEquals(Sets.newHashSet("1*0+5", "10-5"), new HashSet<>(addOperators("105", 5)));
-    Assert.assertEquals(Sets.newHashSet("1+2+3", "1*2*3"), new HashSet<>(addOperators("123", 6)));
-    Assert.assertEquals(Sets.newHashSet("2*3+2", "2+3*2"), new HashSet<>(addOperators("232", 8)));
-    Assert.assertEquals(Sets.newHashSet("0+0", "0-0", "0*0"), new HashSet<>(addOperators("00", 0)));
+    assertEquals(Sets.newHashSet("1*0+5", "10-5"), new HashSet<>(addOperators("105", 5)));
+    assertEquals(Sets.newHashSet("1+2+3", "1*2*3"), new HashSet<>(addOperators("123", 6)));
+    assertEquals(Sets.newHashSet("2*3+2", "2+3*2"), new HashSet<>(addOperators("232", 8)));
+    assertEquals(Sets.newHashSet("0+0", "0-0", "0*0"), new HashSet<>(addOperators("00", 0)));
   }
 
 }
