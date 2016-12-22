@@ -5,12 +5,14 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Assert;
+
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -65,8 +67,8 @@ public class FindAllAnagramsinaString {
 
   @Test
   public void test() {
-    Assert.assertEquals(Arrays.asList(0, 1, 2), findAnagrams("abab", "ab"));
-    Assert.assertEquals(Arrays.asList(0, 6), findAnagrams("cbaebabacd", "abc"));
+    assertEquals(Arrays.asList(0, 1, 2), findAnagrams("abab", "ab"));
+    assertEquals(Arrays.asList(0, 6), findAnagrams("cbaebabacd", "abc"));
   }
 
 }
