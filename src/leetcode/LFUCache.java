@@ -65,7 +65,7 @@ public class LFUCache {
     }
 
     public int get(int key) {
-      if (valueMap.containsKey(key)) increase(key);
+      if (nodeMap.containsKey(key)) increase(key);
       return valueMap.getOrDefault(key, -1);
     }
 
@@ -89,7 +89,7 @@ public class LFUCache {
       if (0 == this.capacity) return;
       if (Objects.nonNull(valueMap.put(key, value))) increase(key);
       else {
-        if (valueMap.size() == this.capacity) remove();
+        if (nodeMap.size() == this.capacity) remove();
         add(key);
       }
     }
