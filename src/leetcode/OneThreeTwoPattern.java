@@ -5,15 +5,18 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Stack;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
 //@author wangwenlong Initial Created at 2016年11月16日;
 //-------------------------------------------------------
 public class OneThreeTwoPattern {
+
   /*
   Given a sequence of n integers a1, a2, ..., an, a 132 pattern is a
   subsequence ai, aj, ak such that i < j < k and ai < ak < aj. Design an
@@ -50,9 +53,9 @@ public class OneThreeTwoPattern {
 
   @Test
   public void test() {
-    Assert.assertFalse(find132pattern(new int[] { 1, 2, 3, 4 }));
-    Assert.assertTrue(find132pattern(new int[] { 3, 1, 4, 2 }));
-    Assert.assertTrue(find132pattern(new int[] { -1, 3, 2, 0 }));
+    assertFalse(find132pattern(new int[] { 1, 2, 3, 4 }));
+    assertTrue(find132pattern(new int[] { 3, 1, 4, 2 }));
+    assertTrue(find132pattern(new int[] { -1, 3, 2, 0 }));
   }
 
   public boolean find132pattern(int[] nums) {
