@@ -9,27 +9,24 @@ package leetcode;
 // <p>@author wit Initial Created at 2015年9月8日<p>
 //-------------------------------------------------------
 public class FirstBadVersion {
-    /*
-            假定有1...n n个版本，其中有些版本有问题
-            若一个版本有问题，则其后继版本均有问题
-            现有api:isBadVersion判断一个版本是否有问题
-            最小化api调用次数找到最开始有问题的版本
-            
-            解法
-            显然的二分查找
-    logN
-    */
+  /*
+  You are a product manager and currently leading a team to develop a new product. Unfortunately, the latest version of your product fails the quality check. Since each version is developed based on the previous version, all the versions after a bad version are also bad.
+  
+  Suppose you have n versions [1, 2, ..., n] and you want to find out the first bad one, which causes all the following ones to be bad.
+  
+  You are given an API bool isBadVersion(version) which will return whether version is bad. Implement a function to find the first bad version. You should minimize the number of calls to the API. 
+  */
 
-    public int firstBadVersion(int n) {
-        int l = 1, r = n, m;
-        while (l < r)
-            if (isBadVersion(m = l + (r - l) >> 1)) r = m;
-            else l = m + 1;
-        return l;
-    }
+  public int firstBadVersion(int n) {
+    int l = 1, r = n, m;
+    while (l < r)
+      if (isBadVersion(m = l + (r - l) >> 1)) r = m;
+      else l = m + 1;
+    return l;
+  }
 
-    private boolean isBadVersion(int version) {
-        return true;
-    }
+  private boolean isBadVersion(int version) {
+    return true;
+  }
 
 }
