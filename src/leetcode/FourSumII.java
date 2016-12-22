@@ -5,11 +5,12 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -41,8 +42,7 @@ public class FourSumII {
 
   @Test
   public void test() {
-    Assert.assertEquals(2,
-        fourSumCount(new int[] { 1, 2 }, new int[] { -2, -1 }, new int[] { -1, 2 }, new int[] { 0, 2 }));
+    assertEquals(2, fourSumCount(new int[] { 1, 2 }, new int[] { -2, -1 }, new int[] { -1, 2 }, new int[] { 0, 2 }));
   }
 
   public int fourSumCount(int[] A, int[] B, int[] C, int[] D) {
