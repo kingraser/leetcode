@@ -13,26 +13,25 @@ import java.util.Queue;
 //-------------------------------------------------------
 public class ImplementStackusingQueues {
 
-    Queue<Integer> queue = new ArrayDeque<>();
+  Queue<Integer> queue = new ArrayDeque<>();
 
-    int top;
+  int top;
 
-    public void push(int x) {
-        top = x;
-        queue.add(x);
-    }
+  public void push(int x) {
+    queue.add(top = x);
+  }
 
-    public void pop() {
-        for (int i = 0; i < queue.size() - 1; i++)
-          queue.add((top = queue.poll()));
-        queue.poll();
-    }
+  public void pop() {
+    for (int i = 0; i < queue.size() - 1; i++)
+      queue.add((top = queue.poll()));
+    queue.poll();
+  }
 
-    public int top() {
-        return top;
-    }
+  public int top() {
+    return top;
+  }
 
-    public boolean empty() {
-        return queue.isEmpty();
-    }
+  public boolean empty() {
+    return queue.isEmpty();
+  }
 }

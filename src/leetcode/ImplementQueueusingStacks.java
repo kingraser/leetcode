@@ -12,28 +12,27 @@ import java.util.Stack;
 //-------------------------------------------------------
 public class ImplementQueueusingStacks {
 
-    private Stack<Integer> in = new Stack<Integer>(), out = new Stack<Integer>();
+  private Stack<Integer> in = new Stack<Integer>(), out = new Stack<Integer>();
 
-    // Push element x to the back of queue.
-    public void push(int x) {
-        in.push(x);
-    }
+  // Push element x to the back of queue.
+  public void push(int x) {
+    in.push(x);
+  }
 
-    // Removes the element from in front of queue.
-    public void pop() {
-        peek();
-        out.pop();
-    }
+  // Removes the element from in front of queue.
+  public void pop() {
+    peek();
+    out.pop();
+  }
 
-    // Get the front element.
-    public int peek() {
-        if (out.isEmpty()) while (!in.isEmpty())
-            out.push(in.pop());
-        return out.peek();
-    }
+  // Get the front element.
+  public int peek() {
+    if (out.isEmpty()) for (; !in.isEmpty(); out.push(in.pop()));
+    return out.peek();
+  }
 
-    // Return whether the queue is empty.
-    public boolean empty() {
-        return in.isEmpty() && out.isEmpty();
-    }
+  // Return whether the queue is empty.
+  public boolean empty() {
+    return in.isEmpty() && out.isEmpty();
+  }
 }
