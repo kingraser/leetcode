@@ -12,13 +12,13 @@ import leetcode.common.ListNode;
 //-------------------------------------------------------
 public class LinkedListCycle {
 
-    //Given a linked list, determine if it has a cycle in it.
+  //Given a linked list, determine if it has a cycle in it.
 
-    // 设置两个指针,一个快一个慢
-    public boolean hasCycle(ListNode head) {
-        for (ListNode slow = head, fast = head; fast != null && fast.next != null;)
-            if ((slow = slow.next) == (fast = fast.next.next)) return true;
-        return false;
-    }
+  // 2 pointers slow fast
+  public boolean hasCycle(ListNode head) {
+    for (ListNode slow = head, fast = head; fast != null && fast.next != null;)
+      if ((slow = slow.next) == (fast = fast.next.next)) return true;
+    return false;
+  }
 
 }
