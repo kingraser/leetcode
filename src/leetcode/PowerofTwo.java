@@ -10,12 +10,12 @@ package leetcode;
 //-------------------------------------------------------
 public class PowerofTwo {
 
-    /*
-    Given an integer, write a function to determine if it is a power of two
-    */
+  /*
+  Given an integer, write a function to determine if it is a power of two
+  */
 
-    public boolean isPowerOfTwo(int n) {
-        return (n <= 0) ? false : (n & (n - 1)) == 0;
-    }
+  public boolean isPowerOfTwo(int n) {
+    return (n <= 0) ? false : (n & (n - 1)) == 0;
+  }
 
 }

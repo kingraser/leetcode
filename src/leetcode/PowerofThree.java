@@ -5,7 +5,8 @@
  */
 package leetcode;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -13,24 +14,24 @@ import org.junit.Test;
 //-------------------------------------------------------
 public class PowerofThree {
 
-    /*
-    Given an integer, write a function to determine if it is a power of three. 
-    */
-    static long maxPowerOfThree = 3;
+  /*
+  Given an integer, write a function to determine if it is a power of three. 
+  */
+  static long maxPowerOfThree = 3;
 
-    static {
-        while (maxPowerOfThree < Integer.MAX_VALUE)
-            maxPowerOfThree *= 3;
-        maxPowerOfThree /= 3;
-    }
+  static {
+    while (maxPowerOfThree < Integer.MAX_VALUE)
+      maxPowerOfThree *= 3;
+    maxPowerOfThree /= 3;
+  }
 
-    @Test
-    public void test() {
-        Assert.assertTrue(IsPowerOfThree(3));
-        Assert.assertTrue(IsPowerOfThree(9));
-    }
+  @Test
+  public void test() {
+    assertTrue(IsPowerOfThree(3));
+    assertTrue(IsPowerOfThree(9));
+  }
 
-    public boolean IsPowerOfThree(int n) {
-        return n > 0 && (maxPowerOfThree % n == 0);
-    }
+  public boolean IsPowerOfThree(int n) {
+    return n > 0 && (maxPowerOfThree % n == 0);
+  }
 }
