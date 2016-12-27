@@ -5,8 +5,13 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.junit.Test;
 
 import leetcode.common.UndirectedGraphNode;
 
@@ -39,6 +44,16 @@ public class CloneGraph {
        / \
        \_/
   */
+
+  @Test
+  public void test() {
+    UndirectedGraphNode zero = new UndirectedGraphNode(0), one = new UndirectedGraphNode(1),
+        two = new UndirectedGraphNode(2);
+    zero.neighbors.addAll(Arrays.asList(one, two));
+    one.neighbors.addAll(Arrays.asList(zero, two));
+    two.neighbors.addAll(Arrays.asList(zero, one, two));
+    assertEquals(zero, cloneGraph(zero));
+  }
 
   //dfs or bfs
   public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
