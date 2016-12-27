@@ -5,6 +5,10 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 //--------------------- Change Logs----------------------
 //@author wangwenlong Initial Created at 2016年8月29日;
 //-------------------------------------------------------
@@ -22,6 +26,11 @@ public class FindtheDifference {
   Output:e  
   Explanation:'e' is the letter that was added.
   */
+
+  @Test
+  public void test() {
+    assertEquals('e', findTheDifference("abcd", "abcde"));
+  }
 
   public char findTheDifference(String s, String t) {
     int[] counts = new int[128];
