@@ -5,6 +5,10 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月13日<p>
 //-------------------------------------------------------
@@ -51,6 +55,11 @@ public class FactorialTrailingZeroes {
       5^6 : 4617 / 15625 = 0.295488, which is less than 1, so stop here.
       Then 4617! has 923 + 184 + 36 + 7 + 1 = 1151 trailing zeroes.
   */
+
+  @Test
+  public void test() {
+    assertEquals(1151, trailingZeroes(4617));
+  }
 
   public int trailingZeroes(int n) {
     int result = 0;
