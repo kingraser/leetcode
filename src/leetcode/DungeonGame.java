@@ -5,6 +5,10 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月16日<p>
 //-------------------------------------------------------
@@ -35,6 +39,11 @@ public class DungeonGame {
   Let dp[i][j] represents the minimum value from i,j to bottom-right
   dp[i][j] = Math.max(1, Math.min(dp[i + 1][j], dp[i][j + 1]) - dungeon[i][j]);
   */
+
+  @Test
+  public void test() {
+    assertEquals(7, calculateMinimumHP(new int[][] { { -2, -3, 3 }, { -5, -10, 1 }, { 10, 30, -5 } }));
+  }
 
   public int calculateMinimumHP(int[][] dungeon) {
     int width = dungeon[0].length, height = dungeon.length;
