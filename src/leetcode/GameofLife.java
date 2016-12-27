@@ -5,6 +5,10 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertArrayEquals;
+
+import org.junit.Test;
+
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月8日<p>
 //-------------------------------------------------------
@@ -34,7 +38,19 @@ public class GameofLife {
   In principle, the board is infinite, 
   which would cause problems when the active area encroaches the border of the array. 
   How would you address these problems?
+  
+  011    111
+  110 -> 100
+  011    111
   */
+
+  @Test
+  public void test() {
+    int[][] expected = new int[][] { { 1, 1, 1 }, { 1, 0, 0 }, { 1, 1, 1 } },
+        actual = new int[][] { { 0, 1, 1 }, { 1, 1, 0 }, { 0, 1, 1 } };
+    gameOfLife(actual);
+    assertArrayEquals(expected, actual);
+  }
 
   public void gameOfLife(int[][] b) {
     for (int i = 0; i < b.length; i++)
