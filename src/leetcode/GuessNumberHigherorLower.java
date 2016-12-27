@@ -5,9 +5,9 @@
  */
 package leetcode;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
-import java.util.Objects;
+import java.util.Random;
 
 import org.junit.Test;
 
@@ -33,15 +33,23 @@ public class GuessNumberHigherorLower {
 
   @Test
   public void test() {
-    assertTrue(Objects.equals(num, guessNumber(10)));
+    GuessGame game = new GuessGame(10);
+    assertEquals(game.num, game.guessNumber(game.size));
   }
 
-  private Integer num = 6;
+  public class GuessGame {
+    public int num, size;
 
-  public int guessNumber(int n) {
-    for (int left = 1, mid, res;;)
-      if ((res = num.compareTo(mid = left + ((n - left) >> 1))) == 0) return mid;
-      else if (res > 0) left = mid + 1;
-      else n = mid;
+    public GuessGame(int size) {
+      this.size = size;
+      this.num = new Random().nextInt(this.size) + 1;
+    }
+
+    public int guessNumber(int n) {
+      for (int left = 1, mid, res;;)
+        if ((res = Integer.compare(num, mid = left + ((n - left) >> 1))) == 0) return mid;
+        else if (res > 0) left = mid + 1;
+        else n = mid;
+    }
   }
 }
