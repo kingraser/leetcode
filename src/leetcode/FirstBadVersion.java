@@ -5,6 +5,12 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.Random;
+
+import org.junit.Test;
+
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月8日<p>
 //-------------------------------------------------------
@@ -17,16 +23,32 @@ public class FirstBadVersion {
   You are given an API bool isBadVersion(version) which will return whether version is bad. Implement a function to find the first bad version. You should minimize the number of calls to the API. 
   */
 
-  public int firstBadVersion(int n) {
-    int l = 1, r = n, m;
-    while (l < r)
-      if (isBadVersion(m = l + (r - l) >> 1)) r = m;
-      else l = m + 1;
-    return l;
+  @Test
+  public void test() {
+    Version version = new Version(10);
+    assertEquals(version.bad, version.firstBadVersion(version.size));
   }
 
-  private boolean isBadVersion(int version) {
-    return true;
+  public class Version {
+    public int bad, size;
+    private Random random = new Random();
+
+    public Version(int size) {
+      this.size = size;
+      this.bad = random.nextInt(size) + 1;
+    }
+
+    public boolean isBadVersion(int version) {
+      return bad <= version;
+    }
+
+    public int firstBadVersion(int n) {
+      int l = 1, r = n, m;
+      while (l < r)
+        if (isBadVersion(m = l + ((r - l) >> 1))) r = m;
+        else l = m + 1;
+      return l;
+    }
   }
 
 }
