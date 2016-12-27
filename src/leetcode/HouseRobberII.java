@@ -5,7 +5,11 @@ package leetcode;
  * Copyright (c) 2012 Qunar.com. All Rights Reserved.
  */
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
+
+import org.junit.Test;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月18日<p>
@@ -27,6 +31,11 @@ public class HouseRobberII {
 
   //circle
   //2 cases:1 rob first to the last but on,2 rob second to last,find the max
+
+  @Test
+  public void test() {
+    assertEquals(15, rob(new int[] { 1, 4, 3, 6, 2, 5 }));
+  }
 
   public int rob(int[] nums) {
     if (nums.length == 0) return 0;
