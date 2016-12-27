@@ -6,12 +6,21 @@
 package leetcode;
 
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+
+import org.junit.Test;
+
+import com.google.common.collect.Sets;
 
 //--------------------- Change Logs----------------------
 //@author wangwenlong Initial Created at 2016年9月6日;
@@ -25,6 +34,20 @@ public class InsertDeleteGetRandomO1Duplicatesallowed {
     remove(val): Removes an item val from the collection if present.
     getRandom: Returns a random element from current collection of elements. The probability of each element being returned is linearly related to the number of same value the collection contains. 
   */
+
+  @Test
+  public void test() {
+    RandomizedCollection collection = new RandomizedCollection();
+    assertTrue(collection.insert(1));
+    assertTrue(collection.insert(2));
+    assertFalse(collection.insert(1));
+    assertTrue(Sets.newHashSet(1, 2).contains(collection.getRandom()));
+    assertTrue(collection.remove(1));
+    assertTrue(Sets.newHashSet(1, 2).contains(collection.getRandom()));
+    assertTrue(collection.remove(1));
+    assertEquals(2, collection.getRandom());
+    assertTrue(collection.remove(2));
+  }
 
   public class RandomizedCollection {
     Map<Integer, Set<Integer>> map = new HashMap<>();
