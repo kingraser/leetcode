@@ -5,10 +5,11 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
 import java.math.BigInteger;
 import java.util.Arrays;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -16,23 +17,23 @@ import org.junit.Test;
 //-------------------------------------------------------
 public class LargestNumber {
 
-    /* 
-    Given a list of non negative integers, arrange them such that they form the largest number.    
-    For example, given [3, 30, 34, 5, 9], the largest formed number is 9534330.    
-    Note: The result may be very large, so you need to return a string instead of an integer.
-    */
+  /* 
+  Given a list of non negative integers, arrange them such that they form the largest number.    
+  For example, given [3, 30, 34, 5, 9], the largest formed number is 9534330.    
+  Note: The result may be very large, so you need to return a string instead of an integer.
+  */
 
-    public String largestNumber(int[] num) {
-        StringBuilder sb = new StringBuilder();
-        Arrays.stream(num).boxed().sorted(
-                (i1, i2) -> new BigInteger(String.valueOf(i2) + i1).compareTo(new BigInteger(String.valueOf(i1) + i2)))
-                .forEach(sb::append);
-        return sb.toString();
-    }
+  public String largestNumber(int[] num) {
+    StringBuilder sb = new StringBuilder();
+    Arrays.stream(num).boxed()
+        .sorted((i1, i2) -> new BigInteger(String.valueOf(i2) + i1).compareTo(new BigInteger(String.valueOf(i1) + i2)))
+        .forEach(sb::append);
+    return sb.toString();
+  }
 
-    @Test
-    public void test() {
-        Assert.assertEquals("9534330", largestNumber(new int[] { 3, 30, 34, 5, 9 }));
-    }
+  @Test
+  public void test() {
+    assertEquals("9534330", largestNumber(new int[] { 3, 30, 34, 5, 9 }));
+  }
 
 }
