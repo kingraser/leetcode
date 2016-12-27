@@ -5,10 +5,19 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月9日<p>
 //-------------------------------------------------------
 public class IntegertoRoman {
+
+  @Test
+  public void test() {
+    assertEquals("CMXCIX", intToRoman(999));
+  }
 
   public String intToRoman(int num) {
     int[] values = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
