@@ -5,6 +5,10 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月9日<p>
 //-------------------------------------------------------
@@ -17,15 +21,18 @@ public class ContainerWithMostWater {
   Note: You may not slant the container. 
   */
 
+  @Test
+  public void test() {
+    assertEquals(9, maxArea(new int[] { 1, 3, 4, 6, 5, 2 }));
+  }
+
   public int maxArea(int[] height) {
     int max = Integer.MIN_VALUE;
     for (int l = 0, r = height.length - 1, lastL = max, lastR = max; l < r;)
       if (height[l] < lastL) l++;
       else if (height[r] < lastR) r--;
       else {
-        max = Math.max(max, Math.min(height[l], height[r]) * (r - l));
-        lastL = height[l];
-        lastR = height[r];
+        max = Math.max(max, Math.min(lastL = height[l], lastR = height[r]) * (r - l));
         if (lastL < lastR) l++;
         else r--;
       }
