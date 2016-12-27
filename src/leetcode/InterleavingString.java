@@ -5,6 +5,11 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月14日<p>
 //-------------------------------------------------------
@@ -29,6 +34,13 @@ public class InterleavingString {
   so
   f[i][j] = (s1[i-1] == s3[i+j-1] && f[i-1][j]) || (s2[j-1] == s3[i+j-1] && f[i][j-1]);
   */
+
+  @Test
+  public void test() {
+    String s1 = "aabcc", s2 = "dbbca";
+    assertTrue(isInterleave(s1, s2, "aadbbcbcac"));
+    assertFalse(isInterleave(s1, s2, "aadbbbaccc"));
+  }
 
   public boolean isInterleave(String s1, String s2, String s3) {
     if (s1.length() + s2.length() != s3.length()) return false;
