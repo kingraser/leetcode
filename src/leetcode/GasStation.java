@@ -5,6 +5,10 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月18日<p>
 //-------------------------------------------------------
@@ -19,6 +23,11 @@ public class GasStation {
   Return the starting gas station's index if you can travel around the circuit once, 
   otherwise return -1.  
   */
+
+  @Test
+  public void test() {
+    assertEquals(0, canCompleteCircuit(new int[] { 3, 1, 2 }, new int[] { 1, 2, 3 }));
+  }
 
   public int canCompleteCircuit(int[] gas, int[] cost) {
     int total = 0, start = 0;
