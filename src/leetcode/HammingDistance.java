@@ -30,7 +30,7 @@ public class HammingDistance {
 
   @Test
   public void test() {
-    assertEquals(2, hammingDistance(1, 4));a
+    assertEquals(2, hammingDistance(1, 4));
   }
 
   public int hammingDistance(int x, int y) {
