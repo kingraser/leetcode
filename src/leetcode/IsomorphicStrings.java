@@ -5,10 +5,12 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -16,27 +18,27 @@ import org.junit.Test;
 //-------------------------------------------------------
 public class IsomorphicStrings {
 
-    /*
-    For example,
-    Given "egg", "add", return true.    
-    Given "foo", "bar", return false.    
-    Given "paper", "title", return true.
-    */
+  /*
+  For example,
+  Given "egg", "add", return true.    
+  Given "foo", "bar", return false.    
+  Given "paper", "title", return true.
+  */
 
-    @Test
-    public void test() {
-        Assert.assertTrue(isIsomorphic("egg", "add"));
-        Assert.assertTrue(isIsomorphic("paper", "title"));
-        Assert.assertFalse(isIsomorphic("foo", "bar"));
-    }
+  @Test
+  public void test() {
+    assertTrue(isIsomorphic("egg", "add"));
+    assertTrue(isIsomorphic("paper", "title"));
+    assertFalse(isIsomorphic("foo", "bar"));
+  }
 
-    private int i;
+  private int i;
 
-    public boolean isIsomorphic(String s, String t) {
-        if (s.length() != t.length()) return false;
-        Map<Character, Character> map = new HashMap<>();
-        for (i = 0; i < s.length(); i++)
-            if (map.computeIfAbsent(s.charAt(i), k -> t.charAt(i)) != t.charAt(i)) return false;
-        return true;
-    }
+  public boolean isIsomorphic(String s, String t) {
+    if (s.length() != t.length()) return false;
+    Map<Character, Character> map = new HashMap<>();
+    for (i = 0; i < s.length(); i++)
+      if (map.computeIfAbsent(s.charAt(i), k -> t.charAt(i)) != t.charAt(i)) return false;
+    return true;
+  }
 }
