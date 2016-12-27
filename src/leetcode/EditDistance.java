@@ -5,6 +5,10 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月12日<p>
 //-------------------------------------------------------
@@ -28,8 +32,13 @@ public class EditDistance {
   2. else c!=d,
   (a) replace c with d, then f[i][j]=f[i-1][j-1]+1;
   (b) append c with d, then f[i][j]=f[i][j-1]+1;
-  (c) delete c,则 f[i][j]=f[i-1][j]+1;
+  (c) delete c,then f[i][j]=f[i-1][j]+1;
   */
+
+  @Test
+  public void test() {
+    assertEquals(10, minDistance("test", "hello world"));
+  }
 
   public int minDistance(String word1, String word2) {
     int[][] A = new int[word1.length() + 1][word2.length() + 1];
