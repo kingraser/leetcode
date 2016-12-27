@@ -5,6 +5,11 @@
  */
 package leetcode;
 
+import static leetcode.common.ListNode.list;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 import leetcode.common.ListNode;
 
 //--------------------- Change Logs----------------------
@@ -18,6 +23,15 @@ public class DeleteNodeinaLinkedList {
   Supposed the linked list is 1 -> 2 -> 3 -> 4 and you are given the third node with value 3, 
   the linked list should become 1 -> 2 -> 4 after calling your function. 
   */
+
+  @Test
+  public void test() {
+    ListNode one = new ListNode(1), two = new ListNode(2), three = list(3, 4);
+    one.next = two;
+    two.next = three;
+    deleteNode(three);
+    assertEquals(list(1, 2, 4), one);
+  }
 
   public void deleteNode(ListNode node) {
     node.val = node.next.val;
