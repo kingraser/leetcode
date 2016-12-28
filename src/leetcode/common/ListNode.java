@@ -14,8 +14,27 @@ public class ListNode {
   public int val;
   public ListNode next = null;
 
-  public ListNode(int x) {
-    val = x;
+  public ListNode(int val) {
+    this.val = val;
+  }
+
+  public ListNode(int val, ListNode next) {
+    this.val = val;
+    this.next = next;
+  }
+
+  public ListNode last() {
+    ListNode node = this;
+    while (node.next != null)
+      node = node.next;
+    return node;
+  }
+
+  public ListNode next(int n) {
+    ListNode node = this;
+    while (n-- > 0)
+      node = node.next;
+    return node;
   }
 
   @Override
@@ -31,5 +50,15 @@ public class ListNode {
     ListNode head = new ListNode(array[0]), march = head;
     for (int i = 1; i < array.length; march = march.next = new ListNode(array[i++]));
     return head;
+  }
+
+  @Override
+  public String toString() {
+    return toString(new StringBuilder(), this).toString();
+  }
+
+  private StringBuilder toString(StringBuilder stringBuilder, ListNode node) {
+    if (Objects.isNull(node)) return stringBuilder.append("null");
+    return toString(stringBuilder.append(node.val).append("->"), node.next);
   }
 }
