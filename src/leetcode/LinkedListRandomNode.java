@@ -5,7 +5,15 @@
  */
 package leetcode;
 
+import static leetcode.common.ListNode.list;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Random;
+import java.util.Set;
+
+import org.junit.Test;
+
+import com.google.common.collect.Sets;
 
 import leetcode.common.ListNode;
 
@@ -32,18 +40,30 @@ public class LinkedListRandomNode {
   solution.getRandom(); 
   */
 
-  ListNode root;
-  Random random = new Random();
-
-  public LinkedListRandomNode(ListNode root) {
-    this.root = root;
+  @Test
+  public void test() {
+    RandomListNode node = new RandomListNode(list(1, 2, 3));
+    Set<Integer> set = Sets.newHashSet(1, 2, 3);
+    int count = 0;
+    for (; !set.isEmpty(); count++)
+      set.remove(node.getRandom());
+    assertTrue(count < 20);
+    System.out.println(count);
   }
 
-  public int getRandom() {
-    ListNode result = null, current = root;
-    for (int n = 1; current != null; current = current.next)
-      if (random.nextInt(n++) == 0) result = current;
-    return result.val;
-  }
+  class RandomListNode {
+    ListNode root;
+    Random random = new Random();
 
+    public RandomListNode(ListNode root) {
+      this.root = root;
+    }
+
+    public int getRandom() {
+      ListNode result = null, current = root;
+      for (int n = 1; current != null; current = current.next)
+        if (random.nextInt(n++) == 0) result = current;
+      return result.val;
+    }
+  }
 }
