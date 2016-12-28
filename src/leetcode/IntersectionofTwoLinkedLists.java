@@ -8,6 +8,8 @@ package leetcode;
 import static leetcode.common.ListNode.list;
 import static org.junit.Assert.assertEquals;
 
+import java.util.Objects;
+
 import org.junit.Test;
 
 import leetcode.common.ListNode;
@@ -36,14 +38,14 @@ public class IntersectionofTwoLinkedLists {
 
   @Test
   public void test() {
-    ListNode zero = list(0, 1, 2), one = list(1, 2), three = list(3, 4, 5);
-    zero.last().next = one.last().next = three;
-    assertEquals(three, getIntersectionNode(zero, one));
+    ListNode zero = list(0, 1, 2, 3, 4, 5), one = list(1, 2);
+    one.last().next = zero.next(3);
+    assertEquals(zero.next(3), getIntersectionNode(zero, one));
   }
 
   public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
     ListNode p1 = headA, p2 = headB;
-    for (; p1 != p2; p1 = p1 == null ? headB : p1.next, p2 = p2 == null ? headA : p2.next);
+    for (; p1 != p2; p1 = Objects.isNull(p1) ? headB : p1.next, p2 = Objects.isNull(p2) ? headA : p2.next);
     return p1;
   }
 }

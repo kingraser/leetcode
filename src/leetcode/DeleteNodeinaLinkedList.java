@@ -26,10 +26,9 @@ public class DeleteNodeinaLinkedList {
 
   @Test
   public void test() {
-    ListNode one = list(1, 2), three = list(3, 4);
-    one.last().next = three;
-    deleteNode(three);
-    assertEquals(list(1, 2, 4), one);
+    ListNode head = list(1, 2, 3, 4);
+    deleteNode(head.next(2));
+    assertEquals(list(1, 2, 4), head);
   }
 
   public void deleteNode(ListNode node) {

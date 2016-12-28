@@ -5,6 +5,11 @@
  */
 package leetcode;
 
+import static leetcode.common.ListNode.list;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 import leetcode.common.ListNode;
 
 //--------------------- Change Logs----------------------
@@ -25,6 +30,13 @@ public class LinkedListCycleII {
   Thus, the distance of start to circle entry equals n − 1 circle length + the distance of meet point to circle entry,
   So we set another pointer slow2 start from head, the two slow pointer move one step at a time, they will meet at circle entry.
   */
+
+  @Test
+  public void test() {
+    ListNode node = list(1, 2, 3, 4, 5);
+    node.last().next = node.next(2);
+    assertEquals(node.next(2), detectCycle(node));
+  }
 
   public ListNode detectCycle(ListNode head) {
     for (ListNode slow = head, fast = head, slow2 = head; fast != null && fast.next != null;)
