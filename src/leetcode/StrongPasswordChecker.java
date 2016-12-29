@@ -2,7 +2,7 @@ package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayDeque;
+import java.util.PriorityQueue;
 
 import org.junit.Test;
 
@@ -33,34 +33,21 @@ public class StrongPasswordChecker {
   }
 
   public int strongPasswordChecker(String s) {
-    CheckResult result = check(s);
-    int count = 0, len = s.length(), delete = len - 20, insert = 6 - len, change = 3 - result.types;
-    for (int e; !result.repeats.isEmpty() && delete-- > 0; count++)
-      if ((e = result.repeats.poll()) > 3) result.repeats.add(--e);
-    for (int e; !result.repeats.isEmpty() && insert-- > 0; change--, count++)
-      if ((e = result.repeats.poll()) > 4) result.repeats.add(e - 2);
-    for (int e; !result.repeats.isEmpty() && change-- > 0; count++)
-      if ((e = result.repeats.poll()) > 5) result.repeats.add(e - 3);
-    return Math.max(0, delete) + Math.max(0, Math.max(insert, change))
-        + result.repeats.stream().mapToInt(i -> i / 3).sum() + count;
-  }
-
-  private CheckResult check(String s) {
-    CheckResult result = new CheckResult();
+    PriorityQueue<Integer> repeats = new PriorityQueue<>((i1, i2) -> (i1 % 3) - (i2 % 3));
     int low = 0, up = 0, digit = 0;
-    for (int i = 0, j, c, len = s.length(), repeat; i < len; i = j) {
+    for (int i = 0, j, c, repeat; i < s.length(); i = j) {
       if ((c = s.charAt(i)) >= 'a' && c <= 'z') low = 1;
       else if (c >= 'A' && c <= 'Z') up = 1;
       else if (c >= '0' && c <= '9') digit = 1;
-      for (j = i + 1; j < len && c == s.charAt(j); j++);
-      if ((repeat = j - i) > 2) result.repeats.add(repeat);
+      for (j = i + 1; j < s.length() && c == s.charAt(j); j++);
+      if ((repeat = j - i) > 2) repeats.add(repeat);
     }
-    result.types = low + up + digit;
-    return result;
-  }
-
-  class CheckResult {
-    int types = 0;
-    ArrayDeque<Integer> repeats = new ArrayDeque<>();
+    int len = s.length(), count = 0, delete = len - 20, insert = 6 - len, type = 3 - low - up - digit, change;
+    for (int top; !repeats.isEmpty() && delete-- > 0; count++)
+      if ((top = repeats.poll()) > 3) repeats.add(--top);
+    for (int top; !repeats.isEmpty() && insert-- > 0; type--, count++)
+      if ((top = repeats.poll()) > 4) repeats.add(top - 2);
+    return (change = repeats.stream().mapToInt(i -> i / 3).sum()) + Math.max(0, delete)
+        + Math.max(0, Math.max(insert, type - change)) + count;
   }
 }
