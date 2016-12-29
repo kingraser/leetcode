@@ -5,10 +5,9 @@
  */
 package leetcode;
 
-import java.util.Arrays;
-import java.util.Objects;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -16,17 +15,17 @@ import org.junit.Test;
 //-------------------------------------------------------
 public class ValidAnagram {
 
-    public boolean isAnagram(String s, String t) {
-        char[] sArray = s.toCharArray(), tArray = t.toCharArray();
-        Arrays.sort(sArray);
-        Arrays.sort(tArray);
-        return Objects.deepEquals(sArray, tArray);
-    }
+  public boolean isAnagram(String s, String t) {
+    if (s.length() != t.length()) return false;
+    int[] map = new int[128];
+    s.chars().forEach(c -> map[c]++);
+    return !t.chars().filter(c -> map[c]-- == 0).findFirst().isPresent();
+  }
 
-    @Test
-    public void test() {
-        Assert.assertTrue(isAnagram("anagram", "nagaram"));
-        Assert.assertFalse(isAnagram("rat", "car"));
-    }
+  @Test
+  public void test() {
+    assertTrue(isAnagram("anagram", "nagaram"));
+    assertFalse(isAnagram("rat", "car"));
+  }
 
 }
