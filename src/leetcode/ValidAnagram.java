@@ -19,7 +19,7 @@ public class ValidAnagram {
     if (s.length() != t.length()) return false;
     int[] map = new int[128];
     s.chars().forEach(c -> map[c]++);
-    return !t.chars().filter(c -> map[c]-- == 0).findFirst().isPresent();
+    return t.chars().noneMatch(c -> map[c]-- == 0);
   }
 
   @Test

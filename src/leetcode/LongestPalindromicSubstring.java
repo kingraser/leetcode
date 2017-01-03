@@ -5,7 +5,8 @@
  */
 package leetcode;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -68,9 +69,7 @@ public class LongestPalindromicSubstring {
   }
 
   /*
-      解法3    
-  On的解法    
-  Manacher’s algorithm
+  solution 3 O(n) Manacher’s algorithm
       首先用一个非常巧妙的方式,将所有可能的奇数/偶数长度的回文子串都转换成了奇数长度:
       在每个字符的两边都插入一个特殊的符号。
       比如 abba 变成 #a#b#b#a#, aba 变成 #a#b#a# 。 
@@ -149,9 +148,9 @@ public class LongestPalindromicSubstring {
 
   @Test
   public void test() {
-    Assert.assertEquals("aba", longestPalindromeI("abadd"));
-    Assert.assertEquals("aba", longestPalindromeII("abadd"));
-    Assert.assertEquals("aba", longestPalindromeIII("abadd"));
+    assertEquals("aba", longestPalindromeI("abadd"));
+    assertEquals("aba", longestPalindromeII("abadd"));
+    assertEquals("aba", longestPalindromeIII("abadd"));
   }
 
 }

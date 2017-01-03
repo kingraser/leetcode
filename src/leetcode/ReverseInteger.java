@@ -5,7 +5,6 @@
  */
 package leetcode;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -35,10 +34,10 @@ public class ReverseInteger {
 
   @Test
   public void test() {
-    Assert.assertEquals(321, reverse(123));
-    Assert.assertEquals(-321, reverse(-123));
-    Assert.assertEquals(321, reverseII(123));
-    Assert.assertEquals(-321, reverseII(-123));
+    assertEquals(321, reverse(123));
+    assertEquals(-321, reverse(-123));
+    assertEquals(321, reverseII(123));
+    assertEquals(-321, reverseII(-123));
   }
 
 }

@@ -2,7 +2,6 @@ package leetcode;
 
 import java.util.Arrays;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 public class MinimumMovestoEqualArrayElementsII {
@@ -34,6 +33,6 @@ public class MinimumMovestoEqualArrayElementsII {
 
   @Test
   public void test() {
-    Assert.assertEquals(2, minMoves2(new int[] { 1, 2, 3 }));
+    assertEquals(2, minMoves2(new int[] { 1, 2, 3 }));
   }
 }

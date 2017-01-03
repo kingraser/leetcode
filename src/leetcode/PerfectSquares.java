@@ -39,7 +39,7 @@ public class PerfectSquares {
 
   public int numSquares(int n) {
     for (; (n & 3) == 0; n >>= 2);
-    if (n % 8 == 7) return 4;//是4^a(8b+7)形式
+    if (n % 8 == 7) return 4;//is 4^a(8b+7) format
     for (int a = 0, b = (int) Math.sqrt(n - a * a); a * a <= n; a++, b = (int) Math.sqrt(n - a * a))
       if (a * a + b * b == n) return a == 0 ? 1 : 2;
     return 3;

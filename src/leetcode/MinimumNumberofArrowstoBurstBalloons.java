@@ -3,11 +3,10 @@
  *
  * Copyright (c) 2015 Sogou.com. All Rights Reserved.
  */
-package com.sogou.iplus.config;
+package leetcode;
 
 import java.util.Arrays;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -33,7 +32,7 @@ public class MinimumNumberofArrowstoBurstBalloons {
 
   @Test
   public void test() {
-    Assert.assertEquals(2, findMinArrowShots(new int[][] { { 10, 16 }, { 2, 8 }, { 1, 6 }, { 7, 12 } }));
+    assertEquals(2, findMinArrowShots(new int[][] { { 10, 16 }, { 2, 8 }, { 1, 6 }, { 7, 12 } }));
   }
 
   public int findMinArrowShots(int[][] points) {

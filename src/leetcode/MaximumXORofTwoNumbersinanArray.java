@@ -3,7 +3,6 @@ package leetcode;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 public class MaximumXORofTwoNumbersinanArray {
@@ -25,7 +24,7 @@ public class MaximumXORofTwoNumbersinanArray {
 
   @Test
   public void test() {
-    Assert.assertEquals(28, findMaximumXOR(new int[] { 3, 10, 5, 25, 2, 8 }));
+    assertEquals(28, findMaximumXOR(new int[] { 3, 10, 5, 25, 2, 8 }));
   }
 
   public int findMaximumXOR(int[] nums) {

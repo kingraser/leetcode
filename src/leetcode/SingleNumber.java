@@ -5,7 +5,6 @@
  */
 package leetcode;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -13,16 +12,16 @@ import org.junit.Test;
 //-------------------------------------------------------
 public class SingleNumber {
 
-    //Given an array of integers, every element appears twice except for one. Find that single one.
-    public int singleNumber(int[] nums) {
-        int res = nums[0];
-        for (int i = 1; i < nums.length; res = res ^ nums[i++]);
-        return res;
-    }
+  //Given an array of integers, every element appears twice except for one. Find that single one.
+  public int singleNumber(int[] nums) {
+    int res = nums[0];
+    for (int i = 1; i < nums.length; res ^= nums[i++]);
+    return res;
+  }
 
-    @Test
-    public void test() {
-        Assert.assertEquals(3, singleNumber(new int[] { 1, 1, 2, 3, 2 }));
-    }
+  @Test
+  public void test() {
+    assertEquals(3, singleNumber(new int[] { 1, 1, 2, 3, 2 }));
+  }
 
 }

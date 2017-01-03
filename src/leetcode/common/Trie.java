@@ -38,8 +38,8 @@ public class Trie {
 
   private boolean search(char[] word, TrieNode node, int idx, boolean isLeaf) {
     if (idx == word.length) return isLeaf ? node.isLeaf : true;
-    if (word[idx] == '.' && Arrays.stream(node.nexts).filter(Objects::nonNull)
-        .filter(next -> search(word, next, 1 + idx, isLeaf)).findFirst().isPresent())
+    if (word[idx] == '.'
+        && Arrays.stream(node.nexts).filter(Objects::nonNull).anyMatch(next -> search(word, next, 1 + idx, isLeaf)))
       return true;
     return Objects.isNull(node.nexts[word[idx] -= 'a']) ? false : search(word, node.nexts[word[idx]], 1 + idx, isLeaf);
   }

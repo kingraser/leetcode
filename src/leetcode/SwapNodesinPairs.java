@@ -5,7 +5,9 @@
  */
 package leetcode;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+import static leetcode.common.ListNode.list;
+
 import org.junit.Test;
 
 import leetcode.common.ListNode;
@@ -15,29 +17,26 @@ import leetcode.common.ListNode;
 //-------------------------------------------------------
 public class SwapNodesinPairs {
 
-    public ListNode swapPairs(ListNode head) {
-        if (head == null || head.next == null) return head;
-        ListNode result = head.next;
-        for (ListNode first = head, second; first != null && first.next != null;) {
-            first.next = (second = first.next).next;
-            second.next = first;
-            first = first.next;
-        }
-        return result;
-    }
+  /*
+  Given a linked list, swap every two adjacent nodes and return its head.
+  
+  For example,
+  Given 1->2->3->4, you should return the list as 2->1->4->3.
+  
+  Your algorithm should use only constant space. You may not modify the values in the list, only nodes itself can be changed. 
+  */
 
-    public ListNode swapPairsII(ListNode head) {
-        if ((head == null) || (head.next == null)) return head;
-        ListNode next = head.next;
-        head.next = swapPairsII(next.next);
-        next.next = head;
-        return next;
-    }
+  public ListNode swapPairs(ListNode head) {
+    if ((head == null) || (head.next == null)) return head;
+    ListNode next = head.next;
+    head.next = swapPairs(next.next);
+    next.next = head;
+    return next;
+  }
 
-    @Test
-    public void test() {
-        Assert.assertEquals(ListNode.generateNodes(1, 2), swapPairs(ListNode.generateNodes(2, 1)));
-        Assert.assertEquals(ListNode.generateNodes(1, 2), swapPairsII(ListNode.generateNodes(2, 1)));
-    }
+  @Test
+  public void test() {
+    assertEquals(list(1, 2), swapPairs(list(2, 1)));
+  }
 
 }

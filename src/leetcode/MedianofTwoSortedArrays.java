@@ -5,7 +5,6 @@
  */
 package leetcode;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -47,6 +46,6 @@ public class MedianofTwoSortedArrays {
 
   @Test
   public void test() {
-    Assert.assertEquals(1d, findMedianSortedArrays(new int[] { 1 }, new int[] { 1 }), 0);
+    assertEquals(1d, findMedianSortedArrays(new int[] { 1 }, new int[] { 1 }), 0);
   }
 }

@@ -5,7 +5,8 @@
  */
 package leetcode;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -35,9 +36,9 @@ public class LongestSubstringWithoutRepeatingCharacters {
 
   @Test
   public void test() {
-    Assert.assertEquals(2, lengthOfLongestSubstring("abba"));
-    Assert.assertEquals(3, lengthOfLongestSubstring("abcabcbb"));
-    Assert.assertEquals(1, lengthOfLongestSubstring("bbbbb"));
+    assertEquals(2, lengthOfLongestSubstring("abba"));
+    assertEquals(3, lengthOfLongestSubstring("abcabcbb"));
+    assertEquals(1, lengthOfLongestSubstring("bbbbb"));
   }
 
 }

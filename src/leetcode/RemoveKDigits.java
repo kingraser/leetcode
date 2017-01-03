@@ -7,7 +7,6 @@ package leetcode;
 
 import java.math.BigInteger;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -43,9 +42,9 @@ public class RemoveKDigits {
 
   @Test
   public void test() {
-    Assert.assertEquals("1219", removeKdigits("1432219", 3));
-    Assert.assertEquals("200", removeKdigits("10200", 1));
-    Assert.assertEquals("0", removeKdigits("10", 2));
+    assertEquals("1219", removeKdigits("1432219", 3));
+    assertEquals("200", removeKdigits("10200", 1));
+    assertEquals("0", removeKdigits("10", 2));
   }
 
   public String removeKdigits(String num, int k) {

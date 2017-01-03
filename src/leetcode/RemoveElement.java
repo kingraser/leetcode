@@ -10,14 +10,14 @@ package leetcode;
 //-------------------------------------------------------
 public class RemoveElement {
 
-    /*
-    Given an array and a value, remove all instances of that value in place and return the new length.
-    */
-    public int removeElement(int[] nums, int val) {
-        int begin = 0;
-        for (int i : nums)
-            if (i != val) nums[begin++] = i;
-        return begin;
-    }
+  /*
+  Given an array and a value, remove all instances of that value in place and return the new length.
+  */
+  public int removeElement(int[] nums, int val) {
+    int begin = 0;
+    for (int i : nums)
+      if (i != val) nums[begin++] = i;
+    return begin;
+  }
 
 }

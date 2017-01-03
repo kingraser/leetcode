@@ -12,16 +12,16 @@ import leetcode.common.ListNode;
 //-------------------------------------------------------
 public class RemoveDuplicatesfromSortedList {
 
-    /*
-    Given 1->1->2, return 1->2.
-    Given 1->1->2->3->3, return 1->2->3
-    */
+  /*
+  Given 1->1->2, return 1->2.
+  Given 1->1->2->3->3, return 1->2->3
+  */
 
-    public ListNode deleteDuplicates(ListNode head) {
-        for (ListNode march = head; march != null && march.next != null;)
-            if (march.val == march.next.val) march.next = march.next.next;
-            else march = march.next;
-        return head;
-    }
+  public ListNode deleteDuplicates(ListNode head) {
+    for (ListNode march = head; march != null && march.next != null;)
+      if (march.val == march.next.val) march.next = march.next.next;
+      else march = march.next;
+    return head;
+  }
 
 }

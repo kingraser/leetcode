@@ -5,7 +5,9 @@
  */
 package leetcode;
 
-import org.junit.Assert;
+import static leetcode.common.ListNode.list;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 import leetcode.common.ListNode;
@@ -15,39 +17,22 @@ import leetcode.common.ListNode;
 //-------------------------------------------------------
 public class ReverseLinkedList {
 
-    @Test
-    public void test() {
-        Assert.assertEquals(ListNode.generateNodes(5, 4, 3, 2, 1), reverseList(ListNode.generateNodes(1, 2, 3, 4, 5)));
-        Assert.assertEquals(ListNode.generateNodes(5, 4, 3, 2, 1),
-                reverseListII(ListNode.generateNodes(1, 2, 3, 4, 5)));
-    }
+  @Test
+  public void test() {
+    assertEquals(list(5, 4, 3, 2, 1), reverseList(list(1, 2, 3, 4, 5)));
+  }
 
-    //迭代
-    public ListNode reverseList(ListNode head) {
-        if (head == null || head.next == null) return head;
-        ListNode prev, curr = head, next = curr.next;
-        while (curr != null && next != null) {
-            prev = curr;
-            curr = next;
-            next = curr.next;
-            curr.next = prev;
-        }
-        head.next = null;
-        return curr;
-    }
+  public static ListNode reverseList(ListNode head) {
+    if (head == null || head.next == null) return head;
+    ListNode next = head.next;
+    head.next = null;
+    return reverseList(head, next);
+  }
 
-    //递归
-    public ListNode reverseListII(ListNode head) {
-        if (head == null || head.next == null) return head;
-        ListNode next = head.next;
-        head.next = null;
-        return reverseList(head, next);
-    }
-
-    private ListNode reverseList(ListNode head, ListNode next) {
-        if (head == null || next == null) return head;
-        ListNode newHead = next, newNext = next.next;
-        next.next = head;
-        return reverseList(newHead, newNext);
-    }
+  private static ListNode reverseList(ListNode head, ListNode next) {
+    if (head == null || next == null) return head;
+    ListNode newHead = next, newNext = next.next;
+    next.next = head;
+    return reverseList(newHead, newNext);
+  }
 }

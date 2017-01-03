@@ -1,6 +1,5 @@
 package leetcode;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 public class RepeatedSubstringPattern {
@@ -32,9 +31,9 @@ public class RepeatedSubstringPattern {
 
   @Test
   public void test() {
-    Assert.assertTrue(repeatedSubstringPattern("abab"));
-    Assert.assertTrue(repeatedSubstringPattern("abcabcabcabc"));
-    Assert.assertFalse(repeatedSubstringPattern("aba"));
+    assertTrue(repeatedSubstringPattern("abab"));
+    assertTrue(repeatedSubstringPattern("abcabcabcabc"));
+    assertFalse(repeatedSubstringPattern("aba"));
   }
 
   public boolean repeatedSubstringPattern(String str) {
