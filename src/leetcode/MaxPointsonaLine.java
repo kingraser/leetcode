@@ -5,6 +5,8 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,9 +26,9 @@ public class MaxPointsonaLine {
 
   public int maxPoints(Point[] p) {
     int result = 0;
-    for (int i = 0, same = 1; i < p.length; i++, same = 1) {
+    for (int i = 0, j, same; i < p.length; i++) {
       Map<Double, Integer> map = new HashMap<>();
-      for (int j = i + 1; j < p.length; j++)
+      for (same = 1, j = i + 1; j < p.length; j++)
         if (p[i].equals(p[j])) same++;
         else map.compute(getGradient(p[i], p[j]), (k, v) -> v == null ? 1 : v + 1);
       result = Math.max(result, same + map.values().stream().max((i1, i2) -> i1 - i2).orElse(0));
@@ -40,10 +42,10 @@ public class MaxPointsonaLine {
 
   @Test
   public void test() {
-    assertEquals(2, maxPoints(new Point[] { new Point(), new Point() }));
-    assertEquals(2, maxPoints(new Point[] { new Point(), new Point(0, 1) }));
+    assertEquals(2, maxPoints(new Point[] { new Point(0, 0), new Point(0, 0) }));
+    assertEquals(2, maxPoints(new Point[] { new Point(0, 0), new Point(0, 1) }));
     assertEquals(3, maxPoints(new Point[] { new Point(-4, 1), new Point(-7, 7), new Point(-1, 5), new Point(9, -25) }));
-    assertEquals(1, maxPoints(new Point[] { new Point() }));
+    assertEquals(1, maxPoints(new Point[] { new Point(0, 0) }));
   }
 
 }
