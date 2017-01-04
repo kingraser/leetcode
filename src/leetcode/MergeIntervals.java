@@ -5,9 +5,12 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import org.junit.Test;
 
@@ -17,6 +20,7 @@ import leetcode.common.Interval;
 // <p>@author wit Initial Created at 2015年10月12日<p>
 //-------------------------------------------------------
 public class MergeIntervals {
+
   /*
   Given a collection of intervals, merge all overlapping intervals.
   
@@ -26,7 +30,7 @@ public class MergeIntervals {
   */
 
   public List<Interval> merge(List<Interval> intervals) {
-    if (intervals == null || intervals.isEmpty()) return intervals;
+    if (Objects.isNull(intervals) || intervals.isEmpty()) return intervals;
     List<Interval> r = new ArrayList<>(intervals.size());
     intervals.stream().sorted((i1, i2) -> i1.start - i2.start).forEach(i -> {
       if (r.isEmpty() || i.start > r.get(r.size() - 1).end) r.add(i);
