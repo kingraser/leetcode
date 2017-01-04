@@ -5,6 +5,8 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -33,14 +35,13 @@ public class MedianofTwoSortedArrays {
 
   public double findMedianSortedArrays(int[] A, int[] B) {
     if (A.length > B.length) return findMedianSortedArrays(B, A);//make sure A is shorter than B
-    int half = (A.length + B.length - 1) >> 1, left = 0, right = Math.min(half, A.length);
+    int lA = A.length, lB = B.length, half = (lA + lB - 1) >> 1, left = 0, right = Math.min(half, lA);
     for (int mid; left < right;)
       if (A[mid = (left + right) >> 1] < B[half - mid]) left = mid + 1;
       else right = mid;
     double a = left == 0 ? B[half - left] : Math.max(A[left - 1], B[half - left]);
-    if (((A.length + B.length) & 1) == 1) return a;//odd
-    double b = left == A.length ? B[half - left + 1]
-        : half - left + 1 < B.length ? Math.min(A[left], B[half - left + 1]) : A[left];
+    if (((lA + lB) & 1) == 1) return a;//odd
+    double b = left == lA ? B[half - left + 1] : half - left + 1 < lB ? Math.min(A[left], B[half - left + 1]) : A[left];
     return (a + b) / 2;
   }
 
