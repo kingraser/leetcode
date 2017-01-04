@@ -1,6 +1,6 @@
 package leetcode;
 
-import static org.junit.assertFalse;
+import static org.junit.Assert.assertFalse;
 
 import java.util.Arrays;
 
