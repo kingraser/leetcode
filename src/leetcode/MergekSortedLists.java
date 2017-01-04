@@ -5,6 +5,9 @@
  */
 package leetcode;
 
+import static leetcode.common.ListNode.list;
+import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.PriorityQueue;
@@ -18,8 +21,6 @@ import leetcode.common.ListNode;
 //-------------------------------------------------------
 public class MergekSortedLists {
 
-  /*优先队列*/
-
   @Test
   public void test() {
     assertEquals(list(1, 2, 3, 4, 5, 6, 7, 8, 9),
@@ -27,14 +28,12 @@ public class MergekSortedLists {
   }
 
   public ListNode mergeKLists(ListNode[] lists) {
-    if (lists == null || lists.length == 0) return null;
+    if (Objects.isNull(lists) || lists.length == 0) return null;
     ListNode head = new ListNode(0), march = head;
     PriorityQueue<ListNode> set = new PriorityQueue<>((n1, n2) -> n1.val - n2.val);
     Arrays.stream(lists).filter(Objects::nonNull).forEach(n -> set.add(n));
-    while ((march.next = set.poll()) != null) {
-      march = march.next;
-      if (march.next != null) set.add(march.next);
-    }
+    while ((march.next = set.poll()) != null)
+      if ((march = march.next).next != null) set.add(march.next);
     return head.next;
   }
 
