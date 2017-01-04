@@ -5,6 +5,8 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -24,12 +26,12 @@ public class MinimumSizeSubarraySum {
   }
 
   public int minSubArrayLen(int s, int[] nums) {
-    int res = 0;
+    int result = 0;
     for (int i = 0, start = 0, sum = 0; i < nums.length;) {
       if ((sum += nums[i++]) < s) continue;
       for (; sum >= s; sum -= nums[start++]);
-      res = res == 0 ? i - start + 1 : Math.min(res, i - start + 1);
+      result = result == 0 ? i - start + 1 : Math.min(result, i - start + 1);
     }
-    return res;
+    return result;
   }
 }
