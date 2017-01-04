@@ -5,6 +5,8 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertArrayEquals;
+
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -26,20 +28,7 @@ public class MoveZeroes {
       Minimize the total number of operations.    
   */
 
-  // two pointer swap法
   public void moveZeroes(int[] nums) {
-    for (int nz = 0, z = 0; nz < nums.length;) {// not-zero and zero
-      for (; z < nums.length && nums[z] != 0; z++);
-      for (nz = z + 1; nz < nums.length && nums[nz] == 0; nz++);
-      if (nz < nums.length) {
-        nums[z++] = nums[nz];
-        nums[nz++] = 0;
-      }
-    }
-  }
-
-  // 尾部置零法
-  public void moveZeroesII(int[] nums) {
     int i = 0;
     for (int num : nums)
       if (num != 0) nums[i++] = num;
@@ -50,8 +39,6 @@ public class MoveZeroes {
   public void test() {
     int[] input = new int[] { 0, 1, 0, 3, 12 }, expected = new int[] { 1, 3, 12, 0, 0 }, actuals;
     moveZeroes(actuals = Arrays.copyOf(input, input.length));
-    assertArrayEquals(expected, actuals);
-    moveZeroesII(actuals = Arrays.copyOf(input, input.length));
     assertArrayEquals(expected, actuals);
   }
 
