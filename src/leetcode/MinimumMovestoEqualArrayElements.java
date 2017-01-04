@@ -5,6 +5,8 @@
  */
 package leetcode;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -35,11 +37,6 @@ public class MinimumMovestoEqualArrayElements {
   }
 
   public int minMoves(int[] nums) {
-    int sum = 0, min = Integer.MAX_VALUE;
-    for (int i : nums) {
-      sum += i;
-      if (i < min) min = i;
-    }
-    return sum - min * nums.length;
+    return Arrays.stream(nums).sum() - Arrays.stream(nums).min().getAsInt() * nums.length;
   }
 }
