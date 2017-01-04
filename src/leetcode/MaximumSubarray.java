@@ -5,6 +5,8 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -24,13 +26,9 @@ public class MaximumSubarray {
   }
 
   public int maxSubArray(int[] A) {
-    int sum = 0, maxsum = Integer.MIN_VALUE;
-    for (int i = 0; i < A.length; i++) {
-      sum += A[i];
-      if (sum > maxsum) maxsum = sum;
-      if (sum < 0) sum = 0;
-    }
-    return maxsum;
+    int max = Integer.MIN_VALUE;
+    for (int i = 0, sum = 0; i < A.length; max = Math.max(max, sum += A[i++]), sum = Math.max(0, sum));
+    return max;
   }
 
 }
