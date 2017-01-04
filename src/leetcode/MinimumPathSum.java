@@ -5,6 +5,10 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月12日<p>
 //-------------------------------------------------------
@@ -15,6 +19,11 @@ public class MinimumPathSum {
   
   Note: You can only move either down or right at any point in time.
   */
+
+  @Test
+  public void test() {
+    assertEquals(21, minPathSum(new int[][] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } }));
+  }
 
   public int minPathSum(int[][] grid) {
     for (int i = 1; i < grid[0].length; grid[0][i] += grid[0][i - 1], i++);
