@@ -5,7 +5,8 @@
  */
 package leetcode;
 
-import java.math.BigDecimal;
+import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -24,16 +25,10 @@ public class MultiplyStrings {
   public void test() {
     assertEquals("998001", multiply("999", "999"));
     assertEquals("56088", multiply("123", "456"));
-    assertEquals("998001", multiplyII("999", "999"));
-    assertEquals("56088", multiplyII("123", "456"));
-    assertEquals("0", multiplyII("999", "0"));
+    assertEquals("0", multiply("999", "0"));
   }
 
-  public String multiply(String num1, String num2) {
-    return new BigDecimal(num1).multiply(new BigDecimal(num2)).toString();
-  }
-
-  public String multiplyII(String A1, String A2) {
+  public String multiply(String A1, String A2) {
     int[] r = new int[A1.length() + A2.length()];
     for (int l1 = A1.length(), l2 = A2.length(), i = l1 - 1; i >= 0; i--)
       for (int j = l2 - 1, c = 0; j >= 0 || c > 0; j--, c /= 10)
