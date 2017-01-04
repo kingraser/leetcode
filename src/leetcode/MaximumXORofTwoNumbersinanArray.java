@@ -1,11 +1,14 @@
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
 
 public class MaximumXORofTwoNumbersinanArray {
+
   /*
   Given a non-empty array of numbers, a0, a1, a2, … , an-1, where 0 ≤ ai < 231.
   
