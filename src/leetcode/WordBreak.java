@@ -5,6 +5,8 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.Set;
 
 import org.junit.Test;
@@ -27,7 +29,7 @@ public class WordBreak {
   */
 
   /*
-          设状态为cuts(i),表示 s[0,i)是否可以分词,则状态转移方程为
+  Let cuts(i) represents whether s[0,i) can break, thus
   cuts(i) = any_of(cuts(j) && dictionary.contains(s[j, i))), 0 ≤ j < i
   */
 
@@ -38,8 +40,8 @@ public class WordBreak {
   }
 
   public boolean wordBreak(String s, Set<String> dict) {
-    boolean[] cuts = new boolean[s.length() + 1];//长度为n的字符串有n+1个隔板
-    cuts[0] = true;//空字符串
+    boolean[] cuts = new boolean[s.length() + 1];
+    cuts[0] = true;
     for (int i = 1; i <= s.length(); i++)
       for (int j = i - 1; !cuts[i] && j >= 0; j--)
         if (cuts[j] && dict.contains(s.substring(j, i))) cuts[i] = true;
