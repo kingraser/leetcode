@@ -35,8 +35,7 @@ public class TreeNode {
   public boolean equals(Object o) {
     if (Objects.isNull(o) || !(o instanceof TreeNode)) return false;
     TreeNode another = (TreeNode) o;
-    if (val != another.val) return false;
-    return Objects.equals(left, another.left) && Objects.equals(right, another.right);
+    return val == another.val && Objects.equals(left, another.left) && Objects.equals(right, another.right);
   }
 
   /*
