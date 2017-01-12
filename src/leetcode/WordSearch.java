@@ -5,7 +5,8 @@
  */
 package leetcode;
 
-import org.apache.commons.lang3.StringUtils;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -32,30 +33,24 @@ public class WordSearch {
   word = "ABCB", -> returns false.
   */
 
-  static char[][] b;//board
-
-  static boolean[][] r;//reached
-
-  static String s;//word
-
   public boolean exist(char[][] board, String word) {
-    b = board;
-    s = word;
-    if (b == null || b.length == 0 || b[0].length == 0 || StringUtils.isBlank(s)) return false;
-    r = new boolean[b.length][b[0].length];
-    for (int i = 0; i < b.length; i++)
-      for (int j = 0; j < b[i].length; j++)
-        if (DFS(i, j, 0)) return true;
+    if (board == null || board.length == 0 || board[0].length == 0 || word == null || word.length() == 0) return false;
+    boolean[][] reached = new boolean[board.length][board[0].length];
+    for (int i = 0; i < board.length; i++)
+      for (int j = 0; j < board[i].length; j++)
+        if (dfs(i, j, 0, board, word, reached)) return true;
     return false;
   }
 
-  private boolean DFS(int x, int y, int i) {
-    if (x < 0 || y < 0 || x == b.length || y == b[0].length || r[x][y] || b[x][y] != s.charAt(i)) return false;
-    if (++i == s.length()) return true;
-    r[x][y] = true;
-    boolean a = DFS(x - 1, y, i) || DFS(x, y - 1, i) || DFS(x + 1, y, i) || DFS(x, y + 1, i);
-    r[x][y] = false;
-    return a;
+  private boolean dfs(int x, int y, int i, char[][] board, String word, boolean[][] reached) {
+    if (x < 0 || y < 0 || x == board.length || y == board[0].length || reached[x][y] || board[x][y] != word.charAt(i))
+      return false;
+    if (++i == word.length()) return true;
+    reached[x][y] = true;
+    boolean result = dfs(x - 1, y, i, board, word, reached) || dfs(x, y - 1, i, board, word, reached)
+        || dfs(x + 1, y, i, board, word, reached) || dfs(x, y + 1, i, board, word, reached);
+    reached[x][y] = false;
+    return result;
   }
 
   @Test

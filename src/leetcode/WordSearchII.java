@@ -73,8 +73,7 @@ public class WordSearchII {
       char[] s, int idx) {
     if (x < 0 || x >= board.length || y < 0 || y >= board[0].length || visited[x][y]) return;
     char c = board[x][y];
-    node = node.nexts[c - 'a'];
-    if (node == null) return;
+    if ((node = node.nexts[c - 'a']) == null) return;
     s[idx++] = c;
     visited[x][y] = true;
     if (node.isLeaf) res.add(new String(s, 0, idx));
