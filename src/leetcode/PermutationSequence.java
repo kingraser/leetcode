@@ -5,6 +5,8 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -29,37 +31,16 @@ public class PermutationSequence {
   Note: Given n will be between 1 and 9 inclusive.
   */
 
-  /*
-          简单的,可以用暴力枚举法,调用k−1次next_permutation()。
-          暴力枚举法把前k个排列都求出来了,比较浪费,而我们只需要第k个排列。
-          利用康托编码的思路,假设有n个不重复的元素,第k个排列是a1,a2,a3,...,an,
-          那么a1是哪一个位置呢?
-          我们把a1去掉,那么剩下的排列为a2,a3,...,an, 共计n−1个元素,
-          n−1个元素共有(n−1)!个排列,于是就可以知道 a1=k/(n − 1)!。
-          同理,a2,a3,...,an 的值推导如下:
-  k2=k%(n−1)!
-  a2=k2/(n−2)!
-  ···
-  kn−1=kn−2%2!
-  an−1=kn−1/1!
-  an=0
-  */
-
   public String getPermutation(int n, int k) {
-    StringBuilder sb = new StringBuilder(), ret = new StringBuilder();
+    StringBuilder sb = new StringBuilder(), result = new StringBuilder();
     for (int i = 1; i <= n; sb.append(i++));
     int[] factor = new int[n];
     factor[0] = 1;
     for (int i = 1; i < n; factor[i] = factor[i - 1] * i, i++);
     k--;
-    for (int i = n - 1; i > -1; i--) {
-      int code = k / factor[i];
-      k = k % factor[i];
-      ret.append(sb.charAt(code));
-      sb.deleteCharAt(code);
-    }
-
-    return ret.toString();
+    for (int i = n - 1, code; i >= 0; sb.deleteCharAt(code), k = k % factor[i--])
+      result.append(sb.charAt(code = k / factor[i]));
+    return result.toString();
   }
 
   @Test
