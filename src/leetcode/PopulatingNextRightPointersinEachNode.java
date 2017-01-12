@@ -5,6 +5,11 @@
  */
 package leetcode;
 
+import static leetcode.common.TreeLinkNode.tree;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 import leetcode.common.TreeLinkNode;
 
 //--------------------- Change Logs----------------------
@@ -31,6 +36,13 @@ public class PopulatingNextRightPointersinEachNode {
       4->5->6->7 -> NULL
   */
 
+  @Test
+  public void test() {
+    TreeLinkNode root = tree("1,2,4,n,n,5,n,n,3,6,n,n,7,n,n#1->n,2->n,4->n,5->n,3->n,6->n,7->n");
+    connect(root);
+    assertEquals(root, tree("1,2,4,n,n,5,n,n,3,6,n,n,7,n,n#1->n,2->3,4->5,5->6,3->n,6->7,7->n"));
+  }
+
   public void connect(TreeLinkNode root) {
     connect(root, null, null);
   }
@@ -45,11 +57,4 @@ public class PopulatingNextRightPointersinEachNode {
       connect(right.left, right.right, null == rightLeft ? null : rightLeft.left);
     }
   }
-
-  public void connectII(TreeLinkNode root) {
-    for (TreeLinkNode pre = root, cur = root; pre != null && pre.left != null; pre = pre.left, cur = pre)
-      for (; cur != null; cur.left.next = cur.right, cur.right.next = cur.next != null ? cur.next.left
-          : null, cur = cur.next);
-  }
-
 }

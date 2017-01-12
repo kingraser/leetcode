@@ -5,7 +5,10 @@
  */
 package leetcode;
 
-import java.util.LinkedList;
+import static leetcode.common.TreeLinkNode.tree;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
 
 import leetcode.common.TreeLinkNode;
 
@@ -36,30 +39,14 @@ public class PopulatingNextRightPointersinEachNodeII {
   4-> 5 -> 7 -> NULL
   */
 
-  /*
-          要处理一个节点,可能需要最右边的兄弟节点,首先想到用广搜。
-          但广搜不是常数空间的,本题要求常数空间。
-          注意,这题的代码原封不动,也可以解决 Populating Next Right Pointers in Each Node I.
-  */
-
-  //bfs
-  public void connect(TreeLinkNode root) {
-    LinkedList<TreeLinkNode> list = new LinkedList<TreeLinkNode>();
-    if (root != null) list.add(root);
-    for (int length = 1; !list.isEmpty(); length = list.size()) {
-      list.addLast(null);
-      while (length-- > 0) {
-        TreeLinkNode curr = list.poll();
-        curr.next = list.peek();
-        if (curr.left != null) list.addLast(curr.left);
-        if (curr.right != null) list.addLast(curr.right);
-      }
-      list.poll();
-    }
+  @Test
+  public void test() {
+    TreeLinkNode root = tree("1,2,4,n,n,5,n,n,3,n,7,n,n#1->n,2->n,4->n,5->n,3->n,7->n");
+    connect(root);
+    assertEquals(root, tree("1,2,4,n,n,5,n,n,3,n,7,n,n#1->n,2->3,4->5,5->7,3->n,7->n"));
   }
 
-  //递归
-  public void connectII(TreeLinkNode root) {
+  public void connect(TreeLinkNode root) {
     if (root == null) return;
     TreeLinkNode dummy = new TreeLinkNode(-1);
     for (TreeLinkNode curr = root, prev = dummy; curr != null; curr = curr.next) {
@@ -72,22 +59,7 @@ public class PopulatingNextRightPointersinEachNodeII {
         prev = prev.next;
       }
     }
-    connectII(dummy.next);
+    connect(dummy.next);
   }
 
-  //迭代
-  public void connectIII(TreeLinkNode root) {
-    for (TreeLinkNode next = null; root != null; root = next, next = null) //the first node of next level@turn to next level
-      for (TreeLinkNode prev = null; root != null; root = root.next) {//previous node on the same level
-        if (next == null) next = root.left == null ? root.right : root.left;
-        if (root.left != null) {
-          if (prev != null) prev.next = root.left;
-          prev = root.left;
-        }
-        if (root.right != null) {
-          if (prev != null) prev.next = root.right;
-          prev = root.right;
-        }
-      }
-  }
 }
