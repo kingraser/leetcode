@@ -5,7 +5,12 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.junit.Test;
@@ -34,13 +39,13 @@ public class WordPattern {
   public boolean wordPattern(String pattern, String str) {
     String[] array = str.split(" ");
     if (array.length != pattern.length()) return false;
-    Map<String, Character> map = new HashMap<>(array.length);
-    for (int i = 0; i < pattern.length(); i++)
-      if (!map.containsKey(array[i])) {
-        if (!map.containsValue(pattern.charAt(i))) map.put(array[i], pattern.charAt(i));
-        else return false;
-      } else if (map.get(array[i]) != pattern.charAt(i)) return false;
-    return true;
+    Map<String, Integer> map = new HashMap<>();
+    Map<Integer, String> map2 = new HashMap<>();
+    Iterator<String> iterator = Arrays.stream(array).iterator();
+    return pattern.chars().allMatch(c -> {
+      String s = iterator.next();
+      return s.equals(map2.computeIfAbsent(c, k -> s)) && c == map.computeIfAbsent(s, k -> c).intValue();
+    });
   }
 
   @Test
