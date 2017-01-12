@@ -5,7 +5,10 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import org.junit.Test;
@@ -16,6 +19,7 @@ import com.google.common.collect.Sets;
 // <p>@author wit Initial Created at 2015年10月15日<p>
 //-------------------------------------------------------
 public class WordLadder {
+
   /*
   Given two words (beginWord and endWord), and a dictionary's word list, 
   find the length of shortest transformation sequence from beginWord to endWord, such that:
@@ -47,26 +51,26 @@ public class WordLadder {
   }
 
   public int ladderLength(String start, String end, Set<String> set) {
-    return solve(Sets.newHashSet(start), Sets.newHashSet(end), set, 1);
+    return Objects.equals(start, end) || !set.contains(end) ? 0
+        : solve(Sets.newHashSet(start), Sets.newHashSet(end), set, 1);
   }
 
   public int solve(Set<String> start, Set<String> end, Set<String> dict, int level) {
-    if (start.isEmpty()) return 0;
     if (start.size() > end.size()) return solve(end, start, dict, level);
     dict.removeAll(start);
     dict.removeAll(end);
-    Set<String> set = new HashSet<>();
+    Set<String> nexts = new HashSet<>();
     for (String s : start) {
-      char[] head = s.toCharArray();
-      for (char i = 0, origin; i < s.length(); head[i++] = origin)
-        for (origin = head[i], head[i] = 'a'; head[i] <= 'z'; head[i]++) {
-          if (head[i] == origin) continue;
-          String word = new String(head);
+      char[] chars = s.toCharArray();
+      for (char i = 0, origin; i < s.length(); chars[i++] = origin)
+        for (origin = chars[i], chars[i] = 'a'; chars[i] <= 'z'; chars[i]++) {
+          if (chars[i] == origin) continue;
+          String word = new String(chars);
           if (end.contains(word)) return ++level;
-          if (dict.contains(word)) set.add(word);
+          if (dict.contains(word)) nexts.add(word);
         }
     }
-    return solve(set, end, dict, ++level);
+    return nexts.isEmpty() ? 0 : solve(nexts, end, dict, ++level);
   }
 
 }
