@@ -5,6 +5,8 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -34,7 +36,6 @@ public class ReverseWordsinaString {
         if (sIdx == 0) continue;
         if (rIdx != size) result[rIdx--] = ' ';
         for (; sIdx > 0; result[rIdx--] = stack[--sIdx]);
-        sIdx = 0;
       } else stack[sIdx++] = c;
     if (sIdx != 0) {
       if (rIdx != size) result[rIdx--] = ' ';

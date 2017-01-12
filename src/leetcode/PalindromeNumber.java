@@ -33,5 +33,4 @@ public class PalindromeNumber {
   public void test() {
     assertTrue(isPalindrome(123321));
   }
-
 }

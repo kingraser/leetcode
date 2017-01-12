@@ -2,7 +2,7 @@ package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Objects;
+import java.util.Arrays;
 
 import org.junit.Test;
 
@@ -50,14 +50,48 @@ public class ValidateIPAddress {
 
   @Test
   public void test() {
-    assertEquals("", validIPAddress("2001:0db8:85a3:0:0:8A2E:0370:7334:"));
+    assertEquals("Neither", validIPAddress("2001:0db8:85a3:0:0:8A2E:0370:7334:"));
     assertEquals("IPv4", validIPAddress("172.16.254.1"));
     assertEquals("IPv6", validIPAddress("2001:0db8:85a3:0:0:8A2E:0370:7334"));
     assertEquals("Neither", validIPAddress("256.256.256.256"));
   }
 
-  public String validIPAddress(String IP) {
-    return isV4(IP) ? "IPv4" : isV6(IP) ? "IPv6" : "Neither";
+  public String validIPAddress(String ip) {
+    return isV4(ip) ? "IPv4" : isV6(ip) ? "IPv6" : "Neither";
+  }
+
+  private boolean isV4(String ip) {
+    if (ip == null || ip.length() < 7 || ip.length() > 15) return false;
+    String[] array = ip.split("\\.");
+    if (array.length != 4 || getLen(array) != ip.length()) return false;
+    return Arrays.stream(array).allMatch(s -> isV4Part(s));
+  }
+
+  private boolean isV4Part(String s) {
+    if (s == null || s.length() < 1 || s.length() > 3) return false;
+    for (int i = 0, val = 0, c, min = 1; i < s.length(); min *= 10, i++)
+      if ((c = s.charAt(i) - '0') < 0 || c > 9 || ((val = val * 10 + c) < min && i > 0) || val > 255) return false;
+    return true;
+  }
+
+  private boolean isV6(String ip) {
+    if (ip == null || ip.length() < 15 || ip.length() > 39) return false;
+    String[] array = ip.split(":");
+    if (array.length != 8 || getLen(array) != ip.length()) return false;
+    return Arrays.stream(array).allMatch(s -> isV6Part(s));
+  }
+
+  private int getLen(String[] array) {
+    return array.length - 1 + Arrays.stream(array).mapToInt(s -> s.length()).sum();
+  }
+
+  private boolean isV6Part(String s) {
+    if (s.length() < 1 || s.length() > 4) return false;
+    return s.chars().allMatch(c -> isHex(c));
+  }
+
+  private boolean isHex(int c) {
+    return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F');
   }
 
 }

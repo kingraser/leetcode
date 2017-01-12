@@ -5,6 +5,8 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.Arrays;
 import java.util.BitSet;
 
@@ -60,5 +62,4 @@ public class PartitionEqualSubsetSum {
     }
     return (sum & 1) == 0 && bs.get(sum >> 1);
   }
-
 }

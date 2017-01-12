@@ -5,6 +5,9 @@
  */
 package leetcode;
 
+import static leetcode.common.TreeNode.tree;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

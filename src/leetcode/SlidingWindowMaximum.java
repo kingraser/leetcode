@@ -5,6 +5,8 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertArrayEquals;
+
 import java.util.ArrayDeque;
 import java.util.Collections;
 import java.util.Deque;

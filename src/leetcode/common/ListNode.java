@@ -41,8 +41,7 @@ public class ListNode {
   public boolean equals(Object o) {
     if (null == o || !(o instanceof ListNode)) return false;
     ListNode another = (ListNode) o;
-    if (val != another.val) return false;
-    return Objects.equals(next, another.next);
+    return val == another.val && Objects.equals(next, another.next);
   }
 
   public static ListNode list(int... array) {
@@ -54,11 +53,11 @@ public class ListNode {
 
   @Override
   public String toString() {
-    return toString(new StringBuilder(), this).toString();
+    return toString(this);
   }
 
-  private StringBuilder toString(StringBuilder stringBuilder, ListNode node) {
-    if (Objects.isNull(node)) return stringBuilder.append("null");
-    return toString(stringBuilder.append(node.val).append("->"), node.next);
+  private String toString(ListNode node) {
+    if (Objects.isNull(node)) return "null";
+    return node.val + "->" + toString(node.next);
   }
 }

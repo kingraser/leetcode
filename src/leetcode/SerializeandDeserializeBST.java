@@ -1,5 +1,7 @@
 package leetcode;
 
+import static leetcode.common.TreeNode.tree;
+
 import leetcode.common.TreeNode;
 
 public class SerializeandDeserializeBST {

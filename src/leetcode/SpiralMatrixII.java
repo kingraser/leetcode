@@ -5,6 +5,8 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertArrayEquals;
+
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -41,4 +43,5 @@ public class SpiralMatrixII {
   public void test() {
     assertArrayEquals(new int[][] { { 1, 2, 3 }, { 8, 9, 4 }, { 7, 6, 5 } }, generateMatrix(3));
   }
+
 }

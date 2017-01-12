@@ -5,6 +5,7 @@
  */
 package leetcode;
 
+import static leetcode.util.ArrayUtil.swap;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
@@ -72,12 +73,5 @@ public class KthLargestElementinanArray {
       if (nums[i] > element) swap(nums, ++idx, i);
     swap(nums, from, idx);
     return idx;
-  }
-
-  private static void swap(int[] nums, int i, int j) {
-    if (i == j) return;
-    int temp = nums[i];
-    nums[i] = nums[j];
-    nums[j] = temp;
   }
 }

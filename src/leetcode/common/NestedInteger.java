@@ -7,6 +7,7 @@ package leetcode.common;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 //--------------------- Change Logs----------------------
 //@author wangwenlong Initial Created at 2016年8月22日;
@@ -45,5 +46,11 @@ public class NestedInteger {
 
   public List<NestedInteger> getList() {
     return list;
+  }
+
+  @Override
+  public String toString() {
+    return val != null ? Integer.toString(val)
+        : "[" + String.join(",", list.stream().map(i -> i.toString()).collect(Collectors.toList())) + "]";
   }
 }

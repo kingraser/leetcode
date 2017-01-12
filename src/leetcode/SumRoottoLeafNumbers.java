@@ -5,6 +5,9 @@
  */
 package leetcode;
 
+import static leetcode.common.TreeNode.tree;
+import static org.junit.Assert.assertEquals;
+
 import java.util.Objects;
 
 import org.junit.Test;

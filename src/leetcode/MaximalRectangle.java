@@ -5,6 +5,8 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 //--------------------- Change Logs----------------------
@@ -18,22 +20,20 @@ public class MaximalRectangle {
   */
 
   /*
-          如果矩阵如下
+  If matrix like below
   0010
   0001
   0111
   0011
-          显然应该是左上角坐标(2,2),右下角坐标(3,3)的矩形
-          判断以(i,j)为矩形左上角，能不能形成一个矩形，能不能形成多个矩形？
-          那形成的矩形中，我们能不能找一个最大的呢？
+  It is obvious that left top(2,2) and right bottom(3,3) is max
   
-  dp[i][j]就是当前的第j列到第i行连续1的个数
-          上例的dp为
+  Let dp[i][j] represents successive 1 counts for (i,j) to top
+  For example
   0010
   0001
   0112
   0023
-          此时问题已经转化为Largest Rectangle in Histogram
+  Then the problem is transfered to Largest Rectangle in Histogram
   */
 
   public int maximalRectangle(char[][] m) {
