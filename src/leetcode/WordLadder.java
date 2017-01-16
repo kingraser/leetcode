@@ -51,8 +51,7 @@ public class WordLadder {
   }
 
   public int ladderLength(String start, String end, Set<String> set) {
-    return Objects.equals(start, end) || !set.contains(end) ? 0
-        : solve(Sets.newHashSet(start), Sets.newHashSet(end), set, 1);
+    return Objects.equals(start, end) ? 0 : solve(Sets.newHashSet(start), Sets.newHashSet(end), set, 1);
   }
 
   public int solve(Set<String> start, Set<String> end, Set<String> dict, int level) {

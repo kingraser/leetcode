@@ -49,11 +49,11 @@ public class EncodeStringwithShortestLength {
 
   @Test
   public void test() {
-    assertEquals("aaa", encode("aaa"));
-    assertEquals("5[a]", encode("aaaaa"));
-    assertEquals("10[a]", encode("aaaaaaaaaa"));
-    assertEquals("2[aabc]d", encode("aabcaabcd"));
-    assertEquals("2[2[abbb]c]", encode("abbbabbbcabbbabbbc"));
+    assertEquals("aaa".length(), encode("aaa").length());
+    assertEquals("5[a]".length(), encode("aaaaa").length());
+    assertEquals("10[a]".length(), encode("aaaaaaaaaa").length());
+    assertEquals("2[aabc]d".length(), encode("aabcaabcd").length());
+    assertEquals("2[2[abbb]c]".length(), encode("abbbabbbcabbbabbbc").length());
   }
 
   public String encode(String s) {

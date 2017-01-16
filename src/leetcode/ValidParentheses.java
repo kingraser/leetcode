@@ -5,7 +5,14 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Map;
+import java.util.Objects;
 import java.util.Stack;
+
+import org.junit.Test;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -14,13 +21,21 @@ import com.google.common.collect.ImmutableMap;
 //-------------------------------------------------------
 public class ValidParentheses {
 
-  public boolean isVachalid(String s) {
-    ImmutableMap<Character, Character> map = ImmutableMap.of('}', '{', ')', '(', ']', '[');
+  @Test
+  public void test() {
+    assertTrue(isValid("()"));
+    assertFalse(isValid("(}"));
+  }
+
+  private static final Map<Character, Character> MAP = ImmutableMap.of('}', '{', ')', '(', ']', '[');
+
+  public boolean isValid(String s) {
     if ((s.length() & 1) == 1) return false;//odd
     Stack<Character> stack = new Stack<>();
     for (char c : s.toCharArray())
-      if (map.containsKey(c) && (stack.isEmpty() || stack.pop() != map.get(c))) return false;
-      else stack.push(c);
+      if (MAP.containsKey(c)) {
+        if (stack.isEmpty() || !Objects.equals(stack.pop(), MAP.get(c))) return false;
+      } else stack.push(c);
     return stack.isEmpty();
   }
 }

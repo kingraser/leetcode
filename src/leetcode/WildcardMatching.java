@@ -5,6 +5,11 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月10日<p>
 //-------------------------------------------------------
@@ -29,6 +34,17 @@ public class WildcardMatching {
   isMatch("ab", "?*") → true
   isMatch("aab", "c*a*b") → false    
   */
+
+  @Test
+  public void test() {
+    assertFalse(isMatch("aa", "a"));
+    assertTrue(isMatch("aa", "aa"));
+    assertFalse(isMatch("aaa", "aa"));
+    assertTrue(isMatch("aa", "*"));
+    assertTrue(isMatch("aa", "a*"));
+    assertTrue(isMatch("ab", "?*"));
+    assertFalse(isMatch("aab", "c*a*b"));
+  }
 
   public boolean isMatch(String s, String p) {
     int sPointer = 0, pPointer = 0, match = 0, starIdx = -1;
