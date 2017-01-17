@@ -7,7 +7,7 @@ package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 import org.junit.Test;
@@ -41,30 +41,40 @@ public class FindMedianfromDataStream {
 
   @Test
   public void test() {
-    addNum(1);
-    addNum(2);
-    assertEquals(1.5, findMedian(), 0);
-    addNum(3);
-    assertEquals(2, findMedian(), 0);
+    DataStream stream = new DataStream();
+    stream.addNum(1);
+    stream.addNum(2);
+    assertEquals(1.5, stream.findMedian(), 0);
+    stream.addNum(3);
+    assertEquals(2, stream.findMedian(), 0);
   }
 
-  PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+  public static class DataStream {
+    PriorityQueue<Integer> minHeap = new PriorityQueue<>(), maxHeap = new PriorityQueue<>(Comparator.reverseOrder());
 
-  PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+    // Adds a number into the data structure.
+    public void addNum(int num) {
+      if (maxHeap.isEmpty() || num <= maxHeap.peek()) maxHeap.offer(num);
+      else minHeap.offer(num);
+      adjust();
+    }
 
-  // Adds a number into the data structure.
-  public void addNum(int num) {
-    if (maxHeap.isEmpty()) maxHeap.offer(num);
-    else if (num <= maxHeap.peek()) maxHeap.offer(num);
-    else minHeap.offer(num);
-    for (; maxHeap.size() < minHeap.size(); maxHeap.offer(minHeap.poll()));
-    for (; minHeap.size() < maxHeap.size() - 1; minHeap.offer(maxHeap.poll()));
-  }
+    public void remove(Integer i) {
+      if (i <= maxHeap.peek()) maxHeap.remove(i);
+      else minHeap.remove(i);
+      adjust();
+    }
 
-  // Returns the median of current data stream
-  public double findMedian() {
-    if (maxHeap.size() == minHeap.size()) return (double) (maxHeap.peek() + minHeap.peek()) / 2;
-    return maxHeap.peek();
+    private void adjust() {
+      for (; maxHeap.size() < minHeap.size(); maxHeap.offer(minHeap.poll()));
+      for (; minHeap.size() < maxHeap.size() - 1; minHeap.offer(maxHeap.poll()));
+    }
+
+    // Returns the median of current data stream
+    public double findMedian() {
+      if (maxHeap.size() == minHeap.size()) return ((double) maxHeap.peek() + minHeap.peek()) / 2;
+      return maxHeap.peek();
+    }
   }
 
 }
