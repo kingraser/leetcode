@@ -17,6 +17,7 @@ import org.junit.Test;
 // <p>@author wit Initial Created at 2015年10月14日<p>
 //-------------------------------------------------------
 public class RestoreIPAddresses {
+
   /*
   Given a string containing only digits, restore it by returning all possible valid IP address combinations.
   
@@ -25,8 +26,6 @@ public class RestoreIPAddresses {
   
   return ["255.255.11.135", "255.255.111.35"]. (Order does not matter) 
   */
-
-  //只有到末尾才知道是否有效,所以深搜
 
   @Test
   public void test() {
@@ -39,18 +38,6 @@ public class RestoreIPAddresses {
     return result;
   }
 
-  /**
-   * @param result
-   *          结果集
-   * @param s
-   *          字串
-   * @param l
-   *          带'.'的字串
-   * @param i
-   *          s的下标
-   * @param todo
-   *          还剩几部分要处理
-   */
   private void dfs(List<String> result, char[] s, char[] l, int i, int todo) {
     if (s.length - i > todo * 3 || s.length - i < todo) return;//不可能满足条件
     if (i == s.length && todo == 0) result.add(new String(l, 0, i + 3));//保存结果 3 for 3 '.'

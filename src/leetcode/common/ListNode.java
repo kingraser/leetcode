@@ -37,6 +37,12 @@ public class ListNode {
     return node;
   }
 
+  public int size() {
+    int count = 0;
+    for (ListNode node = this; node != null; node = node.next, count++);
+    return count;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (null == o || !(o instanceof ListNode)) return false;

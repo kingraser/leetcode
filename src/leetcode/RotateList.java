@@ -26,19 +26,19 @@ public class RotateList {
   */
 
   /*
-          先遍历一遍,得出链表长度len,注意 k可能大于len,因此令k%=len。
-          将尾节点next指针指向首节点,形成一个环,接着往后跑len−k步,从这里断开,就是要求的结果了。
+  First get the length of the list, let we name it l, note k may be larger than l, so make k%=l
+  Second let tail.next = head, thus make a circle, move l-k step from tail, break the circle and get the result
   */
 
   public ListNode rotateRight(ListNode head, int k) {
     if (head == null || k == 0) return head;
     int len = 1;
     ListNode p = head;
-    for (; p.next != null; len++, p = p.next);// 求长度
-    p.next = head; // 首尾相连
-    for (int step = 0, length = len - k % len; step < length; p = p.next, step++); //接着往后跑
-    head = p.next; // 新的首节点
-    p.next = null; // 断开环
+    for (; p.next != null; len++, p = p.next);// get length
+    p.next = head; // make a circle
+    for (int step = 0, length = len - k % len; step < length; p = p.next, step++); //move forward 
+    head = p.next; // new head
+    p.next = null; // break the circle
     return head;
   }
 
