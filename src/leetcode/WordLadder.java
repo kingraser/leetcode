@@ -10,6 +10,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import org.junit.Test;
 
@@ -56,8 +57,7 @@ public class WordLadder {
 
   public int solve(Set<String> start, Set<String> end, Set<String> dict, int level) {
     if (start.size() > end.size()) return solve(end, start, dict, level);
-    dict.removeAll(start);
-    dict.removeAll(end);
+    Stream.of(start, end).forEach(dict::removeAll);
     Set<String> nexts = new HashSet<>();
     for (String s : start) {
       char[] chars = s.toCharArray();
