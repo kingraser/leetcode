@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import org.junit.Test;
 
@@ -65,8 +66,7 @@ public class WordLadderII {
       Set<String> result) {
     if (start.size() > end.size()) return bfs(end, start, set, map, result);//search from both sides
     if (start.isEmpty()) return result;//no path
-    set.removeAll(start);
-    set.removeAll(end);//insure no circle
+    Stream.of(start, end).forEach(set::removeAll);//insure no circle
     Set<String> next = new HashSet<>();//nodes in next level 
     for (String str : start) {
       char[] head = str.toCharArray();
