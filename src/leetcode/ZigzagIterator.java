@@ -2,7 +2,6 @@ package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -10,6 +9,8 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
+
+import com.google.common.collect.Lists;
 
 public class ZigzagIterator {
 
@@ -32,22 +33,15 @@ public class ZigzagIterator {
 
   @Test
   public void test() {
-    List<Integer> actual = new ArrayList<>();
-    ZigZagIterator iterator = new ZigZagIterator(Arrays.asList(Arrays.asList(1, 2, 3).iterator(),
-        Arrays.asList(4, 5, 6, 7).iterator(), Arrays.asList(8, 9).iterator()));
-    for (; iterator.hasNext(); actual.add(iterator.next()));
-    assertEquals(Arrays.asList(1, 4, 8, 2, 5, 9, 3, 6, 7), actual);
+    assertEquals(Arrays.asList(1, 4, 8, 2, 5, 9, 3, 6, 7),
+        Lists.newArrayList(new ZigZagIterator(Arrays.asList(Arrays.asList(1, 2, 3).iterator(),
+            Arrays.asList(4, 5, 6, 7).iterator(), Arrays.asList(8, 9).iterator()))));
 
-    actual.clear();
-    iterator = new ZigZagIterator(Arrays.asList(Arrays.asList(1, 2).iterator(), Arrays.asList(3, 4, 5, 6).iterator()));
-    for (; iterator.hasNext(); actual.add(iterator.next()));
-    assertEquals(Arrays.asList(1, 3, 2, 4, 5, 6), actual);
+    assertEquals(Arrays.asList(1, 3, 2, 4, 5, 6), Lists.newArrayList(
+        new ZigZagIterator(Arrays.asList(Arrays.asList(1, 2).iterator(), Arrays.asList(3, 4, 5, 6).iterator()))));
 
-    actual.clear();
-    iterator = new ZigZagIterator(
-        Arrays.asList(Arrays.asList(1).iterator(), Arrays.asList(2, 3).iterator(), Arrays.asList(4, 5, 6).iterator()));
-    for (; iterator.hasNext(); actual.add(iterator.next()));
-    assertEquals(Arrays.asList(1, 2, 4, 3, 5, 6), actual);
+    assertEquals(Arrays.asList(1, 2, 4, 3, 5, 6), Lists.newArrayList(new ZigZagIterator(Arrays
+        .asList(Arrays.asList(1).iterator(), Arrays.asList(2, 3).iterator(), Arrays.asList(4, 5, 6).iterator()))));
   }
 
   public class ZigZagIterator implements Iterator<Integer> {
