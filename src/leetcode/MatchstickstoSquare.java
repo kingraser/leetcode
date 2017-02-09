@@ -3,9 +3,7 @@ package leetcode;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import org.junit.Test;
 
@@ -38,44 +36,34 @@ public class MatchstickstoSquare {
 
   @Test
   public void test() {
-    assertTrue(makesquareI(new int[] { 1, 1, 2, 2, 2 }));
-    assertFalse(makesquareI(new int[] { 3, 3, 3, 3, 4 }));
-    assertTrue(makesquareI(new int[] { 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 8 }));
-
-    assertTrue(makesquareII(new int[] { 1, 1, 2, 2, 2 }));
-    assertFalse(makesquareII(new int[] { 3, 3, 3, 3, 4 }));
-    assertTrue(makesquareII(new int[] { 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 8 }));
+    assertTrue(makesquare(new int[] { 1, 1, 2, 2, 2 }));
+    assertFalse(makesquare(new int[] { 3, 3, 3, 3, 4 }));
+    assertTrue(makesquare(new int[] { 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 8 }));
   }
 
-  public boolean makesquareI(int[] nums) {
+  public boolean makesquare(int[] nums) {
     if (nums == null || nums.length < 4) return false;
-    int sum = Arrays.stream(nums).sum(), side = sum / 4;
+    int sum = sum(nums);
     if (sum % 4 != 0) return false;
     Arrays.sort(nums);
-    int[] sides = new int[4];
-    for (int i = nums.length - 1, j = 0; i >= 0;)
-      if (nums[i] + sides[j %= 4] > side) if (j++ == 3) return false;
-      else continue;
-      else sides[j++] += nums[i--];
-    return Arrays.stream(sides).allMatch(i -> i == side);
+    return dfs(nums, new int[4], nums.length - 1, sum / 4);
   }
 
-  public boolean makesquareII(int[] nums) {
-    if (nums == null || nums.length < 4) return false;
-    int sum = Arrays.stream(nums).sum(), side = sum / 4, all = (1 << nums.length) - 1;
-    if (sum % 4 != 0) return false;
-    List<Integer> history = new ArrayList<>(1 << nums.length);
-    boolean[] halves = new boolean[1 << nums.length];
-    for (int option = 1, temp, i, half; option <= all; history.add(option++)) {
-      for (i = temp = 0; temp < side && i < 16; i++)
-        if (((option >> i) & 1) != 0) temp += nums[i];
-      if (temp != side) continue;
-      for (int record : history) {
-        if ((record & option) != 0) continue;
-        halves[half = record | option] = true;
-        if (halves[all ^ half]) return true;
-      }
+  private boolean dfs(int[] nums, int[] sums, int idx, int quarter) {
+    if (idx == -1) return sums[0] == quarter && sums[1] == quarter && sums[2] == quarter;
+    for (int i = 0; i < 4; i++) {
+      if (sums[i] + nums[idx] > quarter) continue;
+      sums[i] += nums[idx];
+      if (dfs(nums, sums, idx - 1, quarter)) return true;
+      sums[i] -= nums[idx];
     }
     return false;
+  }
+
+  private int sum(int[] nums) {
+    int sum = 0;
+    for (int i : nums)
+      sum += i;
+    return sum;
   }
 }
