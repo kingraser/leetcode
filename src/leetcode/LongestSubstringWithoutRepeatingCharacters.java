@@ -23,15 +23,10 @@ public class LongestSubstringWithoutRepeatingCharacters {
   */
 
   public int lengthOfLongestSubstring(String s) {
-    int max = 0, len = 0;
-    int[] map = new int[128];
-    for (int i = 0, first = 0, c; i < s.length(); map[c] = ++i)
-      if (map[c = s.charAt(i)] != 0) {
-        if (max < len) max = len;
-        if (first < map[c]) first = map[c];
-        len = i - first + 1;
-      } else len++;
-    return max < len ? len : max;
+    int result = 0, map[] = new int[128];
+    for (int i = 0, left = 0, c, len = 0; i < s.length(); map[c] = i, result = Math.max(result, len))
+      len = map[c = s.charAt(i++)] == 0 ? ++len : i - (left = Math.max(left, map[c]));
+    return result;
   }
 
   @Test
