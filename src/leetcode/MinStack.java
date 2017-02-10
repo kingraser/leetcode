@@ -5,8 +5,13 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Objects;
 import java.util.Stack;
+import java.util.stream.Stream;
+
+import org.junit.Test;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月12日<p>
@@ -22,9 +27,23 @@ public class MinStack {
   getMin() -- Retrieve the minimum element in the stack.    
   */
 
-  private Stack<Integer> stack = new Stack<Integer>();
+  @Test
+  public void test() {
+    Stream.of(3, 2, 1).forEach(i -> push(i));
+    assertEquals(1, getMin());
+    assertEquals(1, top());
+    pop();
+    assertEquals(2, getMin());
+    assertEquals(2, top());
+    pop();
+    assertEquals(3, getMin());
+    assertEquals(3, top());
+    push(1);
+    assertEquals(1, getMin());
+    assertEquals(1, top());
+  }
 
-  private Stack<Integer> minStack = new Stack<Integer>();
+  Stack<Integer> stack = new Stack<>(), minStack = new Stack<>();
 
   public void push(int x) {
     if (minStack.isEmpty() || x <= minStack.peek()) minStack.push(x);

@@ -17,7 +17,7 @@ import org.junit.Test;
 
 import com.google.common.collect.Lists;
 
-import leetcode.util.Pair;
+import leetcode.common.Pair;
 
 //--------------------- Change Logs----------------------
 //@author wangwenlong Initial Created at 2016年9月12日;

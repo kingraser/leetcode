@@ -17,15 +17,12 @@ public class LongestPalindromicSubstring {
   /*
   Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000.
   
-  Example:
-  
+  Example:  
   Input: "babad"  
-  Output: "bab"
-  
+  Output: "bab"  
   Note: "aba" is also a valid answer.
   
-  Example:
-  
+  Example:  
   Input: "cbbd"  
   Output: "bb"  
   */
@@ -42,7 +39,7 @@ public class LongestPalindromicSubstring {
         maxLen = 2;
       }
     for (int len = 3; len <= s.length(); len++)
-      for (int i = 0, j; (j = i + len - 1) < s.length(); i++)
+      for (int i = 0, j = i + len - 1; j < s.length(); i++, j++)
         if (s.charAt(i) == s.charAt(j) && table[i + 1][j - 1]) {
           table[i][j] = true;
           longestBegin = i;

@@ -5,6 +5,11 @@
  */
 package leetcode;
 
+import static leetcode.util.ArrayUtil.swap;
+import static org.junit.Assert.assertArrayEquals;
+
+import org.junit.Test;
+
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月12日<p>
 //-------------------------------------------------------
@@ -25,6 +30,17 @@ public class SortColors {
   Could you come up with an one-pass algorithm using only constant space?
   */
 
+  @Test
+  public void test() {
+    int[] actual = new int[] { 0, 1, 2, 0, 1, 2 };
+    sortColors(actual);
+    assertArrayEquals(new int[] { 0, 0, 1, 1, 2, 2 }, actual);
+
+    actual = new int[] { 0, 1, 2, 0, 1, 2 };
+    sortColorsI(actual);
+    assertArrayEquals(new int[] { 0, 0, 1, 1, 2, 2 }, actual);
+  }
+
   public void sortColors(int[] A) {
     int[] counts = new int[3];
     for (int i = 0; i < A.length; counts[A[i++]]++);
@@ -32,19 +48,11 @@ public class SortColors {
       for (int j = 0; j < counts[i]; A[index++] = i, j++);
   }
 
-  // 一个是 red 的 index,一个是 blue 的 index,两边往中间走
   public void sortColorsI(int A[]) {
     int red = 0, blue = A.length - 1;
     for (int i = 0; i < blue + 1;)
       if (A[i] == 0) swap(A, i++, red++);
       else if (A[i] == 2) swap(A, i, blue--);
       else i++;
-  }
-
-  private void swap(int[] a, int i, int j) {
-    if (i == j) return;
-    int temp = a[i];
-    a[i] = a[j];
-    a[j] = temp;
   }
 }

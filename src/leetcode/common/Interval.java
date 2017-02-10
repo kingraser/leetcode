@@ -24,4 +24,9 @@ public class Interval {
     Interval another = (Interval) o;
     return another.start == start && another.end == end;
   }
+
+  @Override
+  public String toString() {
+    return String.format("[start:%d,end:%d]", start, end);
+  }
 }

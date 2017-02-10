@@ -5,6 +5,12 @@
  */
 package leetcode;
 
+import static leetcode.common.TreeNode.tree;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
 import leetcode.common.TreeNode;
 
 //--------------------- Change Logs----------------------
@@ -28,8 +34,13 @@ public class SymmetricTree {
     2   2
      \   \
      3    3
-  
   */
+
+  @Test
+  public void test() {
+    assertTrue(isSymmetric(tree("1,2,3,n,n,4,n,n,2,4,n,n,3,n,n")));
+    assertFalse(isSymmetric(tree("1,2,n,3,n,n,2,n,3,n,n")));
+  }
 
   public boolean isSymmetric(TreeNode root) {
     return root == null ? true : isSymmetric(root.left, root.right);

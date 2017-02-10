@@ -64,12 +64,6 @@ public class AlienDictionary {
     return true;
   }
 
-  private void sub(Node node, Node prev) {
-    if (node.val < prev.val) return;
-    node.val = prev.val - 1;
-    node.nextMap.values().forEach(next -> sub(next, node));
-  }
-
   public class Node {
     public char c;
     public int val = Integer.MAX_VALUE - 1;
@@ -77,6 +71,12 @@ public class AlienDictionary {
 
     public Node(char c) {
       this.c = c;
+    }
+
+    private void sub(Node node, Node prev) {
+      if (node.val < prev.val) return;
+      node.val = prev.val - 1;
+      node.nextMap.values().forEach(next -> sub(next, node));
     }
 
     public void add(Node next) {

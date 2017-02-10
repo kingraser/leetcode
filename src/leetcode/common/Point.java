@@ -24,4 +24,9 @@ public class Point {
     Point point = (Point) obj;
     return x == point.x && y == point.y;
   }
+
+  @Override
+  public String toString() {
+    return String.format("[x:%d,y:%d]", x, y);
+  }
 }

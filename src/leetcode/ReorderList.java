@@ -5,47 +5,49 @@
  */
 package leetcode;
 
+import static leetcode.common.ListNode.list;
+import static leetcode.ReverseLinkedList.reverseList;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 import leetcode.common.ListNode;
+import leetcode.common.Pair;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月16日<p>
 //-------------------------------------------------------
 public class ReorderList {
   /*
-  Given a singly linked list L : L 0 → L 1 → · · · → L n−1 → L n , 
-  reorder it to: L 0 → L n → L 1 → L n−1 → L 2 → L n−2 → · · ·
-  You must do this in-place without altering the nodes’ values.
+  Given a singly linked list L : L0 → L1 → · · · → Ln−1 → Ln , 
+  reorder it to: L0 → Ln → L1 → Ln−1 → L2 → Ln−2 → · · ·
+  You must do this in-place without altering the nodes values.
   For example, Given {1,2,3,4}, reorder it to {1,4,2,3}.
   */
 
-  public void reorderList(ListNode head) {
-    if (head == null || head.next == null) return;
-    ListNode slow = head, fast = head, prev = null;
-    while (fast != null && fast.next != null) {
-      prev = slow;
-      slow = slow.next;
-      fast = fast.next.next;
-    }
-    prev.next = null; // cut at middle
-    slow = reverse(slow);
-    ListNode curr = head;
-    while (curr.next != null) {//merge two lists
-      ListNode tmp = curr.next;
-      curr.next = slow;
-      slow = slow.next;
-      curr.next.next = tmp;
-      curr = tmp;
-    }
-    curr.next = slow;
+  @Test
+  public void test() {
+    ListNode input = list(1, 2, 3, 4);
+    reorderList(input);
+    assertEquals(list(1, 4, 2, 3), input);
+
+    input = list(1, 2, 3, 4, 5);
+    reorderList(input);
+    assertEquals(list(1, 5, 2, 4, 3), input);
   }
 
-  ListNode reverse(ListNode head) {
-    if (head == null || head.next == null) return head;
-    ListNode prev = head;
-    for (ListNode curr = head.next, next = curr.next; curr != null; prev = curr, curr = next, next = next != null
-        ? next.next : null)
-      curr.next = prev;
-    head.next = null;
-    return prev;
+  public void reorderList(ListNode head) {
+    if (head == null || head.next == null) return;
+    Pair<ListNode, ListNode> pair = head.breakFromMiddle();
+    merge(pair.key, reverseList(pair.value));
+  }
+
+  private ListNode merge(ListNode l1, ListNode l2) {
+    if (l1 == null) return l2;
+    if (l2 == null) return l1;
+    ListNode next = l1.next;
+    l1.next = l2;
+    l2.next = merge(next, l2.next);
+    return l1;
   }
 }

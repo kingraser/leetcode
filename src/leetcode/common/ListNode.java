@@ -32,7 +32,7 @@ public class ListNode {
 
   public ListNode next(int n) {
     ListNode node = this;
-    while (n-- > 0)
+    while (n-- > 0 && node != null)
       node = node.next;
     return node;
   }
@@ -65,5 +65,17 @@ public class ListNode {
   private String toString(ListNode node) {
     if (Objects.isNull(node)) return "null";
     return node.val + "->" + toString(node.next);
+  }
+
+  public Pair<ListNode, ListNode> breakFromMiddle() {
+    if (this.next == null) return new Pair<ListNode, ListNode>(this, null);
+    ListNode prev = null, slow = this, fast = this;
+    while (fast != null && fast.next != null) {
+      prev = slow;
+      fast = fast.next.next;
+      slow = slow.next;
+    }
+    prev.next = null;
+    return new Pair<ListNode, ListNode>(this, slow);
   }
 }

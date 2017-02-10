@@ -5,6 +5,10 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月10日<p>
 //-------------------------------------------------------
@@ -16,6 +20,11 @@ public class TrappingRainWater {
   For example,
   Given [0,1,0,2,1,0,1,3,2,1,2,1], return 6. 
   */
+
+  @Test
+  public void test() {
+    assertEquals(6, trap(new int[] { 0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1 }));
+  }
 
   public int trap(int[] height) {
     if (height == null || height.length < 3) return 0;

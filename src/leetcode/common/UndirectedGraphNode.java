@@ -52,14 +52,11 @@ public class UndirectedGraphNode {
     if (Objects.isNull(history)) throw new RuntimeException("history can not be null");
     if (isReached(history, node)) return;
     history.add(node);
-    if (Objects.nonNull(node)) for (UndirectedGraphNode neighbor : node.neighbors)
-      dfs(history, neighbor);
+    if (Objects.nonNull(node)) node.neighbors.forEach(neighbor -> dfs(history, neighbor));
   }
 
   private static boolean isReached(List<UndirectedGraphNode> history, UndirectedGraphNode node) {
     if (Objects.isNull(history) || history.isEmpty()) return false;
-    for (UndirectedGraphNode n : history)
-      if (n == node) return true;
-    return false;
+    return history.stream().anyMatch(past -> past == node);
   }
 }

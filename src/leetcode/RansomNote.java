@@ -35,7 +35,7 @@ public class RansomNote {
   public boolean canConstruct(String ransomNote, String magazine) {
     int[] counts = new int[128];
     magazine.chars().forEach(c -> counts[c]++);
-    return ransomNote.chars().noneMatch(c -> --counts[c] < 0);
+    return ransomNote.chars().allMatch(c -> counts[c]-- > 0);
   }
 
 }

@@ -75,6 +75,9 @@ public class TreeLinkNode {
     return String.join(",", Integer.toString(node.val), toString(node.left), toString(node.right));
   }
 
+  /**
+   * make sure there is no circle in the tree
+   */
   @Override
   public boolean equals(Object o) {
     if (Objects.isNull(o) || !(o instanceof TreeLinkNode)) return false;

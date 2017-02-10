@@ -49,9 +49,7 @@ public class RandomListNode {
 
   private boolean isReached(List<RandomListNode> history, RandomListNode node) {
     if (Objects.isNull(history) || history.isEmpty()) return false;
-    for (RandomListNode n : history)
-      if (n == node) return true;
-    return false;
+    return history.stream().anyMatch(past -> past == node);
   }
 
   private boolean equals(RandomListNode n1, RandomListNode n2, boolean checkNextAndRandom) {

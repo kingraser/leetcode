@@ -74,11 +74,9 @@ public class ValidWordSquare {
   public boolean validWordSquare(List<String> words) {
     if (words.isEmpty()) return true;
     if (words.size() != words.get(0).length()) return false;
-    for (int i = 0; i < words.size(); i++) {
-      if (words.get(i).length() >= words.size()) return false;
+    for (int i = 0; i < words.size(); i++)
       for (int j = 0; j < words.get(i).length(); j++)
         if (i >= words.get(j).length() || words.get(i).charAt(j) != words.get(j).charAt(i)) return false;
-    }
     return true;
   }
 

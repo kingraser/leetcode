@@ -5,6 +5,13 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.stream.Stream;
+
+import org.junit.Test;
+
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月14日<p>
 //-------------------------------------------------------
@@ -26,6 +33,12 @@ public class NimGame {
   8 the second one will win
   If move 1...n,then times of n are second win cases
   */
+
+  @Test
+  public void test() {
+    Stream.of(1, 2, 3).forEach(i -> assertTrue(canWinNim(i)));
+    assertFalse(canWinNim(4));
+  }
 
   public boolean canWinNim(int n) {
     return n % 4 != 0;

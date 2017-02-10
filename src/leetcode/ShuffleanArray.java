@@ -5,8 +5,15 @@
  */
 package leetcode;
 
+import static leetcode.util.ArrayUtil.swap;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Random;
+
+import org.junit.Test;
 
 //--------------------- Change Logs----------------------
 //@author wangwenlong Initial Created at 2016年8月30日;
@@ -31,13 +38,22 @@ public class ShuffleanArray {
   solution.shuffle(); 
   */
 
-  public class Solution {
+  @Test
+  public void test() {
+    int[] origin = new int[] { 1, 2, 3 };
+    Shuffler shuffler = new Shuffler(origin);
+    assertArrayEquals(origin, shuffler.reset());
+    int count = 0;
+    while (!Objects.deepEquals(origin, shuffler.shuffle()))
+      count++;
+    assertTrue(count < 10000);
+  }
 
+  public class Shuffler {
     private int[] nums, shuffles;
-
     private Random random = new Random();
 
-    public Solution(int[] nums) {
+    public Shuffler(int[] nums) {
       this.shuffles = Arrays.copyOf(nums, nums.length);
       this.nums = nums;
     }
@@ -53,11 +69,5 @@ public class ShuffleanArray {
       return shuffles;
     }
 
-  }
-
-  public static final void swap(int[] a, int i, int j) {
-    int t = a[i];
-    a[i] = a[j];
-    a[j] = t;
   }
 }

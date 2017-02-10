@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2015 Sogou.com. All Rights Reserved.
  */
-package leetcode.util;
+package leetcode.common;
 
 import java.util.Objects;
 
@@ -23,6 +23,12 @@ public class Pair<K, V> {
   public boolean equals(Object o) {
     if (Objects.isNull(o) || !(o instanceof Pair)) return false;
     Pair<?, ?> other = (Pair<?, ?>) o;
-    return Objects.equals(key, other.key) && Objects.equals(value, other.value);
+    return (Objects.equals(key, other.key) || Objects.deepEquals(key, other.key))
+        && (Objects.equals(value, other.value) || Objects.deepEquals(value, other.value));
+  }
+
+  @Override
+  public String toString() {
+    return String.format("(key:%s,value:%s)", key, value);
   }
 }

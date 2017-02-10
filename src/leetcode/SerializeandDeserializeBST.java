@@ -1,6 +1,9 @@
 package leetcode;
 
 import static leetcode.common.TreeNode.tree;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
 
 import leetcode.common.TreeNode;
 
@@ -19,6 +22,12 @@ public class SerializeandDeserializeBST {
   Note: Do not use class member/global/static variables to store states. 
   Your serialize and deserialize algorithms should be stateless. 
   */
+
+  @Test
+  public void test() {
+    String s = "1,2,n,n,3,n,n";
+    assertEquals(tree(s).toString(), s);
+  }
 
   public String serialize(TreeNode root) {
     return root.toString();

@@ -5,7 +5,12 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.Arrays;
 import java.util.List;
+
+import org.junit.Test;
 
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年9月14日<p>
@@ -27,6 +32,12 @@ public class Triangle {
   
   The minimum path sum from top to bottom is 11 (i.e., 2 + 3 + 5 + 1 = 11). 
   */
+
+  @Test
+  public void test() {
+    assertEquals(11, minimumTotal(
+        Arrays.asList(Arrays.asList(2), Arrays.asList(3, 4), Arrays.asList(6, 5, 7), Arrays.asList(4, 1, 8, 3))));
+  }
 
   public int minimumTotal(List<List<Integer>> triangle) {
     for (int i = triangle.size() - 2; i > -1; i--)
