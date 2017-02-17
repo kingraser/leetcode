@@ -5,6 +5,12 @@
  */
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.BitSet;
+
+import org.junit.Test;
+
 //--------------------- Change Logs----------------------
 // <p>@author wit Initial Created at 2015年10月16日<p>
 //-------------------------------------------------------
@@ -26,24 +32,34 @@ public class NumberofIslands {
   Answer: 3
   */
 
+  @Test
+  public void test() {
+    assertEquals(1, numIslands(
+        new char[][] { "11110".toCharArray(), "11010".toCharArray(), "11000".toCharArray(), "00000".toCharArray() }));
+    assertEquals(3, numIslands(
+        new char[][] { "11000".toCharArray(), "11000".toCharArray(), "00100".toCharArray(), "00011".toCharArray() }));
+  }
+
+  int[] dx = { 0, 0, 1, -1 }, dy = { -1, 1, 0, 0 };
+
   public int numIslands(char[][] grid) {
-    if (grid == null || grid.length == 0) return 0;
-    boolean[][] visited = new boolean[grid.length][grid[0].length];
-    int islands = 0;
+    if (grid == null || grid.length == 0 || grid[0].length == 0) return 0;
+    int islands = 0, rowCount = grid.length, colCount = grid[0].length;
+    BitSet visited = new BitSet(rowCount * colCount);
     for (int i = 0; i < grid.length; i++)
       for (int j = 0; j < grid[0].length; j++)
-        if (grid[i][j] == '1' && !visited[i][j]) {
+        if (grid[i][j] == '1' && !visited.get(i * colCount + j)) {
           islands++;
           dfs(grid, i, j, visited);
         }
     return islands;
   }
 
-  private int[] dx = new int[] { 1, -1, 0, 0 }, dy = new int[] { 0, 0, 1, -1 };
-
-  private void dfs(char[][] grid, int i, int j, boolean[][] visited) {
-    if (i < 0 || i == grid.length || j < 0 || j == grid[0].length || visited[i][j] || grid[i][j] == '0') return;
-    visited[i][j] = true;
+  private void dfs(char[][] grid, int i, int j, BitSet visited) {
+    if (i < 0 || i == grid.length || j < 0 || j == grid[0].length || grid[i][j] == '0'
+        || visited.get(i * grid[0].length + j))
+      return;
+    visited.set(i * grid[0].length + j);
     for (int k = 0; k < 4; k++)
       dfs(grid, i + dx[k], j + dy[k], visited);
   }
