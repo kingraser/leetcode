@@ -1,29 +1,37 @@
 package leetcode;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
 public class OneEditDistance {
 
+  @Test
+  public void test() {
+    assertTrue(isOneEditDistance("abc", "abd"));
+    assertTrue(isOneEditDistance("abc", "ab"));
+    assertTrue(isOneEditDistance("ab", "abc"));
+    assertFalse(isOneEditDistance("abc", "abc"));
+  }
+
   public boolean isOneEditDistance(String s, String t) {
-    return s.length() == t.length() ? isOneModified(s, t)
-        : Math.abs(s.length() - t.length()) == 1 ? isOneDeleted(s, t) : false;
+    return isOneModified(s, t) || isOneDeleted(s, t);
   }
 
   private boolean isOneModified(String s, String t) {
-    int flag = 0;
-    for (int i = 0, len = s.length(); i < len; i++)
-      if (s.charAt(i) != t.charAt(i)) {
-        if (flag > 0) return false;
-        flag++;
-      }
-    return flag == 1;
+    if (s.length() != t.length()) return false;
+    int count = 0;
+    for (int i = 0; i < s.length();)
+      if (s.charAt(i) != t.charAt(i++) && count++ > 0) return false;
+    return count == 1;
   }
 
   public boolean isOneDeleted(String longer, String shorter) {
-    // 找到第一组不一样的字符，看后面是否一样
-    for (int i = 0; i < shorter.length(); i++) {
-      if (longer.charAt(i) != shorter.charAt(i)) {
-        return longer.substring(i + 1).equals(shorter.substring(i));
-      }
-    }
+    if (longer.length() < shorter.length()) return isOneDeleted(shorter, longer);
+    if (longer.length() - shorter.length() != 1) return false;
+    for (int i = 0, j = 0; i < shorter.length();)
+      if (shorter.charAt(i++) != longer.charAt(j++) && j - --i > 1) return false;
     return true;
   }
 
