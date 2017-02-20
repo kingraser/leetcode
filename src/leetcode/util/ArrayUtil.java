@@ -197,11 +197,61 @@ public class ArrayUtil {
 
   public static int findLastNot(int[] A, int target) {
     return findLastNot(A, 0, A.length - 1, target);
-
   }
 
   public static int findLastNot(char[] A, char target) {
     return findLastNot(A, 0, A.length - 1, target);
+  }
+
+  public static boolean equals(int[] A, int startA, int endA, int[] B, int startB, int endB) {
+    rangeCheck(A, startA, endA);
+    rangeCheck(B, startB, endB);
+    if (endA - startA != endB - startB) return false;
+    for (int ia = startA, ib = startB; ia <= endA;)
+      if (A[ia++] != B[ib++]) return false;
+    return true;
+  }
+
+  public static boolean equals(char[] A, int startA, int endA, char[] B, int startB, int endB) {
+    rangeCheck(A, startA, endA);
+    rangeCheck(B, startB, endB);
+    if (endA - startA != endB - startB) return false;
+    for (int ia = startA, ib = startB; ia <= endA;)
+      if (A[ia++] != B[ib++]) return false;
+    return true;
+  }
+
+  public static <T> boolean equals(T[] A, int startA, int endA, T[] B, int startB, int endB) {
+    rangeCheck(A, startA, endA);
+    rangeCheck(B, startB, endB);
+    if (endA - startA != endB - startB) return false;
+    for (int ia = startA, ib = startB; ia <= endA;)
+      if (!Objects.equals(A[ia++], B[ib++])) return false;
+    return true;
+  }
+
+  public static boolean equals(int[] A, int startA, int[] B, int startB) {
+    return equals(A, startA, A.length - 1, B, startB, B.length - 1);
+  }
+
+  public static boolean equals(char[] A, int startA, char[] B, int startB) {
+    return equals(A, startA, A.length - 1, B, startB, B.length - 1);
+  }
+
+  public static <T> boolean equals(T[] A, int startA, T[] B, int startB) {
+    return equals(A, startA, A.length - 1, B, startB, B.length - 1);
+  }
+
+  public static boolean equals(int[] A, int[] B) {
+    return equals(A, 0, B, 0);
+  }
+
+  public static boolean equals(char[] A, char[] B) {
+    return equals(A, 0, B, 0);
+  }
+
+  public static <T> boolean equals(T[] A, T[] B) {
+    return equals(A, 0, B, 0);
   }
 
 }
