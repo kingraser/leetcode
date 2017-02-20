@@ -55,13 +55,11 @@ public class LFUCache {
   class Cache {
     Node head = null;
     final int capacity;
-    Map<Integer, Integer> valueMap;
-    Map<Integer, Node> nodeMap;
+    Map<Integer, Integer> valueMap = new HashMap<>();
+    Map<Integer, Node> nodeMap = new HashMap<>();
 
     public Cache(int capacity) {
       this.capacity = capacity;
-      valueMap = new HashMap<>(this.capacity, 1f);
-      nodeMap = new HashMap<>(this.capacity, 1f);
     }
 
     public int get(int key) {
