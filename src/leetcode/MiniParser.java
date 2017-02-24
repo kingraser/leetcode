@@ -7,9 +7,6 @@ package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Objects;
-import java.util.Stack;
-
 import org.junit.Test;
 
 import leetcode.common.NestedInteger;
@@ -49,29 +46,7 @@ public class MiniParser {
   */
 
   public NestedInteger deserialize(String s) {
-    Stack<NestedInteger> stack = new Stack<>();
-    int top, num = 0;
-    for (char c : s.toCharArray())
-      if (c == '[') stack.push(new NestedInteger());
-      else if (c == '-') stack.push(new NestedInteger(Integer.MIN_VALUE));
-      else if (c >= '0' && c <= '9') {
-        if (stack.isEmpty() || !stack.peek().isInteger()) stack.push(new NestedInteger(c - '0'));
-        else stack.peek().setInteger(Objects.equals(Integer.MIN_VALUE, top = stack.peek().getInteger()) ? '0' - c
-            : top * 10 + (top < 0 ? '0' - c : c - '0'));
-      } else if (c == ',' && (num > 0 || stack.peek().isInteger())) {
-        push(stack);
-        num = 0;
-      } else if (c == ']') {
-        if (stack.peek().isInteger()) num = 1;
-        push(stack);
-      }
-    return stack.pop();
-  }
-
-  private void push(Stack<NestedInteger> stack) {
-    if (stack.size() < 2) return;
-    NestedInteger i = stack.pop();
-    stack.peek().add(i);
+    return NestedInteger.fromString(s);
   }
 
   @Test

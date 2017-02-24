@@ -8,6 +8,7 @@ package leetcode.common;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Stack;
 import java.util.stream.Collectors;
 
 //--------------------- Change Logs----------------------
@@ -53,6 +54,32 @@ public class NestedInteger {
   public String toString() {
     return val != null ? Integer.toString(val)
         : "[" + String.join(",", list.stream().map(i -> i.toString()).collect(Collectors.toList())) + "]";
+  }
+
+  public static NestedInteger fromString(String s) {
+    Stack<NestedInteger> stack = new Stack<>();
+    int top, num = 0;
+    for (char c : s.toCharArray())
+      if (c == '[') stack.push(new NestedInteger());
+      else if (c == '-') stack.push(new NestedInteger(Integer.MIN_VALUE));
+      else if (c >= '0' && c <= '9') {
+        if (stack.isEmpty() || !stack.peek().isInteger()) stack.push(new NestedInteger(c - '0'));
+        else stack.peek().setInteger(Objects.equals(Integer.MIN_VALUE, top = stack.peek().getInteger()) ? '0' - c
+            : top * 10 + (top < 0 ? '0' - c : c - '0'));
+      } else if (c == ',' && (num > 0 || stack.peek().isInteger())) {
+        push(stack);
+        num = 0;
+      } else if (c == ']') {
+        if (stack.peek().isInteger()) num = 1;
+        push(stack);
+      }
+    return stack.pop();
+  }
+
+  private static void push(Stack<NestedInteger> stack) {
+    if (stack.size() < 2) return;
+    NestedInteger i = stack.pop();
+    stack.peek().add(i);
   }
 
   @Override

@@ -38,12 +38,9 @@ public class FlattenNestedListIterator {
   @Test
   public void test() {
     assertEquals(Arrays.asList(1, 1, 2, 1, 1),
-        Lists.newArrayList(new NestedIterator(
-            Arrays.asList(new NestedInteger(Arrays.asList(new NestedInteger(1), new NestedInteger(1))),
-                new NestedInteger(2), new NestedInteger(Arrays.asList(new NestedInteger(1), new NestedInteger(1)))))));
+        Lists.newArrayList(new NestedIterator(NestedInteger.fromString("[[1,1],2,[1,1]]").getList())));
     assertEquals(Arrays.asList(1, 4, 6),
-        Lists.newArrayList(new NestedIterator(Arrays.asList(new NestedInteger(1), new NestedInteger(
-            Arrays.asList(new NestedInteger(4), new NestedInteger(Arrays.asList(new NestedInteger(6)))))))));
+        Lists.newArrayList(new NestedIterator(NestedInteger.fromString("[1,[4,[6]]]").getList())));
   }
 
   public class NestedIterator implements Iterator<Integer> {
@@ -75,7 +72,5 @@ public class FlattenNestedListIterator {
     public boolean hasNext() {
       return next != null;
     }
-
   }
-
 }
