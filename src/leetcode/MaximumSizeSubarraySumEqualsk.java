@@ -26,7 +26,7 @@ public class MaximumSizeSubarraySumEqualsk {
     assertEquals(2, maxSubArrayLen(new int[] { -2, -1, 2, 1 }, 1));
   }
 
-  public int maxSubArrayLen(int[] nums, int k) {
+  public static int maxSubArrayLen(int[] nums, int k) {
     int max = 0;
     Map<Integer, Integer> map = new HashMap<>();
     for (int i = 0, sum = 0; i < nums.length; map.putIfAbsent(sum, i++))
