@@ -19,7 +19,7 @@ public class ReverseInteger {
     assertEquals(-321, reverse(-123));
   }
 
-  public int reverse(int x) {
+  public static int reverse(int x) {
     long result = 0;
     for (; x != 0; x /= 10)
       result = result * 10 + x % 10;
