@@ -1,17 +1,9 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月8日<p>
-//-------------------------------------------------------
 public class ReverseInteger {
 
   /*
@@ -21,25 +13,16 @@ public class ReverseInteger {
   Example2: x = -123, return -321 
   */
 
-  public int reverse(int x) {
-    Long reverse = Long.valueOf(new StringBuilder().append(Math.abs((long) x)).reverse().toString());
-    return x < 0 ? reverse + Integer.MIN_VALUE > 0 ? 0 : -reverse.intValue()
-        : reverse > Integer.MAX_VALUE ? 0 : reverse.intValue();
-  }
-
-  public int reverseII(int x) {
-    if (Math.abs((long) x) < 10) return x;
-    long y = 0, n = 1 + (int) Math.log10(Math.abs((long) x));
-    for (int i = 0; i < n; y = y * 10 + (int) (x / Math.pow(10, i) % 10), i++);
-    return y < Integer.MIN_VALUE || y > Integer.MAX_VALUE ? 0 : (int) y;
-  }
-
   @Test
   public void test() {
     assertEquals(321, reverse(123));
     assertEquals(-321, reverse(-123));
-    assertEquals(321, reverseII(123));
-    assertEquals(-321, reverseII(-123));
   }
 
+  public int reverse(int x) {
+    long result = 0;
+    for (; x != 0; x /= 10)
+      result = result * 10 + x % 10;
+    return result < Integer.MIN_VALUE || result > Integer.MAX_VALUE ? 0 : (int) result;
+  }
 }
