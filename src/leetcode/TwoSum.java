@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -10,12 +5,10 @@ import static org.junit.Assert.assertArrayEquals;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.IntStream;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月6日<p>
-//-------------------------------------------------------
 public class TwoSum {
 
   /*
@@ -29,26 +22,26 @@ public class TwoSum {
   return [0, 1].  
   */
 
-  public int[] twoSum(int[] nums, int target) {
-    Map<Integer, Integer> map = new HashMap<>();
-    for (int i = 0, j;; map.put(nums[i], i++))
-      if (map.containsKey(j = target - nums[i])) return new int[] { map.get(j), i };
-  }
-
-  public int[] twoSumII(int[] nums, int target) {
-    Map<Integer, Integer> map = new HashMap<>();
-    for (int i = 0; i < nums.length; map.put(nums[i], i++));
-    Arrays.sort(nums);
-    for (int l = 0, r = nums.length - 1, v;;)
-      if ((v = nums[l] + nums[r]) == target) return new int[] { map.get(nums[l]), map.get(nums[r]) };
-      else if (v > target) r--;
-      else l++;
-  }
-
   @Test
   public void test() {
     assertArrayEquals(new int[] { 0, 1 }, twoSum(new int[] { 2, 7, 11, 15 }, 9));
     assertArrayEquals(new int[] { 0, 1 }, twoSumII(new int[] { 2, 7, 11, 15 }, 9));
+  }
+
+  public static int[] twoSum(int[] nums, int target) {
+    Map<Integer, Integer> map = new HashMap<>();
+    IntStream.range(0, nums.length).forEach(i -> map.put(nums[i], i)); // record the relationship of value and index
+    Arrays.sort(nums);
+    for (int left = 0, right = nums.length - 1, value;;)
+      if ((value = nums[left] + nums[right]) == target) return new int[] { map.get(nums[left]), map.get(nums[right]) };
+      else if (value > target) right--;
+      else left++;
+  }
+
+  public int[] twoSumII(int[] nums, int target) {
+    Map<Integer, Integer> map = new HashMap<>();
+    for (int idx = 0, difference;; map.put(nums[idx], idx++))
+      if (map.containsKey(difference = target - nums[idx])) return new int[] { map.get(difference), idx };
   }
 
 }
