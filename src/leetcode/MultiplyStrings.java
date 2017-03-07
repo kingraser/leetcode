@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
@@ -11,9 +6,6 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月10日<p>
-//-------------------------------------------------------
 public class MultiplyStrings {
 
   /*
@@ -28,15 +20,23 @@ public class MultiplyStrings {
     assertEquals("0", multiply("999", "0"));
   }
 
-  public String multiply(String A1, String A2) {
-    int[] r = new int[A1.length() + A2.length()];
-    for (int l1 = A1.length(), l2 = A2.length(), i = l1 - 1; i >= 0; i--)
-      for (int j = l2 - 1, c = 0; j >= 0 || c > 0; j--, c /= 10)
-        r[i + j + 1] = (c += r[i + j + 1] + (A1.charAt(i) - '0') * (j < 0 ? 0 : A2.charAt(j) - '0')) % 10;
-    return new String(Arrays.stream(r).map(i -> '0' + i).toArray(), get1stNot0Idx(r), r.length - get1stNot0Idx(r));
+  public String multiply(String S1, String S2) {
+    int l1 = S1.length(), l2 = S2.length(), result[] = new int[l1 + l2], start;
+    for (int idx1 = l1 - 1; idx1 >= 0; idx1--)
+      for (int idx2 = l2 - 1, carry = 0, idx; idx2 >= 0 || carry > 0; idx2--, carry /= 10)
+        result[idx = idx1 + idx2 + 1] = (carry += result[idx] + getDigit(S1, idx1) * getDigit(S2, idx2)) % 10;
+    return new String(convertToCharArray(result), start = getFirstNotZeroIdx(result), result.length - start);
   }
 
-  private int get1stNot0Idx(int[] A) {
+  private int[] convertToCharArray(int[] array) {
+    return Arrays.stream(array).map(i -> '0' + i).toArray();
+  }
+
+  private int getDigit(String s, int idx) {
+    return idx < 0 ? 0 : s.charAt(idx) - '0';
+  }
+
+  private int getFirstNotZeroIdx(int[] A) {
     for (int i = 0; i < A.length - 1; i++)
       if (A[i] != 0) return i;
     return A.length - 1;
