@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
@@ -17,9 +12,6 @@ import com.google.common.collect.Lists;
 
 import leetcode.common.Interval;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月12日<p>
-//-------------------------------------------------------
 public class InsertInterval {
   /*
   Given a set of non-overlapping intervals, insert a new interval into the intervals (merge if necessary).
