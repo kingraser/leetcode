@@ -1,18 +1,13 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.stream.IntStream;
+
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月12日<p>
-//-------------------------------------------------------
 public class PermutationSequence {
+
   /*
   The set [1,2,3,…,n] contains a total of n! unique permutations.
   
@@ -33,7 +28,7 @@ public class PermutationSequence {
 
   public String getPermutation(int n, int k) {
     StringBuilder sb = new StringBuilder(), result = new StringBuilder();
-    for (int i = 1; i <= n; sb.append(i++));
+    IntStream.range(1, n + 1).forEach(i -> sb.append(i));
     int[] factor = new int[n];
     factor[0] = 1;
     for (int i = 1; i < n; factor[i] = factor[i - 1] * i, i++);
