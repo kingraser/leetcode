@@ -1,17 +1,9 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年9月12日;
-//-------------------------------------------------------
 public class RotateFunction {
 
   /*
@@ -67,7 +59,6 @@ public class RotateFunction {
     for (i = 0; i < len; f += i * A[i], sum += A[i++]);
     for (max = f, i = len - 1; i > 0; f += (sum - len * A[i--]), max = Math.max(f, max));
     return max;
-
   }
 
 }
