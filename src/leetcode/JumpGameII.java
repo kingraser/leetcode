@@ -1,17 +1,9 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月15日<p>
-//-------------------------------------------------------
 public class JumpGameII {
 
   /*
@@ -25,6 +17,11 @@ public class JumpGameII {
   (Jump 1 step from index 0 to 1, then 3 steps to the last index.) 
   */
 
+  @Test
+  public void test() {
+    assertEquals(2, jump(new int[] { 2, 3, 1, 1, 4 }));
+  }
+
   public int jump(int[] nums) {
     int step = 0, start = 0, end = 0, newEnd = 0;
     for (; end < nums.length - 1; start = ++end, end = newEnd, step++)
@@ -32,8 +29,4 @@ public class JumpGameII {
     return step;
   }
 
-  @Test
-  public void test() {
-    assertEquals(2, jump(new int[] { 2, 3, 1, 1, 4 }));
-  }
 }
