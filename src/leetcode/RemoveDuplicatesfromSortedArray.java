@@ -1,18 +1,13 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月11日<p>
-//-------------------------------------------------------
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 public class RemoveDuplicatesfromSortedArray {
 
   /*
-  Given a sorted array, remove the duplicates in place such that each element appear only once 
-  and return the new length.
+  Given a sorted array, remove the duplicates in place such that each element appear only once and return the new length.
   Do not allocate extra space for another array, you must do this in place with constant memory.
   For example,
   Given input array nums = [1,1,2],
@@ -20,11 +15,12 @@ public class RemoveDuplicatesfromSortedArray {
   It doesn't matter what you leave beyond the new length. 
   */
 
+  @Test
+  public void test() {
+    assertEquals(2, removeDuplicates(new int[] { 1, 1, 2 }));
+  }
+
   public int removeDuplicates(int[] nums) {
-    if (nums.length == 0) return 0;
-    int begin = 1;
-    for (int i = 1; i < nums.length; i++)
-      if (nums[i] != nums[begin - 1]) nums[begin++] = nums[i];
-    return begin;
+    return RemoveDuplicatesfromSortedArrayII.removeDuplicates(nums, 1);
   }
 }
