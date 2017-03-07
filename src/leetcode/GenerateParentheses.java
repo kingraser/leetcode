@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
@@ -14,14 +9,19 @@ import java.util.List;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月10日<p>
-//-------------------------------------------------------
 public class GenerateParentheses {
 
   /*
+  Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.  
   For example, given n = 3, a solution set is:
-  "((()))", "(()())", "(())()", "()(())", "()()()"
+  
+  [
+  "((()))",
+  "(()())",
+  "(())()",
+  "()(())",
+  "()()()"
+  ]  
   */
 
   @Test
