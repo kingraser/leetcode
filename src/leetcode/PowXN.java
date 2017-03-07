@@ -1,18 +1,12 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月17日<p>
-//-------------------------------------------------------
 public class PowXN {
+
+  // Implement pow(x, n). 
 
   @Test
   public void test() {
