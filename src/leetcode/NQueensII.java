@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
@@ -12,10 +7,12 @@ import java.util.List;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月11日<p>
-//-------------------------------------------------------
 public class NQueensII {
+
+  /*
+  Follow up for N-Queens problem.  
+  Now, instead outputting board configurations, return the total number of distinct solutions.
+  */
 
   public int totalNQueens(int n) {
     int[] sum = new int[1];
