@@ -1,17 +1,9 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月12日<p>
-//-------------------------------------------------------
 public class SearchinRotatedSortedArray {
 
   /*
@@ -21,22 +13,6 @@ public class SearchinRotatedSortedArray {
   You may assume no duplicate exists in the array.   
   */
 
-  public int search(int A[], int target) {
-    int first = 0, last = A.length;
-    while (first != last) {
-      int mid = first + (last - first) / 2;
-      if (A[mid] == target) return mid;
-      if (A[first] <= A[mid]) {
-        if (A[first] <= target && target < A[mid]) last = mid;
-        else first = mid + 1;
-      } else {
-        if (A[mid] < target && target <= A[last - 1]) first = mid + 1;
-        else last = mid;
-      }
-    }
-    return -1;
-  }
-
   @Test
   public void test() {
     assertEquals(3, search(new int[] { 4, 5, 6, 7, 0, 1, 2 }, 7));
@@ -44,6 +20,19 @@ public class SearchinRotatedSortedArray {
     assertEquals(1, search(new int[] { 1, 3 }, 3));
     assertEquals(1, search(new int[] { 3, 1 }, 1));
     assertEquals(0, search(new int[] { 0 }, 0));
+  }
+
+  public int search(int A[], int target) {
+    for (int left = 0, right = A.length - 1, mid; left <= right;)
+      if (A[mid = (left + right) >> 1] == target) return mid;
+      else if (A[mid] < A[right]) { // right half sorted
+        if (target > A[mid] && target <= A[right]) left = mid + 1;
+        else right = mid - 1;
+      } else { // left half sorted
+        if (target >= A[left] && target < A[mid]) right = mid - 1;
+        else left = mid + 1;
+      }
+    return -1;
   }
 
 }
