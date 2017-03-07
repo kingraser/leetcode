@@ -1,18 +1,11 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月9日<p>
-//-------------------------------------------------------
 public class ContainerWithMostWater {
+
   /*
   Given n non-negative integers a1, a2, ..., an, where each represents a point at coordinate (i, ai). 
   n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). 
@@ -28,13 +21,13 @@ public class ContainerWithMostWater {
 
   public int maxArea(int[] height) {
     int max = Integer.MIN_VALUE;
-    for (int l = 0, r = height.length - 1, lastL = max, lastR = max; l < r;)
-      if (height[l] < lastL) l++;
-      else if (height[r] < lastR) r--;
+    for (int left = 0, right = height.length - 1, lastL = max, lastR = max; left < right;)
+      if (height[left] < lastL) left++;
+      else if (height[right] < lastR) right--;
       else {
-        max = Math.max(max, Math.min(lastL = height[l], lastR = height[r]) * (r - l));
-        if (lastL < lastR) l++;
-        else r--;
+        max = Math.max(max, Math.min(lastL = height[left], lastR = height[right]) * (right - left));
+        if (lastL < lastR) left++;
+        else right--;
       }
     return max;
   }
