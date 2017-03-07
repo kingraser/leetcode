@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
@@ -12,9 +7,6 @@ import org.junit.Test;
 
 import leetcode.common.ListNode;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月10日<p>
-//-------------------------------------------------------
 public class SwapNodesinPairs {
 
   /*
@@ -26,17 +18,17 @@ public class SwapNodesinPairs {
   Your algorithm should use only constant space. You may not modify the values in the list, only nodes itself can be changed. 
   */
 
+  @Test
+  public void test() {
+    assertEquals(list(2, 1, 4, 3), swapPairs(list(1, 2, 3, 4)));
+  }
+
   public ListNode swapPairs(ListNode head) {
     if ((head == null) || (head.next == null)) return head;
     ListNode next = head.next;
     head.next = swapPairs(next.next);
     next.next = head;
     return next;
-  }
-
-  @Test
-  public void test() {
-    assertEquals(list(1, 2), swapPairs(list(2, 1)));
   }
 
 }
