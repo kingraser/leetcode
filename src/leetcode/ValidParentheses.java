@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertFalse;
@@ -16,10 +11,12 @@ import org.junit.Test;
 
 import com.google.common.collect.ImmutableMap;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月10日<p>
-//-------------------------------------------------------
 public class ValidParentheses {
+
+  /*
+  Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+  The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
+  */
 
   @Test
   public void test() {
@@ -30,7 +27,7 @@ public class ValidParentheses {
   private static final Map<Character, Character> MAP = ImmutableMap.of('}', '{', ')', '(', ']', '[');
 
   public boolean isValid(String s) {
-    if ((s.length() & 1) == 1) return false;//odd
+    if (s == null || (s.length() & 1) == 1) return false; // odd
     Stack<Character> stack = new Stack<>();
     for (char c : s.toCharArray())
       if (MAP.containsKey(c)) {
