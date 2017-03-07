@@ -1,18 +1,11 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月12日<p>
-//-------------------------------------------------------
 public class MinimumPathSum {
+
   /*
   Given a m x n grid filled with non-negative numbers, 
   find a path from top left to bottom right which minimizes the sum of all numbers along its path.
