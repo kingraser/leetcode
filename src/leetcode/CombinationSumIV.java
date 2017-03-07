@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
@@ -11,15 +6,13 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年8月9日;
-//-------------------------------------------------------
 public class CombinationSumIV {
+
   /*
-  Given an integer array with all positive numbers and no duplicates, find the number of possible combinations that add up to a positive integer target.
+  Given an integer array with all positive numbers and no duplicates, 
+  find the number of possible combinations that add up to a positive integer target.
   
-  Example:
-  
+  Example:  
   nums = [1, 2, 3]
   target = 4
   
@@ -32,8 +25,7 @@ public class CombinationSumIV {
   (2, 2)
   (3, 1)
   
-  Note that different sequences are counted as different combinations.
-  
+  Note that different sequences are counted as different combinations.  
   Therefore the output is 7.
   
   Follow up:
@@ -49,7 +41,7 @@ public class CombinationSumIV {
 
   public int combinationSum4(int[] nums, int target) {
     Arrays.sort(nums);
-    int[] dp = new int[target + 1];
+    int[] dp = new int[target + 1]; // dp[i] is the combination sum of i
     dp[0] = 1;
     for (int i = 1; i <= target; i++)
       for (int a : nums)
