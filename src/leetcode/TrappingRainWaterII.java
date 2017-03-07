@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
@@ -11,12 +6,32 @@ import java.util.PriorityQueue;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年9月28日;
-//-------------------------------------------------------
 public class TrappingRainWaterII {
 
-  static final int[] dx = new int[] { -1, 1, 0, 0 }, dy = new int[] { 0, 0, -1, 1 };
+  /*
+  Given an m x n matrix of positive integers representing the height of each unit cell in a 2D elevation map, 
+  compute the volume of water it is able to trap after raining.  
+  Note:
+  Both m and n are less than 110. The height of each unit cell is greater than 0 and is less than 20,000.
+  
+  Example:  
+  Given the following 3x6 height map:
+  [
+  [1,4,3,1,3,2],
+  [3,2,1,3,2,4],
+  [2,3,3,2,3,1]
+  ]  
+  Return 4.
+  */
+
+  @Test
+  public void test() {
+    assertEquals(14, trapRainWater(new int[][] { { 12, 13, 1, 12 }, { 13, 4, 13, 12 }, { 13, 8, 10, 12 },
+        { 12, 13, 12, 12 }, { 13, 13, 13, 13 } }));
+    assertEquals(4, trapRainWater(new int[][] { { 1, 4, 3, 1, 3, 2 }, { 3, 2, 1, 3, 2, 4 }, { 2, 3, 3, 2, 3, 1 } }));
+  }
+
+  static final int[] dRow = new int[] { -1, 1, 0, 0 }, dCol = new int[] { 0, 0, -1, 1 };
 
   public class Cell {
     public int row, col, height;
@@ -31,16 +46,17 @@ public class TrappingRainWaterII {
   public int trapRainWater(int[][] heights) {
     if (heights == null || heights.length == 0 || heights[0].length == 0) return 0;
     PriorityQueue<Cell> queue = new PriorityQueue<>((c1, c2) -> c1.height - c2.height);
-    int row = heights.length, col = heights[0].length;
-    boolean[][] visited = new boolean[row][col];
-    addEdges(row, col, visited, queue, heights);
-    int res = 0, i, r, c;
+    int rowCount = heights.length, colCount = heights[0].length;
+    boolean[][] visited = new boolean[rowCount][colCount];
+    addEdges(rowCount, colCount, visited, queue, heights);
+    int res = 0, i, row, col;
     for (Cell cell; !queue.isEmpty();)
       for (cell = queue.poll(), i = 0; i < 4; i++)
-        if ((r = cell.row + dx[i]) >= 0 && r < row && (c = cell.col + dy[i]) >= 0 && c < col && !visited[r][c]) {
-          visited[r][c] = true;
-          res += Math.max(0, cell.height - heights[r][c]);
-          queue.offer(new Cell(r, c, Math.max(heights[r][c], cell.height)));
+        if ((row = cell.row + dRow[i]) >= 0 && row < rowCount && (col = cell.col + dCol[i]) >= 0 && col < colCount
+            && !visited[row][col]) {
+          visited[row][col] = true;
+          res += Math.max(0, cell.height - heights[row][col]);
+          queue.offer(new Cell(row, col, Math.max(heights[row][col], cell.height)));
         }
     return res;
   }
@@ -60,10 +76,4 @@ public class TrappingRainWaterII {
     }
   }
 
-  @Test
-  public void test() {
-    assertEquals(14, trapRainWater(new int[][] { { 12, 13, 1, 12 }, { 13, 4, 13, 12 }, { 13, 8, 10, 12 },
-        { 12, 13, 12, 12 }, { 13, 13, 13, 13 } }));
-    assertEquals(4, trapRainWater(new int[][] { { 1, 4, 3, 1, 3, 2 }, { 3, 2, 1, 3, 2, 4 }, { 2, 3, 3, 2, 3, 1 } }));
-  }
 }
