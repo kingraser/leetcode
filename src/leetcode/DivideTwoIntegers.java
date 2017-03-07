@@ -1,17 +1,9 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月12日<p>
-//-------------------------------------------------------
 public class DivideTwoIntegers {
 
   /*
@@ -32,18 +24,18 @@ public class DivideTwoIntegers {
 
   public int divide(int dividend, int divisor) {
     if (divisor == 0) return Integer.MAX_VALUE;
-    long beichu = Math.abs((long) dividend), chushu = Math.abs((long) divisor), res = 0, i = 1;
+    long beichu = Math.abs((long) dividend), chushu = Math.abs((long) divisor), result = 0, i = 1;
     while (beichu >= chushu || i > 1)
       if (beichu >= chushu) {
         chushu <<= 1;
         i <<= 1;
       } else {
-        res += (i >>= 1);
+        result += (i >>= 1);
         beichu -= (chushu >>= 1);
         chushu = Math.abs((long) divisor);
         i = 1;
       }
-    if ((dividend >= 0) ^ (divisor > 0)) return -res < Integer.MIN_VALUE ? Integer.MAX_VALUE : (int) -res;
-    return res > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) res;
+    if ((dividend >= 0) ^ (divisor > 0)) return -result < Integer.MIN_VALUE ? Integer.MAX_VALUE : (int) -result;
+    return result > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) result;
   }
 }
