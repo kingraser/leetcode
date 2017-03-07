@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
@@ -11,16 +6,10 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Deque;
-import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月12日<p>
-//-------------------------------------------------------
 public class CombinationSum {
 
   /*
@@ -28,8 +17,7 @@ public class CombinationSum {
   find all unique combinations in C where the candidate numbers sums to T.
   The same repeated number may be chosen from C unlimited number of times.
   
-  Note:
-  
+  Note:  
       All numbers (including target) will be positive integers.
       Elements in a combination (a1, a2, … , ak) must be in non-descending order. 
       (ie, a1 ≤ a2 ≤ … ≤ ak).
@@ -40,6 +28,11 @@ public class CombinationSum {
   [7]
   [2, 2, 3]    
   */
+
+  @Test
+  public void test() {
+    assertEquals(Arrays.asList(Arrays.asList(2, 2, 3), Arrays.asList(7)), combinationSum(new int[] { 2, 3, 6, 7 }, 7));
+  }
 
   public List<List<Integer>> combinationSum(int[] candidates, int target) {
     Arrays.sort(candidates);
@@ -55,12 +48,6 @@ public class CombinationSum {
       dfs(n, gap - n[i], i, deque, result);
       deque.pollLast();
     }
-  }
-
-  @Test
-  public void test() {
-    assertEquals(Stream.of(Arrays.asList(2, 2, 3), Arrays.asList(7)).collect(Collectors.toSet()),
-        new HashSet<>(combinationSum(new int[] { 2, 3, 6, 7 }, 7)));
   }
 
 }
