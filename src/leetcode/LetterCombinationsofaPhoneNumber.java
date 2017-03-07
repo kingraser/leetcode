@@ -1,25 +1,14 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
 
-import com.google.common.collect.Sets;
-
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月9日<p>
-//-------------------------------------------------------
 public class LetterCombinationsofaPhoneNumber {
 
   /*
@@ -36,30 +25,33 @@ public class LetterCombinationsofaPhoneNumber {
   Although the above answer is in lexicographical order, your answer could be in any order you want. 
   */
 
-  String[] map = new String[] { "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
+  @Test
+  public void test() {
+    assertEquals(Arrays.asList("ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"), letterCombinations("23"));
+  }
+
+  String[] map = new String[] { "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
 
   public List<String> letterCombinations(String s) {
     if (s == null || s.length() == 0) return new ArrayList<>();
-    int length = getLength(s);
-    char[][] result = new char[length][s.length()];
-    for (int i = 0, k = 0; i < s.length(); i++)
-      for (length /= map[s.charAt(i) - '2'].length(), k = 0; k < result.length;)
-        for (int j = 0; j < map[s.charAt(i) - '2'].length(); j++)
-          for (int l = 0; l < length; l++)
-            result[k++][i] = map[s.charAt(i) - '2'].charAt(j);
+    char[][] result = new char[getCombinationCounts(s)][s.length()];
+    for (int sIdx = 0, combinationCounts = result.length, row; sIdx < s.length(); sIdx++)
+      for (combinationCounts /= map[digit(s.charAt(sIdx))].length(), row = 0; row < result.length;)
+        for (int digitIdx = 0; digitIdx < map[digit(s.charAt(sIdx))].length(); digitIdx++)
+          for (int i = 0; i < combinationCounts; i++)
+            result[row++][sIdx] = map[digit(s.charAt(sIdx))].charAt(digitIdx);
     return Arrays.stream(result).map(a -> new String(a)).collect(Collectors.toList());
   }
 
-  private int getLength(String s) {
+  private int getCombinationCounts(String s) {
     int result = 1;
     for (char c : s.toCharArray())
-      result *= map[c - '2'].length();
+      result *= map[digit(c)].length();
     return result;
   }
 
-  @Test
-  public void test() {
-    assertEquals(Sets.newHashSet("ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"),
-        new HashSet<>(letterCombinations("23")));
+  private int digit(char c) {
+    return c - '0';
   }
+
 }
