@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
@@ -11,14 +6,10 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Deque;
-import java.util.HashSet;
 import java.util.List;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月12日<p>
-//-------------------------------------------------------
 public class CombinationSumIII {
 
   /*
@@ -37,9 +28,9 @@ public class CombinationSumIII {
 
   @Test
   public void test() {
-    List<List<Integer>> expected = Arrays.asList(Arrays.asList(1, 2, 6), Arrays.asList(1, 3, 5),
-        Arrays.asList(2, 3, 4));
-    assertEquals(new HashSet<>(expected), new HashSet<>(combinationSum3(3, 9)));
+    assertEquals(Arrays.asList(Arrays.asList(1, 2, 4)), combinationSum3(3, 7));
+    assertEquals(Arrays.asList(Arrays.asList(1, 2, 6), Arrays.asList(1, 3, 5), Arrays.asList(2, 3, 4)),
+        combinationSum3(3, 9));
   }
 
   private static final int end = 9;
@@ -60,10 +51,10 @@ public class CombinationSumIII {
   }
 
   //case1 left elements at least be k
-  //case2 possible min <= sum
-  //case3 possible max >= sum
-  private boolean isPossible(int sum, int k, int start) {
-    return start + k - 1 <= end && (k - 1 + (start << 1)) * k <= (sum <<= 1) && ((end << 1) + 1 - k) * k >= sum;
+  //case2 possible min <= target
+  //case3 possible max >= target
+  private boolean isPossible(int target, int k, int start) {
+    return start + k - 1 <= end && (k - 1 + (start << 1)) * k <= (target <<= 1) && ((end << 1) + 1 - k) * k >= target;
   }
 
 }
