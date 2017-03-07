@@ -1,43 +1,36 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月10日<p>
-//-------------------------------------------------------
 public class ThreeSumClosest {
 
   /*
-  3Sum Closest
-          给一int数组及target,求三下标使和最接近target.有且只有一组解
-  map法不适用了,转为2sum+水位法
+  Given an array S of n integers, find three integers in S such that the sum is closest to a given number, target. 
+  Return the sum of the three integers. You may assume that each input would have exactly one solution.
+  For example, given array S = {-1, 2, 1, -4}, and target = 1.
+  The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).
   */
-
-  public int threeSumClosest(int[] nums, int target) {
-    Integer result = null;
-    Arrays.sort(nums);
-    for (int i = 0; i < nums.length - 2; i++)
-      for (int l = i + 1, r = nums.length - 1, sum; l < r;) {
-        if ((sum = nums[i] + nums[l] + nums[r]) == target) return target;
-        if (result == null || Math.abs(result - target) > Math.abs(sum - target)) result = sum;
-        if (sum < target) l++;
-        else r--;
-      }
-    return result;
-  }
 
   @Test
   public void test() {
     assertEquals(2, threeSumClosest(new int[] { -1, 2, 1, -4 }, 1));
+  }
+
+  public int threeSumClosest(int[] nums, int target) {
+    Integer result = null;
+    Arrays.sort(nums);
+    for (int first = 0; first < nums.length - 2; first++)
+      for (int left = first + 1, right = nums.length - 1, sum; left < right; result = Objects.isNull(result)
+          || Math.abs(result - target) > Math.abs(sum - target) ? sum : result)
+        if ((sum = nums[first] + nums[left] + nums[right]) == target) return target;
+        else if (sum < target) left++;
+        else right--;
+    return result;
   }
 
 }
