@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static leetcode.common.ListNode.list;
@@ -12,10 +7,12 @@ import org.junit.Test;
 
 import leetcode.common.ListNode;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月10日<p>
-//-------------------------------------------------------
 public class MergeTwoSortedLists {
+
+  /* 
+  Merge two sorted linked lists and return it as a new list. 
+  The new list should be made by splicing together the nodes of the first two lists.
+  */
 
   @Test
   public void test() {

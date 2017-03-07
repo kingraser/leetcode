@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static leetcode.common.ListNode.list;
@@ -16,10 +11,9 @@ import org.junit.Test;
 
 import leetcode.common.ListNode;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月10日<p>
-//-------------------------------------------------------
 public class MergekSortedLists {
+
+  // Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity. 
 
   @Test
   public void test() {
@@ -30,10 +24,10 @@ public class MergekSortedLists {
   public ListNode mergeKLists(ListNode[] lists) {
     if (Objects.isNull(lists) || lists.length == 0) return null;
     ListNode head = new ListNode(0), march = head;
-    PriorityQueue<ListNode> set = new PriorityQueue<>((n1, n2) -> n1.val - n2.val);
-    Arrays.stream(lists).filter(Objects::nonNull).forEach(n -> set.add(n));
-    while ((march.next = set.poll()) != null)
-      if ((march = march.next).next != null) set.add(march.next);
+    PriorityQueue<ListNode> queue = new PriorityQueue<>((n1, n2) -> n1.val - n2.val);
+    Arrays.stream(lists).filter(Objects::nonNull).forEach(n -> queue.add(n));
+    while ((march.next = queue.poll()) != null)
+      if ((march = march.next).next != null) queue.add(march.next);
     return head.next;
   }
 
