@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
@@ -14,9 +9,6 @@ import org.junit.Test;
 
 import com.google.common.collect.Lists;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月11日<p>
-//-------------------------------------------------------
 public class CountAndSay {
 
   /*
@@ -32,6 +24,13 @@ public class CountAndSay {
   Note: The sequence of integers will be represented as a string. 
   */
 
+  @Test
+  public void test() {
+    countAndSay(10);
+    assertEquals(Arrays.asList("1", "11", "21", "1211", "111221", "312211", "13112221", "1113213211", "31131211131221",
+        "13211311123113112211"), result);
+  }
+
   public static List<String> result = Lists.newArrayList("1");
 
   public String countAndSay(int n) {
@@ -44,14 +43,6 @@ public class CountAndSay {
     for (int i = 0, j = 1; i < s.length(); sb.append(j - i).append(s.charAt(i)), i = j++)
       for (; j < s.length() && s.charAt(i) == s.charAt(j); j++);
     return sb.toString();
-  }
-
-  @Test
-  public void test() {
-    List<String> expected = Arrays.asList("1", "11", "21", "1211", "111221", "312211", "13112221", "1113213211",
-        "31131211131221", "13211311123113112211");
-    countAndSay(10);
-    assertEquals(expected, result);
   }
 
 }
