@@ -1,22 +1,28 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月9日<p>
-//-------------------------------------------------------
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 public class RomantoInteger {
 
+  /*
+  Given a roman numeral, convert it to an integer.  
+  Input is guaranteed to be within the range from 1 to 3999.
+  */
+
+  @Test
+  public void test() {
+    assertEquals(999, romanToInt("CMXCIX"));
+  }
+
+  int[] values = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
+  String[] numerals = { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
+
   public int romanToInt(String s) {
-    int[] values = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
-    String[] numerals = { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
     int result = 0;
-    for (int i = 0, index = 0; index < s.length() || i < values.length; i++)
-      for (; index + numerals[i].length() <= s.length() && numerals[i].equals(
-          s.substring(index, index + numerals[i].length())); result += values[i], index += numerals[i].length());
+    for (int i = 0, start = 0; start < s.length(); i++)
+      for (; s.startsWith(numerals[i], start); result += values[i], start += numerals[i].length());
     return result;
   }
 }

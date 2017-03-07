@@ -1,18 +1,15 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月9日<p>
-//-------------------------------------------------------
 public class IntegertoRoman {
+
+  /*
+  Given an integer, convert it to a roman numeral.
+  Input is guaranteed to be within the range from 1 to 3999.
+  */
 
   @Test
   public void test() {
