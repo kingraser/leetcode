@@ -1,10 +1,4 @@
 package leetcode;
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
-
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
@@ -13,9 +7,6 @@ import java.util.stream.Collectors;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月16日<p>
-//-------------------------------------------------------
 public class LongestConsecutiveSequence {
 
   /*
