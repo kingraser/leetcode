@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertFalse;
@@ -10,10 +5,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月12日<p>
-//-------------------------------------------------------
 public class Searcha2DMatrix {
+
   /*
   Write an efficient algorithm that searches for a value in an m x n matrix. This matrix has the following properties:
   
@@ -33,36 +26,19 @@ public class Searcha2DMatrix {
   Given target = 3, return true.
   */
 
-  //O(n+m)
-  public boolean searchMatrix(int[][] matrix, int target) {
-    if (matrix == null || matrix.length == 0 || matrix[0].length == 0) return false;
-    int row = 0, col = matrix[0].length - 1;
-    while (row < matrix.length && col > -1) {
-      if (matrix[row][col] == target) return true;
-      else if (matrix[row][col] > target) col--;
-      else row++;
-    }
-    return false;
-  }
-
-  //O(log(n*m)) 可将数组视为一维
-  public boolean searchMatrixII(int[][] A, int target) {
+  public boolean searchMatrix(int[][] A, int target) {
     if (A == null || A.length == 0 || A[0].length == 0) return false;
-    int r = A.length, c = A[0].length, first = 0, last = r * c;
-    while (first < last) {
-      int mid = (first + last) >> 1, value = A[mid / c][mid % c];
-      if (value == target) return true;
-      else if (value < target) first = mid + 1;
-      else last = mid;
-    }
+    for (int rowCount = A.length, colCount = A[0].length, start = 0, end = rowCount * colCount
+        - 1, mid, value; start <= end;)
+      if ((value = A[(mid = (start + end) >> 1) / colCount][mid % colCount]) == target) return true;
+      else if (value < target) start = mid + 1;
+      else end = mid - 1;
     return false;
   }
 
   @Test
   public void test() {
-    int[][] matrix = new int[][] { { 1, 3, 5, 7 }, { 10, 11, 16, 20 }, { 23, 30, 34, 50 } };
-    assertTrue(searchMatrix(matrix, 10));
-    assertTrue(searchMatrixII(matrix, 10));
-    assertFalse(searchMatrixII(new int[][] { { 1 } }, 2));
+    assertTrue(searchMatrix(new int[][] { { 1, 3, 5, 7 }, { 10, 11, 16, 20 }, { 23, 30, 34, 50 } }, 50));
+    assertFalse(searchMatrix(new int[][] { { 1 } }, 2));
   }
 }
