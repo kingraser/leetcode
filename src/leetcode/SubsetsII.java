@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
@@ -11,16 +6,12 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Deque;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月13日<p>
-//-------------------------------------------------------
 public class SubsetsII {
+
   /*
   Given a collection of integers that might contain duplicates, nums, return all possible subsets.    
   Note:    
@@ -42,12 +33,10 @@ public class SubsetsII {
 
   @Test
   public void test() {
-    Set<List<Integer>> expected = new HashSet<>(Arrays.asList(Arrays.asList(2), Arrays.asList(1),
-        Arrays.asList(1, 2, 2), Arrays.asList(2, 2), Arrays.asList(1, 2), Arrays.asList()));
-    assertEquals(expected, new HashSet<>(subsetsWithDup(new int[] { 1, 2, 2 })));
+    assertEquals(Arrays.asList(Arrays.asList(), Arrays.asList(1), Arrays.asList(1, 2), Arrays.asList(1, 2, 2),
+        Arrays.asList(2), Arrays.asList(2, 2)), subsetsWithDup(new int[] { 1, 2, 2 }));
   }
 
-  //dfs
   public List<List<Integer>> subsetsWithDup(int[] A) {
     Arrays.sort(A);
     List<List<Integer>> result = new ArrayList<>();

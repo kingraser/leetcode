@@ -6,20 +6,15 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Deque;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.junit.Test;
 
 public class Combinations {
+
   /*
-  Given two integers n and k, return all possible combinations of k numbers out of 1 ... n.
-  
-  For example,
-  If n = 4 and k = 2, a solution is:
+  Given two integers n and k, return all possible combinations of k numbers out of 1 ... n.  
+  For example, If n = 4 and k = 2, a solution is:
   
   [
     [2,4],
@@ -31,30 +26,13 @@ public class Combinations {
   ]
   */
 
-  /*
-  1
-  For example,[1,4] can be represented as 1001,[2,3] can be represented as [0110],1 represents element chosen.
-  When n=4,10000(five bits)can cover all cases.
-  1.Use O(1) Integer.bitCount to get 1 bit count,omit not k ones.
-  2.get 1 bits
-          
-  2
-  dfs get all cases,get k cases.
-  */
-
-  public List<List<Integer>> combine(int n, int k) {
-    List<List<Integer>> result = new ArrayList<>();
-    for (int i = 0, size = (1 << n); i < size; i++) {
-      if (Integer.bitCount(i) != k) continue;
-      List<Integer> list = new ArrayList<>(k);
-      for (int j = 1, l = i; l > 0; l >>= 1, j++)
-        if ((l & 1) == 1) list.add(j);
-      result.add(list);
-    }
-    return result;
+  @Test
+  public void test() {
+    assertEquals(Arrays.asList(Arrays.asList(1, 2), Arrays.asList(1, 3), Arrays.asList(1, 4), Arrays.asList(2, 3),
+        Arrays.asList(2, 4), Arrays.asList(3, 4)), combine(4, 2));
   }
 
-  public List<List<Integer>> combineII(int n, int k) {
+  public List<List<Integer>> combine(int n, int k) {
     List<List<Integer>> result = new ArrayList<>();
     if (k >= 0 && k <= n) dfs(result, new ArrayDeque<>(), n, k, 1);
     return result;
@@ -69,11 +47,4 @@ public class Combinations {
     }
   }
 
-  @Test
-  public void test() {
-    Set<List<Integer>> expected = Stream.of(Arrays.asList(1, 2), Arrays.asList(1, 3), Arrays.asList(1, 4),
-        Arrays.asList(2, 3), Arrays.asList(2, 4), Arrays.asList(3, 4)).collect(Collectors.toSet());
-    assertEquals(expected, new HashSet<>(combine(4, 2)));
-    assertEquals(expected, new HashSet<>(combineII(4, 2)));
-  }
 }
