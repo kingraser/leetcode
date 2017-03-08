@@ -1,17 +1,9 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月15日<p>
-//-------------------------------------------------------
 public class DistinctSubsequences {
 
   /*
@@ -28,9 +20,9 @@ public class DistinctSubsequences {
   */
 
   /*
-  Let f(i,j) represents the times of T[0,j] occurs in S[0,i]
-  Without S[i],f(i,j)=f(i−1,j);
-  If S[i]==T[j],f(i,j)=f(i−1,j)+f(i−1,j−1)。
+  Let f(i, j) represents the times of T[0, j] occurs in S[0, i]
+  Without S[i], f(i, j) = f(i - 1, j);
+  If S[i] == T[j], f(i, j) = f(i - 1, j)+f(i - 1, j - 1).
   */
 
   @Test
