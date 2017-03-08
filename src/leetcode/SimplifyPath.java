@@ -1,21 +1,12 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayDeque;
-import java.util.Arrays;
 import java.util.Deque;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月15日<p>
-//-------------------------------------------------------
 public class SimplifyPath {
 
   /*
@@ -31,13 +22,10 @@ public class SimplifyPath {
 
   public String simplifyPath(String path) {
     Deque<String> deque = new ArrayDeque<>();
-    Arrays.stream(path.split("/")).map(String::trim).filter(s -> s.length() > 0 && !s.equals(".")).forEach(s -> {
-      if ("..".equals(s)) deque.pollLast();
-      else deque.addLast(s);
-    });
-    StringBuffer sb = new StringBuffer("/");
-    deque.forEach(s -> sb.append(s).append("/"));
-    return sb.substring(0, sb.length() - (sb.length() > 1 ? 1 : 0));
+    for (String s : path.split("/"))
+      if ("..".equals(s = s.trim())) deque.pollLast();
+      else if (s.length() > 0 && !".".equals(s)) deque.addLast(s);
+    return "/" + String.join("/", deque);
   }
 
   @Test
