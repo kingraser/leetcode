@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static leetcode.util.ArrayUtil.swap;
@@ -10,10 +5,8 @@ import static org.junit.Assert.assertArrayEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月12日<p>
-//-------------------------------------------------------
 public class SortColors {
+
   /*
   Given an array with n objects colored red, white or blue, 
   sort them so that objects of the same color are adjacent, 
@@ -35,20 +28,9 @@ public class SortColors {
     int[] actual = new int[] { 0, 1, 2, 0, 1, 2 };
     sortColors(actual);
     assertArrayEquals(new int[] { 0, 0, 1, 1, 2, 2 }, actual);
-
-    actual = new int[] { 0, 1, 2, 0, 1, 2 };
-    sortColorsI(actual);
-    assertArrayEquals(new int[] { 0, 0, 1, 1, 2, 2 }, actual);
   }
 
-  public void sortColors(int[] A) {
-    int[] counts = new int[3];
-    for (int i = 0; i < A.length; counts[A[i++]]++);
-    for (int i = 0, index = 0; i < 3; i++)
-      for (int j = 0; j < counts[i]; A[index++] = i, j++);
-  }
-
-  public void sortColorsI(int A[]) {
+  public void sortColors(int A[]) {
     int red = 0, blue = A.length - 1;
     for (int i = 0; i < blue + 1;)
       if (A[i] == 0) swap(A, i++, red++);
