@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
@@ -13,10 +8,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月13日<p>
-//-------------------------------------------------------
 public class GrayCode {
+
   /*
   The gray code is a binary numeral system where two successive values differ in only one bit.    
   Given a non-negative integer n representing the total number of bits in the code, 
@@ -45,7 +38,7 @@ public class GrayCode {
   }
 
   public List<Integer> grayCode(int n) {
-    List<Integer> result = new ArrayList<>(1 << n);// 2^n
+    List<Integer> result = new ArrayList<>(1 << n); // 2^n
     for (int i = 0, size = 1 << n; i < size; result.add(i ^ (i >> 1)), i++);
     return result;
   }
