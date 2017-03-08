@@ -1,18 +1,16 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertArrayEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月11日<p>
-//-------------------------------------------------------
 public class PlusOne {
+
+  /*
+  Given a non-negative integer represented as a non-empty array of digits, plus one to the integer.  
+  You may assume the integer do not contain any leading zero, except the number 0 itself.  
+  The digits are stored such that the most significant digit is at the head of the list.
+  */
 
   public int[] plusOne(int[] digits) {
     for (int l = digits.length - 1; l > -1;)
