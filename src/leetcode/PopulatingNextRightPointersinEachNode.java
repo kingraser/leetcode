@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static leetcode.common.TreeLinkNode.tree;
@@ -12,9 +7,6 @@ import org.junit.Test;
 
 import leetcode.common.TreeLinkNode;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月14日<p>
-//-------------------------------------------------------
 public class PopulatingNextRightPointersinEachNode {
 
   /* 
@@ -44,17 +36,6 @@ public class PopulatingNextRightPointersinEachNode {
   }
 
   public void connect(TreeLinkNode root) {
-    connect(root, null, null);
-  }
-
-  private void connect(TreeLinkNode left, TreeLinkNode right, TreeLinkNode rightLeft) {
-    if (null != left) {
-      left.next = right == null ? rightLeft : right;
-      connect(left.left, left.right, right == null ? null == rightLeft ? null : rightLeft.left : right.left);
-    }
-    if (null != right) {
-      right.next = rightLeft;
-      connect(right.left, right.right, null == rightLeft ? null : rightLeft.left);
-    }
+    PopulatingNextRightPointersinEachNodeII.connect(root);
   }
 }

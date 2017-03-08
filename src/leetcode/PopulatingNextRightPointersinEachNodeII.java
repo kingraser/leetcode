@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static leetcode.common.TreeLinkNode.tree;
@@ -12,9 +7,6 @@ import org.junit.Test;
 
 import leetcode.common.TreeLinkNode;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月15日<p>
-//-------------------------------------------------------
 public class PopulatingNextRightPointersinEachNodeII {
   /*
   Follow up for problem "Populating Next Right Pointers in Each Node".    
@@ -46,20 +38,20 @@ public class PopulatingNextRightPointersinEachNodeII {
     assertEquals(root, tree("1,2,4,n,n,5,n,n,3,n,7,n,n#1->n,2->3,4->5,5->7,3->n,7->n"));
   }
 
-  public void connect(TreeLinkNode root) {
+  public static void connect(TreeLinkNode root) {
     if (root == null) return;
-    TreeLinkNode dummy = new TreeLinkNode(-1);
-    for (TreeLinkNode curr = root, prev = dummy; curr != null; curr = curr.next) {
-      if (curr.left != null) {
-        prev.next = curr.left;
-        prev = prev.next;
+    TreeLinkNode head = new TreeLinkNode(-1);
+    for (TreeLinkNode current = root, previous = head; current != null; current = current.next) {
+      if (current.left != null) {
+        previous.next = current.left;
+        previous = previous.next;
       }
-      if (curr.right != null) {
-        prev.next = curr.right;
-        prev = prev.next;
+      if (current.right != null) {
+        previous.next = current.right;
+        previous = previous.next;
       }
     }
-    connect(dummy.next);
+    connect(head.next);
   }
 
 }
