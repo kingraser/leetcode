@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static leetcode.common.TreeNode.tree;
@@ -16,9 +11,6 @@ import org.junit.Test;
 
 import leetcode.common.TreeNode;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月14日<p>
-//-------------------------------------------------------
 public class UniqueBinarySearchTreesII {
 
   /*
@@ -42,16 +34,17 @@ public class UniqueBinarySearchTreesII {
   }
 
   public List<TreeNode> generateTrees(int n) {
-    return generateTrees(1, n); // 从1作为root开始，到n作为root结束
+    return generateTrees(1, n);
   }
 
   private List<TreeNode> generateTrees(int left, int right) {
-    List<TreeNode> res = new ArrayList<>(), lefts, rights;
-    if (left > right) res.add(null);
-    else for (int i = left, j; i <= right; i++) // 以i作为根节点,左子树由[1,i-1]构成,右子树由[i+1,n]构成
-      for (lefts = generateTrees(left, i - 1), rights = generateTrees(i + 1, right), j = 0; j < lefts.size(); j++)
-        for (int k = 0; k < rights.size(); k++)
-          res.add(new TreeNode(i, lefts.get(j), rights.get(k))); // 存储所有可能行
-    return res;
+    List<TreeNode> result = new ArrayList<>(), lefts, rights;
+    if (left > right) result.add(null);
+    else for (int rootValue = left, leftIdx; rootValue <= right; rootValue++)
+      for (lefts = generateTrees(left, rootValue - 1), rights = generateTrees(rootValue + 1,
+          right), leftIdx = 0; leftIdx < lefts.size(); leftIdx++)
+        for (int rightIdx = 0; rightIdx < rights.size(); rightIdx++)
+          result.add(new TreeNode(rootValue, lefts.get(leftIdx), rights.get(rightIdx)));
+    return result;
   }
 }
