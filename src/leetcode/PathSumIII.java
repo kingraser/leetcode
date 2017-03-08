@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
 import static leetcode.common.TreeNode.tree;
@@ -12,19 +7,12 @@ import org.junit.Test;
 
 import leetcode.common.TreeNode;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年10月26日;
-//-------------------------------------------------------
 public class PathSumIII {
   /*
-  You are given a binary tree in which each node contains an integer value.
-  
-  Find the number of paths that sum to a given value.
-  
+  You are given a binary tree in which each node contains an integer value.  
+  Find the number of paths that sum to a given value.  
   The path does not need to start or end at the root or a leaf, but it must go downwards (traveling only from parent nodes to child nodes).
-  
-  The tree has no more than 1,000 nodes and the values are in the range -1,000,000 to 1,000,000.
-  
+  The tree has no more than 1,000 nodes and the values are in the range -1,000,000 to 1,000,000.  
   Example:
   
   root = [10,5,-3,3,2,null,11,3,-2,null,1], sum = 8

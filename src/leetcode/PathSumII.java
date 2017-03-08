@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static leetcode.common.TreeNode.tree;
@@ -20,9 +15,6 @@ import org.junit.Test;
 
 import leetcode.common.TreeNode;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月15日<p>
-//-------------------------------------------------------
 public class PathSumII {
   /*
   Given a binary tree and a sum, find all root-to-leaf paths where each path's sum equals the given sum.
@@ -57,7 +49,7 @@ public class PathSumII {
     if ((sum -= root.val) == 0 && root.left == null && root.right == null) result.add(new ArrayList<>(deque));
     dfs(root.left, sum, deque, result);
     dfs(root.right, sum, deque, result);
-    deque.removeLast();
+    deque.pollLast();
   }
 
   @Test
