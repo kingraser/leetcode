@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static leetcode.common.ListNode.list;
@@ -12,10 +7,8 @@ import org.junit.Test;
 
 import leetcode.common.ListNode;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月13日<p>
-//-------------------------------------------------------
 public class PartitionList {
+
   /*
   Given a linked list and a value x, 
   partition it such that all nodes less than x come before nodes greater than or equal to x.
@@ -28,18 +21,13 @@ public class PartitionList {
   */
 
   public ListNode partition(ListNode head, int x) {
-    ListNode left = new ListNode(-1), right = new ListNode(-1), l = left, r = right;
-    for (ListNode cur = head; cur != null; cur = cur.next)
-      if (cur.val < x) {
-        l.next = cur;
-        l = l.next;
-      } else {
-        r.next = cur;
-        r = r.next;
-      }
-    l.next = right.next;
-    r.next = null;
-    return left.next;
+    ListNode leftHead = new ListNode(0), rightHead = new ListNode(0), left = leftHead, right = rightHead;
+    for (ListNode current = head; current != null; current = current.next)
+      if (current.val < x) left = left.next = current;
+      else right = right.next = current;
+    left.next = rightHead.next;
+    right.next = null;
+    return leftHead.next;
   }
 
   @Test
