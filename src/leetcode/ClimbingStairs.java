@@ -1,17 +1,9 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月13日<p>
-//-------------------------------------------------------
 public class ClimbingStairs {
 
   /*    
@@ -23,13 +15,17 @@ public class ClimbingStairs {
   /*
   Let f(n) represents ways to get n step.
   To get to n, you can climb 1 step from n-1 or 2 steps from n-2
-  So f(n)=f(n−1)+f(n−2)
+  So f(n) = f(n−1) + f(n−2)
   */
 
   public int climbStairs(int n) {
-    int prev = 0, cur = 1;
-    for (; n-- > 0; prev = (cur += prev) - prev);
-    return cur;
+    int previous = 0, current = 1, temp;
+    while (n-- > 0) {
+      temp = current;
+      current += previous;
+      previous = temp;
+    }
+    return current;
   }
 
   @Test
