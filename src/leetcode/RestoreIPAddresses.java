@@ -37,11 +37,12 @@ public class RestoreIPAddresses {
   }
 
   public boolean isValid(char[] s, int start, int end) {
-    return end - start == 1 || (s[start] != '0' && smallerThan(s, start, end, 256));
+    int len = end - start;
+    return len == 1 || ((len == 2 || len == 3) && s[start] != '0' && smallerThan(s, start, len, 256));
   }
 
-  private boolean smallerThan(char[] s, int start, int end, int limit) {
-    for (int result = 0, base = (int) Math.pow(10, end - start - 1); base > 0; base /= 10)
+  private boolean smallerThan(char[] s, int start, int len, int limit) {
+    for (int result = 0, base = (int) Math.pow(10, len - 1); base > 0; base /= 10)
       if ((result += (s[start++] - '0') * base) >= limit) return false;
     return true;
   }
