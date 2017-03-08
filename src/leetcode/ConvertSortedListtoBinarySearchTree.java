@@ -1,38 +1,29 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static leetcode.common.ListNode.list;
 import static leetcode.common.TreeNode.tree;
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
 
 import leetcode.common.ListNode;
 import leetcode.common.TreeNode;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月15日<p>
-//-------------------------------------------------------
 public class ConvertSortedListtoBinarySearchTree {
 
   //Given a singly linked list where elements are sorted in ascending order, convert it to a height balanced BST. 
   public TreeNode sortedListToBST(ListNode head) {
-    List<Integer> list = new ArrayList<>();
-    for (; null != head; list.add(head.val), head = head.next);
-    return build(list, 0, list.size());
+    return head == null ? null : toBST(head, null);
   }
 
-  private TreeNode build(List<Integer> list, int left, int right) {
-    if (left >= right) return null;
-    int mid = (left + right) >> 1;
-    return new TreeNode(list.get(mid), build(list, left, mid), build(list, mid + 1, right));
+  public TreeNode toBST(ListNode head, ListNode tail) {
+    if (head == tail) return null;
+    ListNode slow = head, fast = head;
+    while (fast != tail && fast.next != tail) {
+      fast = fast.next.next;
+      slow = slow.next;
+    }
+    return new TreeNode(slow.val, toBST(head, slow), toBST(slow.next, tail));
   }
 
   @Test

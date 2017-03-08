@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static leetcode.BinaryTreeLevelOrderTraversal.levelOrder;
@@ -17,9 +12,6 @@ import org.junit.Test;
 
 import leetcode.common.TreeNode;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月18日<p>
-//-------------------------------------------------------
 public class BinaryTreeZigzagLevelOrderTraversal {
 
   /*
@@ -44,7 +36,7 @@ public class BinaryTreeZigzagLevelOrderTraversal {
 
   public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
     List<List<Integer>> result = levelOrder(root);
-    for (int i = 1; i < result.size(); i += 2)//odd reverse
+    for (int i = 1; i < result.size(); i += 2) // odd reverse
       Collections.reverse(result.get(i));
     return result;
   }

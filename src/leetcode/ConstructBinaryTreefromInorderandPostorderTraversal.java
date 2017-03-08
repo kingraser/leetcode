@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static leetcode.common.TreeNode.tree;
@@ -12,9 +7,6 @@ import org.junit.Test;
 
 import leetcode.common.TreeNode;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月14日<p>
-//-------------------------------------------------------
 public class ConstructBinaryTreefromInorderandPostorderTraversal {
 
   @Test
@@ -35,7 +27,7 @@ public class ConstructBinaryTreefromInorderandPostorderTraversal {
     return root;
   }
 
-  private int find(int[] A, int start, int end, int target) {
+  public static int find(int[] A, int start, int end, int target) {
     for (int i = start; i < end; i++)
       if (A[i] == target) return i;
     return -1;

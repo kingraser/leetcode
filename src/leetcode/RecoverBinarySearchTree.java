@@ -1,15 +1,12 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
+
+import static leetcode.common.TreeNode.tree;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
 
 import leetcode.common.TreeNode;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月14日<p>
-//-------------------------------------------------------
 public class RecoverBinarySearchTree {
 
   /*
@@ -20,9 +17,18 @@ public class RecoverBinarySearchTree {
   A solution using O(n) space is pretty straight forward. Could you devise a constant space solution? 
   */
 
-  private static TreeNode mistake1, mistake2, prev;
+  @Test
+  public void test() {
+    TreeNode root = tree("1,2,n,n,3,n,n");
+    recoverTree(root);
+    assertEquals(tree("2,1,n,n,3,n,n"), root);
+  }
+
+  private TreeNode mistake1, mistake2, previous;
+  private boolean hasFound;
 
   public void recoverTree(TreeNode root) {
+    hasFound = false;
     inOrder(root);
     swap(mistake1, mistake2);
   }
@@ -34,13 +40,16 @@ public class RecoverBinarySearchTree {
   }
 
   private void inOrder(TreeNode root) {
-    if (root.left != null) inOrder(root.left);
-    if (prev != null && root.val < prev.val) {
-      if (mistake1 == null) mistake1 = prev;
+    if (hasFound || root == null) return;
+    inOrder(root.left);
+    if (previous != null && root.val < previous.val) {
+      mistake1 = previous;
       mistake2 = root;
+      hasFound = true;
+      return;
     }
-    prev = root;
-    if (root.right != null) inOrder(root.right);
+    previous = root;
+    inOrder(root.right);
   }
 
 }
