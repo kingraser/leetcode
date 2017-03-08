@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static leetcode.common.TreeNode.tree;
@@ -14,14 +9,10 @@ import org.junit.Test;
 
 import leetcode.common.TreeNode;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月15日<p>
-//-------------------------------------------------------
 public class BinaryTreeMaximumPathSum {
 
   /*
-  Given a binary tree, find the maximum path sum.
-  
+  Given a binary tree, find the maximum path sum.  
   The path may start and end at any node in the tree.
   
   For example:
@@ -40,8 +31,7 @@ public class BinaryTreeMaximumPathSum {
   }
 
   public int maxPathSum(TreeNode root) {
-    int[] max = new int[1];
-    max[0] = Integer.MIN_VALUE;
+    int[] max = new int[] { Integer.MIN_VALUE };
     PathSum(root, max);
     return max[0];
   }
