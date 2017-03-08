@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static leetcode.common.TreeNode.tree;
@@ -16,9 +11,6 @@ import org.junit.Test;
 
 import leetcode.common.TreeNode;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月12日<p>
-//-------------------------------------------------------
 public class BinaryTreePreorderTraversal {
   /*
   Given a binary tree, return the preorder traversal of its nodes' values.
@@ -37,14 +29,15 @@ public class BinaryTreePreorderTraversal {
 
   public List<Integer> preorderTraversal(TreeNode root) {
     List<Integer> list = new ArrayList<>();
-    if (root != null) preorderTraversal(root, list);
+    preorderTraversal(root, list);
     return list;
   }
 
   private void preorderTraversal(TreeNode root, List<Integer> list) {
+    if (root == null) return;
     list.add(root.val);
-    if (root.left != null) preorderTraversal(root.left, list);
-    if (root.right != null) preorderTraversal(root.right, list);
+    preorderTraversal(root.left, list);
+    preorderTraversal(root.right, list);
   }
 
   @Test
