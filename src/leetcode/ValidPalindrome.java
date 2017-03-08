@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertFalse;
@@ -10,9 +5,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月14日<p>
-//-------------------------------------------------------
 public class ValidPalindrome {
 
   /*
@@ -25,10 +17,10 @@ public class ValidPalindrome {
    */
 
   public boolean isPalindrome(String s) {
-    for (int l = 0, r = (s = s.toLowerCase()).length() - 1; l < r;)
-      if (!Character.isLetterOrDigit(s.charAt(l))) l++;
-      else if (!Character.isLetterOrDigit(s.charAt(r))) r--;
-      else if (s.charAt(l++) != s.charAt(r--)) return false;
+    for (int left = 0, right = (s = s.toLowerCase()).length() - 1; left < right;)
+      if (!Character.isLetterOrDigit(s.charAt(left))) left++;
+      else if (!Character.isLetterOrDigit(s.charAt(right))) right--;
+      else if (s.charAt(left++) != s.charAt(right--)) return false;
     return true;
   }
 
