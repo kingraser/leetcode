@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.Test;
 
 public class PascalsTriangle {
+
   /*
   Given numRows, generate the first numRows of Pascal’s triangle.
   For example, given numRows = 5,
