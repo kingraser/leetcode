@@ -1,22 +1,15 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Deque;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月17日<p>
-//-------------------------------------------------------
 public class TextJustification {
 
   /*
@@ -45,7 +38,8 @@ public class TextJustification {
   */
 
   public List<String> fullJustify(String[] words, int maxWidth) {
-    LinkedList<String> result = new LinkedList<>(), line = new LinkedList<>();
+    List<String> result = new ArrayList<>();
+    Deque<String> line = new ArrayDeque<>();
     for (int i = 0, len; i < words.length; result.add(getLine(line, maxWidth, len, i == words.length)))
       for (len = 0; i < words.length && len + line.size() + words[i].length() <= maxWidth; i++) {
         line.add(words[i]);
