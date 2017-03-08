@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
@@ -11,10 +6,8 @@ import java.util.Stack;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月13日<p>
-//-------------------------------------------------------
 public class LargestRectangleinHistogram {
+
   /*
   Given n non-negative integers representing the histogram's bar height 
   where the width of each bar is 1, find the area of largest rectangle in the histogram.    
@@ -44,18 +37,19 @@ public class LargestRectangleinHistogram {
   return 10. 
   */
 
-  public static int largestRectangleArea(int[] height) {
-    Stack<Integer> stack = new Stack<>();
-    int max = 0;
-    for (int i = 0, v; i < height.length + 1;)
-      if (stack.empty() || height[stack.peek()] <= (v = i < height.length ? height[i] : 0)) stack.push(i++);
-      else while (!stack.isEmpty() && height[stack.peek()] > v)
-        max = Math.max(max, height[stack.pop()] * (stack.empty() ? i : i - stack.peek() - 1));
-    return max;
-  }
-
   @Test
   public void test() {
     assertEquals(10, largestRectangleArea(new int[] { 2, 1, 5, 6, 2, 3 }));
   }
+
+  public static int largestRectangleArea(int[] heights) {
+    int max = 0;
+    Stack<Integer> stack = new Stack<>();
+    for (int i = 0, height; i < heights.length + 1;)
+      if (stack.empty() || heights[stack.peek()] <= (height = i < heights.length ? heights[i] : 0)) stack.push(i++);
+      else while (!stack.isEmpty() && heights[stack.peek()] > height)
+        max = Math.max(max, heights[stack.pop()] * (stack.empty() ? i : i - stack.peek() - 1));
+    return max;
+  }
+
 }

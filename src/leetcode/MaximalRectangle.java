@@ -1,17 +1,10 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
+import static leetcode.LargestRectangleinHistogram.largestRectangleArea;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月13日<p>
-//-------------------------------------------------------
 public class MaximalRectangle {
 
   /*
@@ -36,12 +29,12 @@ public class MaximalRectangle {
   Then the problem is transfered to Largest Rectangle in Histogram
   */
 
-  public int maximalRectangle(char[][] m) {
-    int area = 0, height = m == null ? 0 : m.length, width = height == 0 ? 0 : m[0].length;
+  public int maximalRectangle(char[][] matrix) {
+    int area = 0, height = matrix == null ? 0 : matrix.length, width = height == 0 ? 0 : matrix[0].length;
     int A[][] = new int[height][width + 1];
-    for (int i = 0; i < height; area = Math.max(area, LargestRectangleinHistogram.largestRectangleArea(A[i++])))
+    for (int i = 0; i < height; area = Math.max(area, largestRectangleArea(A[i++])))
       for (int j = 0; j < width; j++)
-        if (m[i][j] == '1') A[i][j] += 1 + (i == 0 ? 0 : A[i - 1][j]);
+        if (matrix[i][j] == '1') A[i][j] += 1 + (i == 0 ? 0 : A[i - 1][j]);
     return area;
   }
 
