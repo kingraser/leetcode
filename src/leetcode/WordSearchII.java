@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
@@ -20,9 +15,6 @@ import com.google.common.collect.Sets;
 import leetcode.common.Trie;
 import leetcode.common.Trie.TrieNode;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月22日<p>
-//-------------------------------------------------------
 public class WordSearchII {
 
   /*
@@ -58,30 +50,29 @@ public class WordSearchII {
             new String[] { "oath", "pea", "eat", "rain" })));
   }
 
+  int[][] dirs = new int[][] { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
+
   public List<String> findWords(char[][] board, String[] words) {
     Trie trie = new Trie();
-    Arrays.stream(words).forEach(w -> trie.add(w));
-    Set<String> res = new HashSet<>();
-    for (int i = 0; i < board.length; i++)
-      for (int j = 0; j < board[0].length; j++)
-        dfs(board, new boolean[board.length][board[0].length], trie.root, i, j, trie, res,
+    Arrays.stream(words).forEach(word -> trie.add(word));
+    Set<String> result = new HashSet<>();
+    for (int row = 0; row < board.length; row++)
+      for (int col = 0; col < board[0].length; col++)
+        dfs(board, new boolean[board.length][board[0].length], trie.root, row, col, trie, result,
             new char[board.length * board[0].length], 0);
-    return new ArrayList<String>(res);
+    return new ArrayList<String>(result);
   }
 
-  private void dfs(char[][] board, boolean[][] visited, TrieNode node, int x, int y, Trie trie, Set<String> res,
+  private void dfs(char[][] board, boolean[][] visited, TrieNode node, int row, int col, Trie trie, Set<String> result,
       char[] s, int idx) {
-    if (x < 0 || x >= board.length || y < 0 || y >= board[0].length || visited[x][y]) return;
-    char c = board[x][y];
-    if ((node = node.nexts[c - 'a']) == null) return;
-    s[idx++] = c;
-    visited[x][y] = true;
-    if (node.isLeaf) res.add(new String(s, 0, idx));
-    dfs(board, visited, node, x - 1, y, trie, res, s, idx);
-    dfs(board, visited, node, x + 1, y, trie, res, s, idx);
-    dfs(board, visited, node, x, y - 1, trie, res, s, idx);
-    dfs(board, visited, node, x, y + 1, trie, res, s, idx);
-    visited[x][y] = false;
-    idx--;
+    if (row < 0 || row >= board.length || col < 0 || col >= board[0].length || visited[row][col]
+        || (node = node.nexts[board[row][col] - 'a']) == null)
+      return;
+    s[idx++] = board[row][col];
+    if (node.isLeaf) result.add(new String(s, 0, idx));
+    visited[row][col] = true;
+    for (int[] dir : dirs)
+      dfs(board, visited, node, row + dir[0], col + dir[1], trie, result, s, idx);
+    visited[row][col] = false;
   }
 }
