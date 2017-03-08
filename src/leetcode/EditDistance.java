@@ -1,17 +1,13 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.stream.IntStream;
+
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月12日<p>
-//-------------------------------------------------------
+import leetcode.util.MathUtil;
+
 public class EditDistance {
 
   /*
@@ -26,13 +22,13 @@ public class EditDistance {
   */
 
   /*
-  Let f[i][j] represents the minimum edit distance between A[0,i] and B[0,j]
+  Let dp[i][j] represents the minimum edit distance between A[0,i] and B[0,j]
   Let A[0,i] is str1c, B[0,j] is str2d,
-  1. if c==d, then f[i][j]=f[i-1][j-1];
-  2. else c!=d,
-  (a) replace c with d, then f[i][j]=f[i-1][j-1]+1;
-  (b) append c with d, then f[i][j]=f[i][j-1]+1;
-  (c) delete c,then f[i][j]=f[i-1][j]+1;
+  1. if c == d, then dp[i][j] = dp[i-1][j-1];
+  2. else c != d,
+  (a) replace c with d, then dp[i][j] = dp[i - 1][j - 1] + 1;
+  (b) append c with d, then dp[i][j] = dp[i][j - 1] + 1;
+  (c) delete c,then dp[i][j] = dp[i - 1][j] + 1;
   */
 
   @Test
@@ -41,13 +37,13 @@ public class EditDistance {
   }
 
   public int minDistance(String word1, String word2) {
-    int[][] A = new int[word1.length() + 1][word2.length() + 1];
-    for (int i = 0; i < word1.length() + 1; A[i][0] = i, i++);
-    for (int i = 0; i < word2.length() + 1; A[0][i] = i, i++);
-    for (int i = 1; i < word1.length() + 1; i++)
-      for (int j = 1; j < word2.length() + 1; j++)
-        if (word1.charAt(i - 1) == word2.charAt(j - 1)) A[i][j] = A[i - 1][j - 1];
-        else A[i][j] = Math.min(Math.min(A[i - 1][j - 1], A[i][j - 1]), A[i - 1][j]) + 1;
-    return A[word1.length()][word2.length()];
+    int[][] dp = new int[word1.length() + 1][word2.length() + 1];
+    IntStream.range(0, word1.length() + 1).forEach(i -> dp[i][0] = i);
+    IntStream.range(0, word2.length() + 1).forEach(i -> dp[0][i] = i);
+    for (int idx1 = 1; idx1 < word1.length() + 1; idx1++)
+      for (int idx2 = 1; idx2 < word2.length() + 1; idx2++)
+        if (word1.charAt(idx1 - 1) == word2.charAt(idx2 - 1)) dp[idx1][idx2] = dp[idx1 - 1][idx2 - 1];
+        else dp[idx1][idx2] = MathUtil.min(dp[idx1 - 1][idx2 - 1], dp[idx1][idx2 - 1], dp[idx1 - 1][idx2]) + 1;
+    return dp[word1.length()][word2.length()];
   }
 }
