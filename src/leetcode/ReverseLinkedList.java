@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static leetcode.common.ListNode.list;
@@ -12,9 +7,6 @@ import org.junit.Test;
 
 import leetcode.common.ListNode;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月13日<p>
-//-------------------------------------------------------
 public class ReverseLinkedList {
 
   @Test
@@ -23,16 +15,14 @@ public class ReverseLinkedList {
   }
 
   public static ListNode reverseList(ListNode head) {
-    if (head == null || head.next == null) return head;
-    ListNode next = head.next;
-    head.next = null;
-    return reverseList(head, next);
+    ListNode newHead = null;
+    while (head != null) {
+      ListNode next = head.next;
+      head.next = newHead;
+      newHead = head;
+      head = next;
+    }
+    return newHead;
   }
 
-  private static ListNode reverseList(ListNode head, ListNode next) {
-    if (next == null) return head;
-    ListNode newHead = next, newNext = next.next;
-    next.next = head;
-    return reverseList(newHead, newNext);
-  }
 }
