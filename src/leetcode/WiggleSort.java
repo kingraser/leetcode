@@ -1,10 +1,9 @@
 package leetcode;
 
+import static leetcode.util.ArrayUtil.swap;
 import static org.junit.Assert.assertArrayEquals;
 
 import org.junit.Test;
-
-import leetcode.util.ArrayUtil;
 
 public class WiggleSort {
 
@@ -23,7 +22,6 @@ public class WiggleSort {
   void wiggleSort(int[] nums) {
     if (nums.length <= 1) return;
     for (int i = 1; i < nums.length; i++)
-      if (((i & 1) == 1 && nums[i] < nums[i - 1]) || ((i & 1) == 0 && nums[i] > nums[i - 1]))
-        ArrayUtil.swap(nums, i, i - 1);
+      if (((i & 1) == 1 && nums[i] < nums[i - 1]) || ((i & 1) == 0 && nums[i] > nums[i - 1])) swap(nums, i, i - 1);
   }
 }
