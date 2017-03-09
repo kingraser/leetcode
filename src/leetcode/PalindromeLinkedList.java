@@ -1,11 +1,7 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static leetcode.common.ListNode.list;
+import static leetcode.ReverseLinkedList.reverseList;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -15,9 +11,6 @@ import org.junit.Test;
 
 import leetcode.common.ListNode;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月11日<p>
-//-------------------------------------------------------
 public class PalindromeLinkedList {
 
   //Given a singly linked list, determine if it is a palindrome.
@@ -31,7 +24,7 @@ public class PalindromeLinkedList {
       fast = fast.next.next;
     }
     if (Objects.nonNull(prev)) prev.next = null;
-    return head.equals(ReverseLinkedList.reverseList(Objects.isNull(fast) ? slow : slow.next));
+    return head.equals(reverseList(Objects.isNull(fast) ? slow : slow.next));
   }
 
   @Test
