@@ -1,18 +1,11 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年4月22日;
-//-------------------------------------------------------
 public class IntegerBreak {
+
   /*
   Given a positive integer n, break it into the sum of at least two positive integers,
   and maximize the product of those integers. 
