@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
@@ -14,9 +9,6 @@ import java.util.Map;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年11月8日;
-//-------------------------------------------------------
 public class ArithmeticSlicesIISubsequence {
   /*
   A sequence of numbers is called arithmetic if it consists of at least three elements and if the difference between any two consecutive elements is the same.
