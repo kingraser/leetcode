@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static leetcode.common.ListNode.list;
@@ -14,9 +9,6 @@ import org.junit.Test;
 import leetcode.common.ListNode;
 import leetcode.common.Pair;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月16日<p>
-//-------------------------------------------------------
 public class ReorderList {
   /*
   Given a singly linked list L : L0 → L1 → · · · → Ln−1 → Ln , 
