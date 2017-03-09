@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static leetcode.common.TreeNode.tree;
@@ -14,14 +9,12 @@ import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 
 import leetcode.common.TreeNode;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月1日<p>
-//-------------------------------------------------------
 public class BinaryTreePaths {
 
   /*
@@ -47,19 +40,16 @@ public class BinaryTreePaths {
   private void dfs(TreeNode root, Deque<TreeNode> deque, List<String> result) {
     if (root == null) return;
     if (root.left == null && root.right == null) {
-      save(deque, result, root);//leaf
+      deque.addLast(root);
+      result
+          .add(String.join("->", deque.stream().map(node -> Integer.toString(node.val)).collect(Collectors.toList())));
+      deque.removeLast();
       return;
     }
     deque.offerLast(root);
     dfs(root.left, deque, result);
     dfs(root.right, deque, result);
     deque.pollLast();
-  }
-
-  private void save(Deque<TreeNode> deque, List<String> result, TreeNode root) {
-    StringBuilder sb = new StringBuilder();
-    deque.forEach(s -> sb.append(s.val).append("->"));
-    result.add(sb.append(root.val).toString());
   }
 
   @Test
