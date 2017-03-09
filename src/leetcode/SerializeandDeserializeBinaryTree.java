@@ -1,18 +1,11 @@
-/*
-
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
-import java.util.Stack;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
 
 import leetcode.common.TreeNode;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月29日<p>
-//-------------------------------------------------------
 public class SerializeandDeserializeBinaryTree {
 
   /*
@@ -41,34 +34,17 @@ public class SerializeandDeserializeBinaryTree {
   Your serialize and deserialize algorithms should be stateless. 
   */
 
-  public String serialize(TreeNode root) {
-    StringBuilder sb = new StringBuilder();
-    serialize(root, sb);
-    return sb.toString();
+  @Test
+  public void test() {
+    TreeNode root = new TreeNode(1, new TreeNode(2), new TreeNode(3, new TreeNode(4), new TreeNode(5)));
+    assertEquals(root, deserialize(serialize(root)));
   }
 
-  private void serialize(TreeNode root, StringBuilder sb) {
-    if (root == null) {
-      sb.append('n');
-      return;
-    }
-    sb.append(root.val).append(',');
-    serialize(root.left, sb);
-    sb.append(',');
-    serialize(root.right, sb);
+  public String serialize(TreeNode root) {
+    return root.toString();
   }
 
   public TreeNode deserialize(String data) {
-    String[] nodes = data.split(",");
-    Stack<TreeNode> stack = new Stack<>();
-    for (int i = nodes.length - 1; i >= 0; i--)
-      if (nodes[i].charAt(0) == 'n') stack.push(null);
-      else {
-        TreeNode node = new TreeNode(Integer.parseInt(nodes[i]));
-        node.left = stack.pop();
-        node.right = stack.pop();
-        stack.push(node);
-      }
-    return stack.peek();
+    return TreeNode.tree(data);
   }
 }
