@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
 import static leetcode.common.ListNode.list;
@@ -12,10 +7,8 @@ import org.junit.Test;
 
 import leetcode.common.ListNode;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年1月20日;
-//-------------------------------------------------------
 public class OddEvenLinkedList {
+
   /*
   Given a singly linked list, group all odd nodes together followed by the even nodes. 
   Please note here we are talking about the node number and not the value in the nodes.    
