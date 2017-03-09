@@ -1,17 +1,9 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertArrayEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月15日<p>
-//-------------------------------------------------------
 public class ProductofArrayExceptSelf {
 
   /*
@@ -24,8 +16,12 @@ public class ProductofArrayExceptSelf {
   public int[] productExceptSelf(int[] nums) {
     int[] res = new int[nums.length];
     res[0] = 1;
-    for (int i = 1; i < nums.length; res[i] = res[i - 1] * nums[i - 1], i++);
-    for (int i = nums.length - 1, right = 1; i >= 0; res[i] *= right, right *= nums[i--]);
+    for (int i = 1; i < nums.length; i++)
+      res[i] = res[i - 1] * nums[i - 1];
+    for (int i = nums.length - 1, right = 1; i >= 0; i--) {
+      res[i] *= right;
+      right *= nums[i];
+    }
     return res;
   }
 
