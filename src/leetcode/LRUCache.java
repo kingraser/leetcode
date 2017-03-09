@@ -1,16 +1,8 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月12日<p>
-//-------------------------------------------------------
 public class LRUCache {
 
   /*
