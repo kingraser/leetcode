@@ -1,17 +1,11 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.BitSet;
+
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年1月12日;
-//-------------------------------------------------------
 public class RemoveDuplicateLetters {
 
   /*
@@ -28,25 +22,24 @@ public class RemoveDuplicateLetters {
   */
 
   public String removeDuplicateLetters(String s) {
-    char[] string = s.toCharArray();
-    int[] count = new int[128];
-    boolean[] isSelected = new boolean[128];
-    int idx = -1;
-    for (char c : string)
-      count[c]++;
-    for (char c : string)
-      if (isSelected[c]) count[c]--;
+    char[] result = s.toCharArray();
+    int idx = -1, count[] = new int[128];
+    BitSet isSelected = new BitSet();
+    s.chars().forEach(c -> count[c]++);
+    for (char c : result)
+      if (isSelected.get(c)) count[c]--;
       else {
-        for (char end; idx >= 0 && (end = string[idx]) >= c && count[end] > 0; idx--, isSelected[end] = false);
-        string[++idx] = c;
+        for (char end; idx >= 0 && (end = result[idx]) >= c && count[end] > 0; idx--, isSelected.clear(end));
+        result[++idx] = c;
         count[c]--;
-        isSelected[c] = true;
+        isSelected.set(c);
       }
-    return new String(string, 0, ++idx);
+    return new String(result, 0, ++idx);
   }
 
   @Test
   public void test() {
     assertEquals("acdb", removeDuplicateLetters("cbacdcbc"));
+    assertEquals("abc", removeDuplicateLetters("bcabc"));
   }
 }
