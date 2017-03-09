@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
@@ -18,10 +13,8 @@ import java.util.stream.Collectors;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年3月2日;
-//-------------------------------------------------------
 public class MinimumHeightTrees {
+
   /*
   For a undirected graph with tree characteristics, we can choose any node as the root. 
   The result graph is then a rooted tree. 
