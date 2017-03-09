@@ -7,8 +7,8 @@ import org.junit.Test;
 
 import leetcode.common.TreeNode;
 
-
 public class HouseRobberIII {
+
   /*
   The thief has found himself a new place for his thievery again. 
   There is only one entrance to this area, called the "root." 
