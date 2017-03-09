@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
@@ -11,9 +6,6 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月10日<p>
-//-------------------------------------------------------
 public class Candy {
   /*
   There are N children standing in a line. Each child is assigned a rating value.
