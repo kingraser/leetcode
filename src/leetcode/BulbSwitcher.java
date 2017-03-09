@@ -1,18 +1,11 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2015年12月28日;
-//-------------------------------------------------------
 public class BulbSwitcher {
+
   /*
   There are n bulbs that are initially off. You first turn on all the bulbs. 
   Then, you turn off every second bulb. 
