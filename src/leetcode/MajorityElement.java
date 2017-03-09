@@ -1,17 +1,9 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月13日<p>
-//-------------------------------------------------------
 public class MajorityElement {
 
   /*    
@@ -26,7 +18,7 @@ public class MajorityElement {
 
   public int majorityElement(int[] num) {
     int major = num[0];
-    for (int i = 1, count = 1; i < num.length; i++)
+    for (int i = 1, count = 1; i < num.length && count <= num.length >> 1; i++)
       if (major == num[i]) count++;
       else if (count-- == 0) {
         count = 1;
