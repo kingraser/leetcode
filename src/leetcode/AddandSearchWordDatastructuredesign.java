@@ -1,13 +1,5 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月18日<p>
-//-------------------------------------------------------
 public class AddandSearchWordDatastructuredesign {
   /*
   Design a data structure that supports the following two operations:
