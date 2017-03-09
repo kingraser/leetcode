@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static leetcode.common.ListNode.list;
@@ -12,9 +7,6 @@ import org.junit.Test;
 
 import leetcode.common.ListNode;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月16日<p>
-//-------------------------------------------------------
 public class InsertionSortList {
 
   @Test
@@ -24,20 +16,16 @@ public class InsertionSortList {
 
   //Sort a linked list using insertion sort.
   public ListNode insertionSortList(ListNode head) {
-    ListNode dummy = new ListNode(Integer.MIN_VALUE);//dummy.next = head
-    for (ListNode cur = head; cur != null;) {
-      ListNode pos = findInsertPos(dummy, cur.val);
-      ListNode tmp = cur.next;
-      cur.next = pos.next;
-      pos.next = cur;
-      cur = tmp;
+    if (head == null || head.next == null) return head;
+    ListNode root = new ListNode(0);
+    for (ListNode current = head, previous = root, next; current != null;) {
+      for (next = current.next; previous.next != null && previous.next.val < current.val; previous = previous.next);
+      current.next = previous.next;
+      previous.next = current;
+      previous = root;
+      current = next;
     }
-    return dummy.next;
+    return root.next;
   }
 
-  ListNode findInsertPos(ListNode head, int x) {
-    ListNode pre = null;
-    for (ListNode cur = head; cur != null && cur.val <= x; pre = cur, cur = cur.next);
-    return pre;
-  }
 }
