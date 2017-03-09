@@ -1,18 +1,11 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static leetcode.common.TreeNode.tree;
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayDeque;
 import java.util.Arrays;
-import java.util.Deque;
 import java.util.Iterator;
-import java.util.Objects;
+import java.util.Stack;
 
 import org.junit.Test;
 
@@ -20,9 +13,6 @@ import com.google.common.collect.Lists;
 
 import leetcode.common.TreeNode;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月18日<p>
-//-------------------------------------------------------
 public class BinarySearchTreeIterator {
 
   /*
@@ -35,25 +25,28 @@ public class BinarySearchTreeIterator {
 
   @Test
   public void test() {
-    assertEquals(Arrays.asList(3, 9, 20, 15, 7), Lists.newArrayList(new BSTIterator(tree("3,9,n,n,20,15,n,n,7,n,n"))));
+    assertEquals(Arrays.asList(1, 2, 3), Lists.newArrayList(new BSTIterator(tree("2,1,n,n,3,n,n"))));
   }
 
   public class BSTIterator implements Iterator<Integer> {
-    private Deque<TreeNode> deque = new ArrayDeque<>();
+    private Stack<TreeNode> stack = new Stack<>();
 
     public BSTIterator(TreeNode root) {
-      if (Objects.nonNull(root)) deque.add(root);
+      pushLeft(root);
     }
 
     public boolean hasNext() {
-      return !deque.isEmpty();
+      return !stack.isEmpty();
     }
 
     public Integer next() {
-      TreeNode node = deque.pollFirst();
-      if (Objects.nonNull(node.left)) deque.addLast(node.left);
-      if (Objects.nonNull(node.right)) deque.addLast(node.right);
+      TreeNode node = stack.pop();
+      pushLeft(node.right);
       return node.val;
+    }
+
+    private void pushLeft(TreeNode node) {
+      for (; node != null; stack.push(node), node = node.left);
     }
   }
 }
