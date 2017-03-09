@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
@@ -14,9 +9,6 @@ import org.junit.Test;
 
 import leetcode.common.Point;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月16日<p>
-//-------------------------------------------------------
 public class MaxPointsonaLine {
 
   /*
