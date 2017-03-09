@@ -41,7 +41,7 @@ public class WildcardMatching {
 
   public boolean isMatch(String s, String pattern) {
     int sIdx = 0, pIdx = 0, matchIdx = 0, starIdx = -1;
-    while (sIdx < s.length()) {
+    while (sIdx < s.length())
       if (pIdx < pattern.length()
           && (pattern.charAt(pIdx) == '?' || (s.charAt(sIdx) != '*' && s.charAt(sIdx) == pattern.charAt(pIdx)))) { // advancing both idx
         sIdx++;
@@ -53,7 +53,6 @@ public class WildcardMatching {
         pIdx = starIdx + 1;
         sIdx = ++matchIdx;
       } else return false; // current pattern idx is not star, last pattern idx was not *, so characters do not match
-    }
     for (; pIdx < pattern.length() && pattern.charAt(pIdx) == '*'; pIdx++); // check for remaining characters in pattern
     return pIdx == pattern.length();
   }
