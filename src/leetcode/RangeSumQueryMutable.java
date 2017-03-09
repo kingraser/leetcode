@@ -1,18 +1,11 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年9月1日;
-//-------------------------------------------------------
 public class RangeSumQueryMutable {
+
   /*
   Given an integer array nums, find the sum of the elements between indices i and j (i ≤ j), inclusive.
   The update(i, val) function modifies nums by updating the element at index i to val.
@@ -34,8 +27,29 @@ public class RangeSumQueryMutable {
     assertEquals(8, numArray.sumRange(0, 2));
   }
 
-  public class NumArray {
+  /*
+  binary indexed tree
+  
+  C1 = A1
+  C2 = A1 + A2
+  C3 = A3
+  C4 = A1 + A2 + A3 + A4
+  C5 = A5
+  C6 = A5 + A6
+  C7 = A7
+  C8 = A1 + A2 + A3 + A4 + A5 + A6 + A7 + A8
+  
+  1 0001 1  the value of the lowest bit, we can get from x & -x
+  2 0010 2  
+  3 0011 1  
+  4 0100 4  
+  5 0101 1  
+  6 0110 2  
+  7 0111 1  
+  8 1000 8
+  */
 
+  public class NumArray {
     int[] nums, sums;
 
     public NumArray(int[] nums) {
@@ -46,7 +60,7 @@ public class RangeSumQueryMutable {
     }
 
     void update(int i, int val) {
-      for (int j = i + 1, size = nums.length + 1, diff = val - nums[i]; j < size; j += (j & -j))
+      for (int j = i + 1, diff = val - nums[i]; j < sums.length; j += (j & -j))
         sums[j] += diff;
       nums[i] = val;
     }
