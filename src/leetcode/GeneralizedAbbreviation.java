@@ -25,13 +25,13 @@ public class GeneralizedAbbreviation {
         generateAbbreviations("word").stream().sorted().collect(Collectors.toList()));
   }
 
-  public List<String> generateAbbreviations(String word) {
+  public static List<String> generateAbbreviations(String word) {
     List<String> result = new ArrayList<>();
     dfs(result, word.toCharArray(), 0, "", 0);
     return result;
   }
 
-  private void dfs(List<String> result, char[] word, int idx, String s, int count) {
+  private static void dfs(List<String> result, char[] word, int idx, String s, int count) {
     if (idx == word.length) {
       result.add(count > 0 ? s + count : s);
       return;
