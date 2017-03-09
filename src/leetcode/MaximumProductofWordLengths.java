@@ -1,17 +1,9 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2015年12月29日;
-//-------------------------------------------------------
 public class MaximumProductofWordLengths {
 
   /*
