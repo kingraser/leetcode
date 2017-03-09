@@ -1,17 +1,9 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月17日<p>
-//-------------------------------------------------------
 public class ShortestPalindrome {
 
   /*
@@ -25,14 +17,14 @@ public class ShortestPalindrome {
   */
 
   /*
-          找到以s[0]开头的最长回文子串,记为s(0,i+1)
-          返回s(i+1).reverse + s
+  Find the longest palindrome substring starts with s[0] as s(0, i + 1).
+  Return s(i + 1).reverse + s
   */
 
   public String shortestPalindrome(String s) {
-    int i;
-    for (i = s.length() - 1; i > 0 && isNotPalindrome(s, i); i--);
-    return new StringBuilder(s.substring(i + 1)).reverse().append(s).toString();
+    int idx;
+    for (idx = s.length() - 1; idx > 0 && isNotPalindrome(s, idx); idx--);
+    return new StringBuilder(s.substring(idx + 1)).reverse().append(s).toString();
   }
 
   private boolean isNotPalindrome(String s, int end) {
@@ -41,35 +33,10 @@ public class ShortestPalindrome {
     return false;
   }
 
-  public String shortestPalindromeII(String s) {
-    String t = preProcess(s);
-    int[] p = new int[t.length()];
-    int c = 0, r = 0;//center radius 
-    for (int i = 1, i1 = 2 * c - i; i < t.length() - 1; i++, i1 = 2 * c - i) {
-      if (r > i) p[i] = Math.min(r - i, p[i1]);
-      if (r < i || p[i1] == r - i) for (; t.charAt(i + 1 + p[i]) == t.charAt(i - 1 - p[i]); p[i]++);
-      if (i + p[i] > r) {
-        c = i;
-        r = i + p[i];
-      }
-    }
-    for (c = p.length - 1; c >= 0 && p[c] + 1 != c; c--);
-    return new StringBuilder(s.substring(p[c])).reverse().append(s).toString();
-  }
-
-  private String preProcess(String s) {
-    StringBuilder sb = new StringBuilder("^");
-    for (int i = 0; i < s.length(); sb.append("#").append(s.charAt(i)), i++);
-    return sb.append(sb.length() == 1 ? "$" : "#$").toString();
-  }
-
   @Test
   public void test() {
     assertEquals("aaacecaaa", shortestPalindrome("aacecaaa"));
     assertEquals("dcbabcd", shortestPalindrome("abcd"));
-
-    assertEquals("aaacecaaa", shortestPalindromeII("aacecaaa"));
-    assertEquals("dcbabcd", shortestPalindromeII("abcd"));
   }
 
 }
