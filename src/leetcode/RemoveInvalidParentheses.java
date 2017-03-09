@@ -10,15 +10,6 @@ import java.util.Set;
 
 import org.junit.Test;
 
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
-
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年9月2日;
-//-------------------------------------------------------
 public class RemoveInvalidParentheses {
 
   /*
