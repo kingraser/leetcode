@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static leetcode.common.TreeNode.tree;
@@ -12,10 +7,8 @@ import org.junit.Test;
 
 import leetcode.common.TreeNode;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月19日<p>
-//-------------------------------------------------------
 public class KthSmallestElementinaBST {
+
   /*
   Given a binary search tree, write a function kthSmallest to find the kth smallest element in it.    
   Note:
