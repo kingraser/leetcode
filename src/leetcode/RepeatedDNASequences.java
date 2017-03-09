@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
@@ -17,9 +12,6 @@ import org.junit.Test;
 
 import com.google.common.collect.ImmutableMap;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月16日<p>
-//-------------------------------------------------------
 public class RepeatedDNASequences {
 
   /*
