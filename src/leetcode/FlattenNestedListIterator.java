@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
@@ -19,9 +14,6 @@ import com.google.common.collect.Lists;
 
 import leetcode.common.NestedInteger;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年4月18日;
-//-------------------------------------------------------
 public class FlattenNestedListIterator {
 
   /*
