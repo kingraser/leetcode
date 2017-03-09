@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -18,9 +13,7 @@ import java.util.Objects;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年5月11日;
-//-------------------------------------------------------
+
 public class CourseScheduleII {
   /*
   There are a total of n courses you have to take, labeled from 0 to n - 1.    
