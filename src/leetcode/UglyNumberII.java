@@ -1,27 +1,20 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
+import static leetcode.SuperUglyNumber.nthSuperUglyNumber;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月1日<p>
-//-------------------------------------------------------
 public class UglyNumberII {
 
   /*
-          找到第n个ugly number
+  Find the n-th ugly number.
   */
 
   private static final int[] primes = new int[] { 2, 3, 5 };
 
   public int nthUglyNumber(int n) {
-    return SuperUglyNumber.nthSuperUglyNumber(n, primes);
+    return nthSuperUglyNumber(n, primes);
   }
 
   @Test
