@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertFalse;
@@ -12,9 +7,6 @@ import java.math.BigInteger;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年3月7日;
-//-------------------------------------------------------
 public class AdditiveNumber {
 
   /*
