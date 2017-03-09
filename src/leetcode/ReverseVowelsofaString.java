@@ -1,10 +1,6 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
+import static leetcode.util.ArrayUtil.swap;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Set;
@@ -13,9 +9,6 @@ import java.util.stream.Stream;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年4月25日;
-//-------------------------------------------------------
 public class ReverseVowelsofaString {
 
   /*
@@ -52,10 +45,4 @@ public class ReverseVowelsofaString {
     return VOWEL.contains(c);
   }
 
-  private void swap(char[] array, int left, int right) {
-    if (left == right) return;
-    char temp = array[left];
-    array[left] = array[right];
-    array[right] = temp;
-  }
 }
