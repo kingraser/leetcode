@@ -1,20 +1,20 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月13日<p>
-//-------------------------------------------------------
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 public class RectangleArea {
 
   /*
-  Find the total area covered by two rectilinear rectangles in a 2D plane.
-  
+  Find the total area covered by two rectilinear rectangles in a 2D plane.  
   Each rectangle is defined by its bottom left corner and top right corner as shown in the figure.
   */
+
+  @Test
+  public void test() {
+    assertEquals(1, computeArea(0, 0, 1, 1, 0, 0, 1, 1));
+  }
 
   public int computeArea(int A, int B, int C, int D, int E, int F, int G, int H) {
     return (C - A) * (D - B) + (G - E) * (H - F)
