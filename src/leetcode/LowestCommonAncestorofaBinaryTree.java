@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static leetcode.common.TreeNode.tree;
@@ -14,9 +9,6 @@ import org.junit.Test;
 
 import leetcode.common.TreeNode;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月19日<p>
-//-------------------------------------------------------
 public class LowestCommonAncestorofaBinaryTree {
   /*
   Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
@@ -39,10 +31,9 @@ public class LowestCommonAncestorofaBinaryTree {
 
   @Test
   public void test() {
-    TreeNode one = tree("1,0,n,n,8,n,n"), four = new TreeNode(4), two = new TreeNode(2, new TreeNode(7), four),
-        five = new TreeNode(5, new TreeNode(6), two), three = new TreeNode(3, five, one), root = three;
-    assertEquals(three, lowestCommonAncestor(root, five, one));
-    assertEquals(five, lowestCommonAncestor(root, five, four));
+    TreeNode one = tree("1,0,n,n,8,n,n"), five = tree("5,6,n,n,2,7,n,n,4,n,n"), root = new TreeNode(3, five, one);
+    assertEquals(root, lowestCommonAncestor(root, five, one));
+    assertEquals(five, lowestCommonAncestor(root, five, new TreeNode(4)));
   }
 
   public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
