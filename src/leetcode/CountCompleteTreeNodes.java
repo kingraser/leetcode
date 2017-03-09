@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static leetcode.common.TreeNode.tree;
@@ -14,10 +9,8 @@ import org.junit.Test;
 
 import leetcode.common.TreeNode;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月21日<p>
-//-------------------------------------------------------
 public class CountCompleteTreeNodes {
+
   /*
   Given a complete binary tree, count the number of nodes.
   
@@ -31,12 +24,11 @@ public class CountCompleteTreeNodes {
   }
 
   public int countNodes(TreeNode root, int left, int right) {
-    return Objects
-        .isNull(root)
-            ? 0
-            : (left = left < 0 ? getDepth(root.left, true) : left) == (right = right < 0 ? getDepth(root.right, false)
-                : right) ? (2 << left) - 1
-                    : 1 + countNodes(root.left, --left, -1) + countNodes(root.right, -1, --right);
+    if (Objects.isNull(root)) return 0;
+    if (left < 0) left = getDepth(root.left, true);
+    if (right < 0) right = getDepth(root.right, false);
+    if (left == right) return (2 << left) - 1;
+    return 1 + countNodes(root.left, --left, -1) + countNodes(root.right, -1, --right);
   }
 
   private int getDepth(TreeNode node, boolean isLeft) {
