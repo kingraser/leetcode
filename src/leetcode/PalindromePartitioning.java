@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
@@ -14,10 +9,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月16日<p>
-//-------------------------------------------------------
 public class PalindromePartitioning {
+
   /*
   Given a string s, partition s such that every substring of the partition is a palindrome.    
   Return all possible palindrome partitioning of s.    
@@ -27,11 +20,6 @@ public class PalindromePartitioning {
       ["aa","b"],
       ["a","a","b"]
     ]
-  */
-
-  /*
-          在每一步都可以判断中间结果是否为合法结果,用回溯法。
-          一个长度为 n 的字符串,有 n − 1 个地方可以砍断,每个地方可断可不断,因此复杂度为O(2^n−1)
   */
 
   @Test
@@ -44,26 +32,26 @@ public class PalindromePartitioning {
     return partition(s, getPalindromeMap(s.toCharArray()));
   }
 
-  public List<List<String>> partition(String s, boolean[][] map) {
+  public List<List<String>> partition(String s, boolean[][] palindromeMap) {
     if (s.length() == 0) return Arrays.asList(new ArrayList<>());
     List<List<String>> result = new ArrayList<>();
-    for (int i = s.length() - 1; i >= 0; i--)
-      if (isPalindrome(i, s.length() - 1, map)) for (List<String> l : partition(s.substring(0, i))) {
-        l.add(s.substring(i));
-        result.add(l);
+    for (int end = s.length() - 1, start = end; start >= 0; start--)
+      if (isPalindrome(start, end, palindromeMap)) for (List<String> list : partition(s.substring(0, start))) {
+        list.add(s.substring(start));
+        result.add(list);
       }
     return result;
   }
 
-  private boolean isPalindrome(int i, int j, boolean[][] map) {
-    return i < j ? map[i][j] : true;
+  public static boolean isPalindrome(int startInclusive, int endInclusive, boolean[][] map) {
+    return startInclusive >= endInclusive || map[startInclusive][endInclusive];
   }
 
-  private boolean[][] getPalindromeMap(char[] s) {
+  public static boolean[][] getPalindromeMap(char[] s) {
     boolean[][] map = new boolean[s.length][s.length];
-    for (int i = 0; i < s.length; i++)
-      for (int j = 1; i + j < s.length; j++)
-        map[i][i + j] = s[i] == s[i + j] && isPalindrome(i + 1, i + j - 1, map);
+    for (int start = 0; start < s.length; start++)
+      for (int end = start + 1; end < s.length; end++)
+        map[start][end] = s[start] == s[end] && isPalindrome(start + 1, end - 1, map);
     return map;
   }
 }

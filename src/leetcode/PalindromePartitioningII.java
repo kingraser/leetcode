@@ -1,19 +1,13 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
+import static leetcode.PalindromePartitioning.getPalindromeMap;
+import static leetcode.PalindromePartitioning.isPalindrome;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月16日<p>
-//-------------------------------------------------------
 public class PalindromePartitioningII {
 
   /*
@@ -24,16 +18,8 @@ public class PalindromePartitioningII {
   */
 
   /*
-          定义状态 f(i,j) 表示区间 [i,j] 之间最小的 cut 数,则状态转移方程为
-  f(i,j)=min{f(i,k)+f(k+1,j)},i≤k≤j,0≤i≤j<n
-          这是一个二维函数,实际写代码比较麻烦。
-          所以要转换成一维DP。如果每次,从i往右扫描,每找到一个回文就算一次DP的话,就可以
-          转换为f(i)=区间[i,n-1]之间最小的cut数,n为字符串长度,则状态转移方程为
-  f(i)=min{f(j+1)+1},i≤j<n
-          一个问题出现了,就是如何判断[i,j]是否是回文?每次都从i到j比较一遍?
-          太浪费了,这里也是一个DP问题。
-          定义状态P[i][j]=true if S[i,j]为回文,那么
-  P[i][j]=S[i]==S[j]&&P[i+1][j-1]
+  Let f(i, j) represents the minimum cuts of range [i, j]
+  Thus f(i,j) = min { f(i, k) + f(k + 1, j) }, i ≤ k ≤ j, 0 ≤ i ≤ j < n
   */
 
   @Test
@@ -44,24 +30,13 @@ public class PalindromePartitioningII {
 
   public int minCut(String s) {
     boolean[][] map = getPalindromeMap(s.toCharArray());
-    int[] minCut = new int[s.length()];
+    int[] minCut = new int[s.length()]; // minCut[i] represents minimum cuts of substring(i)
     Arrays.fill(minCut, Integer.MAX_VALUE);
-    for (int i = s.length() - 1; i > -1; i--)
-      if (isPalindrome(i, s.length() - 1, map)) minCut[i] = 0;
-      else for (int j = i; j < s.length() - 1; j++)
-        if (isPalindrome(i, j, map)) minCut[i] = Math.min(minCut[i], 1 + minCut[j + 1]);
+    for (int end = s.length() - 1, left = end; left >= 0; left--)
+      if (isPalindrome(left, end, map)) minCut[left] = 0;
+      else for (int right = left; right < end; right++)
+        if (isPalindrome(left, right, map)) minCut[left] = Math.min(minCut[left], 1 + minCut[right + 1]);
     return minCut[0];
   }
 
-  private boolean isPalindrome(int i, int j, boolean[][] map) {
-    return i < j ? map[i][j] : true;
-  }
-
-  private boolean[][] getPalindromeMap(char[] s) {
-    boolean[][] map = new boolean[s.length][s.length];
-    for (int j = 1; j < s.length; j++)
-      for (int i = 0; i + j < s.length; i++)
-        map[i][i + j] = s[i] == s[i + j] && isPalindrome(i + 1, i + j - 1, map);
-    return map;
-  }
 }
