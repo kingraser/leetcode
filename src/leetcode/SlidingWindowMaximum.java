@@ -1,23 +1,15 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertArrayEquals;
 
 import java.util.ArrayDeque;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.Deque;
 
 import java.util.PriorityQueue;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月19日<p>
-//-------------------------------------------------------
 public class SlidingWindowMaximum {
   /*
   Given an array nums, there is a sliding window of size k which is moving from the very left of the array to the very right. 
@@ -79,7 +71,7 @@ public class SlidingWindowMaximum {
   public int[] maxSlidingWindowII(int[] nums, int k) {
     if (k < 1) return nums;
     int[] result = new int[nums.length - k + 1];
-    PriorityQueue<Integer> heap = new PriorityQueue<>(k, Collections.reverseOrder());
+    PriorityQueue<Integer> heap = new PriorityQueue<>(k, Comparator.reverseOrder());
     for (int i = 0, l = k - 1, len = nums.length; i < len; i++) {
       if (i >= k) heap.remove(nums[i - k]);
       heap.offer(nums[i]);
