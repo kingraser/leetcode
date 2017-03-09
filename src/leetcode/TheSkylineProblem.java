@@ -1,23 +1,15 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertArrayEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月18日<p>
-//-------------------------------------------------------
 public class TheSkylineProblem {
   /*
   A city's skyline is the outer contour of the silhouette formed by all the buildings in that city when viewed from a distance. 
@@ -57,17 +49,16 @@ public class TheSkylineProblem {
   public List<int[]> getSkyline(int[][] buildings) {
     List<int[]> res = new ArrayList<>();
     PriorityQueue<Node> nodes = new PriorityQueue<>((n1, n2) -> n1.x != n2.x ? n1.x - n2.x
-        : n1.isLeft + n2.isLeft == 0 ? n2.y - n1.y
-            : n1.isLeft + n2.isLeft == 2 ? n1.y - n2.y : n1.isLeft == 0 ? -1 : 1);
+        : n1.isLeft && n2.isLeft ? n2.y - n1.y : !n1.isLeft && !n2.isLeft ? n1.y - n2.y : n1.isLeft ? -1 : 1);
     for (int[] building : buildings) {
       nodes.add(new Node(building[0], building[2], 0));
       nodes.add(new Node(building[1], building[2], 1));
     }
-    PriorityQueue<Integer> heap = new PriorityQueue<>(Collections.reverseOrder());
+    PriorityQueue<Integer> heap = new PriorityQueue<>(Comparator.reverseOrder());
     heap.add(0);
     for (Node node; !nodes.isEmpty();) {
       Integer pre = heap.peek();
-      if ((node = nodes.poll()).isLeft == 0) heap.add(node.y);//left node
+      if ((node = nodes.poll()).isLeft) heap.add(node.y);//left node
       else heap.remove(node.y);//right node
       if (pre != heap.peek()) res.add(new int[] { node.x, heap.peek() });
     }
@@ -75,13 +66,13 @@ public class TheSkylineProblem {
   }
 
   public class Node {
-
-    int x, y, isLeft;
+    int x, y;
+    boolean isLeft;
 
     public Node(int x, int y, int isLeft) {
       this.x = x;
       this.y = y;
-      this.isLeft = isLeft;//0 for left 1 for right
+      this.isLeft = isLeft == 0; // 0 for left 1 for right
     }
   }
 }
