@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
@@ -13,9 +8,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月14日<p>
-//-------------------------------------------------------
 public class SummaryRanges {
 
   /*    
@@ -26,10 +18,9 @@ public class SummaryRanges {
 
   public List<String> summaryRanges(int[] nums) {
     List<String> result = new ArrayList<>(nums.length);
-    for (int i = 0; i < nums.length; i++) {
-      int start = nums[i];
-      for (; i + 1 < nums.length && nums[i + 1] == nums[i] + 1; i++);
-      if (start != nums[i]) result.add(String.format("%d->%d", start, nums[i]));
+    for (int i = 0, start; i < nums.length; i++) {
+      for (start = nums[i]; i + 1 < nums.length && nums[i + 1] == nums[i] + 1; i++);
+      if (start != nums[i]) result.add(String.join("->", Integer.toString(start), Integer.toString(nums[i])));
       else result.add(Integer.toString(start));
     }
     return result;
