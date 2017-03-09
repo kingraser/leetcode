@@ -1,18 +1,11 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年3月4日;
-//-------------------------------------------------------
 public class FindtheDuplicateNumber {
+
   /*
   Given an array nums containing n + 1 integers where each integer is between 1 and n (inclusive), 
   prove that at least one duplicate number must exist. Assume that there is only one duplicate number, 
@@ -31,15 +24,12 @@ public class FindtheDuplicateNumber {
   }
 
   public int findDuplicate(int[] nums) {
-    int slow = 0, fast = 0, finder = 0;
-    do {
-      slow = nums[slow];
-      fast = nums[nums[fast]];
-    } while (slow != fast);
-    do {
-      slow = nums[slow];
-      finder = nums[finder];
-    } while (slow != finder);
-    return slow;
+    for (int i = 0; i < nums.length; i++) {
+      if (nums[0] == nums[nums[0]]) return nums[0];
+      int temp = nums[nums[0]];
+      nums[nums[0]] = nums[0];
+      nums[0] = temp;
+    }
+    return 0;
   }
 }
