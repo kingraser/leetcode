@@ -53,8 +53,8 @@ public class LargestBSTSubtree {
   private BST BSTSubstree(TreeNode root) {
     if (root == null) return new BST(0, Integer.MAX_VALUE, Integer.MIN_VALUE);
     BST left = BSTSubstree(root.left), right = BSTSubstree(root.right);
-    return left.count < 0 || right.count < 0 || root.val < left.max || root.val > right.min
-        ? new BST(Math.max(Math.abs(left.count), Math.abs(right.count)) * -1, 0, 0)
-        : new BST(left.count + right.count + 1, Math.min(root.val, left.min), Math.max(root.val, right.max));
+    if (left.count < 0 || right.count < 0 || root.val < left.max || root.val > right.min)
+      return new BST(Math.max(Math.abs(left.count), Math.abs(right.count)) * -1, 0, 0);
+    return new BST(left.count + right.count + 1, Math.min(root.val, left.min), Math.max(root.val, right.max));
   }
 }
