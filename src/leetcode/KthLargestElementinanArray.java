@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static leetcode.util.ArrayUtil.swap;
@@ -13,9 +8,6 @@ import java.util.PriorityQueue;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月18日<p>
-//-------------------------------------------------------
 public class KthLargestElementinanArray {
 
   /*
