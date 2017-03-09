@@ -1,17 +1,9 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月31日<p>
-//-------------------------------------------------------
 public class BullsandCows {
   /*
   You are playing the following Bulls and Cows game with your friend: 
