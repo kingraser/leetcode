@@ -1,23 +1,13 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.junit.Test;
 
 import leetcode.common.UndirectedGraphNode;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月16日<p>
-//-------------------------------------------------------
 public class CloneGraph {
   /*
   Clone an undirected graph. Each node in the graph contains a label and a list of its neighbors.
@@ -55,19 +45,8 @@ public class CloneGraph {
     assertEquals(zero, cloneGraph(zero));
   }
 
-  //dfs or bfs
   public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
-    Map<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<>();
-    dfs(map, node);
-    return map.get(node);
+    return node.clone();
   }
 
-  public void dfs(Map<UndirectedGraphNode, UndirectedGraphNode> map, UndirectedGraphNode node) {
-    if (map.containsKey(node)) return;
-    map.put(node, new UndirectedGraphNode(node.label));
-    node.neighbors.forEach(neighbor -> {
-      dfs(map, neighbor);
-      map.get(node).neighbors.add(map.get(neighbor));
-    });
-  }
 }
