@@ -1,20 +1,12 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
-import java.math.BigInteger;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月15日<p>
-//-------------------------------------------------------
 public class LargestNumber {
 
   /* 
@@ -24,11 +16,8 @@ public class LargestNumber {
   */
 
   public String largestNumber(int[] num) {
-    StringBuilder sb = new StringBuilder();
-    Arrays.stream(num).boxed()
-        .sorted((i1, i2) -> new BigInteger(String.valueOf(i2) + i1).compareTo(new BigInteger(String.valueOf(i1) + i2)))
-        .forEach(sb::append);
-    return sb.toString();
+    return String.join("", Arrays.stream(num).boxed().map(i -> i.toString())
+        .sorted((s1, s2) -> (s2 + s1).compareTo(s1 + s2)).collect(Collectors.toList()));
   }
 
   @Test
