@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -14,10 +9,8 @@ import org.junit.Test;
 
 import com.google.common.collect.Lists;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年3月15日;
-//-------------------------------------------------------
 public class CreateMaximumNumber {
+
   /*
   Given two arrays of length m and n with digits 0-9 representing two numbers. 
   Create the maximum number of length k <= m + n from digits of the two. 
