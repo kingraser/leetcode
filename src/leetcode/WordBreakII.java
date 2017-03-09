@@ -1,14 +1,11 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,9 +14,6 @@ import org.junit.Test;
 
 import com.google.common.collect.Sets;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月16日<p>
-//-------------------------------------------------------
 public class WordBreakII {
 
   /*
@@ -45,27 +39,31 @@ public class WordBreakII {
     boolean[] cuts = new boolean[s.length() + 1];
     boolean[][] words = new boolean[s.length()][s.length() + 1];
     cuts[0] = true;
-    for (int i = 1; i <= s.length(); i++)
-      for (int j = i - 1; j >= 0; j--)
-        if (cuts[j] && dic.contains(s.substring(j, i))) {
-          cuts[i] = true;
-          words[j][i] = true;
+    for (int right = 1; right <= s.length(); right++)
+      for (int left = right - 1; left >= 0; left--)
+        if (cuts[left] && dic.contains(s.substring(left, right))) {
+          cuts[right] = true;
+          words[left][right] = true;
         }
+    return getResult(s, words);
+  }
+
+  private List<String> getResult(String s, boolean[][] words) {
     List<String> result = new ArrayList<>();
-    dfs(s, words, 0, new ArrayList<>(), result);
+    dfs(s, words, 0, new ArrayDeque<>(), result);
     return result;
   }
 
-  private void dfs(String s, boolean[][] words, int start, List<String> path, List<String> result) {
+  private void dfs(String s, boolean[][] words, int start, Deque<String> path, List<String> result) {
     if (start == s.length()) {
       result.add(String.join(" ", path));
       return;
     }
-    for (int i = start + 1; i <= s.length(); i++)
-      if (words[start][i]) {
-        path.add(s.substring(start, i));
-        dfs(s, words, i, path, result);
-        path.remove(path.size() - 1);
+    for (int end = start + 1; end <= s.length(); end++)
+      if (words[start][end]) {
+        path.addLast(s.substring(start, end));
+        dfs(s, words, end, path, result);
+        path.pollLast();
       }
   }
 }

@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertTrue;
@@ -13,9 +8,6 @@ import org.junit.Test;
 
 import com.google.common.collect.Sets;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月16日<p>
-//-------------------------------------------------------
 public class WordBreak {
   /*
   Given a string s and a dictionary of words dict, 
@@ -42,9 +34,9 @@ public class WordBreak {
   public boolean wordBreak(String s, Set<String> dict) {
     boolean[] cuts = new boolean[s.length() + 1];
     cuts[0] = true;
-    for (int i = 1; i <= s.length(); i++)
-      for (int j = i - 1; !cuts[i] && j >= 0; j--)
-        if (cuts[j] && dict.contains(s.substring(j, i))) cuts[i] = true;
+    for (int right = 1; right <= s.length(); right++)
+      for (int left = right - 1; !cuts[right] && left >= 0; left--)
+        if (cuts[left] && dict.contains(s.substring(left, right))) cuts[right] = true;
     return cuts[s.length()];
   }
 }
