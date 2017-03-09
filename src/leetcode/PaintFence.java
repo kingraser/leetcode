@@ -1,5 +1,9 @@
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 public class PaintFence {
 
   /*
@@ -8,6 +12,11 @@ public class PaintFence {
   Return the total number of ways you can paint the fence.
   Note:n and k are non-negative integers.
   */
+
+  @Test
+  public void test() {
+    assertEquals(27408, numWays(10, 3));
+  }
 
   public int numWays(int n, int k) {
     if (n == 0) return 0;
