@@ -1,24 +1,14 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月14日<p>
-//-------------------------------------------------------
 public class SingleNumberII {
 
   /*    
-  Given an array of integers, every element appears three times except for one. Find that single one.
-  
-  Note:
-  Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory? 
+  Given an array of integers, every element appears three times except for one. Find that single one.  
+  Note: Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory? 
   */
 
   @Test

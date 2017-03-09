@@ -1,17 +1,9 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertArrayEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年3月2日;
-//-------------------------------------------------------
 public class SingleNumberIII {
   /*
   Given an array of numbers nums, 
@@ -30,10 +22,10 @@ public class SingleNumberIII {
   */
 
   /*
-          先全部异或,出现两次的全部抵消,剩下的结果就是两个数(a和b)的异或
-          又两数不同,所以异或的结果肯定会有位为1,说明a和该位和b的该位不同
-          找到该位,将数组分为两类,该位为1的和该位为0的
-          对每一类,问题转化为single number I 
+  First we exclusive or all number, we get a^b (a, b are what we want to find).
+  The 1 bit of result represents a and b differ at the bit.       
+  Find the bit, we can split the numbers by whether the bit is 0 or 1.
+  For every part the problem is transform to <leetcode.SingleNumber> 
   */
 
   @Test
@@ -45,10 +37,10 @@ public class SingleNumberIII {
     int aXORb = 0;
     for (int item : nums)
       aXORb ^= item;
-    int lastBit = aXORb & (-aXORb);
+    int last1Bit = aXORb & (-aXORb);
     int a = 0, b = 0;
     for (int item : nums)
-      if ((item & lastBit) != 0) a = a ^ item;
+      if ((item & last1Bit) != 0) a = a ^ item;
       else b = b ^ item;
     return new int[] { a, b };
   }
