@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode.common;
 
 import static org.junit.Assert.assertFalse;
@@ -13,9 +8,6 @@ import java.util.Objects;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年5月25日;
-//-------------------------------------------------------
 public class Trie {
   public TrieNode root = new TrieNode(), march;
 
