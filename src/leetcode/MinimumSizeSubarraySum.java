@@ -1,18 +1,11 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月18日<p>
-//-------------------------------------------------------
 public class MinimumSizeSubarraySum {
+
   /*
   Given an array of n positive integers and a positive integer s, 
   find the minimal length of a subarray of which the sum ≥ s. If there isn't one, return 0 instead.    
