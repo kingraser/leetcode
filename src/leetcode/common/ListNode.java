@@ -1,15 +1,8 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
+
 package leetcode.common;
 
 import java.util.Objects;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月6日<p>
-//-------------------------------------------------------
 public class ListNode {
   public int val;
   public ListNode next = null;
