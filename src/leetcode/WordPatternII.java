@@ -24,6 +24,7 @@ public class WordPatternII {
   public void test() {
     assertFalse(wordPatternMatch("aaaa", "aaa"));
     assertFalse(wordPatternMatch("a", ""));
+
     assertTrue(wordPatternMatch("abab", "redblueredblue"));
     assertTrue(wordPatternMatch("aaaa", "asdasdasdasd"));
     assertFalse(wordPatternMatch("aabb", "xyzabcxzyabc"));
