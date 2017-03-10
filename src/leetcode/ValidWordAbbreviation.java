@@ -29,7 +29,7 @@ public class ValidWordAbbreviation {
     assertFalse(validWordAbbreviation("apple", "a2e"));
   }
 
-  public boolean validWordAbbreviation(String word, String abbr) {
+  public static boolean validWordAbbreviation(String word, String abbr) {
     int wordLength = word.length(), abbrLength = abbr.length(), wordIdx = 0, abbrIdx = 0;
     for (int abbrChar, num; wordIdx < wordLength && abbrIdx < abbrLength;)
       if ((abbrChar = abbr.charAt(abbrIdx++)) > '0' && abbrChar <= '9') {
