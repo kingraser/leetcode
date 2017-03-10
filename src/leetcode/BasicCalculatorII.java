@@ -10,7 +10,6 @@ import org.junit.Test;
 
 import com.google.common.collect.ImmutableMap;
 
-
 public class BasicCalculatorII {
   /*
   implement a basic calculator to evaluate a simple expression string.
