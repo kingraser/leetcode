@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import leetcode.common.TreeNode;
 
-public class FindLargestElementinEachRow {
+public class FindLargestValueinEachTreeRow {
 
   /*
   You need to find the largest value in each row of a binary tree.
