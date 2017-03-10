@@ -11,7 +11,9 @@ import org.junit.Test;
 public class BestMeetingPoint {
 
   /*
-  A group of two or more people wants to meet and minimize the total travel distance. You are given a 2D grid of values 0 or 1, where each 1 marks the home of someone in the group. The distance is calculated using Manhattan Distance, where distance(p1, p2) = |p2.x - p1.x| + |p2.y - p1.y|.
+  A group of two or more people wants to meet and minimize the total travel distance. 
+  You are given a 2D grid of values 0 or 1, where each 1 marks the home of someone in the group. 
+  The distance is calculated using Manhattan Distance, where distance(p1, p2) = |p2.x - p1.x| + |p2.y - p1.y|.
   
   For example, given three people living at (0,0), (0,4), and (2,2):
   
@@ -32,11 +34,11 @@ public class BestMeetingPoint {
 
   public int minTotalDistance(int[][] grid) {
     List<Integer> rows = new ArrayList<>(), cols = new ArrayList<>();
-    for (int i = 0; i < grid.length; i++)
-      for (int j = 0; j < grid[0].length; j++)
-        if (grid[i][j] == 1) {
-          rows.add(i);
-          cols.add(j);
+    for (int row = 0; row < grid.length; row++)
+      for (int col = 0; col < grid[0].length; col++)
+        if (grid[row][col] == 1) {
+          rows.add(row);
+          cols.add(col);
         }
     int sum = 0;
     for (Integer row : rows)
