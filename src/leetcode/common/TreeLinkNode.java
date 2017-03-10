@@ -1,8 +1,4 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
+
 package leetcode.common;
 
 import java.util.ArrayList;
@@ -11,9 +7,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Stack;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月14日<p>
-//-------------------------------------------------------
 public class TreeLinkNode {
   public int val;
   public TreeLinkNode left, right, next;

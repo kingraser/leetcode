@@ -1,16 +1,9 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
+
 package leetcode.common;
 
 import java.util.Objects;
 import java.util.Stack;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月1日<p>
-//-------------------------------------------------------
 public class TreeNode {
   public int val;
   public TreeNode left, right;

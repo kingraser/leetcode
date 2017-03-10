@@ -1,17 +1,12 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
+
 package leetcode.common;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年10月16日<p>
-//-------------------------------------------------------
 public class UndirectedGraphNode {
   public int label;
   public List<UndirectedGraphNode> neighbors = new ArrayList<>();
@@ -56,7 +51,21 @@ public class UndirectedGraphNode {
   }
 
   private static boolean isReached(List<UndirectedGraphNode> history, UndirectedGraphNode node) {
-    if (Objects.isNull(history) || history.isEmpty()) return false;
-    return history.stream().anyMatch(past -> past == node);
+    return Objects.nonNull(history) && history.stream().anyMatch(past -> past == node);
+  }
+
+  public UndirectedGraphNode clone() {
+    Map<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<>();
+    dfs(map, this);
+    return map.get(this);
+  }
+
+  private void dfs(Map<UndirectedGraphNode, UndirectedGraphNode> map, UndirectedGraphNode node) {
+    if (map.containsKey(node)) return;
+    map.put(node, new UndirectedGraphNode(node.label));
+    node.neighbors.forEach(neighbor -> {
+      dfs(map, neighbor);
+      map.get(node).neighbors.add(map.get(neighbor));
+    });
   }
 }

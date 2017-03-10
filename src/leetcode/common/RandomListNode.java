@@ -1,17 +1,12 @@
-/*
- * $Id$
- *
- * Copyright (c) 2012 Qunar.com. All Rights Reserved.
- */
+
 package leetcode.common;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
-//--------------------- Change Logs----------------------
-// <p>@author wit Initial Created at 2015年9月15日<p>
-//-------------------------------------------------------
 public class RandomListNode {
   public int label;
   public RandomListNode next, random;
@@ -48,8 +43,7 @@ public class RandomListNode {
   }
 
   private boolean isReached(List<RandomListNode> history, RandomListNode node) {
-    if (Objects.isNull(history) || history.isEmpty()) return false;
-    return history.stream().anyMatch(past -> past == node);
+    return Objects.nonNull(history) && history.stream().anyMatch(past -> past == node);
   }
 
   private boolean equals(RandomListNode n1, RandomListNode n2, boolean checkNextAndRandom) {
@@ -59,5 +53,13 @@ public class RandomListNode {
     if (!checkNextAndRandom) return true;
     if (!equals(n1.next, n2.next, false) || !equals(n1.random, n2.random, false)) return false;
     return true;
+  }
+
+  public RandomListNode clone() {
+    Map<RandomListNode, RandomListNode> map = new HashMap<>();
+    for (RandomListNode n = this; n != null; map.put(n, new RandomListNode(n.label)), n = n.next);
+    for (RandomListNode n = this; n != null; map.get(n).next = map.get(n.next), map.get(n).random = map
+        .get(n.random), n = n.next);
+    return map.get(this);
   }
 }

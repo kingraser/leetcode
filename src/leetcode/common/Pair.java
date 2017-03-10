@@ -1,15 +1,9 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
+
 package leetcode.common;
 
 import java.util.Objects;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年9月19日;
-//-------------------------------------------------------
+
 public class Pair<K, V> {
   public K key;
   public V value;
