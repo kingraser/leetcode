@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.BitSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -50,16 +51,16 @@ public class ConcatenatedWords {
       dict.add(word);
       return;
     }
-    boolean[] cuts = new boolean[word.length() + 1];
-    cuts[0] = true;
-    for (int i = 1; i < cuts.length; i++)
+    BitSet cuts = new BitSet(word.length() + 1);
+    cuts.set(0);
+    for (int i = 1; i <= word.length(); i++)
       for (int j = 0; j < i; j++)
-        if (cuts[j] && dict.contains(word.substring(j, i))) {
-          cuts[i] = true;
+        if (cuts.get(j) && dict.contains(word.substring(j, i))) {
+          cuts.set(i);
           break;
         }
     dict.add(word);
-    if (cuts[word.length()]) result.add(word);
+    if (cuts.get(word.length())) result.add(word);
   }
 
 }
