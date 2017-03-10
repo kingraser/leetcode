@@ -20,4 +20,20 @@ public class MathUtil {
     return Arrays.stream(args).min().getAsLong();
   }
 
+  public static int log10(long n) {
+    int count = 0;
+    while (n > 0) {
+      count++;
+      n /= 10;
+    }
+    return count;
+  }
+
+  public static long join(int a, int b) {
+    return (((long) a) << 32) | (b & 0xFFFF_FFFFL);
+  }
+
+  public static int[] split(long l) {
+    return new int[] { (int) l >> 32, (int) l };
+  }
 }
