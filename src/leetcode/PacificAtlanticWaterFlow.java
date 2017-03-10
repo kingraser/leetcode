@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
@@ -15,10 +10,8 @@ import java.util.stream.Collectors;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年10月10日;
-//-------------------------------------------------------
 public class PacificAtlanticWaterFlow {
+
   /*
   Given an m x n matrix of non-negative integers representing the height of each unit cell in a continent, the "Pacific ocean" touches the left and top edges of the matrix and the "Atlantic ocean" touches the right and bottom edges.
   
@@ -48,7 +41,7 @@ public class PacificAtlanticWaterFlow {
   [[0, 4], [1, 3], [1, 4], [2, 2], [3, 0], [3, 1], [4, 0]] (positions with parentheses in above matrix). 
   */
 
-  int[] dx = new int[] { -1, 1, 0, 0 }, dy = new int[] { 0, 0, 1, -1 };
+  int[] dRow = new int[] { -1, 1, 0, 0 }, dCol = new int[] { 0, 0, 1, -1 };
 
   public List<int[]> pacificAtlantic(int[][] matrix) {
     List<int[]> result = new ArrayList<>();
@@ -68,7 +61,7 @@ public class PacificAtlanticWaterFlow {
   private void dfs(int[][] A, boolean[][] reach, int i, int j, int height) {
     if (i < 0 || i == A.length || j < 0 || j == A[0].length || reach[i][j] || A[i][j] < height) return;
     reach[i][j] = true;
-    for (int k = 0; k < 4; dfs(A, reach, i + dx[k], j + dy[k++], A[i][j]));
+    for (int k = 0; k < 4; dfs(A, reach, i + dRow[k], j + dCol[k++], A[i][j]));
   }
 
   @Test
