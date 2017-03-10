@@ -1,18 +1,11 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年10月28日;
-//-------------------------------------------------------
 public class KthSmallestinLexicographicalOrder {
+
   /*
   Given integers n and k, find the lexicographically k-th smallest integer in the range from 1 to n.  
   Note: 1 ≤ k ≤ n ≤ 10^9.
