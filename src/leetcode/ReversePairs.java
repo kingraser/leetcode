@@ -2,22 +2,21 @@ package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 
 public class ReversePairs {
 
   /*
-  Given an array nums, we call (i, j) an important reverse pair if i < j and nums[i] > 2*nums[j].
-  
+  Given an array nums, we call (i, j) an important reverse pair if i < j and nums[i] > 2 * nums[j].  
   You need to return the number of important reverse pairs in the given array.
   
-  Example1:
-  
+  Example1:  
   Input: [1,3,2,3,1]
   Output: 2
   
-  Example2:
-  
+  Example2:  
   Input: [2,4,3,5,1]
   Output: 3
   
@@ -34,45 +33,17 @@ public class ReversePairs {
         Integer.MIN_VALUE, Integer.MAX_VALUE }));
   }
 
-  int sum;
-
   public int reversePairs(int[] nums) {
-    sum = 0;
-    Node root = null;
-    for (int i = nums.length - 1; i >= 0; i--) {
-      sum(root, nums[i] / 2d);
-      root = add(root, nums[i]);
-    }
-    return sum;
+    return mergeSort(nums, 0, nums.length - 1);
   }
 
-  private void sum(Node node, double half) {
-    if (node == null) return;
-    if (half == node.val) sum += node.leftCount;
-    else if (half < node.val) sum(node.left, half);
-    else {
-      sum += node.leftCount + node.count;
-      sum(node.right, half);
-    }
+  private int mergeSort(int[] nums, int start, int end) {
+    if (start >= end) return 0;
+    int middle = (start + end) >> 1, count = mergeSort(nums, start, middle) + mergeSort(nums, middle + 1, end);
+    for (int i = start, j = middle + 1; i <= middle; count += j - (middle + 1), i++)
+      for (; j <= end && nums[i] > nums[j] << 1; j++);
+    Arrays.sort(nums, start, end + 1);
+    return count;
   }
 
-  private Node add(Node node, int val) {
-    if (node == null) return new Node(val);
-    if (val == node.val) node.count += 1;
-    else if (val > node.val) node.right = add(node.right, val);
-    else {
-      node.leftCount++;
-      node.left = add(node.left, val);
-    }
-    return node;
-  }
-
-  class Node {
-    int val, leftCount = 0, count = 1;
-    Node left, right;
-
-    public Node(int v) {
-      this.val = v;
-    }
-  }
 }
