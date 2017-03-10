@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -13,9 +8,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年9月26日;
-//-------------------------------------------------------
 public class QueueReconstructionbyHeight {
 
   /*
