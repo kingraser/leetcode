@@ -2,11 +2,10 @@ package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
+import java.util.stream.IntStream;
 
 import org.junit.Test;
 
@@ -23,7 +22,7 @@ public class ShortestWordDistanceII {
 
   @Test
   public void test() {
-    WordDistance wordDistance = new WordDistance(Arrays.asList("practice", "makes", "perfect", "coding", "makes"));
+    WordDistance wordDistance = new WordDistance(new String[] { "practice", "makes", "perfect", "coding", "makes" });
     assertEquals(3, wordDistance.shortestDistance("coding", "practice"));
     assertEquals(1, wordDistance.shortestDistance("coding", "makes"));
   }
@@ -31,9 +30,8 @@ public class ShortestWordDistanceII {
   class WordDistance {
     private Map<String, TreeSet<Integer>> map = new HashMap<>();
 
-    public WordDistance(List<String> words) {
-      for (int i = 0; i < words.size(); i++)
-        map.computeIfAbsent(words.get(i), k -> new TreeSet<>()).add(i);
+    public WordDistance(String[] words) {
+      IntStream.range(0, words.length).forEach(i -> map.computeIfAbsent(words[i], k -> new TreeSet<>()).add(i));
     }
 
     public int shortestDistance(String word1, String word2) {
