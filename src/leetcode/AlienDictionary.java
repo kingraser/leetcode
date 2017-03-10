@@ -39,8 +39,6 @@ public class AlienDictionary {
     assertEquals("", alienOrder(Arrays.asList("ab", "ba")));
   }
 
-  char c;
-
   public String alienOrder(List<String> words) {
     Map<Character, Node> map = new HashMap<>();
     for (String word : words)
@@ -56,7 +54,8 @@ public class AlienDictionary {
   private boolean add(String word, Map<Character, Node> map) {
     Node current, previous = null;
     for (int i = word.length() - 1; i >= 0; previous = current) {
-      current = map.computeIfAbsent(c = word.charAt(i--), k -> new Node(c));
+      char c = word.charAt(i--);
+      current = map.computeIfAbsent(c, k -> new Node(c));
       if (previous == null || previous.c == current.c) continue;
       if (current.hasChild(previous)) return false;
       previous.add(current);
