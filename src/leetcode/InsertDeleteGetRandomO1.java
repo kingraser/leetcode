@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
 import java.util.List;
@@ -21,10 +16,8 @@ import org.junit.Test;
 
 import com.google.common.collect.Sets;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年9月6日;
-//-------------------------------------------------------
 public class InsertDeleteGetRandomO1 {
+
   /*
   Design a data structure that supports all following operations in average O(1) time.
   
