@@ -21,13 +21,13 @@ public class KthLargestElementinanArray {
 
   @Test
   public void test() {
+    assertEquals(3, findKthLargestZero(new int[] { 5, 3, 2, 4, 7, 1, 6 }, 5));
     assertEquals(3, findKthLargest(new int[] { 5, 3, 2, 4, 7, 1, 6 }, 5));
-    assertEquals(3, findKthLargestII(new int[] { 5, 3, 2, 4, 7, 1, 6 }, 5));
-    assertEquals(5, findKthLargestII(new int[] { 5, 3, 2, 4, 7, 1, 6 }, 3));
+    assertEquals(5, findKthLargest(new int[] { 5, 3, 2, 4, 7, 1, 6 }, 3));
   }
 
   //heap
-  public int findKthLargest(int[] nums, int k) {
+  public int findKthLargestZero(int[] nums, int k) {
     PriorityQueue<Integer> queue = new PriorityQueue<>(nums.length, (i1, i2) -> i2 - i1);
     Arrays.stream(nums).forEach(queue::add);
     for (; --k > 0; queue.poll());
@@ -35,7 +35,7 @@ public class KthLargestElementinanArray {
   }
 
   //quick sort
-  public static int findKthLargestII(int[] nums, int k) {
+  public static int findKthLargest(int[] nums, int k) {
     return findK(nums, --k, 0, nums.length - 1);
   }
 
