@@ -1,17 +1,9 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年8月23日;
-//-------------------------------------------------------
 public class RansomNote {
 
   /*
@@ -32,7 +24,7 @@ public class RansomNote {
     assertTrue(canConstruct("aa", "aab"));
   }
 
-  public boolean canConstruct(String ransomNote, String magazine) {
+  public static boolean canConstruct(String ransomNote, String magazine) {
     int[] counts = new int[128];
     magazine.chars().forEach(c -> counts[c]++);
     return ransomNote.chars().allMatch(c -> counts[c]-- > 0);
