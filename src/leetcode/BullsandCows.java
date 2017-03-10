@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 public class BullsandCows {
+
   /*
   You are playing the following Bulls and Cows game with your friend: 
   You write a 4-digit secret number and ask your friend to guess it, 
