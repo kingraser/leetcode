@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertFalse;
@@ -10,10 +5,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年9月5日;
-//-------------------------------------------------------
 public class IsSubsequence {
+
   /*
   Given a string s and a string t, check if s is subsequence of t.
   You may assume that there is only lower case English letters in both s and t. 
