@@ -1,5 +1,6 @@
 package leetcode;
 
+import static leetcode.util.MathUtil.join;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -97,10 +98,6 @@ public class PerfectRectangle {
 
   private void toggle(Set<Long> set, long a) {
     if (!set.add(a)) set.remove(a);
-  }
-
-  private long join(long a, long b) {
-    return (a << 32) | (b & 0xffffffffL);
   }
 
 }
