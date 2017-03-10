@@ -1,23 +1,22 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年9月26日;
-//-------------------------------------------------------
 public class ConvertaNumbertoHexadecimal {
 
   @Test
   public void test() {
     assertEquals("1a", toHex(26));
     assertEquals("ffffffff", toHex(-1));
+
+    assertEquals("1a", toHexZero(26));
+    assertEquals("ffffffff", toHexZero(-1));
+  }
+
+  private String toHexZero(int n) {
+    return Integer.toHexString(n);
   }
 
   private String toHex(int n) {
