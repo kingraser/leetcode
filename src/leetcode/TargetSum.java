@@ -19,8 +19,7 @@ public class TargetSum {
   +1-1+1+1+1 = 3
   +1+1-1+1+1 = 3
   +1+1+1-1+1 = 3
-  +1+1+1+1-1 = 3
-  
+  +1+1+1+1-1 = 3  
   There are 5 ways to assign symbols to make the sum of nums be target 3.
   
   Note:
