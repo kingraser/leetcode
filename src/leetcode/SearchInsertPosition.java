@@ -27,7 +27,7 @@ public class SearchInsertPosition {
     assertEquals(1, searchInsert(A, 2));
     assertEquals(4, searchInsert(A, 7));
     assertEquals(0, searchInsert(A, 0));
-    
+
     assertEquals(2, searchInsertZero(A, 5));
     assertEquals(1, searchInsertZero(A, 2));
     assertEquals(4, searchInsertZero(A, 7));
