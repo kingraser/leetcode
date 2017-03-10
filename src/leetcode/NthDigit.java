@@ -1,23 +1,25 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年9月19日;
-//-------------------------------------------------------
 public class NthDigit {
 
   /*  
-  find the length of the number where the nth digit is from
-  find the actual number where the nth digit is from
-  find the nth digit and return
+  Find the nth digit of the infinite integer sequence 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ...
+  Note: n is positive and will fit within the range of a 32-bit signed integer (n < 231).
+  
+  Example 1:  
+  Input: 3
+  Output: 3
+  
+  Example 2:  
+  Input: 11
+  Output: 0
+  
+  Explanation:
+  The 11th digit of the sequence 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ... is a 0, which is part of the number 10.  
   */
 
   @Test
@@ -36,9 +38,8 @@ public class NthDigit {
 
   /**
    * @param n
-   *          整数
    * @param k
-   * @return n的从最右位开始数第k位
+   * @return the k digit from the right of number n
    */
   public int getNDigit(int n, int k) {
     return (n % powOfTen[k]) / powOfTen[--k];
