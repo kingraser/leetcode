@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class ConvexPolygon {
+
   /*
   Given a list of points that form a polygon when joined sequentially, find if this polygon is convex.  
   Note:  
