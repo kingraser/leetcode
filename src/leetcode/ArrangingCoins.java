@@ -4,15 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
-
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年10月31日;
-//-------------------------------------------------------
 public class ArrangingCoins {
 
   /*
