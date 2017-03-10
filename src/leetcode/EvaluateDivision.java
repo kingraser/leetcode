@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -19,10 +14,8 @@ import com.google.common.collect.Lists;
 
 import leetcode.common.Pair;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年9月12日;
-//-------------------------------------------------------
 public class EvaluateDivision {
+
   /*
   Equations are given in the format A / B = k, where A and B are variables represented as strings, and k is a real number (floating point number). Given some queries, return the answers. If the answer does not exist, return -1.0.
   
