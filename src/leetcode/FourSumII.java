@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
 import static org.junit.Assert.assertEquals;
@@ -13,9 +8,6 @@ import java.util.Objects;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年11月16日;
-//-------------------------------------------------------
 public class FourSumII {
 
   /*
@@ -23,17 +15,13 @@ public class FourSumII {
   To make problem a bit easier, all A, B, C, D have same length of N where 0 ≤ N ≤ 500. 
   All integers are in the range of -2^28 to 2^28 - 1 and the result is guaranteed to be at most 2^31 - 1.
   
-  Example:
-  
+  Example:  
   Input:
   A = [ 1, 2]
   B = [-2,-1]
   C = [-1, 2]
-  D = [ 0, 2]
-  
-  Output:
-  2
-  
+  D = [ 0, 2]  
+  Output: 2  
   Explanation:
   The two tuples are:
   1. (0, 0, 0, 1) -> A[0] + B[0] + C[0] + D[1] = 1 + (-2) + (-1) + 2 = 0
