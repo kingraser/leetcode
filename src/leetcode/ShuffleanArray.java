@@ -1,8 +1,3 @@
-/*
- * $Id$
- *
- * Copyright (c) 2015 Sogou.com. All Rights Reserved.
- */
 package leetcode;
 
 import static leetcode.util.ArrayUtil.swap;
@@ -15,10 +10,8 @@ import java.util.Random;
 
 import org.junit.Test;
 
-//--------------------- Change Logs----------------------
-//@author wangwenlong Initial Created at 2016年8月30日;
-//-------------------------------------------------------
 public class ShuffleanArray {
+
   /*
   Shuffle a set of numbers without duplicates.
   
