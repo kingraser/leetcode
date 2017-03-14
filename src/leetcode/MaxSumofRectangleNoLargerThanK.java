@@ -2,6 +2,7 @@ package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Objects;
 import java.util.TreeSet;
 
 import org.junit.Test;
@@ -32,26 +33,23 @@ public class MaxSumofRectangleNoLargerThanK {
     assertEquals(2, maxSumSubmatrix(new int[][] { { 1, 0, 1 }, { 0, -2, 3 } }, 2));
   }
 
-  public int maxSumSubmatrix(int[][] matrix, int k) {
+  public int maxSumSubmatrix(int[][] matrix, int limit) {
     if (matrix == null || matrix.length == 0 || matrix[0].length == 0) return 0;
-    int row = matrix.length, col = matrix[0].length, result = Integer.MIN_VALUE;
-    for (int left = 0; left < col; left++) {
-      int[] sums = new int[row];
-      for (int right = left; right < col; right++) {
-        for (int i = 0; i < row; i++)
-          sums[i] += matrix[i][right];
-        TreeSet<Integer> set = new TreeSet<Integer>();
-        set.add(0);
-        int currSum = 0;
-        for (int sum : sums) {
-          currSum += sum;
-          Integer num = set.ceiling(currSum - k);
-          if (num != null) result = Math.max(result, currSum - num);
-          set.add(currSum);
-        }
+    int result = Integer.MIN_VALUE, rowCount = matrix.length, colCount = matrix[0].length;
+    for (int left = 0; left < colCount; left++)
+      for (int right = left, rowSums[] = new int[rowCount]; right < colCount; right++) {
+        for (int i = 0; i < rowCount; rowSums[i] += matrix[i++][right]);
+        if ((result = maxSumSubmatrix(rowSums, new TreeSet<>(), result, limit)) == limit) return limit;
       }
-    }
     return result;
+  }
+
+  private int maxSumSubmatrix(int[] rows, TreeSet<Integer> set, int res, int k) {
+    set.add(0);
+    Integer num;
+    for (int i = 0, sum = 0; i < rows.length; set.add(sum), i++)
+      if (Objects.nonNull(num = set.ceiling((sum += rows[i]) - k)) && (res = Math.max(res, sum - num)) == k) return k;
+    return res;
   }
 
 }
