@@ -1,5 +1,10 @@
 package leetcode;
 
+import static leetcode.common.TreeNode.tree;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 import leetcode.common.TreeNode;
 
 public class BinaryTreeLongestConsecutiveSequence {
@@ -29,6 +34,12 @@ public class BinaryTreeLongestConsecutiveSequence {
   Longest consecutive sequence path is 2-3, not 3-2-1, so return 2.
   */
 
+  @Test
+  public void test() {
+    assertEquals(3, longestConsecutive(tree("1,n,3,2,n,n,4,n,5,n,n")));
+    assertEquals(2, longestConsecutive(tree("2,n,3,2,1,n,n,n,n")));
+  }
+
   int res;
 
   int longestConsecutive(TreeNode root) {
@@ -38,10 +49,10 @@ public class BinaryTreeLongestConsecutiveSequence {
     return res;
   }
 
-  void dfs(TreeNode root, int v, int out) {
+  void dfs(TreeNode root, int previousValue, int previousLength) {
     if (root == null) return;
-    res = Math.max(res, out = root.val == ++v ? ++out : 1);
-    dfs(root.left, root.val, out);
-    dfs(root.right, root.val, out);
+    res = Math.max(res, previousLength = root.val == ++previousValue ? ++previousLength : 1);
+    dfs(root.left, root.val, previousLength);
+    dfs(root.right, root.val, previousLength);
   }
 }
