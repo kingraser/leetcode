@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class PowXN {
+public class Powxn {
 
   // Implement pow(x, n). 
 
