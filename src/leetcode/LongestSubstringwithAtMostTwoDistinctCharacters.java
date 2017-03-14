@@ -1,6 +1,6 @@
 package leetcode;
 
-import static leetcode.LongestSubstringwithAtMostkDistinctCharacters.lengthOfLongestSubstringKDistinct;
+import static leetcode.LongestSubstringwithAtMostKDistinctCharacters.lengthOfLongestSubstringKDistinct;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
