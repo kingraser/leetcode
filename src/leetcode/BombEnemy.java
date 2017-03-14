@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class BoomEnemy {
+public class BombEnemy {
 
   /*
   Given a 2D grid, each cell is either a wall 'W', an enemy 'E' or empty '0' (the number zero), 
