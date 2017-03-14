@@ -17,8 +17,7 @@ public class NumberofIslandsII {
   An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. 
   You may assume all four edges of the grid are all surrounded by water.
   
-  Example: 
-   
+  Example:   
   Given m = 3, n = 3, positions = [[0,0], [0,2], [0,1], [1,1]].
   Initially, the 2d grid grid is filled with water. (Assume 0 represents water and 1 represents land).
   
@@ -58,29 +57,28 @@ public class NumberofIslandsII {
 
   @Test
   public void test() {
-    assertEquals(Arrays.asList(1, 2, 1, 1), numIslands2(new int[][] { { 0, 0 }, { 0, 2 }, { 0, 1 }, { 1, 1 } }));
+    assertEquals(Arrays.asList(1, 2, 1, 1), numIslands2(3, 3, new int[][] { { 0, 0 }, { 0, 2 }, { 0, 1 }, { 1, 1 } }));
+    assertEquals(Arrays.asList(1, 1, 1, 1), numIslands2(3, 3, new int[][] { { 0, 0 }, { 0, 1 }, { 1, 1 }, { 1, 0 } }));
   }
 
-  int[] dRow = { 0, 0, 1, -1 }, dCol = { 1, -1, 0, 0 };
+  int[][] DIRECTIONS = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
 
-  public List<Integer> numIslands2(int[][] positions) {
+  public List<Integer> numIslands2(int rowCount, int colCount, int[][] positions) {
     List<Integer> result = new ArrayList<>();
-    int rowCount = positions.length, colCount = positions[0].length, count = 0, point,
-        points[] = new int[rowCount * colCount];
+    int count = 0, point, points[] = new int[rowCount * colCount], row, col, neighbour, rootOfNeighbour;
     Arrays.fill(points, -1);
     for (int[] position : positions) {
       points[point = position[0] * colCount + position[1]] = point;
       count++;
-      for (int k = 0, row, col, neighbour, rootOfNeighbour; k < 4; k++) {
-        if ((row = position[0] + dRow[k]) < 0 || row == rowCount || (col = position[1] + dCol[k]) < 0 || col == colCount
-            || points[neighbour = row * colCount + col] == -1)
+      for (int[] direction : DIRECTIONS)
+        if ((row = position[0] + direction[0]) < 0 || row == rowCount || (col = position[1] + direction[1]) < 0
+            || col == colCount || points[neighbour = row * colCount + col] < 0)
           continue;
-        if (points[point] != (rootOfNeighbour = getRoot(points, neighbour))) {
+        else if (points[point] != (rootOfNeighbour = getRoot(points, neighbour))) {
           points[point] = rootOfNeighbour;
           point = rootOfNeighbour;
           count--;
         }
-      }
       result.add(count);
     }
     return result;
@@ -93,5 +91,4 @@ public class NumberofIslandsII {
     }
     return leaf;
   }
-
 }
