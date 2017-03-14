@@ -44,8 +44,7 @@ public class Trie {
 
   public List<String> getWithPrefix(String prefix) {
     List<String> result = new ArrayList<>();
-    if (Objects.isNull(march = search(prefix.toCharArray(), root, 0))) return result;
-    dfs(result, march, prefix);
+    dfs(result, search(prefix.toCharArray(), root, 0), prefix);
     return result;
   }
 
@@ -55,8 +54,7 @@ public class Trie {
       result.add(prefix);
       return;
     }
-    IntStream.range(0, 26).filter(i -> Objects.nonNull(node.nexts[i]))
-        .forEach(i -> dfs(result, node.nexts[i], prefix + (char) (i + 'a')));
+    IntStream.range(0, 26).forEach(i -> dfs(result, node.nexts[i], prefix + (char) (i + 'a')));
   }
 
   @Test
