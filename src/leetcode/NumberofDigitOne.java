@@ -1,5 +1,9 @@
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 public class NumberofDigitOne {
 
   /*
@@ -9,6 +13,11 @@ public class NumberofDigitOne {
   Return 6, because digit 1 occurred in the following numbers: 1, 10, 11, 12, 13.  
   Hint: Beware of overflow.
   */
+
+  @Test
+  public void test() {
+    assertEquals(6, countDigitOne(13));
+  }
 
   public int countDigitOne(int n) {
     int ones = 0;
