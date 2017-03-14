@@ -1,9 +1,13 @@
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 public class SuperPow {
 
   /*
-  Your task is to calculate ab mod 1337 where a is a positive integer and b is an extremely large positive integer given in the form of an array.
+  Your task is to calculate a^b mod 1337 where a is a positive integer and b is an extremely large positive integer given in the form of an array.
   
   Example1:  
   a = 2
@@ -17,24 +21,33 @@ public class SuperPow {
   */
 
   /*
-  An integer can be represented as sum(k[i] * 10^i). So a^b can be represented as multiply(a^(k[i] * 10^i))
-  We know (a*b) mod n = ((a mod n) * (b mod n)) mod n
+  phi(i) is count of positive integer j, where j < i and i and j are co-prime.
+  For example, 
+    phi(5) is 4, which are 1, 2, 3, 4
+    phi(9) is 6, which are 1, 2, 4, 5, 7, 8
+    phi(15) is 8, which are 1, 2, 4, 7, 8, 11, 13, 14
   */
 
-  public int superPow(int a, int[] b) {
-    return superPow(a, b, 1337);
+  @Test
+  public void test() {
+    assertEquals((1l << 50) % 1337, superPow(2, new int[] { 5, 0 }));
   }
 
-  private int superPow(int a, int[] b, int mod) {
+  public int superPow(int num, int[] powArray) {
+    if (num % 1337 == 0) return 0;
+    int pow = 0;
+    for (int i : powArray)
+      pow = (pow * 10 + i) % 1140; // phi(1337) = phi(7) * phi(191) = 6 * 190 = 1140
+    return pow(num, pow == 0 ? 1440 : pow, 1337);
+  }
+
+  public int pow(int num, int pow, int mod) {
     int result = 1;
-    for (int i = b.length - 1; i >= 0; i--)
-      result = (result * pow(a, b[i], b.length - 1 - i, mod)) % mod;
+    for (num %= mod; pow != 0; pow >>= 1) {
+      if ((pow & 1) != 0) result = (result * num) % mod;
+      num = (num * num) % mod;
+    }
     return result;
-  }
-
-  private int pow(int a, int k, int i, int mod) {
-    // TODO Auto-generated method stub
-    return 0;
   }
 
 }
