@@ -1,6 +1,10 @@
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
+
+import org.junit.Test;
 
 public class ThreeSumSmaller {
 
@@ -10,8 +14,13 @@ public class ThreeSumSmaller {
   Return 2. Because there are two triplets which sums are less than 2:  
     [-2, 0, 1]
     [-2, 0, 3]  
-  Follow up: Could you solve it in O(n2) runtime?
+  Follow up: Could you solve it in O(n^2) runtime?
   */
+
+  @Test
+  public void test() {
+    assertEquals(2, threeSumSmaller(new int[] { -2, 0, 1, 3 }, 2));
+  }
 
   public int threeSumSmaller(int[] nums, int target) {
     int result = 0;
