@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import com.google.common.collect.Lists;
 
-public class CountAndSay {
+public class CountandSay {
 
   /*
   The count-and-say sequence is the sequence of integers beginning as follows:
