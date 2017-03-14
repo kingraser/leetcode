@@ -3,7 +3,7 @@ package leetcode;
 import java.util.Iterator;
 
 public class PeekingIterator implements Iterator<Integer> {
-  
+
   /*
   Given an Iterator class interface with methods: next() and hasNext(), 
   design and implement a PeekingIterator that support the peek() operation 
