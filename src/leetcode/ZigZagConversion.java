@@ -29,14 +29,13 @@ public class ZigZagConversion {
     assertEquals("PAHNAPLSIIGYIR", convert("PAYPALISHIRING", 3));
   }
 
-  public String convert(String s, int row) {
-    if (row == 1) return s;
+  public String convert(String s, int rowCount) {
+    if (rowCount == 1) return s;
     char[] result = new char[s.length()];
-    for (int rowIdx = 0, writeIdx = 0, step = (row - 1) << 1; rowIdx < row; rowIdx++)
-      for (int sIdx = rowIdx, step2 = rowIdx << 1; sIdx < s.length();) {
+    for (int row = 0, writeIdx = 0, step1 = (rowCount - 1) << 1; row < rowCount; row++)
+      for (int sIdx = row, step2 = row << 1; sIdx < s.length(); sIdx += step1) {
+        if (row > 0 && row < rowCount - 1 && sIdx > step2) result[writeIdx++] = s.charAt(sIdx - step2);
         result[writeIdx++] = s.charAt(sIdx);
-        if (rowIdx > 0 && rowIdx < row - 1 && (sIdx += step) - step2 < s.length())
-          result[writeIdx++] = s.charAt(sIdx - step2);
       }
     return new String(result);
   }
