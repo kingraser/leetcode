@@ -49,9 +49,9 @@ public class PalindromePartitioning {
 
   public static boolean[][] getPalindromeMap(char[] s) {
     boolean[][] map = new boolean[s.length][s.length];
-    for (int start = 0; start < s.length; start++)
-      for (int end = start + 1; end < s.length; end++)
-        map[start][end] = s[start] == s[end] && isPalindrome(start + 1, end - 1, map);
+    for (int end = 1; end < s.length; end++)
+      for (int start = end - 1; start >= 0; start--)
+        map[start][end] = (s[start] == s[end] && isPalindrome(start + 1, end - 1, map));
     return map;
   }
 }
