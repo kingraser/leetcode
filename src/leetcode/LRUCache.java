@@ -1,7 +1,11 @@
 package leetcode;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import org.junit.Test;
 
 public class LRUCache {
 
@@ -12,21 +16,33 @@ public class LRUCache {
   set(key, value) - Set or insert the value if the key is not already present. When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item. 
   */
 
-  private Map<Integer, Integer> map;
-
-  private int capacity;
-
-  public LRUCache(int capacity) {
-    this.capacity = capacity;
-    map = new LinkedHashMap<>(capacity, 1, true);
+  @Test
+  public void test() {
+    Cache cache = new Cache(2);
+    cache.set(1, 1);
+    cache.set(2, 2);
+    cache.set(3, 3);
+    assertEquals(-1, cache.get(1));
+    assertEquals(2, cache.get(2));
+    assertEquals(3, cache.get(3));
   }
 
-  public int get(int key) {
-    return map.getOrDefault(key, -1);
-  }
+  class Cache {
+    private Map<Integer, Integer> map;
+    private int capacity;
 
-  public void set(int key, int value) {
-    if (!map.containsKey(key) && map.size() == capacity) map.remove(map.keySet().iterator().next());
-    map.put(key, value);
+    public Cache(int capacity) {
+      this.capacity = capacity;
+      map = new LinkedHashMap<>(capacity + 1, 1, true);
+    }
+
+    public int get(int key) {
+      return map.getOrDefault(key, -1);
+    }
+
+    public void set(int key, int value) {
+      if (!map.containsKey(key) && map.size() == capacity) map.remove(map.keySet().iterator().next());
+      map.put(key, value);
+    }
   }
 }
