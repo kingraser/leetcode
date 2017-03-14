@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class LongestSubstringwithAtMostkDistinctCharacters {
+public class LongestSubstringwithAtMostKDistinctCharacters {
 
   /*
   Given a string, find the length of the longest substring T that contains at most k distinct characters.  
