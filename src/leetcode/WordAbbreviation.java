@@ -5,11 +5,11 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.junit.Test;
 
@@ -46,35 +46,22 @@ public class WordAbbreviation {
   }
 
   public List<String> wordsAbbreviation(List<String> dict) {
-    List<String> result = new ArrayList<>();
-    Map<String, String> map = new HashMap<>(); // key is word, value is abbreviation
-    Map<Integer, List<String>> lengthMap = new HashMap<>(); // key is length, value is words
-    for (String word : dict)
-      if (word.length() < 4) map.put(word, word);
-      else lengthMap.computeIfAbsent(word.length(), k -> new ArrayList<>()).add(word);
-    lengthMap.values().forEach(words -> map.putAll(getAbbreviation(words)));
-    dict.forEach(word -> result.add(map.get(word)));
-    return result;
+    String result[] = new String[dict.size()];
+    abbreviate(result, dict, IntStream.range(0, result.length).boxed().collect(Collectors.toList()), 1);
+    return Arrays.asList(result);
   }
 
-  private Map<String, String> getAbbreviation(List<String> words) {
-    Map<String, String> result = new HashMap<>();
-    Set<String> next = new HashSet<>(words);
-    for (int i = 1, len = words.get(0).length(), end = len - 2; i < end && !next.isEmpty(); i++) {
-      Map<String, String> map = new HashMap<>(); // key is abbreviation, value is word
-      for (String s : next)
-        map.compute(getAbbreviation(s, i), (k, v) -> v == null ? s : "");
-      for (Entry<String, String> e : map.entrySet())
-        if (e.getValue().length() > 0) {
-          next.remove(e.getValue());
-          result.put(e.getValue(), e.getKey());
-        }
-    }
-    next.forEach(word -> result.put(word, word));
-    return result;
+  private void abbreviate(String[] result, List<String> dict, List<Integer> duplicateIdxs, int firstPartEnd) {
+    Map<String, List<Integer>> map = new HashMap<>();
+    duplicateIdxs.stream().forEach(
+        idx -> map.computeIfAbsent(getAbbreviation(dict.get(idx), firstPartEnd), k -> new ArrayList<>()).add(idx));
+    for (Entry<String, List<Integer>> entry : map.entrySet())
+      if (entry.getValue().size() == 1) result[entry.getValue().get(0)] = entry.getKey();
+      else abbreviate(result, dict, entry.getValue(), firstPartEnd + 1);
   }
 
   private String getAbbreviation(String s, int firstPartEnd) {
-    return s.substring(0, firstPartEnd) + (s.length() - 1 - firstPartEnd) + s.charAt(s.length() - 1);
+    return s.length() - firstPartEnd < 3 ? s
+        : s.substring(0, firstPartEnd) + (s.length() - 1 - firstPartEnd) + s.charAt(s.length() - 1);
   }
 }
