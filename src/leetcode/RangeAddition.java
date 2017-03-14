@@ -1,5 +1,9 @@
 package leetcode;
 
+import static org.junit.Assert.assertArrayEquals;
+
+import org.junit.Test;
+
 public class RangeAddition {
 
   /*
@@ -35,6 +39,12 @@ public class RangeAddition {
     Update only the first and end element is sufficient.
     The optimal time complexity is O(k + n) and uses O(1) extra space. 
   */
+
+  @Test
+  public void test() {
+    assertArrayEquals(new int[] { -2, 0, 3, 5, 3 },
+        getModifiedArray(5, new int[][] { { 1, 3, 2 }, { 2, 4, 3 }, { 0, 2, -2 } }));
+  }
 
   public int[] getModifiedArray(int length, int[][] updates) {
     int[] result = new int[length];
