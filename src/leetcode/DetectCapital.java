@@ -1,5 +1,10 @@
 package leetcode;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
 public class DetectCapital {
 
   /*
@@ -21,7 +26,21 @@ public class DetectCapital {
   Note: The input will be a non-empty word consisting of uppercase and lowercase latin letters. 
   */
 
-  public boolean detectCapitalUse(String word) {
+  @Test
+  public void test() {
+    assertTrue(detectCapitalUse("USA"));
+    assertFalse(detectCapitalUse("FlaG"));
+  }
+
+  public boolean detectCapitalUseZero(String word) {
     return word.matches("[A-Z]+|[a-z]+|[A-Z][a-z]+");
+  }
+
+  public boolean detectCapitalUse(String word) {
+    return word.chars().skip(1).allMatch(c -> isLowerCase(c)) || word.chars().noneMatch(c -> isLowerCase(c));
+  }
+
+  private boolean isLowerCase(int c) {
+    return c <= 'z' && c >= 'a';
   }
 }
