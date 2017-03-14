@@ -1,10 +1,14 @@
 package leetcode.common;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.IntStream;
 
 import org.junit.Test;
 
@@ -21,19 +25,38 @@ public class Trie {
   }
 
   public boolean search(String word) {
-    return search(word.toCharArray(), root, 0, true);
+    return Objects.nonNull(march = search(word.toCharArray(), root, 0)) && march.isLeaf;
   }
 
   public boolean startsWith(String word) {
-    return search(word.toCharArray(), root, 0, false);
+    return Objects.nonNull(search(word.toCharArray(), root, 0));
   }
 
-  private boolean search(char[] word, TrieNode node, int idx, boolean isLeaf) {
-    if (idx == word.length) return isLeaf ? node.isLeaf : true;
-    if (word[idx] == '.'
-        && Arrays.stream(node.nexts).filter(Objects::nonNull).anyMatch(next -> search(word, next, 1 + idx, isLeaf)))
-      return true;
-    return Objects.isNull(node.nexts[word[idx] -= 'a']) ? false : search(word, node.nexts[word[idx]], 1 + idx, isLeaf);
+  private TrieNode search(char[] word, TrieNode node, int idx) {
+    if (idx == word.length) return node;
+    if (word[idx] == '.') {
+      for (TrieNode next : node.nexts)
+        if (Objects.nonNull(next) && Objects.nonNull(next = search(word, next, idx + 1))) return next;
+      return null;
+    }
+    return Objects.isNull(node.nexts[word[idx] -= 'a']) ? null : search(word, node.nexts[word[idx]], idx + 1);
+  }
+
+  public List<String> getWithPrefix(String prefix) {
+    List<String> result = new ArrayList<>();
+    if (Objects.isNull(march = search(prefix.toCharArray(), root, 0))) return result;
+    dfs(result, march, prefix);
+    return result;
+  }
+
+  private void dfs(List<String> result, TrieNode node, String prefix) {
+    if (Objects.isNull(node)) return;
+    if (node.isLeaf) {
+      result.add(prefix);
+      return;
+    }
+    IntStream.range(0, 26).filter(i -> Objects.nonNull(node.nexts[i]))
+        .forEach(i -> dfs(result, node.nexts[i], prefix + (char) (i + 'a')));
   }
 
   @Test
@@ -46,6 +69,7 @@ public class Trie {
     assertTrue(trie.search("bad"));
     assertTrue(trie.search(".ad"));
     assertTrue(trie.search("b.."));
+    assertEquals(Arrays.asList("bad"), trie.getWithPrefix("ba"));
   }
 
   public static class TrieNode {
