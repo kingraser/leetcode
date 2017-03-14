@@ -3,7 +3,6 @@ package leetcode.common;
 
 import java.util.Objects;
 
-
 public class Pair<K, V> {
   public K key;
   public V value;

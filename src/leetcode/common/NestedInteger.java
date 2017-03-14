@@ -7,7 +7,6 @@ import java.util.Objects;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
-
 public class NestedInteger {
   Integer val;
   List<NestedInteger> list;
