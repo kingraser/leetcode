@@ -21,10 +21,10 @@ public class NumberofSegmentsinaString {
   }
 
   public int countSegments(String s) {
-    int result = 0;
-    for (int i = 0, len = s.length(); i < len;) {
-      if (s.charAt(i++) != ' ') result++;
-      for (; i < len && s.charAt(i) != ' '; i++);
+    int result = 0, idx = 0;
+    while (idx < s.length()) {
+      if (s.charAt(idx++) != ' ') result++;
+      while (idx < s.length() && s.charAt(idx++) != ' ');
     }
     return result;
   }
