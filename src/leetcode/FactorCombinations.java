@@ -10,7 +10,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-public class FactorCombination {
+public class FactorCombinations {
 
   /*
   Numbers can be regarded as product of its factors. For example,  
