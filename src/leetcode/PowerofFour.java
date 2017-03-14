@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class PowerOfFour {
+public class PowerofFour {
 
   /*
   Given an integer (signed 32 bits), write a function to check whether it is a power of 4.  
