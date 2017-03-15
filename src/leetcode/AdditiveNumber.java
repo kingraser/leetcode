@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.math.BigInteger;
+import java.util.stream.IntStream;
 
 import org.junit.Test;
 
@@ -36,16 +37,15 @@ public class AdditiveNumber {
   }
 
   public boolean isAdditiveNumber(String num) {
-    if (num.charAt(0) == '0') return isValid(BigInteger.ZERO, 1, num);
-    for (int i = 1, half = (num.length() >> 1); i <= half; i++)
-      if (isValid(new BigInteger(num.substring(0, i)), i, num)) return true;
-    return false;
+    return num.charAt(0) == '0' ? isValid(BigInteger.ZERO, 1, num)
+        : IntStream.range(1, (num.length() + 1) >> 1)
+            .anyMatch(len -> isValid(new BigInteger(num.substring(0, len)), len, num));
   }
 
   private boolean isValid(BigInteger a, int start, String num) {
     if (num.charAt(start) == '0') return isValid(a, BigInteger.ZERO, start + 1, num);
-    for (int i = 1; Math.max(start, i) <= num.length() - start - i; i++)
-      if (isValid(a, new BigInteger(num.substring(start, start + i)), start + i, num)) return true;
+    for (int len = 1; num.length() - start - len >= Math.max(start, len); len++)
+      if (isValid(a, new BigInteger(num.substring(start, start + len)), start + len, num)) return true;
     return false;
   }
 
