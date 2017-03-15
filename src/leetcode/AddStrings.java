@@ -1,5 +1,7 @@
 package leetcode;
 
+import static leetcode.AddBinary.digit;
+import static leetcode.AddBinary.getDigit;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -9,8 +11,7 @@ public class AddStrings {
   /*
   Given two non-negative numbers num1 and num2 represented as string, return the sum of num1 and num2.
   
-  Note:
-  
+  Note:  
     The length of both num1 and num2 is < 5100.
     Both num1 and num2 contains only digits 0-9.
     Both num1 and num2 does not contain any leading zero.
@@ -22,12 +23,12 @@ public class AddStrings {
     assertEquals("10", addStrings("9", "1"));
   }
 
-  public String addStrings(String n1, String n2) {
-    int l1 = n1.length(), l2 = n2.length(), k = Math.max(l1, l2);
-    char[] A = new char[k + 1];
-    for (int i = --l1, j = --l2, c = 0, v; i >= 0 || j >= 0 || c > 0; c = v > 9 ? 1 : 0)
-      A[k--] = (char) ((v = (i < 0 ? 0 : n1.charAt(i--) - '0') + (j < 0 ? 0 : n2.charAt(j--) - '0') + c) % 10 + '0');
-    return new String(A, ++k, A.length - k);
+  public String addStrings(String a, String b) {
+    char[] result = new char[Math.max(a.length(), b.length()) + 1];
+    int idx = result.length - 1;
+    for (int aIdx = a.length() - 1, bIdx = b.length() - 1, carry = 0; aIdx >= 0 || bIdx >= 0 || carry > 0; carry /= 10)
+      result[idx--] = digit((carry += getDigit(a, aIdx--) + getDigit(b, bIdx--)) % 10);
+    return new String(result, ++idx, result.length - idx);
   }
 
 }

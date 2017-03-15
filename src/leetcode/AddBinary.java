@@ -28,11 +28,11 @@ public class AddBinary {
     return new String(result, ++idx, result.length - idx);
   }
 
-  private int getDigit(String s, int idx) {
+  public static int getDigit(String s, int idx) {
     return idx < 0 ? 0 : s.charAt(idx) - '0';
   }
 
-  private char digit(int i) {
+  public static char digit(int i) {
     return (char) (i + '0');
   }
 }
