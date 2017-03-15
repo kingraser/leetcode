@@ -21,11 +21,11 @@ public class AddBinary {
   }
 
   public String addBinary(String a, String b) {
-    int al = a.length(), bl = b.length(), idx = Math.max(al, bl);
-    char[] A = new char[idx + 1];
-    for (int aIdx = --al, bIdx = --bl, carry = 0; aIdx >= 0 || bIdx >= 0 || carry > 0; carry >>= 1)
-      A[idx--] = digit((carry += getDigit(a, aIdx--) + getDigit(b, bIdx--)) & 1);
-    return new String(A, ++idx, A.length - idx);
+    char[] result = new char[Math.max(a.length(), b.length()) + 1];
+    int idx = result.length - 1;
+    for (int aIdx = a.length() - 1, bIdx = b.length() - 1, carry = 0; aIdx >= 0 || bIdx >= 0 || carry > 0; carry >>= 1)
+      result[idx--] = digit((carry += getDigit(a, aIdx--) + getDigit(b, bIdx--)) & 1);
+    return new String(result, ++idx, result.length - idx);
   }
 
   private int getDigit(String s, int idx) {
