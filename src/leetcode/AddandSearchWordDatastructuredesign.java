@@ -1,9 +1,9 @@
 package leetcode;
 
 public class AddandSearchWordDatastructuredesign {
+
   /*
-  Design a data structure that supports the following two operations:
-  
+  Design a data structure that supports the following two operations:  
   void addWord(word)
   bool search(word)
   
@@ -20,7 +20,7 @@ public class AddandSearchWordDatastructuredesign {
   search(".ad") -> true
   search("b..") -> true    
   */
-  /*
-  @see leetcode.common.Trie
-  */
+
+  // @see leetcode.common.Trie
+
 }
