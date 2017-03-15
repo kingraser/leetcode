@@ -29,13 +29,20 @@ public class AddTwoNumbers {
     return addTwoNumbers(l1, l2, 0);
   }
 
-  public static ListNode addTwoNumbers(ListNode l1, ListNode l2, int c) {
-    ListNode node = Objects.isNull(l1) ? Objects.isNull(l2) ? c == 0 ? null : new ListNode(c) : l2 : l1;
+  public static ListNode addTwoNumbers(ListNode l1, ListNode l2, int carry) {
+    ListNode node = Objects.isNull(l1) ? Objects.isNull(l2) ? carry == 0 ? null : new ListNode(carry) : l2 : l1;
     if (Objects.isNull(node)) return node;
-    int val = (Objects.isNull(l1) ? 0 : l1.val) + (Objects.isNull(l2) ? 0 : l2.val) + c;
-    node.val = val % 10;
-    node.next = addTwoNumbers(Objects.isNull(l1) ? null : l1.next, Objects.isNull(l2) ? null : l2.next, val / 10);
+    node.val = (carry += getValue(l1) + getValue(l2)) % 10;
+    node.next = addTwoNumbers(getNext(l1), getNext(l2), carry / 10);
     return node;
+  }
+
+  public static int getValue(ListNode node) {
+    return Objects.isNull(node) ? 0 : node.val;
+  }
+
+  public static ListNode getNext(ListNode node) {
+    return Objects.isNull(node) ? null : node.next;
   }
 
 }
