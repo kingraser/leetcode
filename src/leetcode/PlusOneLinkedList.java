@@ -1,8 +1,6 @@
 package leetcode;
 
-import static leetcode.AddTwoNumbers.addTwoNumbers;
 import static leetcode.common.ListNode.list;
-import static leetcode.ReverseLinkedList.reverseList;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -26,6 +24,9 @@ public class PlusOneLinkedList {
   }
 
   public ListNode plusOne(ListNode head) {
-    return reverseList(addTwoNumbers(reverseList(head), null, 1));
+    ListNode root = new ListNode(0, head), lastNot9 = root, node;
+    for (node = head; node != null; lastNot9 = node.val != 9 ? node : lastNot9, node = node.next);
+    for (lastNot9.val++, node = lastNot9.next; node != null; node.val = 0, node = node.next);
+    return root.val == 1 ? root : head;
   }
 }
