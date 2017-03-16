@@ -4,12 +4,10 @@ import static org.junit.Assert.assertArrayEquals;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import org.junit.Test;
 
@@ -44,15 +42,15 @@ public class CourseScheduleII {
   public int[] findOrder(int numCourses, int[][] prerequisites) {
     int[] result = new int[numCourses], indegree = new int[numCourses];
     Map<Integer, List<Integer>> courses = new HashMap<>(numCourses);
-    Arrays.stream(prerequisites).forEach(pair -> {
+    for (int[] pair : prerequisites) {
       indegree[pair[0]]++;
       courses.computeIfAbsent(pair[1], k -> new ArrayList<>()).add(pair[0]);
-    });
+    }
     Deque<Integer> zeroDegrees = new ArrayDeque<>();
     for (int i = 0; i < indegree.length; i++)
       if (indegree[i] == 0) zeroDegrees.add(i);
-    for (Integer node, i = 0; Objects.nonNull(node = zeroDegrees.poll()); result[i++] = node, numCourses--)
-      for (int next : courses.getOrDefault(node, new ArrayList<>()))
+    for (int node, i = 0; !zeroDegrees.isEmpty(); result[i++] = node, numCourses--)
+      for (int next : courses.getOrDefault(node = zeroDegrees.poll(), new ArrayList<>()))
         if (--indegree[next] == 0) zeroDegrees.add(next);
     return numCourses == 0 ? result : new int[] {};
   }

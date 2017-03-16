@@ -5,12 +5,10 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import org.junit.Test;
 
@@ -47,15 +45,15 @@ public class CourseSchedule {
   public boolean canFinish(int numCourses, int[][] prerequisites) {
     int[] indegree = new int[numCourses];
     Map<Integer, List<Integer>> courses = new HashMap<>();
-    Arrays.stream(prerequisites).forEach(pair -> {
+    for (int[] pair : prerequisites) {
       indegree[pair[0]]++;
       courses.computeIfAbsent(pair[1], k -> new ArrayList<>()).add(pair[0]);
-    });
+    }
     Deque<Integer> zeroDegrees = new ArrayDeque<>();
     for (int i = 0; i < indegree.length; i++)
       if (indegree[i] == 0) zeroDegrees.add(i);
-    for (Integer node; Objects.nonNull(node = zeroDegrees.poll()); numCourses--)
-      for (int next : courses.getOrDefault(node, new ArrayList<>()))
+    for (; !zeroDegrees.isEmpty(); numCourses--)
+      for (int next : courses.getOrDefault(zeroDegrees.poll(), new ArrayList<>()))
         if (--indegree[next] == 0) zeroDegrees.add(next);
     return numCourses == 0;
   }
