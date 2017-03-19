@@ -1,5 +1,6 @@
 package leetcode;
 
+import static leetcode.BattleshipsinaBoard.DIRS;
 import static org.junit.Assert.assertArrayEquals;
 
 import org.junit.Test;
@@ -34,13 +35,11 @@ public class SurroundedRegions {
         if (board[row][col] == 'O' && !reached[row][col]) board[row][col] = 'X';
   }
 
-  private int[] dRow = new int[] { 1, -1, 0, 0 }, dCol = new int[] { 0, 0, 1, -1 };
-
   private void dfs(char[][] A, int row, int col, boolean[][] reached) {
     if (row < 1 || row > A.length - 2 || col < 1 || col > A[0].length - 2 || reached[row][col] || A[row][col] != 'O')
       return;
     reached[row][col] = true;
-    for (int i = 0; i < 4; dfs(A, row + dRow[i], col + dCol[i++], reached));
+    DIRS.forEach(dir -> dfs(A, row + dir[0], col + dir[1], reached));
   }
 
   @Test

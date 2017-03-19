@@ -1,5 +1,6 @@
 package leetcode;
 
+import static leetcode.BattleshipsinaBoard.DIRS;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -36,8 +37,6 @@ public class LongestIncreasingPathinaMatrix {
     assertEquals(4, longestIncreasingPath(new int[][] { { 9, 9, 4 }, { 6, 6, 8 }, { 2, 1, 1 } }));
   }
 
-  int[] dRow = { 1, -1, 0, 0 }, dCol = { 0, 0, 1, -1 };
-
   public int longestIncreasingPath(int[][] matrix) {
     if (matrix == null || matrix.length == 0 || matrix[0].length == 0) return 0;
     int[][] distance = new int[matrix.length][matrix[0].length];
@@ -51,7 +50,7 @@ public class LongestIncreasingPathinaMatrix {
   private int dfs(int row, int col, int[][] matrix, int[][] distance) {
     if (distance[row][col] != 0) return distance[row][col];
     for (int i = 0, newRow, newCol; i < 4; i++)
-      if ((newRow = row + dRow[i]) >= 0 && (newCol = col + dCol[i]) >= 0 && newRow < matrix.length
+      if ((newRow = row + DIRS.get(i)[0]) >= 0 && (newCol = col + DIRS.get(i)[1]) >= 0 && newRow < matrix.length
           && newCol < matrix[0].length && matrix[newRow][newCol] > matrix[row][col])
         distance[row][col] = Math.max(distance[row][col], dfs(newRow, newCol, matrix, distance));
     return ++distance[row][col];

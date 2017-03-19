@@ -2,6 +2,9 @@ package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Test;
 
 public class BattleshipsinaBoard {
@@ -40,7 +43,8 @@ public class BattleshipsinaBoard {
     assertEquals(2, countBattleships(board));
   }
 
-  static final int[] dRow = new int[] { -1, 1, 0, 0 }, dCol = new int[] { 0, 0, -1, 1 };
+  public static final List<int[]> DIRS = Arrays.asList(new int[] { -1, 0 }, new int[] { 1, 0 }, new int[] { 0, -1 },
+      new int[] { 0, 1 });
 
   public int countBattleships(char[][] board) {
     if (board == null || board.length == 0 || board[0].length == 0) return 0;
@@ -55,8 +59,7 @@ public class BattleshipsinaBoard {
   private int dfs(char[][] board, boolean[][] reached, int row, int col, int rows, int cols) {
     if (row < 0 || row == rows || col < 0 || col == cols || reached[row][col] || board[row][col] != 'X') return 0;
     reached[row][col] = true;
-    for (int i = 0; i < 4; i++)
-      dfs(board, reached, row + dRow[i], col + dCol[i], rows, cols);
+    DIRS.forEach(dir -> dfs(board, reached, row + dir[0], col + dir[1], rows, cols));
     return 1;
   }
 }

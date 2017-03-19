@@ -1,5 +1,6 @@
 package leetcode;
 
+import static leetcode.BattleshipsinaBoard.DIRS;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -26,8 +27,6 @@ public class IslandPerimeter {
   |_@|_@|__|__|  
   */
 
-  static int[] dRow = new int[] { 1, -1, 0, 0 }, dCol = new int[] { 0, 0, 1, -1 };
-
   public int islandPerimeter(int[][] grid) {
     for (int i = 0; i < grid.length; i++)
       for (int j = 0; j < grid[0].length; j++)
@@ -38,10 +37,9 @@ public class IslandPerimeter {
   private int dfs(int[][] grid, int i, int j) {
     if (i < 0 || i == grid.length || j < 0 || j == grid[0].length || grid[i][j] == 0) return 1;
     if (grid[i][j]++ > 1) return 0;
-    int result = 0;
-    for (int k = 0; k < 4; k++)
-      result += dfs(grid, i + dRow[k], j + dCol[k]);
-    return result;
+    int[] result = new int[1];
+    DIRS.forEach(dir -> result[0] += dfs(grid, i + dir[0], j + dir[1]));
+    return result[0];
   }
 
   @Test
