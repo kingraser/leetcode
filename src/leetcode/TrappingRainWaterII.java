@@ -1,5 +1,6 @@
 package leetcode;
 
+import static leetcode.BattleshipsinaBoard.DIRS;
 import static org.junit.Assert.assertEquals;
 
 import java.util.PriorityQueue;
@@ -31,8 +32,6 @@ public class TrappingRainWaterII {
     assertEquals(4, trapRainWater(new int[][] { { 1, 4, 3, 1, 3, 2 }, { 3, 2, 1, 3, 2, 4 }, { 2, 3, 3, 2, 3, 1 } }));
   }
 
-  static final int[] dRow = new int[] { -1, 1, 0, 0 }, dCol = new int[] { 0, 0, -1, 1 };
-
   public class Cell {
     public int row, col, height;
 
@@ -52,8 +51,8 @@ public class TrappingRainWaterII {
     int res = 0, i, row, col;
     for (Cell cell; !queue.isEmpty();)
       for (cell = queue.poll(), i = 0; i < 4; i++)
-        if ((row = cell.row + dRow[i]) >= 0 && row < rowCount && (col = cell.col + dCol[i]) >= 0 && col < colCount
-            && !visited[row][col]) {
+        if ((row = cell.row + DIRS.get(i)[0]) >= 0 && row < rowCount && (col = cell.col + DIRS.get(i)[1]) >= 0
+            && col < colCount && !visited[row][col]) {
           visited[row][col] = true;
           res += Math.max(0, cell.height - heights[row][col]);
           queue.offer(new Cell(row, col, Math.max(heights[row][col], cell.height)));

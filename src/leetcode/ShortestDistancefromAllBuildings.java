@@ -1,5 +1,6 @@
 package leetcode;
 
+import static leetcode.BattleshipsinaBoard.DIRS;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayDeque;
@@ -31,7 +32,7 @@ public class ShortestDistancefromAllBuildings {
     assertEquals(7, shortestDistance(new int[][] { { 1, 0, 2, 0, 1 }, { 0, 0, 0, 0, 0 }, { 0, 0, 1, 0, 0 } }));
   }
 
-  int min, dRow[] = new int[] { 1, -1, 0, 0 }, dCol[] = new int[] { 0, 0, 1, -1 };
+  int min;
 
   public int shortestDistance(int[][] grid) {
     min = -1;
@@ -54,7 +55,8 @@ public class ShortestDistancefromAllBuildings {
     min = -1;
     for (int distance[][] = null, ROW = grid.length, COL = grid[0].length; !deque.isEmpty();)
       for (int i = 0, p[] = deque.pollFirst(), r, c; i < 4; i++)
-        if ((r = p[0] + dRow[i]) >= 0 && r < ROW && (c = p[1] + dCol[i]) >= 0 && c < COL && grid[r][c] == building) {
+        if ((r = p[0] + DIRS.get(i)[0]) >= 0 && r < ROW && (c = p[1] + DIRS.get(i)[1]) >= 0 && c < COL
+            && grid[r][c] == building) {
           grid[r][c]--;
           if (distance == null) distance = clone(grid);
           total[r][c] += (distance[r][c] = distance[p[0]][p[1]] + 1) - 1;
