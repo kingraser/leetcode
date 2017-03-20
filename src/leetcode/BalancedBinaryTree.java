@@ -1,5 +1,6 @@
 package leetcode;
 
+import static leetcode.common.TreeNode.getDepth;
 import static leetcode.common.TreeNode.tree;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -30,8 +31,4 @@ public class BalancedBinaryTree {
     return isBalanced(root.left) && isBalanced(root.right) && Math.abs(getDepth(root.left) - getDepth(root.right)) < 2;
   }
 
-  private int getDepth(TreeNode root) {
-    if (Objects.isNull(root)) return 0;
-    return 1 + Math.max(getDepth(root.left), getDepth(root.right));
-  }
 }
