@@ -27,8 +27,7 @@ public class Searcha2DMatrix {
   */
 
   public boolean searchMatrix(int[][] A, int target) {
-    if (A == null || A.length == 0 || A[0].length == 0) return false;
-    for (int rowCount = A.length, colCount = A[0].length, start = 0, end = rowCount * colCount
+    for (int rowCount = A.length, colCount = rowCount > 0 ? A[0].length : 0, start = 0, end = rowCount * colCount
         - 1, mid, value; start <= end;)
       if ((value = A[(mid = (start + end) >> 1) / colCount][mid % colCount]) == target) return true;
       else if (value < target) start = mid + 1;
