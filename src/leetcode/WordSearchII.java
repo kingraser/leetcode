@@ -1,11 +1,14 @@
 package leetcode;
 
+import static leetcode.BattleshipsinaBoard.DIRS;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.BitSet;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import org.junit.Test;
@@ -50,29 +53,26 @@ public class WordSearchII {
             new String[] { "oath", "pea", "eat", "rain" })));
   }
 
-  int[][] dirs = new int[][] { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
-
   public List<String> findWords(char[][] board, String[] words) {
     Trie trie = new Trie();
     Arrays.stream(words).forEach(word -> trie.add(word));
     Set<String> result = new HashSet<>();
-    for (int row = 0; row < board.length; row++)
-      for (int col = 0; col < board[0].length; col++)
-        dfs(board, new boolean[board.length][board[0].length], trie.root, row, col, trie, result,
-            new char[board.length * board[0].length], 0);
+    for (int row = 0, rowCount = board.length; row < rowCount; row++)
+      for (int col = 0, colCount = board[0].length, cs[] = new int[rowCount * colCount]; col < colCount; col++)
+        dfs(board, new BitSet(), trie.root, row, col, result, cs, 0);
     return new ArrayList<String>(result);
   }
 
-  private void dfs(char[][] board, boolean[][] visited, TrieNode node, int row, int col, Trie trie, Set<String> result,
-      char[] s, int idx) {
-    if (row < 0 || row >= board.length || col < 0 || col >= board[0].length || visited[row][col]
-        || (node = node.nexts[board[row][col] - 'a']) == null)
+  private void dfs(char[][] board, BitSet visited, TrieNode node, int row, int col, Set<String> result, int[] s,
+      int idx) {
+    if (row < 0 || row >= board.length || col < 0 || col >= board[0].length || visited.get(row * board[0].length + col)
+        || Objects.isNull(node = node.nexts[board[row][col] - 'a']))
       return;
     s[idx++] = board[row][col];
     if (node.isLeaf) result.add(new String(s, 0, idx));
-    visited[row][col] = true;
-    for (int[] dir : dirs)
-      dfs(board, visited, node, row + dir[0], col + dir[1], trie, result, s, idx);
-    visited[row][col] = false;
+    visited.set(row * board[0].length + col);
+    for (int[] dir : DIRS)
+      dfs(board, visited, node, row + dir[0], col + dir[1], result, s, idx);
+    visited.clear(row * board[0].length + col);
   }
 }

@@ -1,9 +1,10 @@
 package leetcode;
 
+import static leetcode.BattleshipsinaBoard.DIRS;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Arrays;
+import java.util.BitSet;
 
 import org.junit.Test;
 
@@ -35,24 +36,23 @@ public class WordSearch {
     assertFalse(exist(board, "ABCB"));
   }
 
-  int[][] dirs = new int[][] { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };
-
   public boolean exist(char[][] board, String word) {
     if (board == null || board.length == 0 || board[0].length == 0 || word == null || word.length() == 0) return false;
-    boolean[][] reached = new boolean[board.length][board[0].length];
-    for (int i = 0; i < board.length; i++)
-      for (int j = 0; j < board[i].length; j++)
-        if (dfs(i, j, 0, board, word, reached)) return true;
+    BitSet reached = new BitSet();
+    for (int row = 0; row < board.length; row++)
+      for (int col = 0; col < board[row].length; col++)
+        if (dfs(row, col, 0, board, word, reached)) return true;
     return false;
   }
 
-  private boolean dfs(int x, int y, int i, char[][] board, String word, boolean[][] reached) {
-    if (x < 0 || y < 0 || x == board.length || y == board[0].length || reached[x][y] || board[x][y] != word.charAt(i))
+  private boolean dfs(int row, int col, int idx, char[][] board, String word, BitSet reached) {
+    if (row < 0 || col < 0 || row == board.length || col == board[0].length || reached.get(row * board[0].length + col)
+        || board[row][col] != word.charAt(idx))
       return false;
-    if (i + 1 == word.length()) return true;
-    reached[x][y] = true;
-    boolean result = Arrays.stream(dirs).anyMatch(dir -> dfs(x + dir[0], y + dir[1], i + 1, board, word, reached));
-    reached[x][y] = false;
+    if (idx + 1 == word.length()) return true;
+    reached.set(row * board[0].length + col);
+    boolean result = DIRS.stream().anyMatch(dir -> dfs(row + dir[0], col + dir[1], idx + 1, board, word, reached));
+    reached.clear(row * board[0].length + col);
     return result;
   }
 

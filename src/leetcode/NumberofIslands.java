@@ -1,8 +1,8 @@
 package leetcode;
 
+import static leetcode.BattleshipsinaBoard.DIRS;
 import static org.junit.Assert.assertEquals;
 
-import java.util.Arrays;
 import java.util.BitSet;
 
 import org.junit.Test;
@@ -34,27 +34,25 @@ public class NumberofIslands {
         new char[][] { "11000".toCharArray(), "11000".toCharArray(), "00100".toCharArray(), "00011".toCharArray() }));
   }
 
-  int[][] dirs = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };
-
   public int numIslands(char[][] grid) {
     if (grid == null || grid.length == 0 || grid[0].length == 0) return 0;
     int islands = 0, rowCount = grid.length, colCount = grid[0].length;
-    BitSet visited = new BitSet(rowCount * colCount);
-    for (int i = 0; i < grid.length; i++)
-      for (int j = 0; j < grid[0].length; j++)
-        if (grid[i][j] == '1' && !visited.get(i * colCount + j)) {
+    BitSet visited = new BitSet();
+    for (int row = 0; row < rowCount; row++)
+      for (int col = 0; col < colCount; col++)
+        if (grid[row][col] == '1' && !visited.get(row * colCount + col)) {
           islands++;
-          dfs(grid, i, j, visited);
+          dfs(grid, row, col, visited);
         }
     return islands;
   }
 
-  private void dfs(char[][] grid, int i, int j, BitSet visited) {
-    if (i < 0 || i == grid.length || j < 0 || j == grid[0].length || grid[i][j] == '0'
-        || visited.get(i * grid[0].length + j))
+  private void dfs(char[][] grid, int row, int col, BitSet visited) {
+    if (row < 0 || row == grid.length || col < 0 || col == grid[0].length || grid[row][col] == '0'
+        || visited.get(row * grid[0].length + col))
       return;
-    visited.set(i * grid[0].length + j);
-    Arrays.stream(dirs).forEach(dir -> dfs(grid, i + dir[0], j + dir[1], visited));
+    visited.set(row * grid[0].length + col);
+    DIRS.forEach(dir -> dfs(grid, row + dir[0], col + dir[1], visited));
   }
 
 }

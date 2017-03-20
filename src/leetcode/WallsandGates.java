@@ -1,5 +1,6 @@
 package leetcode;
 
+import static leetcode.BattleshipsinaBoard.DIRS;
 import static org.junit.Assert.assertArrayEquals;
 
 import org.junit.Test;
@@ -37,18 +38,15 @@ public class WallsandGates {
   }
 
   public void wallsAndGates(int[][] rooms) {
-    for (int i = 0; i < rooms.length; i++)
-      for (int j = 0; j < rooms[0].length; j++)
-        if (rooms[i][j] == 0) dfs(rooms, i, j, 0);
+    for (int row = 0; row < rooms.length; row++)
+      for (int col = 0; col < rooms[0].length; col++)
+        if (rooms[row][col] == 0) dfs(rooms, row, col, 0);
   }
 
-  int[][] dirs = new int[][] { { -1, 0 }, { 1, 0 }, { 0, 1 }, { 0, -1 } };
-
-  private void dfs(int[][] rooms, int i, int j, int d) {
-    if (i < 0 || i >= rooms.length || j < 0 || j >= rooms[0].length || rooms[i][j] < d) return;
-    rooms[i][j] = d;
-    for (int[] dir : dirs)
-      dfs(rooms, i + dir[0], j + dir[1], d + 1);
+  private void dfs(int[][] rooms, int row, int col, int distance) {
+    if (row < 0 || row >= rooms.length || col < 0 || col >= rooms[0].length || rooms[row][col] < distance) return;
+    rooms[row][col] = distance;
+    DIRS.forEach(dir -> dfs(rooms, row + dir[0], col + dir[1], distance + 1));
   }
 
 }
