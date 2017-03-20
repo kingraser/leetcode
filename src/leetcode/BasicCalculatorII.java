@@ -36,30 +36,24 @@ public class BasicCalculatorII {
   }
 
   public int calculate(String s) {
-    int temp = 0;
-    Stack<Character> operators = new Stack<>();
-    Stack<Integer> nums = new Stack<>();
+    int num = 0;
+    Stack<Integer> operators = new Stack<>(), nums = new Stack<>();
     for (char c : s.toCharArray())
       if (c == ' ') continue;
-      else if ('0' <= c && c <= '9') temp = temp * 10 + c - '0';
+      else if ('0' <= c && c <= '9') num = num * 10 + c - '0';
       else {
-        nums.push(temp);
-        temp = 0;
-        while (!hasHigherPriority(c, operators))
-          calculate(nums, operators);
-        operators.push(c);
+        for (nums.push(num), num = 0; !hasHigherPriority(c, operators); calculate(nums, operators));
+        operators.push((int) c);
       }
-    nums.push(temp);
-    while (nums.size() != 1)
-      calculate(nums, operators);
+    for (nums.push(num); nums.size() != 1; calculate(nums, operators));
     return nums.peek();
   }
 
-  private void calculate(Stack<Integer> nums, Stack<Character> operators) {
-    nums.push(OPERATOR_MAP.get(operators.pop()).apply(nums.pop(), nums.pop()));
+  private void calculate(Stack<Integer> nums, Stack<Integer> operators) {
+    nums.push(OPERATOR_MAP.get((char) (operators.pop().intValue())).apply(nums.pop(), nums.pop()));
   }
 
-  private boolean hasHigherPriority(char c, Stack<Character> operators) {
+  private boolean hasHigherPriority(char c, Stack<Integer> operators) {
     return operators.isEmpty() || ((c == '*' || c == '/') && (operators.peek() == '+' || operators.peek() == '-'));
   }
 }

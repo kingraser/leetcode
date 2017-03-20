@@ -29,7 +29,7 @@ public class BasicCalculator {
 
   public int calculate(String s) {
     Stack<Integer> stack = new Stack<>();
-    int result = 0, temp = 0, sign = 1;//1 for +, -1 for -
+    int result = 0, temp = 0, sign = 1; // 1 for +, -1 for -
     for (char c : s.toCharArray())
       if ('0' <= c && c <= '9') temp = temp * 10 + c - '0';
       else {
