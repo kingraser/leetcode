@@ -32,27 +32,21 @@ public class BeautifulArrangement {
   @Test
   public void test() {
     assertEquals(2, countArrangement(2));
+    assertEquals(24679, countArrangement(15));
   }
-
-  int count, n;
 
   public int countArrangement(int N) {
-    count = 0;
-    n = N + 1;
-    dfs(1, new BitSet(n));
-    return count;
+    return dfs(1, new BitSet(), 0, ++N);
   }
 
-  private void dfs(int idx, BitSet bitSet) {
-    if (idx == n) {
-      count++;
-      return;
-    }
-    for (int i = bitSet.nextClearBit(1); i < n; i = bitSet.nextClearBit(++i))
+  private int dfs(int idx, BitSet used, int count, int n) {
+    if (idx == n) return ++count;
+    for (int i = used.nextClearBit(1); i < n; i = used.nextClearBit(++i))
       if (i % idx == 0 || idx % i == 0) {
-        bitSet.set(i);
-        dfs(idx + 1, bitSet);
-        bitSet.clear(i);
+        used.set(i);
+        count = dfs(idx + 1, used, count, n);
+        used.clear(i);
       }
+    return count;
   }
 }
