@@ -3,6 +3,8 @@ package leetcode;
 import static leetcode.common.TreeNode.tree;
 import static org.junit.Assert.assertEquals;
 
+import java.util.Objects;
+
 import org.junit.Test;
 
 import leetcode.common.TreeNode;
@@ -21,10 +23,10 @@ public class ClosestBinarySearchTreeValue {
     assertEquals(3, closestValue(tree("1,2,n,n,3,n,n"), 4));
   }
 
-  public int closestValue(TreeNode root, double target) {
-    int result = root.val;
-    for (; root != null; root = root.val > target ? root.left : root.right)
-      if (Math.abs(target - root.val) < Math.abs(target - result)) result = root.val;
+  public int closestValue(TreeNode node, double target) {
+    int result = node.val;
+    for (; Objects.nonNull(node); node = node.val > target ? node.left : node.right)
+      if (Math.abs(target - node.val) < Math.abs(target - result)) result = node.val;
     return result;
   }
 

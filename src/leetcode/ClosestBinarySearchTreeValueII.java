@@ -6,6 +6,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Stack;
 
 import org.junit.Test;
@@ -42,8 +43,8 @@ public class ClosestBinarySearchTreeValueII {
   public List<Integer> closestKValues(TreeNode root, double target, int k) {
     LinkedList<Integer> result = new LinkedList<>();
     Stack<TreeNode> stack = new Stack<>();
-    for (TreeNode node = root; node != null || !stack.empty(); node = node.right) {
-      for (; node != null; stack.push(node), node = node.left);
+    for (TreeNode node = root; Objects.nonNull(node) || !stack.empty(); node = node.right) {
+      for (; Objects.nonNull(node); stack.push(node), node = node.left);
       node = stack.pop();
       if (result.size() < k) result.addLast(node.val);
       else if (Math.abs(node.val - target) < Math.abs(result.peekFirst() - target)) {
