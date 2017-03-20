@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import org.junit.Test;
 
@@ -23,10 +24,7 @@ public class BestTimetoBuyandSellStockII {
   }
 
   public static int maxProfit(List<Integer> prices) {
-    int sum = 0;
-    for (int i = 1; i < prices.size(); i++)
-      sum += Math.max(0, prices.get(i) - prices.get(i - 1));
-    return sum;
+    return IntStream.range(1, prices.size()).map(i -> prices.get(i) - prices.get(i - 1)).filter(i -> i > 0).sum();
   }
 
 }
