@@ -1,15 +1,15 @@
 package leetcode;
 
 import static leetcode.common.TreeNode.tree;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import java.util.Arrays;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Stack;
+import java.util.stream.IntStream;
 
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
 
 import leetcode.common.TreeNode;
 
@@ -25,7 +25,8 @@ public class BinarySearchTreeIterator {
 
   @Test
   public void test() {
-    assertEquals(Arrays.asList(1, 2, 3), Lists.newArrayList(new BSTIterator(tree("2,1,n,n,3,n,n"))));
+    Iterator<Integer> iterator = new BSTIterator(tree("2,1,n,n,3,n,n"));
+    assertTrue(IntStream.range(1, 4).allMatch(i -> i == iterator.next()));
   }
 
   public class BSTIterator implements Iterator<Integer> {
@@ -40,13 +41,14 @@ public class BinarySearchTreeIterator {
     }
 
     public Integer next() {
+      if (!hasNext()) throw new NoSuchElementException();
       TreeNode node = stack.pop();
       pushLeft(node.right);
       return node.val;
     }
 
     private void pushLeft(TreeNode node) {
-      for (; node != null; stack.push(node), node = node.left);
+      for (; Objects.nonNull(node); stack.push(node), node = node.left);
     }
   }
 }
