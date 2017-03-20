@@ -1,5 +1,6 @@
 package leetcode;
 
+import static leetcode.BattleshipsinaBoard.DIRS;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayDeque;
@@ -50,8 +51,6 @@ public class ZeroOneMatrix {
         updateMatrix(Arrays.asList(Arrays.asList(0, 0, 0), Arrays.asList(0, 1, 0), Arrays.asList(1, 1, 1))));
   }
 
-  private static final int[][] DIRS = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
-
   public List<List<Integer>> updateMatrix(List<List<Integer>> matrix) {
     Deque<int[]> queue = new ArrayDeque<>();
     for (int row = 0, rowCount = matrix.size(); row < rowCount; row++)
@@ -59,8 +58,8 @@ public class ZeroOneMatrix {
         if (matrix.get(row).get(col) == 0) queue.addLast(new int[] { row, col });
         else matrix.get(row).set(col, Integer.MAX_VALUE);
     for (int cell[], row, col, i; !queue.isEmpty();)
-      for (cell = queue.pollFirst(), i = 0; i < 4; i++)
-        if ((row = cell[0] + DIRS[i][0]) >= 0 && row < matrix.size() && (col = cell[1] + DIRS[i][1]) >= 0
+      for (cell = queue.pollFirst(), i = 0; i < DIRS.size(); i++)
+        if ((row = cell[0] + DIRS.get(i)[0]) >= 0 && row < matrix.size() && (col = cell[1] + DIRS.get(i)[1]) >= 0
             && col < matrix.get(0).size() && matrix.get(row).get(col) > matrix.get(cell[0]).get(cell[1]) + 1) {
           queue.addLast(new int[] { row, col });
           matrix.get(row).set(col, matrix.get(cell[0]).get(cell[1]) + 1);
