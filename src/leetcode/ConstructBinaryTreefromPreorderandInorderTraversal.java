@@ -20,11 +20,12 @@ public class ConstructBinaryTreefromPreorderandInorderTraversal {
   }
 
   private TreeNode buildTree(int[] preOrder, int[] inOrder, int pFirst, int pLast, int iFirst, int iLast) {
-    if (pFirst == pLast || iFirst == iLast) return null;
-    TreeNode root = new TreeNode(preOrder[pFirst]);
-    int inRootPos = find(inOrder, iFirst, iLast, preOrder[pFirst]), leftSize = inRootPos - iFirst;
-    root.left = buildTree(preOrder, inOrder, pFirst + 1, pFirst + leftSize + 1, iFirst, iFirst + leftSize);
-    root.right = buildTree(preOrder, inOrder, pFirst + leftSize + 1, pLast, inRootPos + 1, iLast);
-    return root;
+    int inRootPos, leftSize;
+    return pFirst == pLast || iFirst == iLast ? null
+        : new TreeNode(preOrder[pFirst],
+            buildTree(preOrder, inOrder, pFirst + 1,
+                pFirst + (leftSize = (inRootPos = find(inOrder, iFirst, iLast, preOrder[pFirst])) - iFirst) + 1, iFirst,
+                iFirst + leftSize),
+            buildTree(preOrder, inOrder, pFirst + leftSize + 1, pLast, inRootPos + 1, iLast));
   }
 }

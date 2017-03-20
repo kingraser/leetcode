@@ -3,6 +3,8 @@ package leetcode;
 import static leetcode.common.TreeNode.tree;
 import static org.junit.Assert.assertEquals;
 
+import java.util.stream.IntStream;
+
 import org.junit.Test;
 
 import leetcode.common.TreeNode;
@@ -19,18 +21,16 @@ public class ConstructBinaryTreefromInorderandPostorderTraversal {
   }
 
   private TreeNode buildTree(int[] inOrder, int[] postOrder, int iFirst, int iLast, int pFirst, int pLast) {
-    if (pFirst == pLast || iFirst == iLast) return null;
-    TreeNode root = new TreeNode(postOrder[pLast - 1]);
-    int inRootPos = find(inOrder, iFirst, iLast, postOrder[pLast - 1]), leftSize = inRootPos - iFirst;
-    root.left = buildTree(inOrder, postOrder, iFirst, inRootPos, pFirst, pFirst + leftSize);
-    root.right = buildTree(inOrder, postOrder, inRootPos + 1, iLast, pFirst + leftSize, pLast - 1);
-    return root;
+    int inRootPos, leftSize;
+    return pFirst == pLast || iFirst == iLast ? null
+        : new TreeNode(postOrder[pLast - 1],
+            buildTree(inOrder, postOrder, iFirst, inRootPos = find(inOrder, iFirst, iLast, postOrder[pLast - 1]),
+                pFirst, pFirst + (leftSize = inRootPos - iFirst)),
+            buildTree(inOrder, postOrder, inRootPos + 1, iLast, pFirst + leftSize, pLast - 1));
   }
 
   public static int find(int[] A, int start, int end, int target) {
-    for (int i = start; i < end; i++)
-      if (A[i] == target) return i;
-    return -1;
+    return IntStream.range(start, end).filter(i -> A[i] == target).findFirst().orElse(-1);
   }
 
 }

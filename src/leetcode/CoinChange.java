@@ -34,10 +34,10 @@ public class CoinChange {
   public int coinChange(int[] coins, int amount) {
     long[] result = new long[amount + 1];
     Arrays.fill(result, 1, result.length, Integer.MAX_VALUE);
-    for (int i = 1; i < result.length; i++)
-      for (int j = 0; j < coins.length; j++)
-        if (i - coins[j] >= 0) result[i] = Math.min(result[i], result[i - coins[j]] + 1);
-    return Integer.MAX_VALUE == result[amount] ? -1 : (int) result[amount];
+    for (amount = 1; amount < result.length; amount++)
+      for (int coin = 0; coin < coins.length; coin++)
+        if (amount - coins[coin] >= 0) result[amount] = Math.min(result[amount], result[amount - coins[coin]] + 1);
+    return Integer.MAX_VALUE == result[result.length - 1] ? -1 : (int) result[result.length - 1];
   }
 
 }
