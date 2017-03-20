@@ -34,14 +34,13 @@ public class MaxSumofRectangleNoLargerThanK {
   }
 
   public int maxSumSubmatrix(int[][] matrix, int limit) {
-    if (matrix == null || matrix.length == 0 || matrix[0].length == 0) return 0;
-    int result = Integer.MIN_VALUE, rowCount = matrix.length, colCount = matrix[0].length;
+    int max = Integer.MIN_VALUE, rowCount = matrix.length, colCount = rowCount > 0 ? matrix[0].length : 0;
     for (int left = 0; left < colCount; left++)
       for (int right = left, rowSums[] = new int[rowCount]; right < colCount; right++) {
         for (int i = 0; i < rowCount; rowSums[i] += matrix[i++][right]);
-        if ((result = maxSumSubmatrix(rowSums, new TreeSet<>(), result, limit)) == limit) return limit;
+        if ((max = maxSumSubmatrix(rowSums, new TreeSet<>(), max, limit)) == limit) return limit;
       }
-    return result;
+    return max;
   }
 
   private int maxSumSubmatrix(int[] rows, TreeSet<Integer> set, int res, int k) {
