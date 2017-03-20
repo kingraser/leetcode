@@ -57,8 +57,8 @@ public class WordSearchII {
     Trie trie = new Trie();
     Arrays.stream(words).forEach(word -> trie.add(word));
     Set<String> result = new HashSet<>();
-    for (int row = 0, rowCount = board.length; row < rowCount; row++)
-      for (int col = 0, colCount = board[0].length, cs[] = new int[rowCount * colCount]; col < colCount; col++)
+    for (int rowCount = board.length, colCount = rowCount > 0 ? board[0].length : 0, row = 0; row < rowCount; row++)
+      for (int col = 0, cs[] = new int[rowCount * colCount]; col < colCount; col++)
         dfs(board, new BitSet(), trie.root, row, col, result, cs, 0);
     return new ArrayList<String>(result);
   }

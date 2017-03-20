@@ -35,8 +35,7 @@ public class NumberofIslands {
   }
 
   public int numIslands(char[][] grid) {
-    if (grid == null || grid.length == 0 || grid[0].length == 0) return 0;
-    int islands = 0, rowCount = grid.length, colCount = grid[0].length;
+    int islands = 0, rowCount = grid.length, colCount = rowCount > 0 ? grid[0].length : 0;
     BitSet visited = new BitSet();
     for (int row = 0; row < rowCount; row++)
       for (int col = 0; col < colCount; col++)
