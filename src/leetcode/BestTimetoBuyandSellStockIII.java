@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import org.junit.Test;
 
@@ -15,9 +16,9 @@ public class BestTimetoBuyandSellStockIII {
   Note: You may not engage in multiple transactions at the same time 
   (ie, you must sell the stock before you buy again).
   
-  let f(i) represents max profit in [0, i](0≤i≤n−1)
-      s(i) represents max profit in [i, n − 1](0≤i≤n−1)
-  The answer is max{f(i)+g(i)}(0≤i≤n−1)
+  let f(i) represents max profit in [0, i] (0 ≤ i ≤ n − 1)
+      s(i) represents max profit in [i, n − 1] (0 ≤ i ≤ n − 1)
+  The answer is max {f(i) + g(i)} (0 ≤ i ≤ n − 1)
   */
 
   @Test
@@ -27,19 +28,12 @@ public class BestTimetoBuyandSellStockIII {
 
   public int maxProfit(List<Integer> prices) {
     if (prices.size() < 2) return 0;
-    int[] f = new int[prices.size()], s = new int[prices.size()];
-    for (int i = 1, min = prices.get(0); i < prices.size(); i++) {
-      min = Math.min(min, prices.get(i));
-      f[i] = Math.max(f[i - 1], prices.get(i) - min);
-    }
-    for (int i = prices.size() - 2, max = prices.get(i + 1); i >= 0; i--) {
-      max = Math.max(max, prices.get(i));
-      s[i] = Math.max(s[i], max - prices.get(i));
-    }
-    int maxProfit = 0;
-    for (int i = 0; i < prices.size(); i++)
-      maxProfit = Math.max(maxProfit, f[i] + s[i]);
-    return maxProfit;
+    int[] first = new int[prices.size()], second = new int[prices.size()];
+    for (int idx = 1, min = prices.get(0); idx < prices.size(); min = Math.min(min, prices.get(idx++)))
+      first[idx] = Math.max(first[idx - 1], prices.get(idx) - min);
+    for (int idx = prices.size() - 2, max = prices.get(idx + 1); idx >= 0; max = Math.max(max, prices.get(idx--)))
+      second[idx] = Math.max(second[idx + 1], max - prices.get(idx));
+    return IntStream.range(0, prices.size()).map(i -> first[i] + second[i]).max().getAsInt();
   }
 
 }

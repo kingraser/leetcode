@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import leetcode.util.MathUtil;
+
 public class BestTimetoBuyandSellStockwithCooldown {
   /*
   Say you have an array for which the ith element is the price of a given stock on day i.    
@@ -48,14 +50,13 @@ public class BestTimetoBuyandSellStockwithCooldown {
   }
 
   public int maxProfit(int[] prices) {
-    int l = prices.length, i = 1;
-    int[] free = new int[l], empty = new int[l], full = new int[l];
-    for (full[0] = -prices[0]; i < l; i++) {
-      free[i] = Math.max(free[i - 1], empty[i - 1]);
-      full[i] = Math.max(full[i - 1], free[i - 1] - prices[i]);
-      empty[i] = full[i - 1] + prices[i];
+    int len = prices.length, idx, free[] = new int[len], empty[] = new int[len], full[] = new int[len];
+    for (full[0] = -prices[0], idx = 1; idx < len; idx++) {
+      free[idx] = Math.max(free[idx - 1], empty[idx - 1]);
+      full[idx] = Math.max(full[idx - 1], free[idx - 1] - prices[idx]);
+      empty[idx] = full[idx - 1] + prices[idx];
     }
-    return Math.max(free[l - 1], Math.max(full[l - 1], empty[l - 1]));
+    return MathUtil.max(free[len - 1], full[len - 1], empty[len - 1]);
   }
 
 }

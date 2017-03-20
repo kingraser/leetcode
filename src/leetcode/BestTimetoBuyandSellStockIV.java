@@ -2,9 +2,6 @@ package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
 import org.junit.Test;
 
 public class BestTimetoBuyandSellStockIV {
@@ -18,7 +15,7 @@ public class BestTimetoBuyandSellStockIV {
   */
 
   /*
-  Let t(i, j) is the max profit using i transactions by time j (0<=i<=K, 0<=j<=T)
+  Let t(i, j) is the max profit using i transactions by time j (0 <= i <= K, 0 <= j <= T)
   t(i, j) = max(t(i, j - 1), max(t(i - 1, k) + prices[j] - prices[k])) i <= k < j  
           = max(t(i, j - 1), prices[j] + max(t(i - 1, k) - prices[k]))
   */
@@ -35,14 +32,10 @@ public class BestTimetoBuyandSellStockIV {
   }
 
   public int maxProfit(int k, int[] prices) {
-    if (k >= prices.length >> 1)
-      return BestTimetoBuyandSellStockII.maxProfit(Arrays.stream(prices).boxed().collect(Collectors.toList()));
     int[][] t = new int[k + 1][prices.length];
     for (int i = 1; i <= k; i++)
-      for (int j = 1, max = -prices[0]; j < prices.length; j++) {
+      for (int j = 1, max = -prices[0]; j < prices.length; max = Math.max(max, t[i - 1][j] - prices[j++]))
         t[i][j] = Math.max(t[i][j - 1], max + prices[j]);
-        max = Math.max(max, t[i - 1][j] - prices[j]);
-      }
     return t[k][prices.length - 1];
   }
 
