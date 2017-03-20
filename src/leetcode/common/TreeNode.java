@@ -58,4 +58,13 @@ public class TreeNode {
     if (Objects.isNull(node)) return "n";
     return String.join(",", Integer.toString(node.val), toString(node.left), toString(node.right));
   }
+
+  public static int getDepth(TreeNode node) {
+    if (Objects.isNull(node)) return 0;
+    return 1 + Math.max(getDepth(node.left), getDepth(node.right));
+  }
+
+  public boolean isLeaf() {
+    return Objects.isNull(left) && Objects.isNull(right);
+  }
 }
