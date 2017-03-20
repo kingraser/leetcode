@@ -3,9 +3,11 @@ package leetcode;
 import static leetcode.common.TreeNode.tree;
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import org.junit.Test;
 
@@ -35,16 +37,24 @@ public class BinaryTreeLevelOrderTraversalII {
   ]   
   */
 
-  public List<List<Integer>> levelOrder(TreeNode root) {
-    List<List<Integer>> result = BinaryTreeLevelOrderTraversal.levelOrder(root);
-    Collections.reverse(result);
+  public static List<List<Integer>> levelOrder(TreeNode root) {
+    LinkedList<List<Integer>> result = new LinkedList<>();
+    traverse(root, 0, result);
     return result;
+  }
+
+  private static void traverse(TreeNode node, int level, LinkedList<List<Integer>> result) {
+    if (Objects.isNull(node)) return;
+    if (level == result.size()) result.addFirst(new ArrayList<>());
+    result.get(result.size() - 1 - level).add(node.val);
+    traverse(node.left, level + 1, result);
+    traverse(node.right, level + 1, result);
   }
 
   @Test
   public void test() {
-    List<List<Integer>> expected = Arrays.asList(Arrays.asList(15, 7), Arrays.asList(9, 20), Arrays.asList(3));
-    assertEquals(expected, levelOrder(tree("3,9,n,n,20,15,n,n,7,n,n")));
+    assertEquals(Arrays.asList(Arrays.asList(15, 7), Arrays.asList(9, 20), Arrays.asList(3)),
+        levelOrder(tree("3,9,n,n,20,15,n,n,7,n,n")));
   }
 
 }

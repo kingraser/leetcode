@@ -38,9 +38,9 @@ public class BinaryTreeMaximumPathSum {
 
   public int PathSum(TreeNode root, int[] max) {
     if (Objects.isNull(root)) return 0;
-    int l = PathSum(root.left, max), r = PathSum(root.right, max);
-    max[0] = Math.max(max[0], root.val + Math.max(0, l) + Math.max(0, r));
-    return Math.max(0, Math.max(r, l)) + root.val;
+    int left = PathSum(root.left, max), right = PathSum(root.right, max);
+    max[0] = Math.max(max[0], root.val + Math.max(0, left) + Math.max(0, right));
+    return Math.max(0, Math.max(right, left)) + root.val;
   }
 
 }

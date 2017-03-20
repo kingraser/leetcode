@@ -6,6 +6,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import org.junit.Test;
 
@@ -34,7 +35,7 @@ public class BinaryTreePreorderTraversal {
   }
 
   private void preorderTraversal(TreeNode root, List<Integer> list) {
-    if (root == null) return;
+    if (Objects.isNull(root)) return;
     list.add(root.val);
     preorderTraversal(root.left, list);
     preorderTraversal(root.right, list);

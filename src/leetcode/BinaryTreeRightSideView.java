@@ -6,6 +6,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import org.junit.Test;
 
@@ -38,7 +39,7 @@ public class BinaryTreeRightSideView {
   }
 
   private void rightSideView(TreeNode root, List<Integer> list, int level) {
-    if (root == null) return;
+    if (Objects.isNull(root)) return;
     if (level == list.size()) list.add(root.val);
     rightSideView(root.right, list, level + 1);
     rightSideView(root.left, list, level + 1);

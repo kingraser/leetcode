@@ -6,6 +6,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import org.junit.Test;
 
@@ -40,7 +41,7 @@ public class BinaryTreePostorderTraversal {
   }
 
   private void postorderTraversal(TreeNode root, List<Integer> list) {
-    if (root == null) return;
+    if (Objects.isNull(root)) return;
     postorderTraversal(root.left, list);
     postorderTraversal(root.right, list);
     list.add(root.val);

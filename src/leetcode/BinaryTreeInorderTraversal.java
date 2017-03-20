@@ -6,6 +6,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import org.junit.Test;
 
@@ -34,11 +35,11 @@ public class BinaryTreeInorderTraversal {
     return list;
   }
 
-  private void inorderTraversal(TreeNode root, List<Integer> list) {
-    if (root == null) return;
-    inorderTraversal(root.left, list);
-    list.add(root.val);
-    inorderTraversal(root.right, list);
+  private void inorderTraversal(TreeNode node, List<Integer> list) {
+    if (Objects.isNull(node)) return;
+    inorderTraversal(node.left, list);
+    list.add(node.val);
+    inorderTraversal(node.right, list);
   }
 
   @Test

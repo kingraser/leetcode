@@ -1,12 +1,13 @@
 package leetcode;
 
-import static leetcode.BinaryTreeLevelOrderTraversal.levelOrder;
 import static leetcode.common.TreeNode.tree;
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import org.junit.Test;
 
@@ -35,10 +36,17 @@ public class BinaryTreeZigzagLevelOrderTraversal {
   */
 
   public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-    List<List<Integer>> result = levelOrder(root);
-    for (int i = 1; i < result.size(); i += 2) // odd reverse
-      Collections.reverse(result.get(i));
+    List<List<Integer>> result = new ArrayList<>();
+    zigzagLevelOrder(root, 0, result);
     return result;
+  }
+
+  private void zigzagLevelOrder(TreeNode node, int level, List<List<Integer>> result) {
+    if (Objects.isNull(node)) return;
+    if (level == result.size()) result.add(new LinkedList<>());
+    result.get(level).add((level & 1) == 1 ? 0 : result.get(level).size(), node.val);
+    zigzagLevelOrder(node.left, level + 1, result);
+    zigzagLevelOrder(node.right, level + 1, result);
   }
 
   @Test

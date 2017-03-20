@@ -7,6 +7,7 @@ import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
@@ -73,17 +74,13 @@ public class BinaryTreeVerticalOrderTraversal {
   }
 
   private void preOrder(TreeNode root, Deque<Pair<Integer, List<Integer>>> result, int idx) {
-    if (root == null) return;
+    if (Objects.isNull(root)) return;
     if (result.isEmpty()) result.add(new Pair<Integer, List<Integer>>(idx, Lists.newArrayList(root.val)));
     else if (idx < result.peekFirst().key)
       result.addFirst(new Pair<Integer, List<Integer>>(idx, Lists.newArrayList(root.val)));
     else if (idx > result.peekLast().key)
       result.addLast(new Pair<Integer, List<Integer>>(idx, Lists.newArrayList(root.val)));
-    else for (Pair<Integer, List<Integer>> pair : result)
-      if (idx == pair.key) {
-        pair.value.add(root.val);
-        break;
-      }
+    else result.stream().filter(pair -> idx == pair.key).findFirst().get().value.add(root.val);
     preOrder(root.left, result, idx - 1);
     preOrder(root.right, result, idx + 1);
   }

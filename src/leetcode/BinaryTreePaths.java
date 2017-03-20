@@ -7,9 +7,8 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Deque;
-import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 import org.junit.Test;
 
@@ -37,26 +36,23 @@ public class BinaryTreePaths {
     return result;
   }
 
-  private void dfs(TreeNode root, Deque<TreeNode> deque, List<String> result) {
-    if (root == null) return;
-    if (root.left == null && root.right == null) {
-      deque.addLast(root);
-      result
-          .add(String.join("->", deque.stream().map(node -> Integer.toString(node.val)).collect(Collectors.toList())));
-      deque.removeLast();
+  private void dfs(TreeNode node, Deque<String> deque, List<String> result) {
+    if (Objects.isNull(node)) return;
+    if (node.isLeaf()) {
+      deque.addLast("" + node.val);
+      result.add(String.join("->", deque));
+      deque.pollLast();
       return;
     }
-    deque.offerLast(root);
-    dfs(root.left, deque, result);
-    dfs(root.right, deque, result);
+    deque.addLast("" + node.val);
+    dfs(node.left, deque, result);
+    dfs(node.right, deque, result);
     deque.pollLast();
   }
 
   @Test
   public void test() {
-    List<String> expected = Arrays.asList("1->2->5", "1->3");
-    TreeNode root = tree("1,2,n,5,n,n,3,n,n");
-    assertEquals(new HashSet<>(expected), new HashSet<>(binaryTreePaths(root)));
+    assertEquals(Arrays.asList("1->2->5", "1->3"), binaryTreePaths(tree("1,2,n,5,n,n,3,n,n")));
   }
 
 }

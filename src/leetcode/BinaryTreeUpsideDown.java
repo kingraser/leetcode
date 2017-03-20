@@ -51,7 +51,7 @@ public class BinaryTreeUpsideDown {
   }
 
   public TreeNode upsideDownBinaryTree(TreeNode root) {
-    if (Objects.isNull(root) || Objects.isNull(root.left) && Objects.isNull(root.right)) return root;
+    if (Objects.isNull(root) || Objects.isNull(root.left)) return root;
     TreeNode newRoot = upsideDownBinaryTree(root.left);
     root.left.left = root.right;
     root.left.right = root;
