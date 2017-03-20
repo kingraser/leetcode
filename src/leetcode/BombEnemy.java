@@ -28,24 +28,17 @@ public class BombEnemy {
   }
 
   int maxKilledEnemies(char[][] grid) {
-    int m = grid.length, n = m > 0 ? grid[0].length : 0;
-    int result = 0, rowhits = 0, colhits[] = new int[n];
-    for (int i = 0; i < m; i++) {
-      for (int j = 0; j < n; j++) {
-        if (j == 0 || grid[i][j - 1] == 'W') {
-          rowhits = 0;
-          for (int k = j; k < n && grid[i][k] != 'W'; k++)
-            rowhits += grid[i][k] == 'E' ? 1 : 0;
-        }
-        if (i == 0 || grid[i - 1][j] == 'W') {
-          colhits[j] = 0;
-          for (int k = i; k < m && grid[k][j] != 'W'; k++)
-            colhits[j] += grid[k][j] == 'E' ? 1 : 0;
-        }
-        if (grid[i][j] == '0') result = Math.max(result, rowhits + colhits[j]);
+    int rowCount = grid.length, colCount = rowCount > 0 ? grid[0].length : 0, max = 0, rowhits = 0,
+        colhits[] = new int[colCount];
+    for (int row = 0; row < rowCount; row++)
+      for (int col = 0, idx; col < colCount; col++) {
+        if (col == 0 || grid[row][col - 1] == 'W') for (rowhits = 0, idx = col; idx < colCount
+            && grid[row][idx] != 'W'; rowhits += grid[row][idx++] == 'E' ? 1 : 0);
+        if (row == 0 || grid[row - 1][col] == 'W') for (colhits[col] = 0, idx = row; idx < rowCount
+            && grid[idx][col] != 'W'; colhits[col] += grid[idx++][col] == 'E' ? 1 : 0);
+        if (grid[row][col] == '0') max = Math.max(max, rowhits + colhits[col]);
       }
-    }
-    return result;
+    return max;
   }
 
 }
