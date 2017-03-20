@@ -3,6 +3,8 @@ package leetcode;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Objects;
+
 import org.junit.Test;
 
 public class CircularArrayLoop {
@@ -33,22 +35,24 @@ public class CircularArrayLoop {
   }
 
   private int next(int now, int[] A) {
-    return ((now + A[now]) % A.length + A.length) % A.length;
+    return (now + A[now] + A.length) % A.length;
   }
 
-  private boolean same(int flag, int b) {
-    return b == 0 ? false : (flag ^ (b >>> 31)) == 0;
+  private boolean sameDirection(int direction, int n) {
+    return n == 0 ? false : (direction ^ (n >>> 31)) == 0;
   }
 
   public boolean circularArrayLoop(int[] nums) {
-    if (nums == null || nums.length < 2) return false;
+    if (Objects.isNull(nums) || nums.length < 2) return false;
     for (int i = 0; i < nums.length; i++) {
       if (nums[i] == 0) continue;
-      for (int flag = nums[i] >>> 31, slow = i, fast = next(slow, nums); same(flag, nums[slow])
-          && same(flag, nums[fast]); slow = next(slow, nums), fast = next(next(fast, nums), nums))
-        if (slow == fast) if (slow == next(slow, nums)) break;
-        else return true;
-      for (int flag = nums[i] >>> 31, j = i, next; same(flag, nums[j]); next = next(j, nums), nums[j] = 0, j = next);
+      for (int direction = nums[i] >>> 31, slow = i, fast = next(slow, nums); sameDirection(direction, nums[slow])
+          && sameDirection(direction, nums[fast]); slow = next(slow, nums), fast = next(next(fast, nums), nums))
+        if (slow != fast) continue;
+        else if (slow != next(slow, nums)) return true;
+        else break;
+      for (int direction = nums[i] >>> 31, j = i, next; sameDirection(direction,
+          nums[j]); next = next(j, nums), nums[j] = 0, j = next);
     }
     return false;
   }
