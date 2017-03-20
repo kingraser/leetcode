@@ -24,11 +24,10 @@ public class AddStrings {
   }
 
   public String addStrings(String a, String b) {
-    char[] result = new char[Math.max(a.length(), b.length()) + 1];
-    int idx = result.length - 1;
+    StringBuilder result = new StringBuilder();
     for (int aIdx = a.length() - 1, bIdx = b.length() - 1, carry = 0; aIdx >= 0 || bIdx >= 0 || carry > 0; carry /= 10)
-      result[idx--] = digit((carry += getDigit(a, aIdx--) + getDigit(b, bIdx--)) % 10);
-    return new String(result, ++idx, result.length - idx);
+      result.append(digit((carry += getDigit(a, aIdx--) + getDigit(b, bIdx--)) % 10));
+    return result.reverse().toString();
   }
 
 }
