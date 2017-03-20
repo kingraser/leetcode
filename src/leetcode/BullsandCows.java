@@ -1,5 +1,6 @@
 package leetcode;
 
+import static leetcode.AddBinary.getDigit;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -36,13 +37,12 @@ public class BullsandCows {
   }
 
   public String getHint(String secret, String guess) {
-    int bulls = 0, cows = 0, size = guess.length();
-    int[] digit = new int[10];
-    for (int i = 0; i < size; i++)
-      if (secret.charAt(i) == guess.charAt(i)) bulls++;
+    int bulls = 0, cows = 0, size = guess.length(), digit[] = new int[10];
+    for (int idx = 0; idx < size; idx++)
+      if (secret.charAt(idx) == guess.charAt(idx)) bulls++;
       else {
-        if (digit[secret.charAt(i) - '0']++ < 0) cows++;
-        if (digit[guess.charAt(i) - '0']-- > 0) cows++;
+        if (digit[getDigit(secret, idx)]++ < 0) cows++;
+        if (digit[getDigit(guess, idx)]-- > 0) cows++;
       }
     return String.format("%dA%dB", bulls, cows);
   }
