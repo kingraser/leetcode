@@ -3,6 +3,7 @@ package leetcode;
 import static leetcode.BattleshipsinaBoard.DIRS;
 import static org.junit.Assert.assertEquals;
 
+import java.util.BitSet;
 import java.util.PriorityQueue;
 
 import org.junit.Test;
@@ -43,35 +44,33 @@ public class TrappingRainWaterII {
   }
 
   public int trapRainWater(int[][] heights) {
-    if (heights == null || heights.length == 0 || heights[0].length == 0) return 0;
     PriorityQueue<Cell> queue = new PriorityQueue<>((c1, c2) -> c1.height - c2.height);
-    int rowCount = heights.length, colCount = heights[0].length;
-    boolean[][] visited = new boolean[rowCount][colCount];
-    addEdges(rowCount, colCount, visited, queue, heights);
+    BitSet visited = new BitSet();
+    addEdges(visited, queue, heights);
     int res = 0, i, row, col;
     for (Cell cell; !queue.isEmpty();)
-      for (cell = queue.poll(), i = 0; i < 4; i++)
-        if ((row = cell.row + DIRS.get(i)[0]) >= 0 && row < rowCount && (col = cell.col + DIRS.get(i)[1]) >= 0
-            && col < colCount && !visited[row][col]) {
-          visited[row][col] = true;
+      for (cell = queue.poll(), i = 0; i < DIRS.size(); i++)
+        if ((row = cell.row + DIRS.get(i)[0]) >= 0 && row < heights.length && (col = cell.col + DIRS.get(i)[1]) >= 0
+            && col < heights[0].length && !visited.get(row * heights[0].length + col)) {
+          visited.set(row * heights[0].length + col);
           res += Math.max(0, cell.height - heights[row][col]);
           queue.offer(new Cell(row, col, Math.max(heights[row][col], cell.height)));
         }
     return res;
   }
 
-  private void addEdges(int row, int col, boolean[][] visited, PriorityQueue<Cell> queue, int[][] heights) {
-    for (int i = 0; i < row; i++) {
-      visited[i][0] = true;
-      visited[i][col - 1] = true;
-      queue.offer(new Cell(i, 0, heights[i][0]));
-      queue.offer(new Cell(i, col - 1, heights[i][col - 1]));
+  private void addEdges(BitSet visited, PriorityQueue<Cell> queue, int[][] heights) {
+    for (int height = heights.length, width = height > 0 ? heights[0].length : 0, row = 0; row < height; row++) {
+      visited.set(row * width);
+      visited.set(row * height + width - 1);
+      queue.offer(new Cell(row, 0, heights[row][0]));
+      queue.offer(new Cell(row, width - 1, heights[row][width - 1]));
     }
-    for (int i = 1; i < col - 1; i++) {
-      visited[0][i] = true;
-      visited[row - 1][i] = true;
-      queue.offer(new Cell(0, i, heights[0][i]));
-      queue.offer(new Cell(row - 1, i, heights[row - 1][i]));
+    for (int height = heights.length, width = height > 0 ? heights[0].length : 0, col = 1; col < width - 1; col++) {
+      visited.set(col);
+      visited.set((height - 1) * width + col);
+      queue.offer(new Cell(0, col, heights[0][col]));
+      queue.offer(new Cell(height - 1, col, heights[height - 1][col]));
     }
   }
 
