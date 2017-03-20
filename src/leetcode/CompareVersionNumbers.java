@@ -24,13 +24,14 @@ public class CompareVersionNumbers {
 
   public int compareVersion(String version1, String version2) {
     String[] v1s = version1.split("\\."), v2s = version2.split("\\.");
-    for (int i = 0, len = Math.max(v1s.length, v2s.length); i < len; i++) {
-      int ver1 = i < v1s.length ? Integer.parseInt(v1s[i]) : 0;
-      int ver2 = i < v2s.length ? Integer.parseInt(v2s[i]) : 0;
-      if (ver1 > ver2) return 1;
-      if (ver1 < ver2) return -1;
-    }
+    for (int idx = 0, len = Math.max(v1s.length, v2s.length), ver1, ver2; idx < len; idx++)
+      if ((ver1 = getInt(v1s, idx)) > (ver2 = getInt(v2s, idx))) return 1;
+      else if (ver1 < ver2) return -1;
     return 0;
+  }
+
+  private int getInt(String[] s, int idx) {
+    return idx >= s.length ? 0 : Integer.parseInt(s[idx]);
   }
 
 }
