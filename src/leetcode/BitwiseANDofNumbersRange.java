@@ -11,7 +11,7 @@ public class BitwiseANDofNumbersRange {
   return the bitwise AND of all numbers in this range, inclusive.    
   For example, given the range [5, 7], you should return 4.
   
-  get m, n common 1 prefix
+  get m, n common prefix
   */
 
   @Test

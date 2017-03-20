@@ -3,14 +3,13 @@ package leetcode;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.IntStream;
 
 import org.junit.Test;
-
-import com.google.common.collect.Sets;
 
 public class BinaryWatch {
 
@@ -33,10 +32,10 @@ public class BinaryWatch {
   private static final Map<Integer, List<String>> RESULT = new HashMap<>();
 
   static {
-    for (int i = 0; i < 12; i++)
-      for (int j = 0; j < 60; j++)
-        RESULT.computeIfAbsent(Integer.bitCount(j | (i << 6)), k -> new ArrayList<>())
-            .add(String.format("%d:%02d", i, j));
+    IntStream.range(0, 12)
+        .forEach(hour -> IntStream.range(0, 60)
+            .forEach(minute -> RESULT.computeIfAbsent(Integer.bitCount(minute | (hour << 6)), k -> new ArrayList<>())
+                .add(String.format("%d:%02d", hour, minute))));
   }
 
   public List<String> readBinaryWatch(int num) {
@@ -45,7 +44,7 @@ public class BinaryWatch {
 
   @Test
   public void test() {
-    assertEquals(Sets.newHashSet("1:00", "2:00", "4:00", "8:00", "0:01", "0:02", "0:04", "0:08", "0:16", "0:32"),
-        new HashSet<>(readBinaryWatch(1)));
+    assertEquals(Arrays.asList("0:01", "0:02", "0:04", "0:08", "0:16", "0:32", "1:00", "2:00", "4:00", "8:00"),
+        readBinaryWatch(1));
   }
 }
