@@ -29,21 +29,25 @@ public class BurstBalloons {
   }
 
   /*
-  Let the last burst balloon m to be a separate point, divide balloons into 2 parts, left and right.
-  dp[l][r] = max(dp[l][r], nums[l] * nums[m] * nums[r] + dp[l][m] + dp[m][r])
+  Let dp[left][right] is the max coins of range[left, right]
+  dp[l][r] = max(dp[l][r], nums[l - 1] * nums[m] * nums[r + 1] + dp[l][m-1] + dp[m+1][r]) (l <= m <= r)
   */
 
   public int maxCoins(int[] nums) {
-    int len = nums.length, len2 = len + 2;
-    int[] newnums = new int[len2];
-    for (int i = 0; i < len; i++)
-      newnums[i + 1] = nums[i];
-    newnums[0] = newnums[len + 1] = 1;
-    int[][] DP = new int[len2][len2];
-    for (int k = 2; k < len2; k++)
-      for (int l = 0; l + k < len2; l++)
-        for (int m = l + 1, h = l + k; m < h; m++)
-          DP[l][h] = Math.max(DP[l][h], newnums[l] * newnums[m] * newnums[h] + DP[l][m] + DP[m][h]);
-    return DP[0][nums.length + 1];
+    int dp[][] = new int[nums.length][nums.length];
+    for (int length = 1; length <= nums.length; length++)
+      for (int start = 0; start <= nums.length - length; start++)
+        for (int end = start + length - 1, idx = start; idx <= end; idx++)
+          dp[start][end] = Math.max(dp[start][end], nums[idx] * getValue(nums, start - 1) * getValue(nums, end + 1)
+              + getValue(dp, start, idx - 1) + getValue(dp, idx + 1, end));
+    return dp[0][nums.length - 1];
+  }
+
+  private int getValue(int[][] nums, int row, int col) {
+    return row < 0 || row == nums.length || col < 0 || col == nums[0].length ? 0 : nums[row][col];
+  }
+
+  private int getValue(int[] nums, int idx) {
+    return idx < 0 || idx == nums.length ? 1 : nums[idx];
   }
 }
