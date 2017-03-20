@@ -61,9 +61,9 @@ public class ArithmeticSlicesIISubsequence {
 
   public int numberOfArithmeticSlices(int[] A) {
     int result = 0;
-    List<Map<Integer, Integer>> list = new ArrayList<>(A.length);
+    List<Map<Integer, Integer>> list = new ArrayList<>();
     for (int i = 0; i < A.length; i++) {
-      list.add(new HashMap<>(i, 1f));
+      list.add(new HashMap<>());
       for (int j = 0, count; j < i; j++) {
         long distance = ((long) A[i]) - A[j];
         if (distance > Integer.MAX_VALUE || distance < Integer.MIN_VALUE) continue;
