@@ -43,10 +43,10 @@ public class CombinationSumIV {
     Arrays.sort(nums);
     int[] dp = new int[target + 1]; // dp[i] is the combination sum of i
     dp[0] = 1;
-    for (int i = 1; i <= target; i++)
-      for (int a : nums)
-        if (i < a) break;
-        else dp[i] += dp[i - a];
+    for (int sum = 1; sum <= target; sum++)
+      for (int num : nums)
+        if (sum < num) break;
+        else dp[sum] += dp[sum - num];
     return dp[target];
   }
 }
