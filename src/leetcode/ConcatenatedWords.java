@@ -51,12 +51,12 @@ public class ConcatenatedWords {
       dict.add(word);
       return;
     }
-    BitSet cuts = new BitSet(word.length() + 1);
+    BitSet cuts = new BitSet();
     cuts.set(0);
-    for (int i = 1; i <= word.length(); i++)
-      for (int j = 0; j < i; j++)
-        if (cuts.get(j) && dict.contains(word.substring(j, i))) {
-          cuts.set(i);
+    for (int right = 1; right <= word.length(); right++)
+      for (int left = 0; left < right; left++)
+        if (cuts.get(left) && dict.contains(word.substring(left, right))) {
+          cuts.set(right);
           break;
         }
     dict.add(word);
