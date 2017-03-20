@@ -37,7 +37,7 @@ public class CombinationSum {
   public List<List<Integer>> combinationSum(int[] candidates, int target) {
     Arrays.sort(candidates);
     List<List<Integer>> result = new ArrayList<>();
-    dfs(candidates, target, 0, new ArrayDeque<>(target / candidates[0]), result);
+    dfs(candidates, target, 0, new ArrayDeque<>(), result);
     return result;
   }
 

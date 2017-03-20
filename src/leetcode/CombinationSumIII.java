@@ -41,11 +41,11 @@ public class CombinationSumIII {
     return res;
   }
 
-  private void dfs(List<List<Integer>> r, Deque<Integer> deque, int sum, int k, int start) {
-    if (k == 0 && sum == 0) r.add(new ArrayList<>(deque));
+  private void dfs(List<List<Integer>> result, Deque<Integer> deque, int sum, int k, int start) {
+    if (k == 0 && sum == 0) result.add(new ArrayList<>(deque));
     else while (isPossible(sum, k, start)) {
       deque.addLast(start);
-      dfs(r, deque, sum - start, k - 1, ++start);
+      dfs(result, deque, sum - start, k - 1, ++start);
       deque.pollLast();
     }
   }
