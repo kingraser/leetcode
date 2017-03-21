@@ -1,17 +1,13 @@
 package leetcode;
 
+import static leetcode.BasicCalculatorII.OPERATOR_MAP;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.function.BiFunction;
 
 import org.junit.Test;
-
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Sets;
 
 public class DifferentWaystoAddParentheses {
 
@@ -41,7 +37,7 @@ public class DifferentWaystoAddParentheses {
 
   @Test
   public void test() {
-    assertEquals(Sets.newHashSet(-34, -14, -10, -10, 10), new HashSet<>(diffWaysToCompute("2*3-4*5")));
+    assertEquals(Arrays.asList(-34, -10, -14, -10, 10), diffWaysToCompute("2*3-4*5"));
   }
 
   public List<Integer> diffWaysToCompute(String input) {
@@ -57,10 +53,7 @@ public class DifferentWaystoAddParentheses {
 
   private List<Integer> merge(List<Integer> a, List<Integer> b, char c) {
     List<Integer> result = new ArrayList<>();
-    a.forEach(i -> b.forEach(j -> result.add(COMPUTE_MAP.get(c).apply(i, j))));
+    a.forEach(i -> b.forEach(j -> result.add(OPERATOR_MAP.get(c).apply(j, i))));
     return result;
   }
-
-  private static final Map<Character, BiFunction<Integer, Integer, Integer>> COMPUTE_MAP = ImmutableMap.of('+',
-      (a, b) -> a + b, '-', (a, b) -> a - b, '*', (a, b) -> a * b);
 }
