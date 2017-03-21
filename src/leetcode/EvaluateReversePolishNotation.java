@@ -1,14 +1,11 @@
 package leetcode;
 
+import static leetcode.BasicCalculatorII.OPERATOR_MAP;
 import static org.junit.Assert.assertEquals;
 
-import java.util.Map;
 import java.util.Stack;
-import java.util.function.BiFunction;
 
 import org.junit.Test;
-
-import com.google.common.collect.ImmutableMap;
 
 public class EvaluateReversePolishNotation {
   /*
@@ -25,13 +22,11 @@ public class EvaluateReversePolishNotation {
     assertEquals(6, evalRPN(new String[] { "4", "13", "5", "/", "+" }));
   }
 
-  Map<String, BiFunction<Integer, Integer, Integer>> operators = ImmutableMap.of("+", (a, b) -> b + a, "-",
-      (a, b) -> b - a, "*", (a, b) -> b * a, "/", (a, b) -> b / a);
-
   public int evalRPN(String[] tokens) {
     Stack<Integer> integers = new Stack<>();
     for (String s : tokens)
-      if (operators.containsKey(s)) integers.push(operators.get(s).apply(integers.pop(), integers.pop()));
+      if (OPERATOR_MAP.containsKey(s.charAt(0)))
+        integers.push(OPERATOR_MAP.get(s.charAt(0)).apply(integers.pop(), integers.pop()));
       else integers.push(Integer.parseInt(s));
     return integers.pop();
   }
