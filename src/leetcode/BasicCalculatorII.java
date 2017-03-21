@@ -24,7 +24,7 @@ public class BasicCalculatorII {
   " 3+5 / 2 " = 5
   */
 
-  private static final Map<Character, BiFunction<Integer, Integer, Integer>> OPERATOR_MAP = ImmutableMap.of('+',
+  public static final Map<Character, BiFunction<Integer, Integer, Integer>> OPERATOR_MAP = ImmutableMap.of('+',
       (a, b) -> b + a, '-', (a, b) -> b - a, '*', (a, b) -> b * a, '/', (a, b) -> b / a);
 
   @Test
