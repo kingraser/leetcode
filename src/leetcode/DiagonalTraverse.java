@@ -30,8 +30,8 @@ public class DiagonalTraverse {
   }
 
   public int[] findDiagonalOrder(int[][] matrix) {
-    if (matrix.length == 0 || matrix[0].length == 0) return new int[0];
-    int[] result = new int[matrix.length * matrix[0].length];
+    int rowCount = matrix.length, colCount = rowCount > 0 ? matrix[0].length : 0,
+        result[] = new int[rowCount * colCount];
     for (int i = 0, row = 0, col = 0, step = -1; i < result.length;) {
       result[i++] = matrix[row][col];
       if ((row += step) == matrix.length) {
