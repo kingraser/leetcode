@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.TreeMap;
 
 import static org.junit.Assert.assertEquals;
@@ -51,11 +52,11 @@ public class DataStreamasDisjointIntervals {
     public void addNum(int val) {
       if (map.containsKey(val)) return;
       Entry<Integer, Interval> l = map.lowerEntry(val), h = map.higherEntry(val);
-      if (l != null && h != null && l.getValue().end + 1 == val && h.getKey() == val + 1) {
+      if (Objects.nonNull(l) && Objects.nonNull(h) && l.getValue().end + 1 == val && h.getKey() == val + 1) {
         l.getValue().end = h.getValue().end;
         map.remove(h.getKey());
-      } else if (l != null && l.getValue().end + 1 >= val) l.getValue().end = Math.max(l.getValue().end, val);
-      else if (h != null && h.getKey() == val + 1) {
+      } else if (Objects.nonNull(l) && l.getValue().end + 1 >= val) l.getValue().end = Math.max(l.getValue().end, val);
+      else if (Objects.nonNull(h) && h.getKey() == val + 1) {
         h.getValue().start = val;
         map.put(val, h.getValue());
         map.remove(h.getKey());
