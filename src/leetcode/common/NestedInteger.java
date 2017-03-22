@@ -24,7 +24,7 @@ public class NestedInteger {
   }
 
   public boolean isInteger() {
-    return val != null;
+    return Objects.nonNull(val);
   }
 
   public Integer getInteger() {
@@ -45,7 +45,7 @@ public class NestedInteger {
 
   @Override
   public String toString() {
-    return val != null ? Integer.toString(val)
+    return isInteger() ? Integer.toString(val)
         : "[" + String.join(",", list.stream().map(i -> i.toString()).collect(Collectors.toList())) + "]";
   }
 
@@ -77,7 +77,7 @@ public class NestedInteger {
 
   @Override
   public boolean equals(Object o) {
-    if (o == null || !(o instanceof NestedInteger)) return false;
+    if (Objects.isNull(o) || !(o instanceof NestedInteger)) return false;
     NestedInteger other = (NestedInteger) o;
     return isInteger() ? other.isInteger() && getInteger().equals(other.getInteger())
         : Objects.equals(getList(), other.getList());
