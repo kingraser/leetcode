@@ -1,5 +1,6 @@
 package leetcode;
 
+import static leetcode.util.MathUtil.gcd;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -36,10 +37,7 @@ public class WaterandJugProblem {
   }
 
   public boolean canMeasureWater(int x, int y, int z) {
-    return z < 1 ? true : z > x + y ? false : z % gcd(Math.min(x, y), Math.max(x, y)) == 0;
+    return z < 1 || (z <= x + y && z % gcd(Math.min(x, y), Math.max(x, y)) == 0);
   }
 
-  private int gcd(int x, int y) {
-    return x == 0 ? y : y == 0 ? x : gcd(y % x, x);
-  }
 }

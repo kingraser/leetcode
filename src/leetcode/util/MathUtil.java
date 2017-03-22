@@ -4,6 +4,10 @@ import java.util.Arrays;
 
 public class MathUtil {
 
+  public static int gcd(int x, int y) {
+    return x == 0 ? y : y == 0 ? x : gcd(y % x, x);
+  }
+
   public static int max(int... args) {
     return Arrays.stream(args).max().getAsInt();
   }
