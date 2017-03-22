@@ -53,12 +53,12 @@ public class GameofLife {
       for (int j = 0; j < b[0].length; b[i][j++] &= 1);// %2
   }
 
-  private int getLivesAround(int[][] b, int row, int col) {
+  private int getLivesAround(int[][] board, int row, int col) {
     int lives = 0;
     for (int i = row - 1; i < row + 2; i++)
       for (int j = col - 1; j < col + 2; j++)
-        if ((i == row && j == col) || i < 0 || i >= b.length || j < 0 || j >= b[0].length) continue;
-        else if (b[i][j] == 1 || b[i][j] == 2) lives++;
+        if ((i == row && j == col) || i < 0 || i >= board.length || j < 0 || j >= board[0].length) continue;
+        else if (board[i][j] == 1 || board[i][j] == 2) lives++;
     return lives;
   }
 
