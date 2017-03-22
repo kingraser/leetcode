@@ -2,6 +2,7 @@ package leetcode;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.BitSet;
 import java.util.Set;
 
 import org.junit.Test;
@@ -32,11 +33,11 @@ public class WordBreak {
   }
 
   public boolean wordBreak(String s, Set<String> dict) {
-    boolean[] cuts = new boolean[s.length() + 1];
-    cuts[0] = true;
+    BitSet cuts = new BitSet();
+    cuts.set(0);
     for (int right = 1; right <= s.length(); right++)
-      for (int left = right - 1; !cuts[right] && left >= 0; left--)
-        if (cuts[left] && dict.contains(s.substring(left, right))) cuts[right] = true;
-    return cuts[s.length()];
+      for (int left = right - 1; !cuts.get(right) && left >= 0; left--)
+        if (cuts.get(left) && dict.contains(s.substring(left, right))) cuts.set(right);
+    return cuts.get(s.length());
   }
 }
