@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Deque;
 import java.util.List;
+import java.util.Objects;
 
 import org.junit.Test;
 
@@ -80,7 +81,7 @@ public class WordSquares {
 
   public List<List<String>> wordSquares(String[] words) {
     List<List<String>> result = new ArrayList<>();
-    if (words == null || words.length == 0) return result;
+    if (Objects.isNull(words) || words.length == 0) return result;
     Trie trie = getTrie(words);
     Deque<String> deque = new ArrayDeque<>();
     for (String word : words) {
@@ -98,11 +99,8 @@ public class WordSquares {
   }
 
   private void dfs(Trie trie, List<List<String>> result, Deque<String> deque) {
-    if (deque.size() == deque.peek().length()) {
-      result.add(new ArrayList<>(deque));
-      return;
-    }
-    for (String word : trie.getWithPrefix(getPrefix(deque))) {
+    if (deque.size() == deque.peek().length()) result.add(new ArrayList<>(deque));
+    else for (String word : trie.getWithPrefix(getPrefix(deque))) {
       deque.add(word);
       dfs(trie, result, deque);
       deque.pollLast();
