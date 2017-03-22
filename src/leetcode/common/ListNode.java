@@ -18,21 +18,21 @@ public class ListNode {
 
   public ListNode last() {
     ListNode node = this;
-    while (node.next != null)
+    while (Objects.nonNull(node.next))
       node = node.next;
     return node;
   }
 
   public ListNode next(int n) {
     ListNode node = this;
-    while (n-- > 0 && node != null)
+    while (n-- > 0 && Objects.nonNull(node))
       node = node.next;
     return node;
   }
 
   public int size() {
     int count = 0;
-    for (ListNode node = this; node != null; node = node.next, count++);
+    for (ListNode node = this; Objects.nonNull(node); node = node.next, count++);
     return count;
   }
 
