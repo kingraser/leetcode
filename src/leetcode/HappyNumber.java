@@ -3,10 +3,10 @@ package leetcode;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.Test;
-
-import com.google.common.collect.Sets;
 
 public class HappyNumber {
 
@@ -20,9 +20,9 @@ public class HappyNumber {
   */
 
   public boolean isHappy(int n) {
-    Set<Integer> set = Sets.newHashSet(n);
+    Set<Integer> set = Stream.of(n).collect(Collectors.toSet());
     for (int result = 0; n != 1; n = result, result = 0) {
-      for (int radix; n != 0; result += (radix = n % 10) * radix, n /= 10);
+      for (int digit; n != 0; result += (digit = n % 10) * digit, n /= 10);
       if (!set.add(result)) return false;
     }
     return true;
