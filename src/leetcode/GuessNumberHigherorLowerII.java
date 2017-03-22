@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 public class GuessNumberHigherorLowerII {
+
   /*
   We are playing the Guess Game. The game is as follows:  
   I pick a number from 1 to n. You have to guess which number I picked.  
@@ -37,11 +38,11 @@ public class GuessNumberHigherorLowerII {
   }
 
   public int getMoneyAmount(int n) {
-    int[][] dp = new int[n + 1][n + 1];
-    for (int j = 2; j <= n; j++)
-      for (int i = j - 1, k, min; i > 0; dp[i][j] = i + 1 == j ? i : min, i--)
-        for (k = i + 1, min = Integer.MAX_VALUE; k < j; k++)
-          min = Math.min(min, k + Math.max(dp[i][k - 1], dp[k + 1][j]));
+    int[][] dp = new int[n + 1][n + 1]; // dp[left][right] is minimum amount to guess [left, right]
+    for (int right = 2; right <= n; right++)
+      for (int left = right - 1, middle, min; left > 0; dp[left][right] = left + 1 == right ? left : min, left--)
+        for (middle = left + 1, min = Integer.MAX_VALUE; middle < right; middle++)
+          min = Math.min(min, middle + Math.max(dp[left][middle - 1], dp[middle + 1][right]));
     return dp[1][n];
   }
 }
