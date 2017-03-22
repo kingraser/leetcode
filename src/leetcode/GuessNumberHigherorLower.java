@@ -38,10 +38,10 @@ public class GuessNumberHigherorLower {
     }
 
     public int guessNumber(int n) {
-      for (int left = 1, mid, res;;)
-        if ((res = Integer.compare(num, mid = left + ((n - left) >> 1))) == 0) return mid;
+      for (int left = 1, right = n, mid, res;;)
+        if ((res = Integer.compare(num, mid = (left + right) >> 1)) == 0) return mid;
         else if (res > 0) left = mid + 1;
-        else n = mid;
+        else right = mid - 1;
     }
   }
 }
