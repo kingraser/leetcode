@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import org.junit.Test;
 
@@ -37,7 +38,7 @@ public class WordPatternII {
   private boolean match(String pattern, String str, Map<Integer, String> map) {
     if (pattern.isEmpty()) return str.isEmpty();
     String s = map.get((int) pattern.charAt(0)), next = pattern.substring(1);
-    if (s != null) return str.startsWith(s) ? match(next, str.substring(s.length()), map) : false;
+    if (Objects.nonNull(s)) return str.startsWith(s) ? match(next, str.substring(s.length()), map) : false;
     for (int i = 1, first = pattern.charAt(0); i <= str.length() - next.length(); i++) {
       if (map.containsValue(s = str.substring(0, i))) continue;
       map.put(first, s);
