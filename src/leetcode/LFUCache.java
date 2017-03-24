@@ -70,7 +70,7 @@ public class LFUCache {
     private void increase(int key) {
       Node node = nodeMap.get(key);
       node.keys.remove(key);
-      if (Objects.isNull(node.next)) node.next = new Node(node, null, 1 + node.count, key);
+      if (Objects.isNull(node.next)) node.next = new Node(node, null, node.count + 1, key);
       else if (node.next.count == node.count + 1) node.next.keys.add(key);
       else node.next = node.next.prev = new Node(node, node.next, node.count + 1, key);
       nodeMap.put(key, node.next);
@@ -100,7 +100,6 @@ public class LFUCache {
     }
 
     private void remove() {
-      if (Objects.isNull(head)) return;
       int oldest = head.keys.iterator().next();
       head.keys.remove(oldest);
       if (head.keys.isEmpty()) remove(head);
