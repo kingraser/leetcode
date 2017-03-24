@@ -2,6 +2,8 @@ package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Objects;
+
 import org.junit.Test;
 
 public class ImplementstrStr {
@@ -18,11 +20,12 @@ public class ImplementstrStr {
   }
 
   public int strStr(String haystack, String needle) {
-    if (haystack != null && needle != null) A: for (int hIdx = 0; hIdx <= haystack.length() - needle.length(); hIdx++) {
+    if (Objects.nonNull(haystack) && Objects.nonNull(needle))
+      A: for (int hIdx = 0; hIdx <= haystack.length() - needle.length(); hIdx++) {
       for (int nIdx = 0; nIdx < needle.length(); nIdx++)
-        if (haystack.charAt(hIdx + nIdx) != needle.charAt(nIdx)) continue A;
+      if (haystack.charAt(hIdx + nIdx) != needle.charAt(nIdx)) continue A;
       return hIdx;
-    }
+      }
     return -1;
   }
 
