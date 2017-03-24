@@ -28,7 +28,7 @@ public class ImplementQueueusingStacks {
   }
 
   class Queue {
-    private Stack<Integer> in = new Stack<Integer>(), out = new Stack<Integer>();
+    private Stack<Integer> in = new Stack<>(), out = new Stack<>();
 
     // Push element x to the back of queue.
     public void push(int x) {
