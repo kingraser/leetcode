@@ -45,7 +45,7 @@ public class InsertDeleteGetRandomO1 {
     Random random = new Random();
 
     public boolean insert(int val) {
-      return Objects.isNull(map.putIfAbsent(val, list.size())) ? list.add(val) : false;
+      return Objects.isNull(map.putIfAbsent(val, list.size())) && list.add(val);
     }
 
     public boolean remove(int val) {
