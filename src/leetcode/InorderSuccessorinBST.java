@@ -3,6 +3,8 @@ package leetcode;
 import static leetcode.common.TreeNode.tree;
 import static org.junit.Assert.assertEquals;
 
+import java.util.Objects;
+
 import org.junit.Test;
 
 import leetcode.common.TreeNode;
@@ -22,16 +24,16 @@ public class InorderSuccessorinBST {
   }
 
   public TreeNode successor(TreeNode root, TreeNode p) {
-    if (root == null) return null;
+    if (Objects.isNull(root)) return null;
     if (root.val <= p.val) return successor(root.right, p);
     TreeNode left = successor(root.left, p);
-    return left == null ? root : left;
+    return Objects.isNull(left) ? root : left;
   }
 
   public TreeNode predecessor(TreeNode root, TreeNode p) {
-    if (root == null) return null;
+    if (Objects.isNull(root)) return null;
     if (root.val >= p.val) return predecessor(root.left, p);
     TreeNode right = predecessor(root.right, p);
-    return right == null ? root : right;
+    return Objects.isNull(right) ? root : right;
   }
 }
