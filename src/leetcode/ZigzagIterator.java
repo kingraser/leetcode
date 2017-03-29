@@ -46,11 +46,10 @@ public class ZigzagIterator {
 
   public class ZigZagIterator implements Iterator<Integer> {
     List<Iterator<Integer>> iterators;
-    int idx;
+    int idx = 0;
 
     public ZigZagIterator(List<Iterator<Integer>> list) {
       this.iterators = list.stream().filter(i -> i.hasNext()).collect(Collectors.toList());
-      idx = 0;
     }
 
     public Integer next() {
