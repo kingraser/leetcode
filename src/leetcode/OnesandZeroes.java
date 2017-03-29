@@ -34,18 +34,13 @@ public class OnesandZeroes {
     assertEquals(2, findMaxForm(new String[] { "10", "0", "1" }, 1, 1));
   }
 
-  public int findMaxForm(String[] strs, int m, int n) {
-    int[][] dp = new int[m + 1][n + 1];
-    for (String s : strs) {
-      int zeros = 0, ones = 0;
-      for (char c : s.toCharArray())
-        if (c == '0') zeros++;
-        else ones++;
-      for (int i = m; i >= zeros; i--)
-        for (int j = n; j >= ones; j--)
+  public int findMaxForm(String[] strs, int zeroLimit, int oneLimit) {
+    int[][] dp = new int[zeroLimit + 1][oneLimit + 1];
+    for (String s : strs)
+      for (int i = zeroLimit, zeros = (int) s.chars().filter(c -> c == '0').count(); i >= zeros; i--)
+        for (int j = oneLimit, ones = s.length() - zeros; j >= ones; j--)
           dp[i][j] = Math.max(1 + dp[i - zeros][j - ones], dp[i][j]);
-    }
-    return dp[m][n];
+    return dp[zeroLimit][oneLimit];
   }
 
 }
