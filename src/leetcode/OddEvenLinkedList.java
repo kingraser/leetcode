@@ -3,6 +3,8 @@ package leetcode;
 import static leetcode.common.ListNode.list;
 import static org.junit.Assert.assertEquals;
 
+import java.util.Objects;
+
 import org.junit.Test;
 
 import leetcode.common.ListNode;
@@ -28,13 +30,11 @@ public class OddEvenLinkedList {
   }
 
   public ListNode oddEvenList(ListNode head) {
-    if (head == null || head.next == null) return head;
+    if (Objects.isNull(head) || Objects.isNull(head.next)) return head;
     ListNode odd = head, even = head.next, evenHead = even;
-    while (even != null && even.next != null) {
-      odd.next = even.next;
-      odd = odd.next;
-      even.next = odd.next;
-      even = even.next;
+    while (Objects.nonNull(even) && Objects.nonNull(even.next)) {
+      odd = odd.next = even.next;
+      even = even.next = odd.next;
     }
     odd.next = evenHead;
     return head;
