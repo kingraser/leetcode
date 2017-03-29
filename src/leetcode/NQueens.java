@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.junit.Test;
 
@@ -12,7 +14,8 @@ public class NQueens {
   /*
   The n-queens puzzle is the problem of placing n queens on an n×n chessboard such that no two queens attack each other.
   Given an integer n, return all distinct solutions to the n-queens puzzle.  
-  Each solution contains a distinct board configuration of the n-queens' placement, where 'Q' and '.' both indicate a queen and an empty space respectively.
+  Each solution contains a distinct board configuration of the n-queens' placement, 
+  where 'Q' and '.' both indicate a queen and an empty space respectively.
   
   For example,
   There exist two distinct solutions to the 4-queens puzzle:  
@@ -36,11 +39,8 @@ public class NQueens {
   }
 
   private void dfs(List<List<String>> result, List<Integer> queens, int size) {
-    if (queens.size() == size) {
-      result.add(parse(size, queens));
-      return;
-    }
-    for (int col = 0; col < size; col++)
+    if (queens.size() == size) result.add(parse(size, queens));
+    else for (int col = 0; col < size; col++)
       if (isOk(col, queens)) {
         queens.add(col);
         dfs(result, queens, size);
@@ -49,20 +49,17 @@ public class NQueens {
   }
 
   private List<String> parse(int size, List<Integer> queens) {
-    List<String> result = new ArrayList<>(queens.size());
-    for (Integer queen : queens) {
-      char[] array = new char[size];
-      Arrays.fill(array, '.');
-      array[queen] = 'Q';
-      result.add(new String(array));
-    }
-    return result;
+    return queens.stream().map(queen -> {
+      char[] result = new char[size];
+      Arrays.fill(result, '.');
+      result[queen] = 'Q';
+      return new String(result);
+    }).collect(Collectors.toList());
   }
 
-  public boolean isOk(int col, List<Integer> queens) {
-    for (int i = 0, size = queens.size(); i < size; i++)
-      if (queens.get(i) == col || Math.abs(i - size) == Math.abs(queens.get(i) - col)) return false;
-    return true;
+  public static boolean isOk(int col, List<Integer> queens) {
+    return IntStream.range(0, queens.size())
+        .noneMatch(i -> queens.get(i) == col || Math.abs(i - queens.size()) == Math.abs(queens.get(i) - col));
   }
 
   @Test

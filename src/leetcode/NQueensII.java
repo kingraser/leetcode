@@ -1,5 +1,6 @@
 package leetcode;
 
+import static leetcode.NQueens.isOk;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
@@ -21,22 +22,13 @@ public class NQueensII {
   }
 
   private void dfs(int[] sum, List<Integer> queens, int size) {
-    if (queens.size() == size) {
-      sum[0]++;
-      return;
-    }
-    for (int col = 0; col < size; col++)
+    if (queens.size() == size) sum[0]++;
+    else for (int col = 0; col < size; col++)
       if (isOk(col, queens)) {
         queens.add(col);
         dfs(sum, queens, size);
         queens.remove(queens.size() - 1);
       }
-  }
-
-  public boolean isOk(int col, List<Integer> queens) {
-    for (int i = 0, size = queens.size(); i < size; i++)
-      if (queens.get(i) == col || Math.abs(i - size) == Math.abs(queens.get(i) - col)) return false;
-    return true;
   }
 
   @Test
