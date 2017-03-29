@@ -21,10 +21,10 @@ public class OneEditDistance {
 
   private boolean isOneModified(String s, String t) {
     if (s.length() != t.length()) return false;
-    int count = 0;
+    int difference = 0;
     for (int i = 0; i < s.length();)
-      if (s.charAt(i) != t.charAt(i++) && count++ > 0) return false;
-    return count == 1;
+      if (s.charAt(i) != t.charAt(i++) && difference++ > 0) return false;
+    return difference == 1;
   }
 
   public boolean isOneDeleted(String longer, String shorter) {
