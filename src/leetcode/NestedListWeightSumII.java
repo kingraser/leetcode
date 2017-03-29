@@ -31,16 +31,13 @@ public class NestedListWeightSumII {
     assertEquals(17, depthSumInverse(NestedInteger.fromString("[1,[4,[6]]]").getList()));
   }
 
-  public int depthSumInverse(List<NestedInteger> nestedList) {
+  public int depthSumInverse(List<NestedInteger> list) {
     int unweighted = 0, weighted = 0;
-    while (!nestedList.isEmpty()) {
-      List<NestedInteger> nextLevel = new ArrayList<>();
-      for (NestedInteger ni : nestedList)
+    for (List<NestedInteger> next = new ArrayList<>(); !list
+        .isEmpty(); weighted += unweighted, list = next, next = new ArrayList<>())
+      for (NestedInteger ni : list)
         if (ni.isInteger()) unweighted += ni.getInteger();
-        else nextLevel.addAll(ni.getList());
-      weighted += unweighted;
-      nestedList = nextLevel;
-    }
+        else next.addAll(ni.getList());
     return weighted;
   }
 }

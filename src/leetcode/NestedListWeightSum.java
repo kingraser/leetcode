@@ -32,7 +32,6 @@ public class NestedListWeightSum {
   }
 
   private int depthSum(List<NestedInteger> list, int depth) {
-    return list.stream().map(i -> i.isInteger() ? i.getInteger() * depth : depthSum(i.getList(), depth + 1))
-        .mapToInt(Integer::intValue).sum();
+    return list.stream().mapToInt(i -> i.isInteger() ? i.getInteger() * depth : depthSum(i.getList(), depth + 1)).sum();
   }
 }
