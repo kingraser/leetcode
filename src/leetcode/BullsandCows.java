@@ -1,6 +1,6 @@
 package leetcode;
 
-import static leetcode.AddBinary.getDigit;
+import static leetcode.AddStrings.getDigit;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
