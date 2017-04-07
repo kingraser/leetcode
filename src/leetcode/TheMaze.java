@@ -1,5 +1,6 @@
 package leetcode;
 
+import static leetcode.BattleshipsinaBoard.DIRS;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -62,8 +63,6 @@ public class TheMaze {
     assertFalse(hasPath(maze, new int[] { 0, 4 }, new int[] { 3, 2 }));
   }
 
-  private static final int[][] DIRECTIONS = { { 1, 0 }, { -1, 0 }, { 0, -1 }, { 0, 1 } };
-
   public boolean hasPath(int[][] maze, int[] start, int[] destination) {
     return dfs(maze, new boolean[maze.length][maze[0].length], start, destination);
   }
@@ -72,7 +71,7 @@ public class TheMaze {
     if (reached[start[0]][start[1]]) return false;
     if (Arrays.equals(start, destination)) return true;
     reached[start[0]][start[1]] = true;
-    return Arrays.stream(DIRECTIONS).anyMatch(
+    return DIRS.stream().anyMatch(
         direction -> dfs(maze, reached, roll(maze, start[0], start[1], direction[0], direction[1]), destination));
   }
 

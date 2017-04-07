@@ -1,5 +1,6 @@
 package leetcode;
 
+import static leetcode.BattleshipsinaBoard.DIRS;
 import static leetcode.TheMaze.canRoll;
 import static org.junit.Assert.assertEquals;
 
@@ -63,8 +64,6 @@ public class TheMazeII {
     assertEquals(-1, shortestDistance(maze, new int[] { 0, 4 }, new int[] { 3, 2 }));
   }
 
-  private static final int[][] DIRECTIONS = { { 1, 0 }, { -1, 0 }, { 0, -1 }, { 0, 1 } };
-
   public int shortestDistance(int[][] maze, int[] start, int[] destination) {
     int result = Integer.MAX_VALUE;
     boolean[][] reached = new boolean[maze.length][maze[0].length];
@@ -72,7 +71,7 @@ public class TheMazeII {
     for (queue.add(new Position(start[0], start[1], 0)); !queue.isEmpty();) {
       Position position = queue.poll(), next;
       reached[position.row][position.column] = true;
-      for (int[] direction : DIRECTIONS)
+      for (int[] direction : DIRS)
         if (reached[(next = roll(maze, position, direction)).row][next.column]) continue;
         else if (next.row == destination[0] && next.column == destination[1]) result = Math.min(result, next.distance);
         else if (next.distance < result) queue.add(next);
