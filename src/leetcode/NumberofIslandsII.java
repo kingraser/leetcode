@@ -1,5 +1,7 @@
 package leetcode;
 
+import static leetcode.BattleshipsinaBoard.DIRS;
+import static leetcode.FriendCircles.getRoot;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
@@ -61,8 +63,6 @@ public class NumberofIslandsII {
     assertEquals(Arrays.asList(1, 1, 1, 1), numIslands2(3, 3, new int[][] { { 0, 0 }, { 0, 1 }, { 1, 1 }, { 1, 0 } }));
   }
 
-  int[][] DIRECTIONS = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
-
   public List<Integer> numIslands2(int rowCount, int colCount, int[][] positions) {
     List<Integer> result = new ArrayList<>();
     int count = 0, point, points[] = new int[rowCount * colCount], row, col, neighbour, rootOfNeighbour;
@@ -70,13 +70,11 @@ public class NumberofIslandsII {
     for (int[] position : positions) {
       points[point = position[0] * colCount + position[1]] = point;
       count++;
-      for (int[] direction : DIRECTIONS)
-        if ((row = position[0] + direction[0]) < 0 || row == rowCount || (col = position[1] + direction[1]) < 0
-            || col == colCount || points[neighbour = row * colCount + col] < 0)
-          continue;
-        else if (points[point] != (rootOfNeighbour = getRoot(points, neighbour))) {
-          points[point] = rootOfNeighbour;
-          point = rootOfNeighbour;
+      for (int[] direction : DIRS)
+        if ((row = position[0] + direction[0]) >= 0 && row < rowCount && (col = position[1] + direction[1]) >= 0
+            && col < colCount && points[neighbour = row * colCount + col] >= 0
+            && points[point] != (rootOfNeighbour = getRoot(points, neighbour))) {
+          point = points[point] = rootOfNeighbour;
           count--;
         }
       result.add(count);
@@ -84,11 +82,4 @@ public class NumberofIslandsII {
     return result;
   }
 
-  public int getRoot(int[] points, int leaf) {
-    while (leaf != points[leaf]) {
-      points[leaf] = points[points[leaf]];
-      leaf = points[leaf];
-    }
-    return leaf;
-  }
 }

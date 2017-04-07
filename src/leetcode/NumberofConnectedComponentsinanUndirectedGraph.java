@@ -1,6 +1,9 @@
 package leetcode;
 
+import static leetcode.FriendCircles.getRoot;
 import static org.junit.Assert.assertEquals;
+
+import java.util.stream.IntStream;
 
 import org.junit.Test;
 
@@ -42,19 +45,13 @@ public class NumberofConnectedComponentsinanUndirectedGraph {
   }
 
   public int countComponents(int n, int[][] edges) {
-    int roots[] = new int[n], root1, root2;
-    for (int i = 0; i < n; roots[i] = i++);
+    int roots[] = IntStream.range(0, n).toArray(), root1, root2;
     for (int[] e : edges)
-      if ((root1 = find(roots, e[0])) != (root2 = find(roots, e[1]))) {
+      if ((root1 = getRoot(roots, e[0])) != (root2 = getRoot(roots, e[1]))) {
         roots[root1] = root2; //union
         n--;
       }
     return n;
   }
 
-  public int find(int[] roots, int id) {
-    while (roots[id] != id)
-      id = roots[id] = roots[roots[id]]; //path compression
-    return id;
-  }
 }

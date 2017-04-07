@@ -26,9 +26,8 @@ public class LongestConsecutiveSequence {
   }
 
   public int longestConsecutive(int[] nums) {
-    if (nums == null || nums.length == 0) return 0;
     Set<Integer> set = Arrays.stream(nums).boxed().collect(Collectors.toSet());
-    int max = 1;
+    int max = 0;
     for (int e : nums) {
       int count = 1;
       for (int left = e - 1; set.remove(left--); count++);
