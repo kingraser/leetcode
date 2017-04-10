@@ -4,6 +4,8 @@ import static org.junit.Assert.assertArrayEquals;
 
 import org.junit.Test;
 
+import leetcode.util.ArrayUtil;
+
 public class ReverseWordsinaStringII {
 
   /*
@@ -26,7 +28,8 @@ public class ReverseWordsinaStringII {
   }
 
   public void reverseWords(char[] s) {
-    ReverseWordsinaString.reverseWords(s);
+    ArrayUtil.reverse(s);
+    ReverseWordsinaStringIII.reverseWords(s);
   }
 
 }
