@@ -4,9 +4,6 @@ import static leetcode.util.ArrayUtil.reverse;
 import static leetcode.util.ArrayUtil.swap;
 import static org.junit.Assert.assertArrayEquals;
 
-import java.util.Comparator;
-import java.util.TreeMap;
-
 import org.junit.Test;
 
 public class NextPermutation {
@@ -44,11 +41,12 @@ public class NextPermutation {
   }
 
   public void nextPermutation(int[] num) {
-    TreeMap<Integer, Integer> map = new TreeMap<>(Comparator.reverseOrder());
-    map.put(Integer.MIN_VALUE, num.length);
-    int idx = num.length - 1;
-    for (; idx >= 0 && num[idx] > map.firstKey(); map.put(num[idx], idx--));
-    if (idx != -1) swap(num, idx, map.get(map.lowerKey(num[idx])));
-    reverse(num, idx + 1, num.length - 1);
+    int idx = num.length - 1, pivot = idx - 1;
+    for (; pivot >= 0 && num[pivot] > num[pivot + 1]; pivot--);
+    if (pivot >= 0) {
+      for (; idx > pivot && num[idx] <= num[pivot]; idx--);
+      swap(num, pivot, idx);
+    }
+    reverse(num, pivot + 1, num.length - 1);
   }
 }
