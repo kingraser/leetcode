@@ -40,9 +40,9 @@ public class NextPermutation {
     assertArrayEquals(new int[] { 1, 2, 3, 7, 4, 6, 5 }, actual);
   }
 
-  public void nextPermutation(int[] num) {
+  public static void nextPermutation(int[] num) {
     int idx = num.length - 1, pivot = idx - 1;
-    for (; pivot >= 0 && num[pivot] > num[pivot + 1]; pivot--);
+    for (; pivot >= 0 && num[pivot] >= num[pivot + 1]; pivot--);
     if (pivot >= 0) {
       for (; idx > pivot && num[idx] <= num[pivot]; idx--);
       swap(num, pivot, idx);
