@@ -60,15 +60,15 @@ public class ZumaGame {
     for (int i = 0, count = 1, min, need; i < s.length(); hand[s.charAt(i)] += need, i += count, count = 1) {
       if (i + 1 < s.length() && s.charAt(i + 1) == s.charAt(i)) count++;
       if ((hand[s.charAt(i)] -= (need = 3 - count)) >= 0) result = Math.min(result,
-          (min = dfs(del(s.substring(0, i) + s.substring(i + count)), hand)) > -1 ? min + need : result);
+          (min = dfs(remove(s.substring(0, i) + s.substring(i + count)), hand)) > -1 ? min + need : result);
     }
     return s.length() == 0 ? 0 : result == Integer.MAX_VALUE ? -1 : result;
   }
 
-  private String del(String s) {
-    for (int i = 0, j; i < s.length(); i = j) {
-      for (j = i + 1; j < s.length() && s.charAt(i) == s.charAt(j); j++);
-      if (j - i > 2) return del(s.substring(0, i) + s.substring(j));
+  private String remove(String s) {
+    for (int start = 0, end; start < s.length(); start = end) {
+      for (end = start + 1; end < s.length() && s.charAt(start) == s.charAt(end); end++);
+      if (end - start > 2) return remove(s.substring(0, start) + s.substring(end));
     }
     return s;
   }
