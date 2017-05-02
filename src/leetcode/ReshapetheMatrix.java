@@ -46,5 +46,4 @@ public class ReshapetheMatrix {
     return result;
   }
 
-
 }
