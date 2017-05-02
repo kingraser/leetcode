@@ -33,7 +33,7 @@ public class ReshapetheMatrix {
   */
 
   @Test
-  private void test() {
+  public void test() {
     assertArrayEquals(new int[][]{{1, 2, 3, 4}}, matrixReshape(new int[][]{{1, 2}, {3, 4}}, 1, 4));
     assertArrayEquals(new int[][]{{1, 2}, {3, 4}}, matrixReshape(new int[][]{{1, 2}, {3, 4}}, 2, 4));
   }
