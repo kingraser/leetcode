@@ -53,8 +53,7 @@ public class WordAbbreviation {
 
   private void abbreviate(String[] result, List<String> dict, List<Integer> duplicateIdxs, int firstPartEnd) {
     Map<String, List<Integer>> map = new HashMap<>();
-    duplicateIdxs.stream().forEach(
-        idx -> map.computeIfAbsent(getAbbreviation(dict.get(idx), firstPartEnd), k -> new ArrayList<>()).add(idx));
+    duplicateIdxs.forEach(idx -> map.computeIfAbsent(getAbbreviation(dict.get(idx), firstPartEnd), k -> new ArrayList<>()).add(idx));
     for (Entry<String, List<Integer>> entry : map.entrySet())
       if (entry.getValue().size() == 1) result[entry.getValue().get(0)] = entry.getKey();
       else abbreviate(result, dict, entry.getValue(), firstPartEnd + 1);
