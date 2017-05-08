@@ -32,10 +32,10 @@ public class PermutationinString {
   }
 
   public boolean checkInclusion(String s1, String s2) {
-    int[] count = new int[26];
-    s1.chars().forEach(i -> count[i - 'a']++);
+    int[] count = new int[128];
+    s1.chars().forEach(i -> count[i]++);
     for (int left = 0, right = 0; right < s2.length();)
-      if (--count[s2.charAt(right++) - 'a'] < 0) while (++count[s2.charAt(left++) - 'a'] != 0);
+      if (--count[s2.charAt(right++)] < 0) while (++count[s2.charAt(left++)] != 0);
       else if (right - left == s1.length()) return true;
     return false;
   }
