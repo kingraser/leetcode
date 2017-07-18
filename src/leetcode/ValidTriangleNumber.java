@@ -29,7 +29,7 @@ public class ValidTriangleNumber {
 
   @Test
   public void test() {
-    assertEquals(3, triangleNumber(new int[] { 1, 1, 3, 4 }));
+    assertEquals(3, triangleNumber(new int[] { 2, 2, 3, 4 }));
   }
 
   public int triangleNumber(int[] nums) {
