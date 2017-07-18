@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.stream.Stream;
 
 public class MaximumVacationDays {
 
@@ -14,7 +13,7 @@ public class MaximumVacationDays {
   But all work and no play makes Jack a dull boy, you could take vacations in some particular cities and weeks.
   Your job is to schedule the traveling to maximize the number of vacation days you could take,
   but there are certain rules and restrictions you need to follow.
-
+  
   Rules and restrictions:
     1You can only travel among N cities, represented by indexes from 0 to N-1.
     Initially, you are in the city indexed 0 on Monday.
@@ -29,9 +28,9 @@ public class MaximumVacationDays {
     4For each city, you can only have restricted vacation days in different weeks,
     given an N*K matrix called days representing this relationship. For the value of days[i][j],
     it represents the maximum days you could take vacation in the city i in the week j.
-
+  
   You're given the flights matrix and days matrix, and you need to output the maximum vacation days you could take during K weeks.
-
+  
   Example 1:
   Input:flights = [[0,1,1],[1,0,1],[1,1,0]], days = [[1,3,1],[6,0,3],[3,3,3]]
   Output: 12
@@ -42,7 +41,7 @@ public class MaximumVacationDays {
   (Although you start at city 0, we could also fly to and start at other cities since it is Monday.)
   2nd week : fly from city 1 to city 2 on Monday, and play 3 days and work 4 days.
   3rd week : stay at city 2, and play 3 days and work 4 days.
-
+  
   Example 2:
   Input:flights = [[0,0,0],[0,0,0],[0,0,0]], days = [[1,1,1],[7,7,7],[7,7,7]]
   Output: 3
@@ -51,7 +50,7 @@ public class MaximumVacationDays {
   Since there is no flights enable you to move to another city, you have to stay at city 0 for the whole 3 weeks.
   For each week, you only have one day to play and six days to work.
   So the maximum number of vacation days is 3.
-
+  
   Example 3:
   Input:flights = [[0,1,1],[1,0,1],[1,1,0]], days = [[7,0,0],[0,7,0],[0,0,7]]
   Output: 21
@@ -61,7 +60,7 @@ public class MaximumVacationDays {
   1st week : stay at city 0, and play 7 days.
   2nd week : fly from city 0 to city 1 on Monday, and play 7 days.
   3rd week : fly from city 1 to city 2 on Monday, and play 7 days.
-
+  
   Note:
     1N and K are positive integers, which are in the range of [1, 100].
     2In the matrix days, all the values are integers in the range of [0, 1].
@@ -75,9 +74,12 @@ public class MaximumVacationDays {
 
   @Test
   public void test() {
-    assertEquals(12, maxVacationDays(new int[][]{{0, 1, 1}, {1, 0, 1}, {1, 1, 0}}, new int[][]{{1, 3, 1}, {6, 0, 3}, {3, 3, 3}}));
-    assertEquals(3, maxVacationDays(new int[][]{{0, 0, 0}, {0, 0, 0}, {0, 0, 0}}, new int[][]{{1, 1, 1}, {7, 7, 7}, {7, 7, 7}}));
-    assertEquals(21, maxVacationDays(new int[][]{{0, 1, 1}, {1, 0, 1}, {1, 1, 0}}, new int[][]{{7, 0, 0}, {0, 7, 0}, {0, 0, 7}}));
+    assertEquals(12, maxVacationDays(new int[][] { { 0, 1, 1 }, { 1, 0, 1 }, { 1, 1, 0 } },
+        new int[][] { { 1, 3, 1 }, { 6, 0, 3 }, { 3, 3, 3 } }));
+    assertEquals(3, maxVacationDays(new int[][] { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } },
+        new int[][] { { 1, 1, 1 }, { 7, 7, 7 }, { 7, 7, 7 } }));
+    assertEquals(21, maxVacationDays(new int[][] { { 0, 1, 1 }, { 1, 0, 1 }, { 1, 1, 0 } },
+        new int[][] { { 7, 0, 0 }, { 0, 7, 0 }, { 0, 0, 7 } }));
   }
 
   // dp[i][j] represents the maximum vacation days of week i at city j
