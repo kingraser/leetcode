@@ -74,4 +74,15 @@ public class Trie {
     public TrieNode[] nexts = new TrieNode[26];
     public boolean isLeaf = false;
   }
+  
+  public String getShortestPrefix(String s) {
+    int prefix = getShortestPrefix(s.toCharArray(), root, 0);
+    return prefix == 0 ? s : s.substring(0, prefix);
+  }
+
+  private int getShortestPrefix(char[] word, TrieNode node, int idx) {
+    return node.isLeaf ? idx
+        : idx == word.length || Objects.isNull(node.nexts[word[idx] -= 'a']) ? 0
+            : getShortestPrefix(word, node.nexts[word[idx]], idx + 1);
+  }
 }
