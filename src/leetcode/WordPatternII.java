@@ -35,13 +35,14 @@ public class WordPatternII {
     return match(pattern, str, new HashMap<>());
   }
 
-  private boolean match(String pattern, String str, Map<Integer, String> map) {
+  private boolean match(String pattern, String str, Map<Character, String> map) {
     if (pattern.isEmpty()) return str.isEmpty();
-    String s = map.get((int) pattern.charAt(0)), next = pattern.substring(1);
-    if (Objects.nonNull(s)) return str.startsWith(s) ? match(next, str.substring(s.length()), map) : false;
-    for (int i = 1, first = pattern.charAt(0); i <= str.length() - next.length(); i++) {
-      if (map.containsValue(s = str.substring(0, i))) continue;
-      map.put(first, s);
+    char first = pattern.charAt(0);
+    String match = map.get(first), next = pattern.substring(1);
+    if (Objects.nonNull(match)) return str.startsWith(match) && match(next, str.substring(match.length()), map);
+    for (int i = 1; i <= str.length() - next.length(); i++) {
+      if (map.containsValue(match = str.substring(0, i))) continue;
+      map.put(first, match);
       if (match(next, str.substring(i), map)) return true;
       map.remove(first);
     }
