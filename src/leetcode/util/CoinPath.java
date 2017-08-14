@@ -47,6 +47,7 @@ public class CoinPath {
     assertEquals(new ArrayList<>(), cheapestJump(A, 1));
   }
 
+  // If there are 2 paths with the same cost, then the longer path is lexicographically smaller 
   public List<Integer> cheapestJump(int[] A, int B) {
     int len = A.length, cost[] = IntStream.range(0, len).map(i -> Integer.MAX_VALUE).toArray(),
         previousIdx[] = IntStream.range(0, len).map(i -> -1).toArray(), length[] = new int[len], i;
