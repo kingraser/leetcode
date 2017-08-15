@@ -4,6 +4,10 @@ import java.util.Arrays;
 
 public class MathUtil {
 
+  public static int lowestCommonMultiple(int x, int y) {
+    return x * y / gcd(x, y);
+  }
+
   public static int gcd(int x, int y) {
     return x == 0 ? y : y == 0 ? x : gcd(y % x, x);
   }
