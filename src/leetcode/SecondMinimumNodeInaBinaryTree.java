@@ -51,8 +51,10 @@ public class SecondMinimumNodeInaBinaryTree {
 
   private void preOrder(TreeNode root, Integer[] result) {
     if (root == null) return;
-    if (result[0] == null) result[0] = root.val;
-    else if (result[0] != root.val && (result[1] == null || result[1] > root.val)) result[1] = root.val;
+    if (result[0] == null) result[0] = root.val; // get the smallest element
+    else if (result[0] == root.val) ; // duplicate smallest element
+    else if (result[1] == null || result[1] > root.val) result[1] = root.val; // get the second smallest element
+    else if (result[1] < root.val) return; // prune impossible branches
     preOrder(root.left, result);
     preOrder(root.right, result);
   }
