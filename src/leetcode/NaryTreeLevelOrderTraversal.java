@@ -1,7 +1,6 @@
 package leetcode;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import leetcode.common.Node;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,17 +43,6 @@ public class NaryTreeLevelOrderTraversal {
         The height of the n-ary tree is less than or equal to 1000
         The total number of nodes is between [0, 10^4]
     */
-
-    @AllArgsConstructor
-    @NoArgsConstructor
-    static class Node {
-        public int val;
-        public List<Node> children;
-
-        public Node(int val) {
-            this.val = val;
-        }
-    }
 
     public List<List<Integer>> levelOrder(Node root) {
         List<List<Integer>> result = new ArrayList<>();
