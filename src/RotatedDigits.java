@@ -30,8 +30,8 @@ public class RotatedDigits {
 
     public int rotatedDigits(int n) {
         int result = 0;
-        for (int leftDigitCount = getDigitCount(n) - 1, pow10 = (int) Math.pow(10, leftDigitCount), digit, idx, countOfDifferentValidDigit = 0; pow10 > 0; pow10 /= 10, leftDigitCount--) {
-            if ((digit = (n / pow10) % 10) == 0 && leftDigitCount > 0) continue;
+        for (int i = 0, digits[] = getDigits(n), digit, idx, leftDigitCount, countOfDifferentValidDigit = 0; i < digits.length; i++) {
+            if ((digit = digits[i]) == 0 & (leftDigitCount = digits.length - 1 - i) > 0) continue;
             result += validDigitCountLessEqualIdx[idx = leftDigitCount == 0 ? digit : digit - 1] * Math.pow(7, leftDigitCount) - (countOfDifferentValidDigit > 0 ? 0 : sameValidDigitCountLessEqualIdx[idx] * Math.pow(3, leftDigitCount));
             if (this.digits[digit] == 0) break;
             else if (this.digits[digit] == 2) countOfDifferentValidDigit++;
@@ -39,8 +39,10 @@ public class RotatedDigits {
         return result;
     }
 
-    int getDigitCount(int n) {
-        return n < 10 ? 1 : n < 100 ? 2 : n < 1000 ? 3 : n < 10000 ? 4 : 5;
+    int[] getDigits(int n) {
+        int length = n < 10 ? 1 : n < 100 ? 2 : n < 1000 ? 3 : n < 10000 ? 4 : 5, result[] = new int[length];
+        for (; length > 0; n /= 10) result[--length] = n % 10;
+        return result;
     }
 
     @Test
