@@ -39,7 +39,8 @@ public class DistributeCandiestoPeople {
     */
     public int[] distributeCandies(int candies, int peoples) {
         int result[] = new int[peoples], distributions = ((int) Math.sqrt(1 + ((long) candies << 3)) - 1) >> 1, rounds = distributions / peoples, remainder = distributions % peoples, last = candies - (((1 + distributions) * distributions) >> 1), base = rounds + (rounds * (rounds - 1) * peoples >> 1), bonus = peoples * rounds + 1;
-        for (int i = 0, j = 0; i < result.length; result[i++] = base + j * rounds + (j < remainder ? bonus + j : j == remainder ? last : 0), j++) {}
+        for (int i = 0; i < result.length; i++, base += rounds)
+            result[i] = base + (i < remainder ? bonus + i : i == remainder ? last : 0);
         return result;
     }
 
