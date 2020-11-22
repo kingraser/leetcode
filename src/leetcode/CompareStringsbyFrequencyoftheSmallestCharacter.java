@@ -25,16 +25,16 @@ public class CompareStringsbyFrequencyoftheSmallestCharacter {
     queries[i][j], words[i][j] are English lowercase letters.
     */
     public int[] numSmallerByFrequency(String[] queries, String[] words) {
-        int[] fCount = new int[11], res = new int[queries.length];
-        for (String word : words) fCount[getSFCount(word)]++;
-        for (int i = 1, len = fCount.length; i < len; i++) fCount[i] += fCount[i - 1];
-        for (int i = 0, last = fCount[fCount.length - 1], len = queries.length; i < len; i++) res[i] = last - fCount[getSFCount(queries[i])];
+        int[] res = new int[queries.length], count = new int[11];
+        for (String word : words) count[getCount(word)]++;
+        for (int i = 1, len = count.length; i < len; i++) count[i] += count[i - 1];
+        for (int i = 0; i < queries.length; i++) res[i] = count[count.length - 1] - count[getCount(queries[i])];
         return res;
     }
 
-    public int getSFCount(String word) {
-        int s = 'z', sCount = 0;
-        for (int i = 0, c, length = word.length(); i < length; i++)
+    public int getCount(String word) {
+        int sCount = 0;
+        for (int i = 0, s = 'z', c; i < word.length(); i++)
             if ((c = word.charAt(i)) < s) {
                 s = c;
                 sCount = 1;

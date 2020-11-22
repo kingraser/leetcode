@@ -46,7 +46,7 @@ public class PrimeNumberofSetBitsinBinaryRepresentation {
   }
 
   public int countPrimeSetBits(int L, int R) {
-    return (int) IntStream.range(L, ++R).map(i -> Integer.bitCount(i)).filter(this::isPrime).count();
+    return (int) IntStream.range(L, ++R).map(Integer::bitCount).filter(this::isPrime).count();
   }
 
   private boolean isPrime(int i) {
