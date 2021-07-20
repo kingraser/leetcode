@@ -47,7 +47,7 @@ public class ConsecutiveCharacters {
 
     @Test
     public void test() throws NoSuchMethodException {
-        TestUtil.testEquals(this, this.getClass().getMethod("maxPower", String.class),
+        TestUtil.testEquals(this,
                 new Object[][]{
                         {2, "leetcode"},
                         {5, "abbcccddddeeeeedcba"},

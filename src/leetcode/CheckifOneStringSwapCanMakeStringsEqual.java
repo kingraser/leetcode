@@ -49,7 +49,7 @@ public class CheckifOneStringSwapCanMakeStringsEqual {
 
     @Test
     public void test() throws NoSuchMethodException {
-        TestUtil.testEquals(this, this.getClass().getMethod("areAlmostEqual", String.class, String.class),
+        TestUtil.testEquals(this,
                 new Object[][]{
                         {true, "bank", "kanb"},
                 });

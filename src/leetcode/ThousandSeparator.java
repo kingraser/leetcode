@@ -42,15 +42,11 @@ public class ThousandSeparator {
 
     @Test
     public void test() throws NoSuchMethodException {
-        TestUtil.testEquals(this, this.getClass().getMethod("thousandSeparator", int.class), new Object[][]{
+        TestUtil.testEquals(this, new Object[][]{
                 {"987", 987},
                 {"1.234", 1234},
                 {"123.456.789", 123456789},
                 {"0", 0}
         });
-    }
-
-    public static void main(String[] args) {
-        System.out.println(Integer.MAX_VALUE);
     }
 }

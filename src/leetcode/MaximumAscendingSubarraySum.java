@@ -44,7 +44,7 @@ public class MaximumAscendingSubarraySum {
 
     @Test
     public void test() throws NoSuchMethodException {
-        TestUtil.testEquals(this, this.getClass().getMethod("maxAscendingSum", int[].class),
+        TestUtil.testEquals(this,
                 new Object[][]{
                         {65, new int[]{10, 20, 30, 5, 10, 50}},
                         {150, new int[]{10, 20, 30, 40, 50}},

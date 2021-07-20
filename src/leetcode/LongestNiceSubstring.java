@@ -93,7 +93,7 @@ public class LongestNiceSubstring {
      * @param currentLongest the current longest sub-string length for return without redundant calculation
      * @return the longest nice sub-string: [0] for start inclusive, [1] for end exclusive, [0, 0] for return fast
      */
-    public int[] longestNiceSubstring(char[] chars, int[][][] map, int start, int end, int currentLongest) {
+    int[] longestNiceSubstring(char[] chars, int[][][] map, int start, int end, int currentLongest) {
         if (end - start <= currentLongest) return EMPTY;
         for (int i = start, prefix[], suffix[], prefixLen; i < end; i++) {
             if (isNice(chars[i], start, end, map)) continue;
@@ -130,7 +130,7 @@ public class LongestNiceSubstring {
 
     @Test
     public void test() throws NoSuchMethodException {
-        TestUtil.testEquals(this, this.getClass().getMethod("longestNiceSubstring", String.class),
+        TestUtil.testEquals(this,
                 new Object[][]{
                         {"aAa", "YazaAay"},
                         {"bB", "bB"},

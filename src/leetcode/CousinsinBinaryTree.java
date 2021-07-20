@@ -5,7 +5,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.LinkedList;
-import java.util.Objects;
 import java.util.Queue;
 
 /**
@@ -42,24 +41,16 @@ public class CousinsinBinaryTree {
     }
 
     public boolean isCousins(TreeNode root, int x, int y) {
-        Queue<TreeNode> queue = new LinkedList<TreeNode>() {{offer(root);}};
-        for (boolean foundX = false, foundY = false; !queue.isEmpty(); ) {
-            for (int i = 0, size = queue.size(); i < size; i++) {
-                TreeNode node = queue.poll();
-                foundX = node.val == x;
-                foundY = node.val == y;
-                if (Objects.nonNull(node.left)) {
-                    queue.offer(node.left);
-                    if (Objects.nonNull(node.right)) {
-                        queue.offer(node.right);
-                        if (node.left.val == x && node.right.val == y || node.left.val == y && node.right.val == x)
-                            return false;
-                    }
-                } else if (Objects.nonNull(node.right)) {queue.offer(node.right);}
+        Queue<TreeNode[]> queue = new LinkedList<>() {{offer(new TreeNode[]{root, null});}};
+        for (TreeNode xParent = null, yParent = null, node, nodes[]; xParent == null && yParent == null && !queue.isEmpty(); )
+            for (int i = 0, size = queue.size(), val; i++ < size; ) {
+                if ((node = (nodes = queue.poll())[0]) == null) continue;
+                if ((val = node.val) == x) xParent = nodes[1];
+                else if (val == y) yParent = nodes[1];
+                if (xParent != null && yParent != null) return xParent != yParent;
+                queue.offer(new TreeNode[]{node.left, node});
+                queue.offer(new TreeNode[]{node.right, node});
             }
-            if (foundX) return foundY;
-            else if (foundY) return false;
-        }
         return false;
     }
 }

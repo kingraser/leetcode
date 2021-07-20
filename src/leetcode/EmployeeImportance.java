@@ -1,15 +1,14 @@
 package leetcode;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 public class EmployeeImportance {
 
@@ -32,33 +31,29 @@ public class EmployeeImportance {
     The maximum number of employees won't exceed 2000. 
   */
 
-  @Test
-  public void test() {
-    assertEquals(11, getImportance(Arrays.asList(new Employee(1, 5, Arrays.asList(2, 3)),
-        new Employee(2, 3, new ArrayList<>()), new Employee(3, 3, new ArrayList<>())), 1));
-  }
-
-  public int getImportance(List<Employee> employees, int id) {
-    return getImportance(employees.stream().collect(Collectors.toMap(e -> e.id, e -> e)), id, new HashMap<>());
-  }
-
-  private int getImportance(Map<Integer, Employee> map, int id, Map<Integer, Integer> iMap) {
-    return iMap.compute(id,
-        (k, v) -> v != null ? v : map.get(id).importance + getImportance(map, map.get(id).subordinates, iMap));
-  }
-
-  private int getImportance(Map<Integer, Employee> map, List<Integer> ids, Map<Integer, Integer> iMap) {
-    return ids == null || ids.size() == 0 ? 0 : ids.stream().mapToInt(id -> getImportance(map, id, iMap)).sum();
-  }
-
-  class Employee {
-    public int id, importance;
-    public List<Integer> subordinates;
-
-    public Employee(int id, int importance, List<Integer> subordinates) {
-      this.id = id;
-      this.importance = importance;
-      this.subordinates = subordinates;
+    @Test
+    public void test() {
+        assertEquals(11, getImportance(Arrays.asList(new Employee(1, 5, Arrays.asList(2, 3)),
+                new Employee(2, 3, new ArrayList<>()), new Employee(3, 3, new ArrayList<>())), 1));
     }
-  }
+
+    public int getImportance(List<Employee> employees, int id) {
+        return getImportance(employees.stream().collect(Collectors.toMap(e -> e.id, e -> e)), id);
+    }
+
+    private int getImportance(Map<Integer, Employee> map, int rootId) {
+        Employee root = map.get(rootId);
+        return root.importance + root.subordinates.stream().mapToInt(e -> getImportance(map, e)).sum();
+    }
+
+    class Employee {
+        public int id, importance;
+        public List<Integer> subordinates;
+
+        public Employee(int id, int importance, List<Integer> subordinates) {
+            this.id = id;
+            this.importance = importance;
+            this.subordinates = subordinates;
+        }
+    }
 }

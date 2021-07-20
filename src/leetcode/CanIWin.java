@@ -1,13 +1,11 @@
 package leetcode;
 
-import static org.junit.Assert.assertFalse;
+import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-import java.util.stream.IntStream;
 
-import org.junit.Test;
+import static org.junit.Assert.assertFalse;
 
 public class CanIWin {
 
@@ -42,7 +40,10 @@ public class CanIWin {
   }
 
   private boolean canIWin(int max, int sum, int state, Map<Integer, Boolean> map) {
-    return map.compute(state, (k, v) -> Objects.isNull(v) ? IntStream.range(0, max).filter(i -> (state & (1 << i)) == 0)
-        .anyMatch(i -> (sum <= i + 1 || !canIWin(max, sum - (i + 1), (1 << i) | state, map))) : v);
+    if (map.containsKey(state)) return map.get(state);
+    for (int i = 0; i < max; i++)
+      if ((state & (1 << i)) == 0 && (sum <= i + 1 || !canIWin(max, sum - (i + 1), (1 << i) | state, map)))
+        return map.compute(state, (k, v) -> true);
+    return map.compute(state, (k, v) -> false);
   }
 }

@@ -36,13 +36,13 @@ public class CalculateMoneyinLeetcodeBank {
         return getSum(firstWeekSum, n / 7, 7) + getSum(1 + n / 7, n % 7, 1);
     }
 
-    public int getSum(int start, int n, int diff) {
+    int getSum(int start, int n, int diff) {
         return (((start << 1) + (--n) * diff) * (++n)) >> 1;
     }
 
     @Test
     public void test() throws NoSuchMethodException {
-        TestUtil.testEquals(this, this.getClass().getMethod("totalMoney", int.class),
+        TestUtil.testEquals(this,
                 new Object[][]{
                         {10, 4},
                         {37, 10},

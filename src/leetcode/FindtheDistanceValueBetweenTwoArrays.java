@@ -51,7 +51,7 @@ public class FindtheDistanceValueBetweenTwoArrays {
 
     @Test
     public void test() throws NoSuchMethodException {
-        TestUtil.testEquals(this, this.getClass().getMethod("findTheDistanceValue", int[].class, int[].class, int.class),
+        TestUtil.testEquals(this,
                 new Object[][]{
                         {2, new int[]{4, 5, 8}, new int[]{10, 9, 1, 8}, 2},
                         {2, new int[]{1, 4, 2, 3}, new int[]{-4, -3, 6, 10, 20, 30}, 3},

@@ -43,14 +43,14 @@ public class CountNegativeNumbersinaSortedMatrix {
         return result;
     }
 
-    public int getNewRowIdx(int[][] grid, int row, int col) {
+    int getNewRowIdx(int[][] grid, int row, int col) {
         for (int middle, low = 0; low < row; )
             if (grid[middle = (low + row) >> 1][col] > -1) low = middle + 1;
             else row = middle;
         return row;
     }
 
-    public int getNewColIdx(int[] array, int left) {
+    int getNewColIdx(int[] array, int left) {
         for (int middle, right = array.length; left < right; )
             if (array[middle = (left + right) >> 1] > -1) left = middle + 1;
             else right = middle;
@@ -59,7 +59,7 @@ public class CountNegativeNumbersinaSortedMatrix {
 
     @Test
     public void test() throws NoSuchMethodException {
-        TestUtil.testEquals(this, this.getClass().getMethod("countNegatives", int[][].class),
+        TestUtil.testEquals(this,
                 new Object[][]{
                         {8, new int[][]{{4, 3, 2, -1}, {3, 2, 1, -1}, {1, 1, -1, -2}, {-1, -1, -2, -3}}},
                         {0, new int[][]{{3, 2}, {1, 0}}},
