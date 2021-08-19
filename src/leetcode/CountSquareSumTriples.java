@@ -35,7 +35,7 @@ public class CountSquareSumTriples {
 
     @Test
     public void test() {
-        TestUtil.testEquals(this, new Object[][]{
+        TestUtil.testEquals( new Object[][]{
                 {2, 5},
                 {4, 10}
         });

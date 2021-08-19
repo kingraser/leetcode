@@ -1,7 +1,6 @@
 package leetcode;
 
 import leetcode.util.TestUtil;
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -55,7 +54,7 @@ public class ConvertIntegertotheSumofTwoNoZeroIntegers {
 
     @Test
     public void test() throws NoSuchMethodException {
-        TestUtil.test(this, this.getClass().getMethod("getNoZeroIntegers", int.class),
+        TestUtil.testArrayEquals(
                 new Object[][]{
                         {new int[]{1, 1}, 2},
                         {new int[]{2, 9}, 11},
@@ -63,7 +62,6 @@ public class ConvertIntegertotheSumofTwoNoZeroIntegers {
                         {new int[]{11, 58}, 69},
                         {new int[]{111, 899}, 1010},
                 }
-                ,
-                (expected, actual) -> Assert.assertArrayEquals((int[]) expected, (int[]) actual));
+        );
     }
 }

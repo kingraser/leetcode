@@ -42,7 +42,7 @@ public class CalculateMoneyinLeetcodeBank {
 
     @Test
     public void test() throws NoSuchMethodException {
-        TestUtil.testEquals(this,
+        TestUtil.testEquals(
                 new Object[][]{
                         {10, 4},
                         {37, 10},

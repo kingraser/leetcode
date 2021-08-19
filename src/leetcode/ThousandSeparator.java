@@ -42,7 +42,7 @@ public class ThousandSeparator {
 
     @Test
     public void test() throws NoSuchMethodException {
-        TestUtil.testEquals(this, new Object[][]{
+        TestUtil.testEquals( new Object[][]{
                 {"987", 987},
                 {"1.234", 1234},
                 {"123.456.789", 123456789},

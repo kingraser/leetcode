@@ -33,7 +33,7 @@ public class SumofDigitsinBaseK {
 
     @Test
     public void test() throws NoSuchMethodException {
-        TestUtil.testEquals(this,
+        TestUtil.testEquals(
                 new Object[][]{
                         {9, 34, 6},
                         {1, 10, 10}

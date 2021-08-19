@@ -51,7 +51,7 @@ public class MaximumNumberofWordsYouCanType {
 
     @Test
     public void test() throws NoSuchMethodException {
-        TestUtil.testEquals(this,
+        TestUtil.testEquals(
                 new Object[][]{
                         {1, "hello world", "ad"},
                         {1, "leet code", "lt"},

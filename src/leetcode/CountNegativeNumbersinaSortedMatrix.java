@@ -59,7 +59,7 @@ public class CountNegativeNumbersinaSortedMatrix {
 
     @Test
     public void test() throws NoSuchMethodException {
-        TestUtil.testEquals(this,
+        TestUtil.testEquals(
                 new Object[][]{
                         {8, new int[][]{{4, 3, 2, -1}, {3, 2, 1, -1}, {1, 1, -1, -2}, {-1, -1, -2, -3}}},
                         {0, new int[][]{{3, 2}, {1, 0}}},

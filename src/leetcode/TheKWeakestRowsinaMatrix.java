@@ -80,8 +80,7 @@ public class TheKWeakestRowsinaMatrix {
 
     @Test
     public void test() throws NoSuchMethodException {
-        TestUtil.test(this,
-                this.getClass().getMethod("kWeakestRows", int[][].class, int.class),
+        TestUtil.testArrayEquals(
                 new Object[][]{
                         {
                                 new int[]{2, 0, 3},
@@ -100,7 +99,6 @@ public class TheKWeakestRowsinaMatrix {
                                         {1, 0, 0, 0}},
                                 2
                         }
-                },
-                (a1, a2) -> Assert.assertArrayEquals((int[]) a1, (int[]) a2));
+                });
     }
 }

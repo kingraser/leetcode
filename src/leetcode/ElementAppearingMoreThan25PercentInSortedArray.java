@@ -46,7 +46,7 @@ public class ElementAppearingMoreThan25PercentInSortedArray {
 
     @Test
     public void test() throws NoSuchMethodException {
-        TestUtil.testEquals(this, new Object[][]{
+        TestUtil.testEquals(new Object[][]{
                 {1, new int[]{1, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 12, 12, 12}}
         });
     }

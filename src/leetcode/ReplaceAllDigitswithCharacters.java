@@ -38,7 +38,7 @@ public class ReplaceAllDigitswithCharacters {
     */
     @Test
     public void test() throws NoSuchMethodException {
-        TestUtil.testEquals(this,
+        TestUtil.testEquals(
                 new Object[][]{
                         {"abcdef", "a1c1e1"},
                         {"abbdcfdhe", "a1b2c3d4e"}
