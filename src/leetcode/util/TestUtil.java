@@ -17,7 +17,7 @@ import java.util.stream.IntStream;
  * @author Wit
  */
 public class TestUtil {
-    static final StackWalker WALKER = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
+    private static final StackWalker WALKER = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
 
     public static void testEquals(Object[][] testDataMatrix) {
         test(WALKER.getCallerClass(), testDataMatrix, Assert::assertEquals);
@@ -61,6 +61,7 @@ public class TestUtil {
             Assert.assertEquals(expected, actual);
             return;
         }
+
         if (!expected.getClass().isArray() || !actual.getClass().isArray()) {
             throw new IllegalArgumentException("expected and actual type should both be array!");
         }
