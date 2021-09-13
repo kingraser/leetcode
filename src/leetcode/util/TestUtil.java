@@ -19,35 +19,71 @@ import java.util.stream.IntStream;
 public class TestUtil {
     private static final StackWalker WALKER = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
 
+    /**
+     * test public methods without {@link Test} annotation in the same class
+     * assert the result equals to the expected
+     *
+     * @param testDataMatrix each row for a test case
+     *                       row[0] for expected
+     *                       row[1]...row[n] for input arguments
+     */
     public static void testEquals(Object[][] testDataMatrix) {
         test(WALKER.getCallerClass(), testDataMatrix, Assert::assertEquals);
     }
 
+    /**
+     * test public methods without {@link Test} annotation in the same class
+     * assert the result is array and equals to the expected
+     *
+     * @param testDataMatrix each row for a test case
+     *                       row[0] for expected
+     *                       row[1]...row[n] for input arguments
+     */
     public static void testArrayEquals(Object[][] testDataMatrix) {
         test(WALKER.getCallerClass(), testDataMatrix, TestUtil::assertArrayEquals);
     }
 
+    /**
+     * test method
+     *
+     * @param classToTest     the class to new an instance to test
+     * @param testDataMatrix  each row for a test case
+     *                        row[0] for expected
+     *                        row[1]...row[n] for input arguments
+     * @param assertOperation assert operation
+     */
     @SneakyThrows
-    private static <T> void test(Class<T> classToTest, Object[][] testDataMatrix, BiConsumer<Object, Object> assertOperation) {
+    private static void test(Class<?> classToTest, Object[][] testDataMatrix, BiConsumer<Object, Object> assertOperation) {
         Object instance = classToTest.getDeclaredConstructor().newInstance();
         Method[] methodsToTest = Arrays.stream(classToTest.getDeclaredMethods())
                 .filter(method -> Modifier.isPublic(method.getModifiers()))
                 .filter(method -> !method.isAnnotationPresent(Test.class))
                 .toArray(Method[]::new);
-        for (Method method : methodsToTest)
+        for (Method method : methodsToTest) {
             for (Object[] testData : testDataMatrix) {
                 Object[] input = Arrays.stream(testData, 1, testData.length).toArray();
+                long start = System.nanoTime();
                 Object actual = method.invoke(instance, input);
-                System.out.printf("test: (class:%s) (method:%s) (input:%s) (expected:%s) (actual:%s)%n",
+                long end = System.nanoTime();
+                System.out.printf("test: (class:%s) (method:%s) cost %,dns (input:%s) (expected:%s) (actual:%s)%n",
                         classToTest.getName(),
                         method.getName(),
+                        end - start,
                         toString(input),
                         toString(testData[0]),
                         toString(actual));
                 assertOperation.accept(testData[0], actual);
             }
+            System.out.println();
+        }
     }
 
+    /**
+     * toString function compatible with array
+     *
+     * @param o object to transfer to string
+     * @return string for the input object
+     */
     private static String toString(Object o) {
         if (Objects.isNull(o) || !o.getClass().isArray()) {return String.valueOf(o);}
         return IntStream.range(0, Array.getLength(o))
@@ -77,7 +113,7 @@ public class TestUtil {
         } else if (Objects.equals(expected.getClass().getComponentType(), double.class)) {
             Assert.assertArrayEquals((double[]) expected, (double[]) actual, Double.MIN_NORMAL);
         } else {
-            throw new UnsupportedOperationException("primitive types only support int double right now!");
+            throw new UnsupportedOperationException("primitive types only support int and double right now!");
         }
     }
 }
