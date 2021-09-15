@@ -4,8 +4,6 @@ import leetcode.common.TreeNode;
 import leetcode.util.TestUtil;
 import org.junit.Test;
 
-import java.util.Objects;
-
 /**
  * @author Wit
  */
@@ -57,10 +55,6 @@ public class DeleteLeavesWithaGivenValue {
     public TreeNode removeLeafNodes(TreeNode root, int target) {
         if (root.left != null) root.left = removeLeafNodes(root.left, target);
         if (root.right != null) root.right = removeLeafNodes(root.right, target);
-        return root.val == target && isLeaf(root) ? null : root;
-    }
-
-    public boolean isLeaf(TreeNode node) {
-        return Objects.isNull(node.left) && Objects.isNull(node.right);
+        return root.val == target && root.isLeaf() ? null : root;
     }
 }

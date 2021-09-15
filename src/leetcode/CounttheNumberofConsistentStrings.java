@@ -1,5 +1,8 @@
 package leetcode;
 
+import leetcode.util.TestUtil;
+import org.junit.Test;
+
 import java.util.Arrays;
 
 /**
@@ -26,7 +29,7 @@ public class CounttheNumberofConsistentStrings {
     Explanation: Strings "cc", "acd", "ac", and "d" are consistent.
 
     Constraints:
-    1 <= words.length <= 104
+    1 <= words.length <= 10^4
     1 <= allowed.length <= 26
     1 <= words[i].length <= 10
     The characters in allowed are distinct.
@@ -36,5 +39,14 @@ public class CounttheNumberofConsistentStrings {
         int[] alphabet = new int[26];
         allowed.chars().forEach(i -> alphabet[i - 'a']++);
         return (int) Arrays.stream(words).filter(s -> s.chars().allMatch(i -> alphabet[i - 'a'] > 0)).count();
+    }
+
+    @Test
+    public void test() {
+        TestUtil.testEquals(new Object[][]{
+                {2, "ab", new String[]{"ad", "bd", "aaab", "baa", "badab"}},
+                {7, "abc", new String[]{"a", "b", "c", "ab", "ac", "bc", "abc"}},
+                {4, "cad", new String[]{"cc", "acd", "b", "ba", "bac", "bad", "ac", "d"}}
+        });
     }
 }

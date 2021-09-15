@@ -1,7 +1,7 @@
 package leetcode;
 
 import leetcode.common.TreeNode;
-import org.junit.Assert;
+import leetcode.util.TestUtil;
 import org.junit.Test;
 
 import java.util.LinkedList;
@@ -36,8 +36,10 @@ public class CousinsinBinaryTree {
 
     @Test
     public void test() {
-        Assert.assertTrue(isCousins(TreeNode.tree("1,2,n,4,n,n,3,n,5,n,n"), 5, 4));
-        Assert.assertFalse(isCousins(TreeNode.tree("1,2,n,4,n,n,3,n,n"), 4, 3));
+        TestUtil.testEquals(new Object[][]{
+                {true, TreeNode.tree("1,2,n,4,n,n,3,n,5,n,n"), 5, 4},
+                {false, TreeNode.tree("1,2,n,4,n,n,3,n,n"), 4, 3}
+        });
     }
 
     public boolean isCousins(TreeNode root, int x, int y) {

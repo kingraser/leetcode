@@ -1,6 +1,6 @@
 package leetcode;
 
-import org.junit.Assert;
+import leetcode.util.TestUtil;
 import org.junit.Test;
 
 /**
@@ -29,6 +29,9 @@ public class CountOddNumbersinanIntervalRange {
 
     @Test
     public void test() {
-        Assert.assertEquals(3, countOdds(3, 7));
+        TestUtil.testEquals(new Object[][]{
+                {3, 3, 7},
+                {1, 8, 10}
+        });
     }
 }

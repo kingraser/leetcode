@@ -1,7 +1,6 @@
 package leetcode;
 
-import static org.junit.Assert.assertEquals;
-
+import leetcode.util.TestUtil;
 import org.junit.Test;
 
 public class DecodeWays {
@@ -23,23 +22,25 @@ public class DecodeWays {
   Similar to Climbing Stairs   
   */
 
-  @Test
-  public void test() {
-    assertEquals(2, numDecodings("12"));
-    assertEquals(2, numDecodings("1023"));
-    assertEquals(0, numDecodings("10023"));
-  }
-
-  public int numDecodings(String s) {
-    if (s == null || s.length() == 0) return 0;
-    int previous = 0, current = 1, temp;
-    for (int i = 0; i < s.length() && current > 0; i++) {
-      if (s.charAt(i) == '0') current = 0;
-      if (i < 1 || !(s.charAt(i - 1) == '1' || (s.charAt(i - 1) == '2' && s.charAt(i) <= '6'))) previous = 0;
-      temp = current;
-      current += previous;
-      previous = temp;
+    @Test
+    public void test() {
+        TestUtil.testEquals(new Object[][]{
+                {2, "12"},
+                {2, "1023"},
+                {0, "10023"}
+        });
     }
-    return current;
-  }
+
+    public int numDecodings(String s) {
+        if (s == null || s.length() == 0) return 0;
+        int previous = 0, current = 1, temp;
+        for (int i = 0; i < s.length() && current > 0; i++) {
+            if (s.charAt(i) == '0') current = 0;
+            if (i < 1 || !(s.charAt(i - 1) == '1' || (s.charAt(i - 1) == '2' && s.charAt(i) <= '6'))) previous = 0;
+            temp = current;
+            current += previous;
+            previous = temp;
+        }
+        return current;
+    }
 }

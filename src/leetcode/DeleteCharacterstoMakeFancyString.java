@@ -1,5 +1,8 @@
 package leetcode;
 
+import leetcode.util.TestUtil;
+import org.junit.Test;
+
 /**
  * @author Wit
  */
@@ -33,6 +36,15 @@ public class DeleteCharacterstoMakeFancyString {
     1 <= s.length <= 10^5
     s consists only of lowercase English letters.
     */
+
+    @Test
+    public void test() {
+        TestUtil.testEquals(new Object[][]{
+                {"leetcode", "leeetcode"},
+                {"aabaa", "aaabaaaa"},
+                {"aab", "aab"}
+        });
+    }
 
     public String makeFancyString(String s) {
         int len = s.length(), resultLen = 0;

@@ -1,8 +1,9 @@
 package leetcode;
 
-import static org.junit.Assert.assertEquals;
-
+import leetcode.util.TestUtil;
 import org.junit.Test;
+
+import java.util.stream.IntStream;
 
 public class BestTimetoBuyandSellStockIV {
 
@@ -20,23 +21,19 @@ public class BestTimetoBuyandSellStockIV {
           = max(t(i, j - 1), prices[j] + max(t(i - 1, k) - prices[k]))
   */
 
-  @Test
-  public void test() {
-    int[] prices = new int[] { 1, 2, 3, 4, 5, 6, 7 };
-    assertEquals(6, maxProfit(1, prices));
-    assertEquals(6, maxProfit(2, prices));
-    assertEquals(6, maxProfit(3, prices));
-    assertEquals(6, maxProfit(4, prices));
-    assertEquals(6, maxProfit(5, prices));
-    assertEquals(6, maxProfit(6, prices));
-  }
+    @Test
+    public void test() {
+        TestUtil.testEquals(IntStream.range(1, 7)
+                .mapToObj(i -> new Object[]{6, i, IntStream.range(1, 8).toArray()})
+                .toArray(Object[][]::new));
+    }
 
-  public int maxProfit(int k, int[] prices) {
-    int[][] t = new int[k + 1][prices.length];
-    for (int i = 1; i <= k; i++)
-      for (int j = 1, max = -prices[0]; j < prices.length; max = Math.max(max, t[i - 1][j] - prices[j++]))
-        t[i][j] = Math.max(t[i][j - 1], max + prices[j]);
-    return t[k][prices.length - 1];
-  }
+    public int maxProfit(int k, int[] prices) {
+        int[][] t = new int[k + 1][prices.length];
+        for (int i = 1; i <= k; i++)
+            for (int j = 1, max = -prices[0]; j < prices.length; max = Math.max(max, t[i - 1][j] - prices[j++]))
+                t[i][j] = Math.max(t[i][j - 1], max + prices[j]);
+        return t[k][prices.length - 1];
+    }
 
 }
