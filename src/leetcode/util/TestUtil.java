@@ -62,6 +62,7 @@ public class TestUtil {
         for (Method method : methodsToTest) {
             for (Object[] testData : testDataMatrix) {
                 Object[] input = Arrays.stream(testData, 1, testData.length).toArray();
+                String inputString = toString(input);
                 long start = System.nanoTime();
                 Object actual = method.invoke(instance, input);
                 long end = System.nanoTime();
@@ -69,7 +70,7 @@ public class TestUtil {
                         classToTest.getName(),
                         method.getName(),
                         end - start,
-                        toString(input),
+                        inputString,
                         toString(testData[0]),
                         toString(actual));
                 assertOperation.accept(testData[0], actual);
