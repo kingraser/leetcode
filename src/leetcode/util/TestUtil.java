@@ -28,7 +28,7 @@ public class TestUtil {
      *                       row[1]...row[n] for input arguments
      */
     public static void testEquals(Object[][] testDataMatrix) {
-        test(WALKER.getCallerClass(), testDataMatrix, Assert::assertEquals);
+        test(WALKER.getCallerClass(), testDataMatrix, Assert::assertEquals, 1);
     }
 
     /**
@@ -40,7 +40,19 @@ public class TestUtil {
      *                       row[1]...row[n] for input arguments
      */
     public static void testArrayEquals(Object[][] testDataMatrix) {
-        test(WALKER.getCallerClass(), testDataMatrix, TestUtil::assertArrayEquals);
+        test(WALKER.getCallerClass(), testDataMatrix, TestUtil::assertArrayEquals, 1);
+    }
+
+    /**
+     * test public methods without {@link Test} annotation in the same class
+     * assert the result matches some pattern
+     *
+     * @param testDataMatrix  each row for a test case
+     *                        row[0]...row[n] for input arguments
+     * @param assertOperation assertion
+     */
+    public static void test(Object[][] testDataMatrix, BiConsumer<Object, Object> assertOperation) {
+        test(WALKER.getCallerClass(), testDataMatrix, assertOperation, 0);
     }
 
     /**
@@ -51,9 +63,10 @@ public class TestUtil {
      *                        row[0] for expected
      *                        row[1]...row[n] for input arguments
      * @param assertOperation assert operation
+     * @param startIndex      the startIndex of input arguments, inclusive.
      */
     @SneakyThrows
-    private static void test(Class<?> classToTest, Object[][] testDataMatrix, BiConsumer<Object, Object> assertOperation) {
+    private static void test(Class<?> classToTest, Object[][] testDataMatrix, BiConsumer<Object, Object> assertOperation, int startIndex) {
         Object instance = classToTest.getDeclaredConstructor().newInstance();
         Method[] methodsToTest = Arrays.stream(classToTest.getDeclaredMethods())
                 .filter(method -> Modifier.isPublic(method.getModifiers()))
@@ -61,17 +74,16 @@ public class TestUtil {
                 .toArray(Method[]::new);
         for (Method method : methodsToTest) {
             for (Object[] testData : testDataMatrix) {
-                Object[] input = Arrays.stream(testData, 1, testData.length).toArray();
+                Object[] input = Arrays.stream(testData, startIndex, testData.length).toArray();
                 String inputString = toString(input);
                 long start = System.nanoTime();
                 Object actual = method.invoke(instance, input);
                 long end = System.nanoTime();
-                System.out.printf("test: (class:%s) (method:%s) cost %,dns (input:%s) (expected:%s) (actual:%s)%n",
+                System.out.printf("test: (class:%s) (method:%s) cost %,dns (input:%s) (actual:%s)%n",
                         classToTest.getName(),
                         method.getName(),
                         end - start,
                         inputString,
-                        toString(testData[0]),
                         toString(actual));
                 assertOperation.accept(testData[0], actual);
             }
