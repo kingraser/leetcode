@@ -43,11 +43,13 @@ public class PathInZigzagLabelledBinaryTree {
     }
 
     private int getMaxInLevel(int level) {
-        return (1 << ++level) - 1;
+        return (2 << level) - 1;
     }
 
     private int getLevel(int label) {
-        for (int level = 0; ; ) if (getMaxInLevel(level++) >= label) return --level;
+        int level = 0;
+        for (int maxInLevel = 1; maxInLevel < label; level++) maxInLevel = (maxInLevel << 1) + 1;
+        return level;
     }
 
     private int getLeftMostLabel(int level) {
