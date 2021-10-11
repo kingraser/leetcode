@@ -67,7 +67,12 @@ public class TestUtil {
      */
     @SneakyThrows
     private static void test(Class<?> classToTest, Object[][] testDataMatrix, BiConsumer<Object, Object> assertOperation, int startIndex) {
-        Object instance = classToTest.getDeclaredConstructor().newInstance();
+        test(classToTest.getDeclaredConstructor().newInstance(), testDataMatrix, assertOperation, startIndex);
+    }
+
+    @SneakyThrows
+    public static void test(Object instance, Object[][] testDataMatrix, BiConsumer<Object, Object> assertOperation, int startIndex) {
+        Class<?> classToTest = instance.getClass();
         Method[] methodsToTest = Arrays.stream(classToTest.getDeclaredMethods())
                 .filter(method -> Modifier.isPublic(method.getModifiers()))
                 .filter(method -> !method.isAnnotationPresent(Test.class))
@@ -97,7 +102,7 @@ public class TestUtil {
      * @param o object to transfer to string
      * @return string for the input object
      */
-    private static String toString(Object o) {
+    public static String toString(Object o) {
         if (Objects.isNull(o) || !o.getClass().isArray()) {return String.valueOf(o);}
         return IntStream.range(0, Array.getLength(o))
                 .mapToObj(i -> Array.get(o, i))
