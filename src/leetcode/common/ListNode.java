@@ -38,7 +38,7 @@ public class ListNode {
 
   @Override
   public boolean equals(Object o) {
-    if (null == o || !(o instanceof ListNode)) return false;
+    if (!(o instanceof ListNode)) return false;
     ListNode another = (ListNode) o;
     return val == another.val && Objects.equals(next, another.next);
   }
@@ -55,13 +55,13 @@ public class ListNode {
     return toString(this);
   }
 
-  private String toString(ListNode node) {
+  public static String toString(ListNode node) {
     if (Objects.isNull(node)) return "null";
     return node.val + "->" + toString(node.next);
   }
 
   public Pair<ListNode, ListNode> breakFromMiddle() {
-    if (this.next == null) return new Pair<ListNode, ListNode>(this, null);
+    if (this.next == null) return new Pair<>(this, null);
     ListNode prev = null, slow = this, fast = this;
     while (fast != null && fast.next != null) {
       prev = slow;
@@ -69,6 +69,6 @@ public class ListNode {
       slow = slow.next;
     }
     prev.next = null;
-    return new Pair<ListNode, ListNode>(this, slow);
+    return new Pair<>(this, slow);
   }
 }

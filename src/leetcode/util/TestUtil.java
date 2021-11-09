@@ -75,6 +75,7 @@ public class TestUtil {
         Class<?> classToTest = instance.getClass();
         Method[] methodsToTest = Arrays.stream(classToTest.getDeclaredMethods())
                 .filter(method -> Modifier.isPublic(method.getModifiers()))
+                .filter(method -> !Modifier.isStatic(method.getModifiers()))
                 .filter(method -> !method.isAnnotationPresent(Test.class))
                 .toArray(Method[]::new);
         for (Method method : methodsToTest) {

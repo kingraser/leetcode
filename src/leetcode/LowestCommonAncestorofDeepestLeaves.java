@@ -49,7 +49,7 @@ public class LowestCommonAncestorofDeepestLeaves {
     }
 
     @AllArgsConstructor
-    class NodeWithDepth {
+    public static class NodeWithDepth {
         TreeNode node;
         int depth;
     }
@@ -58,7 +58,7 @@ public class LowestCommonAncestorofDeepestLeaves {
         return getLca(root, 0).node;
     }
 
-    private NodeWithDepth getLca(TreeNode root, int depth) {
+    static NodeWithDepth getLca(TreeNode root, int depth) {
         if (root == null) return new NodeWithDepth(null, depth);
         NodeWithDepth left = getLca(root.left, depth + 1), right = getLca(root.right, depth + 1);
         return left.depth == right.depth ? new NodeWithDepth(root, left.depth) : left.depth > right.depth ? left : right;
