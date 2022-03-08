@@ -1,12 +1,16 @@
 package leetcode;
 
 import leetcode.util.TestUtil;
+import org.junit.Assert;
 import org.junit.Test;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 /**
  * @author Wit
  */
-public class FindValidMatrixGivenRowandColumnSums {
+public class FindValidMatrixGivenRowAndColumnSums {
     /*
     You are given two arrays rowSum and colSum of non-negative integers where rowSum[i] is the sum of the elements in the ith row and colSum[j] is the sum of the elements of the jth column of a 2D matrix. In other words, you do not know the elements of the matrix, but you do know the sums of each row and column.
     Find any matrix of non-negative integers of size rowSum.length x colSum.length that satisfies the rowSum and colSum requirements.
@@ -53,20 +57,36 @@ public class FindValidMatrixGivenRowandColumnSums {
 
     @Test
     public void test() {
-        TestUtil.testArrayEquals(new Object[][]{
-                {new int[][]{{3, 0}, {1, 7}}, new int[]{3, 8}, new int[]{4, 7}},
-                {new int[][]{{0, 5, 0}, {6, 1, 0}, {2, 0, 8}}, new int[]{5, 7, 10}, new int[]{8, 6, 8}},
-                {new int[][]{{0, 9, 5}, {6, 0, 3}}, new int[]{14, 9}, new int[]{6, 9, 8}},
-                {new int[][]{{1}, {0}}, new int[]{1, 0}, new int[]{1}},
-                {new int[1][1], new int[1], new int[1]}
-        });
+        TestUtil.test(
+                new Object[][]{
+                        {new int[]{3, 8}, new int[]{4, 7}},
+                        {new int[]{5, 7, 10}, new int[]{8, 6, 8}},
+                        {new int[]{14, 9}, new int[]{6, 9, 8}},
+                        {new int[]{1, 0}, new int[]{1}},
+                        {new int[]{0}, new int[]{0}},
+                },
+                this::validate
+        );
+    }
+
+    private void validate(Object inputO, Object actualO) {
+        int[] rowSum = (int[]) Array.get(inputO, 0), colSum = (int[]) Array.get(inputO, 1), actual[] = (int[][]) actualO;
+        Assert.assertEquals(rowSum.length, actual.length);
+        Assert.assertEquals(colSum.length, actual[0].length);
+        for (int row = 0; row < rowSum.length; row++)
+            Assert.assertEquals(rowSum[row], Arrays.stream(actual[row]).sum());
+        for (int col = 0, sum, row; col < colSum.length; col++) {
+            for (sum = 0, row = 0; row < rowSum.length; ) sum += actual[row++][col];
+            Assert.assertEquals(colSum[col], sum);
+        }
     }
 
     public int[][] restoreMatrix(int[] rowSum, int[] colSum) {
         int[][] result = new int[rowSum.length][colSum.length];
-        for (int row = 0; row < rowSum.length; row++)
-            for (int col = 0; col < colSum.length; rowSum[row] -= result[row][col], colSum[col] -= result[row][col++])
-                result[row][col] = Math.min(rowSum[row], colSum[col]);
+        for (int row = 0, col = 0, val; row < rowSum.length && col < colSum.length; ) {
+            if ((rowSum[row] -= val = result[row][col] = Math.min(rowSum[row], colSum[col])) == 0) row++;
+            if ((colSum[col] -= val) == 0) col++;
+        }
         return result;
     }
 }

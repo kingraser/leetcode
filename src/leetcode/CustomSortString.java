@@ -3,6 +3,7 @@ package leetcode;
 import leetcode.util.TestUtil;
 import org.junit.Test;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.stream.IntStream;
@@ -39,11 +40,8 @@ public class CustomSortString {
                 this::isSorted);
     }
 
-    private void isSorted(Object o1, Object o2) {
-        isSorted(String.valueOf(o1), String.valueOf(o2));
-    }
-
-    private void isSorted(String order, String s) {
+    private void isSorted(Object inputO, Object actualO) {
+        String order = String.valueOf(Array.get(inputO, 0)), s = String.valueOf(actualO);
         int count[] = new int[128], oLen = order.length();
         order.chars().forEach(c -> count[c]++);
         int[] sArray = s.chars().filter(c -> count[c] > 0).toArray();

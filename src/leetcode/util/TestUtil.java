@@ -82,6 +82,7 @@ public class TestUtil {
             for (Object[] testData : testDataMatrix) {
                 Object[] input = Arrays.stream(testData, startIndex, testData.length).toArray();
                 String inputString = toString(input);
+                Object[] inputCopy = startIndex == 1 ? null : Arrays.stream(input).map(TestUtil::clone).toArray();
                 long start = System.nanoTime();
                 Object actual = method.invoke(instance, input);
                 long end = System.nanoTime();
@@ -91,10 +92,24 @@ public class TestUtil {
                         end - start,
                         inputString,
                         toString(actual));
-                assertOperation.accept(testData[0], actual);
+                assertOperation.accept(startIndex == 1 ? testData[0] : inputCopy, actual);
             }
             System.out.println();
         }
+    }
+
+    private static Object clone(Object o) {
+        if (o == null || o.getClass().isPrimitive()) return o;
+        if (o.getClass().isArray()) {
+            if (Objects.equals(o.getClass().getComponentType(), int.class))
+                return Arrays.copyOf((int[]) o, Array.getLength(o));
+            if (Objects.equals(o.getClass().getComponentType(), long.class))
+                return Arrays.copyOf((long[]) o, Array.getLength(o));
+            if (Objects.equals(o.getClass().getComponentType(), double.class))
+                return Arrays.copyOf((double[]) o, Array.getLength(o));
+            throw new RuntimeException("unknown type! " + o.getClass());
+        } else if (Modifier.isFinal(o.getClass().getModifiers())) return o;
+        throw new RuntimeException("unknown type! " + o.getClass());
     }
 
     /**
