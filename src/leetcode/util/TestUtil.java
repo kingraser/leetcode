@@ -131,8 +131,10 @@ public class TestUtil {
             Assert.assertArrayEquals((int[]) expected, (int[]) actual);
         } else if (Objects.equals(expected.getClass().getComponentType(), double.class)) {
             Assert.assertArrayEquals((double[]) expected, (double[]) actual, Double.MIN_NORMAL);
+        } else if (Objects.equals(expected.getClass().getComponentType(), long.class)) {
+            Assert.assertArrayEquals((long[]) expected, (long[]) actual);
         } else {
-            throw new UnsupportedOperationException("primitive types only support int and double right now!");
+            throw new UnsupportedOperationException("primitive types only support int and double and long right now!");
         }
     }
 }

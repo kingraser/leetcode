@@ -1,6 +1,8 @@
 package leetcode;
 
 import leetcode.common.TreeNode;
+import leetcode.util.TestUtil;
+import org.junit.Test;
 
 /**
  * @author Wit
@@ -32,10 +34,19 @@ public class StepByStepDirectionsFromABinaryTreeNodeToAnother {
     1 <= startValue, destValue <= n
     startValue != destValue
     */
+
+    @Test
+    public void test() {
+        TestUtil.testEquals(new Object[][]{
+                {"UURL", TreeNode.tree("5,1,3,n,n,n,2,6,n,n,4,n,n"), 3, 6},
+                {"L", TreeNode.tree("2,1,n,n,n"), 2, 1}
+        });
+    }
+
     boolean find(TreeNode root, int val, StringBuilder sb) {
         if (root.val == val) return true;
-        if (root.left != null && find(root.left, val, sb)) sb.append("L");
-        else if (root.right != null && find(root.right, val, sb)) sb.append("R");
+        if (root.left != null && find(root.left, val, sb)) sb.append('L');
+        else if (root.right != null && find(root.right, val, sb)) sb.append('R');
         return sb.length() > 0;
     }
 
