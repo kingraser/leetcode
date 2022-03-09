@@ -1,9 +1,12 @@
 package leetcode;
 
+import leetcode.util.TestUtil;
+import org.junit.Test;
+
 /**
  * @author Wit
  */
-public class DesignaStackWithIncrementOperation{
+public class DesignaStackWithIncrementOperation {
     /*
     Design a stack which supports the following operations.
     Implement the CustomStack class:
@@ -40,7 +43,27 @@ public class DesignaStackWithIncrementOperation{
     0 <= val <= 100
     At most 1000 calls will be made to each method of increment, push and pop each separately.
     */
-    class CustomStack {
+    @Test
+    public void test() {
+        TestUtil.testEquals(new CustomStack(3),
+                new String[]{"push", "push", "pop", "push", "push", "push", "increment", "increment", "pop", "pop", "pop", "pop"},
+                new Object[][]{
+                        {null, 1},
+                        {null, 2},
+                        {2},
+                        {null, 2},
+                        {null, 3},
+                        {null, 4},
+                        {null, 5, 100},
+                        {null, 2, 100},
+                        {103},
+                        {202},
+                        {201},
+                        {-1}
+                });
+    }
+
+    public static class CustomStack {
         int size = 0, array[];
 
         public CustomStack(int maxSize) {

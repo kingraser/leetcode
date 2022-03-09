@@ -1,9 +1,9 @@
 package leetcode;
 
-import static leetcode.AddStrings.addStrings;
-import static org.junit.Assert.assertEquals;
-
+import leetcode.util.TestUtil;
 import org.junit.Test;
+
+import static leetcode.AddStrings.addStrings;
 
 public class AddBinary {
 
@@ -17,8 +17,10 @@ public class AddBinary {
 
   @Test
   public void test() {
-    assertEquals("100", addBinary("11", "1"));
-    assertEquals("110", addBinary("11", "11"));
+    TestUtil.testEquals(new Object[][]{
+            {"100", "11", "1"},
+            {"110", "11", "11"}
+    });
   }
 
   public String addBinary(String a, String b) {

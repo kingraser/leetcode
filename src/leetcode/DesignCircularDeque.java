@@ -1,5 +1,8 @@
 package leetcode;
 
+import leetcode.util.TestUtil;
+import org.junit.Test;
+
 /**
  * @author Wit
  */
@@ -40,7 +43,25 @@ public class DesignCircularDeque {
     0 <= value <= 1000
     At most 2000 calls will be made to insertFront, insertLast, deleteFront, deleteLast, getFront, getRear, isEmpty, isFull.
     */
-    class MyCircularDeque {
+
+    @Test
+    public void test() {
+        TestUtil.testEquals(new MyCircularDeque(3),
+                new String[]{"insertLast", "insertLast", "insertFront", "insertFront", "getRear", "isFull", "deleteLast", "insertFront", "getFront"},
+                new Object[][]{
+                        {true, 1},
+                        {true, 2},
+                        {true, 3},
+                        {false, 4},
+                        {2},
+                        {true},
+                        {true},
+                        {true, 4},
+                        {4}
+                });
+    }
+
+    public static class MyCircularDeque {
         int array[], head, tail, capacity;
 
         public MyCircularDeque(int k) {array = new int[(capacity = k) + 1];}

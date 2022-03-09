@@ -1,6 +1,6 @@
 package leetcode;
 
-import org.junit.Assert;
+import leetcode.util.TestUtil;
 import org.junit.Test;
 
 import java.util.HashSet;
@@ -34,7 +34,7 @@ public class DesignHashSet {
     Please do not use the built-in HashSet library.
     */
 
-    class MyHashSet {
+    public static class MyHashSet {
         HashSet<Integer> set = new HashSet<>();
 
         public void add(int key) {
@@ -52,14 +52,17 @@ public class DesignHashSet {
 
     @Test
     public void test() {
-        MyHashSet hashSet = new MyHashSet();
-        hashSet.add(1);
-        hashSet.add(2);
-        Assert.assertTrue(hashSet.contains(1));
-        Assert.assertFalse(hashSet.contains(3));    // returns false (not found)
-        hashSet.add(2);
-        Assert.assertTrue(hashSet.contains(2));    // returns true
-        hashSet.remove(2);
-        Assert.assertFalse(hashSet.contains(2));
+        TestUtil.testEquals(new MyHashSet()
+                , new String[]{"add", "add", "contains", "contains", "add", "contains", "remove", "contains"}
+                , new Object[][]{
+                        {null, 1},
+                        {null, 2},
+                        {true, 1},
+                        {false, 3},
+                        {null, 2},
+                        {true, 2},
+                        {null, 2},
+                        {false, 2}
+                });
     }
 }

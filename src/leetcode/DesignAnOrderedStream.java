@@ -1,13 +1,17 @@
 package leetcode;
 
+import leetcode.util.TestUtil;
+import org.junit.Test;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 /**
  * @author Wit
  */
-public class DesignanOrderedStream {
+public class DesignAnOrderedStream {
     /*
     There is a stream of n (id, value) pairs arriving in an arbitrary order, where id is an integer between 1 and n and value is a string. No two pairs have the same id.
     Design a stream that returns the values in increasing order of their IDs by returning a chunk (list) of values after each insertion. The concatenation of all the chunks should result in a list of the sorted values.
@@ -41,11 +45,23 @@ public class DesignanOrderedStream {
     Each call to insert will have a unique id.
     Exactly n calls will be made to insert.
     */
-    class OrderedStream {
+
+    @Test
+    public void test() {
+        TestUtil.testEquals(new OrderedStream(5), new Object[][]{
+                {Collections.emptyList(), 3, "ccccc"},
+                {List.of("aaaaa"), 1, "aaaaa"},
+                {List.of("bbbbb", "ccccc"), 2, "bbbbb"},
+                {Collections.emptyList(), 5, "eeeee"},
+                {List.of("ddddd", "eeeee"), 4, "ddddd"}
+        });
+    }
+
+    public static class OrderedStream {
         int ptr = 0;
         String[] res;
 
-        public OrderedStream(int n) { res = new String[n]; }
+        public OrderedStream(int n) {res = new String[n];}
 
         public List<String> insert(int id, String value) {
             List<String> result = new ArrayList<>();
