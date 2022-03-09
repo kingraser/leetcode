@@ -26,7 +26,7 @@ public class SortanArray {
     */
     @Test
     public void test() {
-        TestUtil.testArrayEquals(new Object[][]{
+        TestUtil.testEquals(new Object[][]{
                 {new int[]{1, 2, 3, 5}, new int[]{5, 2, 3, 1}},
                 {new int[]{0, 0, 1, 1, 2, 5}, new int[]{5, 1, 1, 2, 0, 0}}
         });

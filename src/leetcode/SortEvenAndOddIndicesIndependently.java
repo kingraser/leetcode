@@ -40,7 +40,7 @@ public class SortEvenAndOddIndicesIndependently {
     */
     @Test
     public void test() {
-        TestUtil.testArrayEquals(new Object[][]{
+        TestUtil.testEquals(new Object[][]{
                 {new int[]{2, 3, 4, 1}, new int[]{4, 1, 2, 3}},
                 {new int[]{2, 1}, new int[]{2, 1}}
         });

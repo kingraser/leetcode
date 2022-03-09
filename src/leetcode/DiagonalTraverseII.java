@@ -36,7 +36,7 @@ public class DiagonalTraverseII {
     */
     @Test
     public void test() {
-        TestUtil.testArrayEquals(new Object[][]{
+        TestUtil.testEquals(new Object[][]{
                 {
                         new int[]{1, 4, 2, 7, 5, 3, 8, 6, 9},
                         List.of(List.of(1, 2, 3), List.of(4, 5, 6), List.of(7, 8, 9))

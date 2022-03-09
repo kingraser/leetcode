@@ -57,7 +57,7 @@ public class MakingFileNamesUnique {
 
     @Test
     public void test() {
-        TestUtil.testArrayEquals(new Object[][]{
+        TestUtil.testEquals(new Object[][]{
                 {ArrayUtil.of("pes", "fifa", "gta", "pes(2019)"), ArrayUtil.of("pes", "fifa", "gta", "pes(2019)")},
                 {ArrayUtil.of("gta", "gta(1)", "gta(2)", "avalon"), ArrayUtil.of("gta", "gta(1)", "gta", "avalon")},
                 {ArrayUtil.of("onepiece", "onepiece(1)", "onepiece(2)", "onepiece(3)", "onepiece(4)"), ArrayUtil.of("onepiece", "onepiece(1)", "onepiece(2)", "onepiece(3)", "onepiece")},

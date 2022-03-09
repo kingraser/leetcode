@@ -54,7 +54,7 @@ public class RotatingtheBox {
     @SuppressWarnings("unchecked")
     @Test
     public void test() {
-        TestUtil.testArrayEquals(Arrays.stream(new Object[][]{
+        TestUtil.testEquals(Arrays.stream(new Object[][]{
                 {List.of(".", "#", "#"), List.of("#.#")},
                 {List.of("#.", "##", "**", ".."), List.of("#.*.", "##*.")},
                 {List.of(".##", ".##", "##*", "#*.", "#.*", "#.."), List.of("##*.*.", "###*..", "###.#.")},

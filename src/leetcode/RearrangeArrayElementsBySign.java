@@ -40,7 +40,7 @@ public class RearrangeArrayElementsBySign {
     */
     @Test
     public void test() {
-        TestUtil.testArrayEquals(new Object[][]{
+        TestUtil.testEquals(new Object[][]{
                 {new int[]{28, -41, 22, -8, 46, -37, 35, -9, 18, -6, 19, -26, 15, -37, 14, -10, 31, -9}, new int[]{28, -41, 22, -8, -37, 46, 35, -9, 18, -6, 19, -26, -37, -10, -9, 15, 14, 31}},
                 {new int[]{3, -2, 1, -5, 2, -4}, new int[]{3, 1, -2, -5, 2, -4}},
                 {new int[]{1, -1}, new int[]{-1, 1}}

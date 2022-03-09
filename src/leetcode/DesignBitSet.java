@@ -1,5 +1,8 @@
 package leetcode;
 
+import leetcode.util.TestUtil;
+import org.junit.Test;
+
 /**
  * @author Wit
  */
@@ -44,7 +47,26 @@ public class DesignBitSet {
     At least one call will be made to all, one, count, or toString.
     At most 5 calls will be made to toString.
     */
-    
+
+    @Test
+    public void test() {
+        TestUtil.testEquals(
+                new Bitset(5),
+                new String[]{"fix", "fix", "flip", "all", "unfix", "flip", "one", "unfix", "count", "toString"},
+                new Object[][]{
+                        {null, 3},
+                        {null, 1},
+                        {null},
+                        {false},
+                        {null, 0},
+                        {null},
+                        {true},
+                        {null, 0},
+                        {2},
+                        {"01010"}
+                });
+    }
+
     public static class Bitset {
         char[] chars, reverse, temp;
         int ones;

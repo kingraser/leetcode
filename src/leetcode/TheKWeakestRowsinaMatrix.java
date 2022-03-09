@@ -1,7 +1,6 @@
 package leetcode;
 
 import leetcode.util.TestUtil;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.PriorityQueue;
@@ -79,8 +78,8 @@ public class TheKWeakestRowsinaMatrix {
     }
 
     @Test
-    public void test() throws NoSuchMethodException {
-        TestUtil.testArrayEquals(
+    public void test() {
+        TestUtil.testEquals(
                 new Object[][]{
                         {
                                 new int[]{2, 0, 3},

@@ -40,7 +40,7 @@ public class MatrixBlockSum {
 
     @Test
     public void test() {
-        TestUtil.testArrayEquals(new Object[][]{
+        TestUtil.testEquals(new Object[][]{
                 {new int[][]{{12, 21, 16}, {27, 45, 33}, {24, 39, 28}}, new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}, 1},
                 {new int[][]{{45, 45, 45}, {45, 45, 45}, {45, 45, 45}}, new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}, 2}
         });

@@ -39,7 +39,7 @@ public class QueriesonaPermutationWithKey {
 
     @Test
     public void test() {
-        TestUtil.testArrayEquals(new Object[][]{
+        TestUtil.testEquals(new Object[][]{
                 {new int[]{2, 1, 2, 1}, new int[]{3, 1, 2, 1}, 5},
                 {new int[]{3, 1, 2, 0}, new int[]{4, 1, 2, 2}, 4},
                 {new int[]{6, 5, 0, 7, 5}, new int[]{7, 5, 5, 8, 3}, 8}

@@ -54,7 +54,7 @@ public class ConvertIntegertotheSumofTwoNoZeroIntegers {
 
     @Test
     public void test() throws NoSuchMethodException {
-        TestUtil.testArrayEquals(
+        TestUtil.testEquals(
                 new Object[][]{
                         {new int[]{1, 1}, 2},
                         {new int[]{2, 9}, 11},

@@ -8,8 +8,10 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.BiConsumer;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -28,19 +30,23 @@ public class TestUtil {
      *                       row[1]...row[n] for input arguments
      */
     public static void testEquals(Object[][] testDataMatrix) {
-        test(WALKER.getCallerClass(), testDataMatrix, Assert::assertEquals, 1);
+        testEquals(getInstance(WALKER.getCallerClass()), testDataMatrix);
     }
 
-    /**
-     * test public methods without {@link Test} annotation in the same class
-     * assert the result is array and equals to the expected
-     *
-     * @param testDataMatrix each row for a test case
-     *                       row[0] for expected
-     *                       row[1]...row[n] for input arguments
-     */
-    public static void testArrayEquals(Object[][] testDataMatrix) {
-        test(WALKER.getCallerClass(), testDataMatrix, TestUtil::assertArrayEquals, 1);
+    public static void testEquals(Object instance, Object[][] testDataMatrix) {
+        test(instance, testDataMatrix, TestUtil::assertEquals, 1);
+    }
+
+    public static void testEquals(Object instance, String[] methods, Object[][] testDataMatrix) {
+        Assert.assertEquals("methods length does not equal to inputs length!", methods.length, testDataMatrix.length);
+
+        Method[] methodsToTest = new Method[methods.length];
+        Map<String, Method> methodMap = Arrays.stream(instance.getClass().getDeclaredMethods()).collect(Collectors.toMap(Method::getName, Function.identity()));
+        for (int i = 0; i < methods.length; i++)
+            if (Objects.isNull(methodsToTest[i] = methodMap.get(methods[i])))
+                throw new RuntimeException("unknown method! " + methods[i]);
+        for (int i = 0; i < methodsToTest.length; i++)
+            test(instance, methodsToTest[i], testDataMatrix[i], TestUtil::assertEquals, 1);
     }
 
     /**
@@ -52,50 +58,50 @@ public class TestUtil {
      * @param assertOperation assertion
      */
     public static void test(Object[][] testDataMatrix, BiConsumer<Object, Object> assertOperation) {
-        test(WALKER.getCallerClass(), testDataMatrix, assertOperation, 0);
+        test(getInstance(WALKER.getCallerClass()), testDataMatrix, assertOperation, 0);
     }
 
-    /**
-     * test method
-     *
-     * @param classToTest     the class to new an instance to test
-     * @param testDataMatrix  each row for a test case
-     *                        row[0] for expected
-     *                        row[1]...row[n] for input arguments
-     * @param assertOperation assert operation
-     * @param startIndex      the startIndex of input arguments, inclusive.
-     */
-    @SneakyThrows
-    private static void test(Class<?> classToTest, Object[][] testDataMatrix, BiConsumer<Object, Object> assertOperation, int startIndex) {
-        test(classToTest.getDeclaredConstructor().newInstance(), testDataMatrix, assertOperation, startIndex);
+    private static void test(Object instance, Object[][] testDataMatrix, BiConsumer<Object, Object> assertOperation, int startIndex) {
+        for (Method method : getMethodsToTest(instance.getClass())) {
+            for (Object[] testData : testDataMatrix) test(instance, method, testData, assertOperation, startIndex);
+            System.out.println();
+        }
     }
 
     @SneakyThrows
-    public static void test(Object instance, Object[][] testDataMatrix, BiConsumer<Object, Object> assertOperation, int startIndex) {
-        Class<?> classToTest = instance.getClass();
-        Method[] methodsToTest = Arrays.stream(classToTest.getDeclaredMethods())
+    private static Object getInstance(Class<?> testClass) {return testClass.getDeclaredConstructor().newInstance();}
+
+    private static Method[] getMethodsToTest(Class<?> testClass) {
+        return Arrays.stream(testClass.getDeclaredMethods())
                 .filter(method -> Modifier.isPublic(method.getModifiers()))
                 .filter(method -> !Modifier.isStatic(method.getModifiers()))
                 .filter(method -> !method.isAnnotationPresent(Test.class))
                 .toArray(Method[]::new);
-        for (Method method : methodsToTest) {
-            for (Object[] testData : testDataMatrix) {
-                Object[] input = Arrays.stream(testData, startIndex, testData.length).toArray();
-                String inputString = toString(input);
-                Object[] inputCopy = startIndex == 1 ? null : Arrays.stream(input).map(TestUtil::clone).toArray();
-                long start = System.nanoTime();
-                Object actual = method.invoke(instance, input);
-                long end = System.nanoTime();
-                System.out.printf("test: (class:%s) (method:%s) cost %,dns (input:%s) (actual:%s)%n",
-                        classToTest.getName(),
-                        method.getName(),
-                        end - start,
-                        inputString,
-                        toString(actual));
-                assertOperation.accept(startIndex == 1 ? testData[0] : inputCopy, actual);
-            }
-            System.out.println();
-        }
+    }
+
+    @SneakyThrows
+    private static void test(Object instance, Method method, Object[] testData, BiConsumer<Object, Object> assertOperation, int startIndex) {
+        Object[] input = getInput(testData, startIndex);
+        String inputString = toString(input);
+        Object[] inputCopy = hasExpected(startIndex) ? null : Arrays.stream(input).map(TestUtil::clone).toArray();
+        long start = System.nanoTime();
+        Object actual = method.invoke(instance, input);
+        long end = System.nanoTime();
+        System.out.printf("test: (class:%s) (method:%s) cost %,dns (input:%s) (actual:%s)%n",
+                instance.getClass().getName(),
+                method.getName(),
+                end - start,
+                inputString,
+                toString(actual));
+        assertOperation.accept(hasExpected(startIndex) ? testData[0] : inputCopy, actual);
+    }
+
+    private static Object[] getInput(Object[] testData, int startIndex) {
+        return Arrays.stream(testData, startIndex, testData.length).toArray();
+    }
+
+    private static boolean hasExpected(int startIndex) {
+        return startIndex == 1;
     }
 
     private static Object clone(Object o) {
@@ -124,6 +130,11 @@ public class TestUtil {
                 .mapToObj(i -> Array.get(o, i))
                 .map(TestUtil::toString)
                 .collect(Collectors.joining(",", "[", "]"));
+    }
+
+    private static void assertEquals(Object expected, Object actual) {
+        if (actual == null || !actual.getClass().isArray()) Assert.assertEquals(expected, actual);
+        else assertArrayEquals(expected, actual);
     }
 
     private static void assertArrayEquals(Object expected, Object actual) {

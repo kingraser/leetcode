@@ -38,7 +38,7 @@ public class PartitionArrayAccordingToGivenPivot {
     */
     @Test
     public void test() {
-        TestUtil.testArrayEquals(new Object[][]{
+        TestUtil.testEquals(new Object[][]{
                 {new int[]{9, 5, 3, 10, 10, 12, 14}, new int[]{9, 12, 5, 10, 14, 3, 10}, 10},
                 {new int[]{-3, 2, 4, 3}, new int[]{-3, 4, 3, 2}, 2}
         });

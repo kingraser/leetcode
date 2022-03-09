@@ -51,7 +51,7 @@ public class FindTheMinimumAndMaximumNumberOfNodesBetweenCriticalPoints {
     */
     @Test
     public void test() {
-        TestUtil.testArrayEquals(new Object[][]{
+        TestUtil.testEquals(new Object[][]{
                 {new int[]{-1, -1}, ListNode.list(3, 1)},
                 {new int[]{1, 3}, ListNode.list(5, 3, 1, 2, 5, 1, 2)},
                 {new int[]{3, 3}, ListNode.list(1, 3, 2, 2, 3, 2, 2, 2, 7)},

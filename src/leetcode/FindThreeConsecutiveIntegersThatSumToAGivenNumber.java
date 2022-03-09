@@ -26,7 +26,7 @@ public class FindThreeConsecutiveIntegersThatSumToAGivenNumber {
     */
     @Test
     public void test() {
-        TestUtil.testArrayEquals(new Object[][]{
+        TestUtil.testEquals(new Object[][]{
                 {new long[]{10, 11, 12}, 33},
                 {EMPTY, 4}
         });

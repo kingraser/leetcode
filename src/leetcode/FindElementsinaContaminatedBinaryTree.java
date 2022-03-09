@@ -2,7 +2,6 @@ package leetcode;
 
 import leetcode.common.TreeNode;
 import leetcode.util.TestUtil;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.BitSet;
@@ -67,28 +66,24 @@ public class FindElementsinaContaminatedBinaryTree {
 
     @Test
     public void test() {
-        test(new FindElements(TreeNode.tree("-1,n,-1,n,n")),
+        TestUtil.testEquals(new FindElements(TreeNode.tree("-1,n,-1,n,n")),
                 new Object[][]{
                         {false, 1},
                         {true, 2}
                 });
-        test(new FindElements(TreeNode.tree("-1,-1,-1,n,n,-1,n,n,-1,n,n")),
+        TestUtil.testEquals(new FindElements(TreeNode.tree("-1,-1,-1,n,n,-1,n,n,-1,n,n")),
                 new Object[][]{
                         {true, 1},
                         {true, 3},
                         {false, 5}
                 });
-        test(new FindElements(TreeNode.tree("-1,n,-1,-1,-1,n,n,n,n")),
+        TestUtil.testEquals(new FindElements(TreeNode.tree("-1,n,-1,-1,-1,n,n,n,n")),
                 new Object[][]{
                         {true, 2},
                         {false, 3},
                         {false, 4},
                         {true, 5}
                 });
-    }
-
-    private void test(FindElements instance, Object[][] testDataMatrix) {
-        TestUtil.test(instance, testDataMatrix, Assert::assertEquals, 1);
     }
 
     public class FindElements {

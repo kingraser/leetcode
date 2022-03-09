@@ -48,7 +48,7 @@ public class RevealCardsInIncreasingOrder {
     */
     @Test
     public void test() {
-        TestUtil.testArrayEquals(new Object[][]{
+        TestUtil.testEquals(new Object[][]{
                 {new int[]{2, 13, 3, 11, 5, 17, 7}, new int[]{17, 13, 11, 2, 3, 5, 7}},
                 {new int[]{1, 1000}, new int[]{1, 1000}}
         });

@@ -52,7 +52,7 @@ public class FindingtheUsersActiveMinutes {
 
     @Test
     public void test() {
-        TestUtil.testArrayEquals(new Object[][]{
+        TestUtil.testEquals(new Object[][]{
                 {new int[]{0, 2, 0, 0, 0}, new int[][]{{0, 5}, {1, 2}, {0, 2}, {0, 5}, {1, 3}}, 5},
                 {new int[]{1, 1, 0, 0}, new int[][]{{1, 1}, {2, 2}, {2, 3}}, 4}
         });

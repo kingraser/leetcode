@@ -43,7 +43,7 @@ public class FindSubsequenceOfLengthKWithTheLargestSum {
 
     @Test
     public void test() {
-        TestUtil.testArrayEquals(new Object[][]{
+        TestUtil.testEquals(new Object[][]{
                 {new int[]{3, 3}, new int[]{2, 1, 3, 3,}, 2},
                 {new int[]{-1, 3, 4}, new int[]{-1, -2, 3, 4}, 3}
         });

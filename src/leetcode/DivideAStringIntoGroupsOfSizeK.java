@@ -41,7 +41,7 @@ public class DivideAStringIntoGroupsOfSizeK {
     */
     @Test
     public void test() {
-        TestUtil.testArrayEquals(new Object[][]{
+        TestUtil.testEquals(new Object[][]{
                 {ArrayUtil.of("abc", "def", "ghi"), "abcdefghi", 3, 'x'},
                 {ArrayUtil.of("abc", "def", "ghi", "jxx"), "abcdefghij", 3, 'x'}
         });

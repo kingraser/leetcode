@@ -48,7 +48,7 @@ public class BuildArrayfromPermutation {
 
     @Test
     public void test() throws NoSuchMethodException {
-        TestUtil.testArrayEquals(
+        TestUtil.testEquals(
                 new Object[][]{
                         {new int[]{0, 1, 2, 4, 5, 3}, new int[]{0, 2, 1, 5, 3, 4}},
                         {new int[]{4, 5, 0, 1, 2, 3}, new int[]{5, 0, 1, 2, 3, 4}},

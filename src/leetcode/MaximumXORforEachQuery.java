@@ -45,7 +45,7 @@ public class MaximumXORforEachQuery {
 
     @Test
     public void test() {
-        TestUtil.testArrayEquals(new Object[][]{
+        TestUtil.testEquals(new Object[][]{
                 {new int[]{0, 3, 2, 3}, new int[]{0, 1, 1, 3}, 2},
                 {new int[]{5, 2, 6, 5}, new int[]{2, 3, 4, 7}, 3},
                 {new int[]{4, 3, 6, 4, 6, 7}, new int[]{0, 1, 2, 2, 5, 7}, 3}

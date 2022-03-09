@@ -50,7 +50,7 @@ public class Convert1DArrayInto2DArray {
     */
     @Test
     public void test() {
-        TestUtil.testArrayEquals(new Object[][]{
+        TestUtil.testEquals(new Object[][]{
                 {new int[][]{{1, 2}, {3, 4}}, new int[]{1, 2, 3, 4}, 2, 2},
                 {new int[][]{{1, 2, 3}}, new int[]{1, 2, 3}, 1, 3},
                 {new int[][]{}, new int[]{1, 2}, 1, 1},
