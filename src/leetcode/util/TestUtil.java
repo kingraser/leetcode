@@ -7,13 +7,12 @@ import org.junit.Test;
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * @author Wit
@@ -81,6 +80,16 @@ public class TestUtil {
                 throw new RuntimeException("unknown method! " + methods[i]);
         for (int i = 0; i < methodsToTest.length; i++)
             baseTest(instance, methodsToTest[i], testDataMatrix[i], TestUtil::assertEquals, 1);
+    }
+
+    public static Object[][] getTestData(Object[] expects, Object[][] inputs) {
+        List<Object[]> result = new ArrayList<>(inputs.length);
+        for (int i = 0; i < inputs.length; i++)
+            result.add(Stream.concat(Stream.of(expects[i]), Stream.of(inputs[i])).toArray());
+        System.out.println("Test Data");
+        result.forEach(line -> System.out.println(toString(line)));
+        System.out.println();
+        return result.toArray(Object[][]::new);
     }
 
     private static void internalTest(Object instance, Object[][] testDataMatrix, BiConsumer<Object, Object> assertOperation, int startIndex) {
