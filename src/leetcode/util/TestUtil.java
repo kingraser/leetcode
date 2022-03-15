@@ -33,20 +33,17 @@ public class TestUtil {
         testEquals(getInstance(WALKER.getCallerClass()), testDataMatrix);
     }
 
+    /**
+     * test public methods without {@link Test} annotation in the given instance
+     * assert the result equals to the expected
+     *
+     * @param instance       the instance to be tested
+     * @param testDataMatrix each row for a test case
+     *                       row[0] for expected
+     *                       row[1]...row[n] for input arguments
+     */
     public static void testEquals(Object instance, Object[][] testDataMatrix) {
-        test(instance, testDataMatrix, TestUtil::assertEquals, 1);
-    }
-
-    public static void testEquals(Object instance, String[] methods, Object[][] testDataMatrix) {
-        Assert.assertEquals("methods length does not equal to inputs length!", methods.length, testDataMatrix.length);
-
-        Method[] methodsToTest = new Method[methods.length];
-        Map<String, Method> methodMap = Arrays.stream(instance.getClass().getDeclaredMethods()).collect(Collectors.toMap(Method::getName, Function.identity()));
-        for (int i = 0; i < methods.length; i++)
-            if (Objects.isNull(methodsToTest[i] = methodMap.get(methods[i])))
-                throw new RuntimeException("unknown method! " + methods[i]);
-        for (int i = 0; i < methodsToTest.length; i++)
-            test(instance, methodsToTest[i], testDataMatrix[i], TestUtil::assertEquals, 1);
+        internalTest(instance, testDataMatrix, TestUtil::assertEquals, 1);
     }
 
     /**
@@ -56,31 +53,45 @@ public class TestUtil {
      * @param testDataMatrix  each row for a test case
      *                        row[0]...row[n] for input arguments
      * @param assertOperation assertion
+     *                        first parameter: input arguments
+     *                        second parameter: actual result
+     *                        assert the actual result matches some pattern
      */
     public static void test(Object[][] testDataMatrix, BiConsumer<Object, Object> assertOperation) {
-        test(getInstance(WALKER.getCallerClass()), testDataMatrix, assertOperation, 0);
+        internalTest(getInstance(WALKER.getCallerClass()), testDataMatrix, assertOperation, 0);
     }
 
-    private static void test(Object instance, Object[][] testDataMatrix, BiConsumer<Object, Object> assertOperation, int startIndex) {
+    /**
+     * test the given methods of the given instance with given test data
+     * assert the result equals to the expected
+     *
+     * @param instance       the instance to be tested
+     * @param methods        the methods to be tested
+     * @param testDataMatrix each row for a test case
+     *                       row[0] for expected
+     *                       row[1]...row[n] for input arguments
+     */
+    public static void testEquals(Object instance, String[] methods, Object[][] testDataMatrix) {
+        Assert.assertEquals("methods length does not equal to inputs length!", methods.length, testDataMatrix.length);
+
+        Method[] methodsToTest = new Method[methods.length];
+        Map<String, Method> methodMap = Arrays.stream(instance.getClass().getDeclaredMethods()).collect(Collectors.toMap(Method::getName, Function.identity()));
+        for (int i = 0; i < methods.length; i++)
+            if (Objects.isNull(methodsToTest[i] = methodMap.get(methods[i])))
+                throw new RuntimeException("unknown method! " + methods[i]);
+        for (int i = 0; i < methodsToTest.length; i++)
+            baseTest(instance, methodsToTest[i], testDataMatrix[i], TestUtil::assertEquals, 1);
+    }
+
+    private static void internalTest(Object instance, Object[][] testDataMatrix, BiConsumer<Object, Object> assertOperation, int startIndex) {
         for (Method method : getMethodsToTest(instance.getClass())) {
-            for (Object[] testData : testDataMatrix) test(instance, method, testData, assertOperation, startIndex);
+            for (Object[] testData : testDataMatrix) baseTest(instance, method, testData, assertOperation, startIndex);
             System.out.println();
         }
     }
 
     @SneakyThrows
-    private static Object getInstance(Class<?> testClass) {return testClass.getDeclaredConstructor().newInstance();}
-
-    private static Method[] getMethodsToTest(Class<?> testClass) {
-        return Arrays.stream(testClass.getDeclaredMethods())
-                .filter(method -> Modifier.isPublic(method.getModifiers()))
-                .filter(method -> !Modifier.isStatic(method.getModifiers()))
-                .filter(method -> !method.isAnnotationPresent(Test.class))
-                .toArray(Method[]::new);
-    }
-
-    @SneakyThrows
-    private static void test(Object instance, Method method, Object[] testData, BiConsumer<Object, Object> assertOperation, int startIndex) {
+    private static void baseTest(Object instance, Method method, Object[] testData, BiConsumer<Object, Object> assertOperation, int startIndex) {
         Object[] input = getInput(testData, startIndex);
         String inputString = toString(input);
         Object[] inputCopy = hasExpected(startIndex) ? null : Arrays.stream(input).map(TestUtil::clone).toArray();
@@ -94,6 +105,17 @@ public class TestUtil {
                 inputString,
                 toString(actual));
         assertOperation.accept(hasExpected(startIndex) ? testData[0] : inputCopy, actual);
+    }
+
+    @SneakyThrows
+    private static Object getInstance(Class<?> testClass) {return testClass.getDeclaredConstructor().newInstance();}
+
+    private static Method[] getMethodsToTest(Class<?> testClass) {
+        return Arrays.stream(testClass.getDeclaredMethods())
+                .filter(method -> Modifier.isPublic(method.getModifiers()))
+                .filter(method -> !Modifier.isStatic(method.getModifiers()))
+                .filter(method -> !method.isAnnotationPresent(Test.class))
+                .toArray(Method[]::new);
     }
 
     private static Object[] getInput(Object[] testData, int startIndex) {
