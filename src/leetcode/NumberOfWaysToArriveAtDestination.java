@@ -53,26 +53,26 @@ public class NumberOfWaysToArriveAtDestination {
     static final int MODULO = 1_000_000_000 + 7;
 
     public int countPaths(int n, int[][] roads) {
-        int result[] = new int[n], visited[] = new int[n], map[][] = new int[n][n], min, node;
+        int result[] = new int[n], visited[] = new int[n], map[][] = new int[n][n], from, to;
         for (int[] road : roads) {
             map[road[0]][road[1]] = road[2];
             map[road[1]][road[0]] = road[2];
         }
         long times[] = new long[n + 1], time;
         Arrays.fill(times, 1, times.length, Long.MAX_VALUE);
-        for (result[0] = 1; (min = getMin(visited, times)) < n - 1; )
-            for (visited[min] = node = 1; node < n; node++)
-                if (visited[node] == 1 || map[min][node] == 0) continue;
-                else if (times[node] > (time = map[min][node] + times[min])) {
-                    times[node] = time;
-                    result[node] = result[min];
-                } else if (times[node] == time) result[node] = (result[node] + result[min]) % MODULO;
+        for (result[0] = 1; (from = getMin(visited, times)) < n - 1; )
+            for (visited[from] = to = 1; to < n; to++)
+                if (visited[to] == 1 || map[from][to] == 0) continue;
+                else if (times[to] > (time = map[from][to] + times[from])) {
+                    times[to] = time;
+                    result[to] = result[from];
+                } else if (times[to] == time) result[to] = (result[to] + result[from]) % MODULO;
         return result[n - 1];
     }
 
     int getMin(int[] visited, long[] times) {
         int res = times.length - 1;
-        for (int i = 0, len = res; i < len; i++) if (visited[i] == 0 && times[i] < times[res]) res = i;
+        for (int i = 0; i < visited.length; i++) if (visited[i] == 0 && times[i] < times[res]) res = i;
         return res;
     }
 }
