@@ -59,16 +59,15 @@ public class OpenTheLock {
         for (String deadEnd : deadEnds) reached[Integer.parseInt(deadEnd)]++;
         if (reached[targetInt]++ > 0) return -1;
         Set begins = new Set(SIZE) {{add(0);}}, ends = new Set(SIZE) {{add(targetInt);}};
-        for (reached[0]++; !begins.isEmpty() && !ends.isEmpty(); step++) {
-            for (int size = begins.size(), value, digit, times, pow10, newValue; size-- > 0; )
+        for (reached[0]++; !begins.deque.isEmpty() && !ends.deque.isEmpty(); step++) {
+            for (int size = begins.deque.size(), value, digit, times, pow10, newValue; size-- > 0; )
                 for (value = begins.pop(), times = 4, pow10 = 1; times-- > 0; pow10 *= 10) {
-                    if (ends.contains(newValue = value + (((digit = (value / pow10) % 10) + 9) % 10 - digit) * pow10))
-                        return ++step;
+                    if (ends.array[newValue = value + (((digit = (value / pow10) % 10) + 9) % 10 - digit) * pow10] > 0) return ++step;
                     if (reached[newValue]++ == 0) begins.add(newValue);
-                    if (ends.contains(newValue = value + ((digit + 11) % 10 - digit) * pow10)) return ++step;
+                    if (ends.array[newValue = value + ((digit + 11) % 10 - digit) * pow10] > 0) return ++step;
                     if (reached[newValue]++ == 0) begins.add(newValue);
                 }
-            if (ends.size() < begins.size()) { // search from smaller set
+            if (ends.deque.size() < begins.deque.size()) { // search from smaller set
                 Set tmp = begins;
                 begins = ends;
                 ends = tmp;
@@ -86,8 +85,6 @@ public class OpenTheLock {
             deque = new ArrayDeque<>(n);
         }
 
-        public boolean contains(int v) {return array[v] > 0;}
-
         public void add(int v) {
             array[v]++;
             deque.addLast(v);
@@ -97,14 +94,5 @@ public class OpenTheLock {
             array[v = deque.pollFirst()] = 0;
             return v;
         }
-
-        public int size() {return deque.size();}
-
-        public boolean isEmpty() {return deque.isEmpty();}
-
-        public int peek() {return deque.peekFirst();}
-
-        public String toString() {return deque.toString();}
     }
-
 }
