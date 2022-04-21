@@ -38,8 +38,8 @@ public class StepByStepDirectionsFromABinaryTreeNodeToAnother {
     @Test
     public void test() {
         TestUtil.testEquals(new Object[][]{
-                {"UURL", TreeNode.tree("5,1,3,n,n,n,2,6,n,n,4,n,n"), 3, 6},
-                {"L", TreeNode.tree("2,1,n,n,n"), 2, 1}
+                {"UURL", TreeNode.treeLevel("5,1,2,3,null,6,4"), 3, 6},
+                {"L", TreeNode.treeLevel("2,1"), 2, 1}
         });
     }
 

@@ -1,13 +1,12 @@
 package leetcode;
 
-import static leetcode.common.TreeNode.tree;
-import static org.junit.Assert.assertEquals;
-
+import leetcode.common.TreeNode;
+import leetcode.util.TestUtil;
 import org.junit.Test;
 
-import leetcode.common.TreeNode;
+import static leetcode.common.TreeNode.treeLevel;
 
-public class AddOneRowtoTree {
+public class AddOneRowToTree {
 
   /*
   Given the root of a binary tree, then value v and depth d, 
@@ -65,18 +64,21 @@ public class AddOneRowtoTree {
     The given binary tree has at least one tree node.  
   */
 
-  @Test
-  public void test() {
-    assertEquals(tree("4,1,2,3,n,n,1,n,n,n,1,n,6,5,n,n,n"), addOneRow(tree("4,2,3,n,n,1,n,n,6,5,n,n,n"), 1, 2));
-  }
-
-  public TreeNode addOneRow(TreeNode root, int v, int d) {
-    if (d == 0 || d == 1) return new TreeNode(v, d == 1 ? root : null, d == 0 ? root : null);
-    if (root != null) {
-      root.left = addOneRow(root.left, v, d > 2 ? d - 1 : 1);
-      root.right = addOneRow(root.right, v, d > 2 ? d - 1 : 0);
+    @Test
+    public void test() {
+        TestUtil.testEquals(new Object[][]{
+                {treeLevel("4,1,1,2,null,null,6,3,1,5"), treeLevel("4,2,6,3,1,5"), 1, 2},
+                {treeLevel("4,2,null,1,1,3,null,null,1"), treeLevel("4,2,null,3,1"), 1, 3}
+        });
     }
-    return root;
-  }
+
+    public TreeNode addOneRow(TreeNode root, int v, int d) {
+        if (d == 0 || d == 1) return new TreeNode(v, d == 1 ? root : null, d == 0 ? root : null);
+        if (root != null) {
+            root.left = addOneRow(root.left, v, d > 2 ? d - 1 : 1);
+            root.right = addOneRow(root.right, v, d > 2 ? d - 1 : 0);
+        }
+        return root;
+    }
 
 }
