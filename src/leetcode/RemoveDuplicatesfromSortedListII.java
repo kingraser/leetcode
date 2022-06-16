@@ -2,6 +2,7 @@ package leetcode;
 
 import static leetcode.common.ListNode.list;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
@@ -23,7 +24,7 @@ public class RemoveDuplicatesfromSortedListII {
     assertEquals(list(2, 3), deleteDuplicates(list(1, 1, 1, 2, 3)));
 
     assertEquals(list(1), deleteDuplicates(list(1, 2, 2)));
-    assertEquals(null, deleteDuplicates(list(1, 1)));
+    assertNull(deleteDuplicates(list(1, 1)));
   }
 
   public ListNode deleteDuplicates(ListNode head) {

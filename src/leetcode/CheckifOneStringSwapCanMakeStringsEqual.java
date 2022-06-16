@@ -48,7 +48,7 @@ public class CheckifOneStringSwapCanMakeStringsEqual {
     }
 
     @Test
-    public void test() throws NoSuchMethodException {
+    public void test() {
         TestUtil.testEquals(
                 new Object[][]{
                         {true, "bank", "kanb"},

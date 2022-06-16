@@ -58,7 +58,7 @@ public class OutputContestMatches {
   }
 
   public String findContestMatch(int n) {
-    Deque<String> res = new ArrayDeque<>(IntStream.range(1, ++n).mapToObj(i -> i + "").collect(Collectors.toList()));
+    Deque<String> res = IntStream.range(1, ++n).mapToObj(i -> i + "").collect(Collectors.toCollection(ArrayDeque::new));
     for (Deque<String> deque; res.size() > 1; res = deque)
       for (deque = new ArrayDeque<>(); !res.isEmpty(); deque.add("(" + res.pollFirst() + "," + res.pollLast() + ")"));
     return res.pop();

@@ -50,7 +50,7 @@ public class FindtheDistanceValueBetweenTwoArrays {
     }
 
     @Test
-    public void test() throws NoSuchMethodException {
+    public void test() {
         TestUtil.testEquals(
                 new Object[][]{
                         {2, new int[]{4, 5, 8}, new int[]{10, 9, 1, 8}, 2},

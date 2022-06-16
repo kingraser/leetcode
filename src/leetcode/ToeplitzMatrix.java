@@ -1,9 +1,9 @@
 package leetcode;
 
+import org.junit.Test;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
 
 public class ToeplitzMatrix {
 
@@ -33,23 +33,23 @@ public class ToeplitzMatrix {
     matrix[i][j] will be integers in range [0, 99].
   */
 
-  @Test
-  public void test() {
-    assertTrue(isToeplitzMatrix(new int[][] { { 1, 2, 3, 4 }, { 5, 1, 2, 3 }, { 9, 5, 1, 2 } }));
-    assertFalse(isToeplitzMatrix(new int[][] { { 1, 2 }, { 2, 2 } }));
-  }
+    @Test
+    public void test() {
+        assertTrue(isToeplitzMatrix(new int[][]{{1, 2, 3, 4}, {5, 1, 2, 3}, {9, 5, 1, 2}}));
+        assertFalse(isToeplitzMatrix(new int[][]{{1, 2}, {2, 2}}));
+    }
 
-  public boolean isToeplitzMatrix(int[][] matrix) {
-    for (int row = 0, col = 0; col < matrix[0].length; col++)
-      if (!isToeplitzMatrix(matrix, row, col)) return false;
-    for (int row = 1, col = 0; row < matrix.length; row++)
-      if (!isToeplitzMatrix(matrix, row, col)) return false;
-    return true;
-  }
+    public boolean isToeplitzMatrix(int[][] matrix) {
+        for (int row = 0, col = 0; col < matrix[0].length; col++)
+            if (isNotToeplitzMatrix(matrix, row, col)) return false;
+        for (int row = 1, col = 0; row < matrix.length; row++)
+            if (isNotToeplitzMatrix(matrix, row, col)) return false;
+        return true;
+    }
 
-  public boolean isToeplitzMatrix(int[][] matrix, int row, int col) {
-    for (int value = matrix[row][col]; ++row < matrix.length && ++col < matrix[0].length;)
-      if (matrix[row][col] != value) return false;
-    return true;
-  }
+    public boolean isNotToeplitzMatrix(int[][] matrix, int row, int col) {
+        for (int value = matrix[row][col]; ++row < matrix.length && ++col < matrix[0].length; )
+            if (matrix[row][col] != value) return true;
+        return false;
+    }
 }

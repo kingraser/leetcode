@@ -31,7 +31,7 @@ public class NumberofDaysBetweenTwoDates {
     }
 
     @Test
-    public void test() throws NoSuchMethodException {
+    public void test() {
         TestUtil.testEquals(
                 new Object[][]{{1, "2019-06-29", "2019-06-30"}, {15, "2020-01-15", "2019-12-31"}});
     }

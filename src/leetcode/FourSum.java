@@ -49,7 +49,7 @@ public class FourSum {
    * @param start start index
    * @return list of k pairs
    */
-  public static final List<List<Integer>> kSum(int[] nums, int target, int k, int start) {
+  public static List<List<Integer>> kSum(int[] nums, int target, int k, int start) {
     if (k == 2) return TwoSum(nums, target, start);
     List<List<Integer>> result = new ArrayList<>();
     for (int i = start; i < nums.length - k; i++)

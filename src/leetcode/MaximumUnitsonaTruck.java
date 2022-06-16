@@ -44,7 +44,7 @@ public class MaximumUnitsonaTruck {
     }
 
     @Test
-    public void test() throws NoSuchMethodException {
+    public void test() {
         TestUtil.testEquals(
                 new Object[][]{
                         {8, new int[][]{{1, 3}, {2, 2}, {3, 1}}, 4},

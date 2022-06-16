@@ -17,7 +17,7 @@ public class PalindromeNumber {
   }
 
   public boolean isPalindrome(int x) {
-    return x < 0 ? false : reverse(x) == x;
+    return x >= 0 && reverse(x) == x;
   }
 
 }

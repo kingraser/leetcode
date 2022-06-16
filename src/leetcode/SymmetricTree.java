@@ -36,7 +36,7 @@ public class SymmetricTree {
   }
 
   public boolean isSymmetric(TreeNode root) {
-    return root == null ? true : isSymmetric(root.left, root.right);
+    return root == null || isSymmetric(root.left, root.right);
   }
 
   boolean isSymmetric(TreeNode left, TreeNode right) {

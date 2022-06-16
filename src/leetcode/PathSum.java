@@ -31,9 +31,8 @@ public class PathSum {
   }
 
   public boolean hasPathSum(TreeNode root, int sum) {
-    return null == root ? false
-        : null == root.left && null == root.right ? sum == root.val
-            : hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);
+    return null != root && (null == root.left && null == root.right ? sum == root.val
+            : hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val));
   }
 
 }

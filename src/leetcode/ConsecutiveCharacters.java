@@ -46,7 +46,7 @@ public class ConsecutiveCharacters {
     }
 
     @Test
-    public void test() throws NoSuchMethodException {
+    public void test() {
         TestUtil.testEquals(
                 new Object[][]{
                         {2, "leetcode"},

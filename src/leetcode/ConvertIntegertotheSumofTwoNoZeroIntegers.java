@@ -53,7 +53,7 @@ public class ConvertIntegertotheSumofTwoNoZeroIntegers {
     }
 
     @Test
-    public void test() throws NoSuchMethodException {
+    public void test() {
         TestUtil.testEquals(
                 new Object[][]{
                         {new int[]{1, 1}, 2},

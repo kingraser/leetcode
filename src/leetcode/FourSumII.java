@@ -1,12 +1,11 @@
 package leetcode;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 public class FourSumII {
 
@@ -28,21 +27,21 @@ public class FourSumII {
   2. (1, 1, 0, 0) -> A[1] + B[1] + C[0] + D[0] = 2 + (-1) + (-1) + 0 = 0
   */
 
-  @Test
-  public void test() {
-    assertEquals(2, fourSumCount(new int[] { 1, 2 }, new int[] { -2, -1 }, new int[] { -1, 2 }, new int[] { 0, 2 }));
-  }
+    @Test
+    public void test() {
+        assertEquals(2, fourSumCount(new int[]{1, 2}, new int[]{-2, -1}, new int[]{-1, 2}, new int[]{0, 2}));
+    }
 
-  public int fourSumCount(int[] A, int[] B, int[] C, int[] D) {
-    Map<Integer, Integer> map = new HashMap<>();
-    int result = 0;
-    for (int a : A)
-      for (int b : B)
-        map.compute(a + b, (k, v) -> Objects.isNull(v) ? 1 : v + 1);
-    for (int c : C)
-      for (int d : D)
-        result += map.getOrDefault(0 - c - d, 0);
-    return result;
-  }
+    public int fourSumCount(int[] A, int[] B, int[] C, int[] D) {
+        Map<Integer, Integer> map = new HashMap<>();
+        int result = 0;
+        for (int a : A)
+            for (int b : B)
+                map.merge(a + b, 1, Integer::sum);
+        for (int c : C)
+            for (int d : D)
+                result += map.getOrDefault(-c - d, 0);
+        return result;
+    }
 
 }

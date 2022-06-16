@@ -1,10 +1,10 @@
 package leetcode;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 import java.util.Arrays;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 public class ComplexNumberMultiplication {
 
@@ -34,7 +34,7 @@ public class ComplexNumberMultiplication {
   }
 
   public String complexNumberMultiply(String a, String b) {
-    int[] coef = Arrays.stream((a + b).split("\\+|i")).mapToInt(Integer::parseInt).toArray();
+    int[] coef = Arrays.stream((a + b).split("[+i]")).mapToInt(Integer::parseInt).toArray();
     return (coef[0] * coef[2] - coef[1] * coef[3]) + "+" + (coef[1] * coef[2] + coef[0] * coef[3]) + "i";
   }
 

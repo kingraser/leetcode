@@ -42,6 +42,6 @@ public class MathUtil {
   }
 
   public static int[] split(long l) {
-    return new int[] { (int) l >> 32, (int) l };
+    return new int[] { (int) (l >> 32), (int) l };
   }
 }

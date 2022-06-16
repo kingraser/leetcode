@@ -68,7 +68,7 @@ public class EvenOddTree {
     }
 
     @Test
-    public void test() throws NoSuchMethodException {
+    public void test() {
         TestUtil.testEquals(
                 new Object[][]{
                         {true, TreeNode.tree("1,10,3,12,n,n,8,n,n,n,4,7,6,n,n,n,9,n,2,n,n")},

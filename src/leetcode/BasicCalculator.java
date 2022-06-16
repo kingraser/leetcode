@@ -44,6 +44,6 @@ public class BasicCalculator {
           sign = 1;
         } else if (c == ')') result = result * stack.pop() + stack.pop();
       }
-    return result += temp * sign;
+    return result + temp * sign;
   }
 }

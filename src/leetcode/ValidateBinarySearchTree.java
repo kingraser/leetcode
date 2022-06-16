@@ -33,8 +33,7 @@ public class ValidateBinarySearchTree {
   }
 
   private boolean isValidBST(TreeNode root, int left, int right) {
-    return Objects.isNull(root) ? true
-        : root.val > left && root.val < right && isValidBST(root.left, left, root.val)
+    return Objects.isNull(root) || root.val > left && root.val < right && isValidBST(root.left, left, root.val)
             && isValidBST(root.right, root.val, right);
   }
 

@@ -50,7 +50,7 @@ public class ImplementMagicDictionary {
         for (int i = 0; i < array.length; i++) {
           char c = array[i];
           array[i] = '*';
-          temp.computeIfAbsent(new String(array), k -> new Alphabet()).incr(c);;
+          temp.computeIfAbsent(new String(array), k -> new Alphabet()).incr(c);
           array[i] = c;
         }
       }

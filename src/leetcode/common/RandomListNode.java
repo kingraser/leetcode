@@ -28,7 +28,7 @@ public class RandomListNode {
     dfs(those, (RandomListNode) o);
     if (these.size() != those.size()) return false;
     for (int i = 0; i < these.size(); i++)
-      if (!equals(these.get(i), these.get(i), true)) return false;
+      if (!equals(these.get(i), those.get(i), true)) return false;
     return true;
   }
 
@@ -51,8 +51,7 @@ public class RandomListNode {
     if (Objects.isNull(n1) || Objects.isNull(n2)) return false;
     if (n1.label != n2.label) return false;
     if (!checkNextAndRandom) return true;
-    if (!equals(n1.next, n2.next, false) || !equals(n1.random, n2.random, false)) return false;
-    return true;
+    return equals(n1.next, n2.next, false) && equals(n1.random, n2.random, false);
   }
 
   public RandomListNode clone() {

@@ -35,8 +35,7 @@ public class CoinChange {
     long[] result = new long[amount + 1];
     Arrays.fill(result, 1, result.length, Integer.MAX_VALUE);
     for (amount = 1; amount < result.length; amount++)
-      for (int coin = 0; coin < coins.length; coin++)
-        if (amount - coins[coin] >= 0) result[amount] = Math.min(result[amount], result[amount - coins[coin]] + 1);
+      for (int i : coins) if (amount - i >= 0) result[amount] = Math.min(result[amount], result[amount - i] + 1);
     return Integer.MAX_VALUE == result[result.length - 1] ? -1 : (int) result[result.length - 1];
   }
 

@@ -1,13 +1,13 @@
 package leetcode;
 
-import static leetcode.util.ArrayUtil.swap;
-import static org.junit.Assert.assertEquals;
+import leetcode.util.TestUtil;
+import org.junit.Test;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.junit.Test;
+import static leetcode.util.ArrayUtil.swap;
 
 public class ReverseVowelsofaString {
 
@@ -21,28 +21,26 @@ public class ReverseVowelsofaString {
   Given s = "leetcode", return "leotcede". 
   */
 
-  @Test
-  public void test() {
-    assertEquals("uoiea", reverseVowels("aeiou"));
-    assertEquals("holle", reverseVowels("hello"));
-    assertEquals("leotcede", reverseVowels("leetcode"));
-  }
-
-  private static final Set<Character> VOWEL = Stream.of('a', 'A', 'e', 'E', 'i', 'I', 'o', 'O', 'u', 'U')
-      .collect(Collectors.toSet());
-
-  public String reverseVowels(String s) {
-    char[] array = s.toCharArray();
-    for (int l = 0, r = s.length() - 1; l < r;) {
-      for (; l < r && !isVowel(array[l]); l++);
-      for (; l < r && !isVowel(array[r]); r--);
-      swap(array, l++, r--);
+    @Test
+    public void test() {
+        TestUtil.testEquals(new Object[][]{
+                {"uoiea", "aeiou"},
+                {"holle", "hello"},
+                {"leotcede", "leetcode"}
+        });
     }
-    return new String(array);
-  }
 
-  private boolean isVowel(char c) {
-    return VOWEL.contains(c);
-  }
+    private static final Set<Character> VOWEL = Stream.of('a', 'A', 'e', 'E', 'i', 'I', 'o', 'O', 'u', 'U')
+            .collect(Collectors.toSet());
+
+    public String reverseVowels(String s) {
+        char[] array = s.toCharArray();
+        for (int l = 0, r = s.length() - 1; l < r; ) {
+            for (; l < r && !VOWEL.contains(array[l]); l++) ;
+            for (; l < r && !VOWEL.contains(array[r]); r--) ;
+            swap(array, l++, r--);
+        }
+        return new String(array);
+    }
 
 }

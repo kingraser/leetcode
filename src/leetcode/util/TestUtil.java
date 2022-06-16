@@ -130,7 +130,7 @@ public class TestUtil {
         long start = System.nanoTime();
         Object actual = method.invoke(instance, input);
         long end = System.nanoTime();
-        System.out.printf("test: (class:%s) (method:%s) cost %,dns (input:%s) (actual:%s) (expected;%s)%n",
+        System.out.printf("test: (class:%s) (method:%s) cost %,dns (input:%s) (actual:%s) (expected:%s)%n",
                 instance.getClass().getName(),
                 method.getName(),
                 end - start,
@@ -181,7 +181,8 @@ public class TestUtil {
     }
 
     private static void assertEquals(Object expected, Object actual) {
-        if (actual == null || !actual.getClass().isArray()) Assert.assertEquals(expected, actual);
+        if (actual == null || !actual.getClass().isArray())
+            Assert.assertEquals(expected, actual);
         else assertArrayEquals(expected, actual);
     }
 
@@ -284,18 +285,20 @@ public class TestUtil {
 
         Object toArray(int levelCount, Class<?> parentType) {
             Class<?> type = getType(parentType);
-            Object result = Array.newInstance(type, IntStream.concat(
-                            IntStream.of(list.size()),
-                            IntStream.range(type == Object.class ? levelCount : level, levelCount))
-                    .toArray()), element = null;
-            for (int i = 0; i < list.size(); i++)
+            Object result = Array.newInstance(type,
+                    IntStream.concat(
+                                    IntStream.of(list.size()),
+                                    IntStream.range(type == Object.class ? levelCount : level, levelCount))
+                            .toArray()), element;
+            for (int i = 0, retry = 0; i < list.size(); i++)
                 try {
                     Array.set(result, i, (element = list.get(i)) instanceof TestArray
                             ? ((TestArray) element).toArray(levelCount, type)
                             : deserialize((String) element));
-                } catch (Throwable e) {
-                    System.out.printf("result is %s, index is %d, element is %s\n", TestUtil.toString(result), i, TestUtil.toString(element));
-                    e.printStackTrace(System.out);
+                } catch (IllegalArgumentException e) {
+                    if (retry++ > 0) throw e;
+                    result = Array.newInstance(Object.class, list.size());
+                    i = -1;
                 }
             return result;
         }
@@ -323,6 +326,13 @@ public class TestUtil {
         }
 
         boolean isNull(String s) {return NULL.equalsIgnoreCase(s);}
+    }
+
+    public static List<List<String>> transfer(String s) {
+        return Arrays.stream(TestUtil.getInputs(s))
+                .map(Arrays::stream)
+                .map(stream -> stream.map(String::valueOf).collect(Collectors.toList()))
+                .collect(Collectors.toList());
     }
 
     public static class TestDataMatrix {

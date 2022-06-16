@@ -37,7 +37,7 @@ public class ReplaceAllDigitswithCharacters {
     shift(s[i-1], s[i]) <= 'z' for all odd indices i.
     */
     @Test
-    public void test() throws NoSuchMethodException {
+    public void test() {
         TestUtil.testEquals(
                 new Object[][]{
                         {"abcdef", "a1c1e1"},

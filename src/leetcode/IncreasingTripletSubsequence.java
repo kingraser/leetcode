@@ -1,11 +1,11 @@
 package leetcode;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 
 import java.util.Arrays;
 
-import org.junit.Test;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class IncreasingTripletSubsequence {
 
@@ -40,10 +40,11 @@ public class IncreasingTripletSubsequence {
   private boolean increasing(int[] nums, int k) {
     int[] min = new int[--k];
     Arrays.fill(min, Integer.MAX_VALUE);
-    A: for (int i = 0; i < nums.length; i++) {
-      for (int j = 0; j < min.length; j++)
-        if (nums[i] < min[j]) {
-          min[j] = nums[i];
+    A:
+    for (int num : nums) {
+      for (int i = 0; i < min.length; i++)
+        if (num < min[i]) {
+          min[i] = num;
           continue A;
         }
       return true;

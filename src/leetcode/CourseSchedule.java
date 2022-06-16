@@ -1,16 +1,9 @@
 package leetcode;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import leetcode.util.TestUtil;
 import org.junit.Test;
+
+import java.util.*;
 
 public class CourseSchedule {
 
@@ -35,27 +28,33 @@ public class CourseSchedule {
   So it is impossible.   
   */
 
-  @Test
-  public void test() {
-    assertTrue(canFinish(2, new int[][] { { 1, 0 } }));
-    assertFalse(canFinish(2, new int[][] { { 1, 0 }, { 0, 1 } }));
-  }
-
-  //Topological Sort
-  public boolean canFinish(int numCourses, int[][] prerequisites) {
-    int[] indegree = new int[numCourses];
-    Map<Integer, List<Integer>> courses = new HashMap<>();
-    for (int[] pair : prerequisites) {
-      indegree[pair[0]]++;
-      courses.computeIfAbsent(pair[1], k -> new ArrayList<>()).add(pair[0]);
+    @Test
+    public void test() {
+        TestUtil.testEquals(new Object[][]{
+                {true, 2, new int[][]{{1, 0}}},
+                {false, 2, new int[][]{{1, 0}, {0, 1}}}
+        });
     }
-    Deque<Integer> zeroDegrees = new ArrayDeque<>();
-    for (int i = 0; i < indegree.length; i++)
-      if (indegree[i] == 0) zeroDegrees.add(i);
-    for (; !zeroDegrees.isEmpty(); numCourses--)
-      for (int next : courses.getOrDefault(zeroDegrees.poll(), new ArrayList<>()))
-        if (--indegree[next] == 0) zeroDegrees.add(next);
-    return numCourses == 0;
-  }
+
+    //Topological Sort
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        int[] inDegree = new int[numCourses];
+        Map<Integer, List<Integer>> courses = new HashMap<>();
+        Deque<Integer> zeroDegrees = getZeroDegrees(prerequisites, inDegree, courses);
+        for (; !zeroDegrees.isEmpty(); numCourses--)
+            for (int next : courses.getOrDefault(zeroDegrees.poll(), new ArrayList<>()))
+                if (--inDegree[next] == 0) zeroDegrees.add(next);
+        return numCourses == 0;
+    }
+
+    public static Deque<Integer> getZeroDegrees(int[][] prerequisites, int[] inDegree, Map<Integer, List<Integer>> courses) {
+        for (int[] pair : prerequisites) {
+            inDegree[pair[0]]++;
+            courses.computeIfAbsent(pair[1], k -> new ArrayList<>()).add(pair[0]);
+        }
+        Deque<Integer> zeroDegrees = new ArrayDeque<>();
+        for (int i = 0; i < inDegree.length; i++) if (inDegree[i] == 0) zeroDegrees.add(i);
+        return zeroDegrees;
+    }
 
 }

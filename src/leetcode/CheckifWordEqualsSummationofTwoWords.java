@@ -54,7 +54,7 @@ public class CheckifWordEqualsSummationofTwoWords {
     }
 
     @Test
-    public void test() throws NoSuchMethodException {
+    public void test() {
         TestUtil.testEquals(
                 new Object[][]{
                         {true, "acb", "cba", "cdb"},

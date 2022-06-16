@@ -50,7 +50,7 @@ public class MaximumNumberofWordsYouCanType {
     }
 
     @Test
-    public void test() throws NoSuchMethodException {
+    public void test() {
         TestUtil.testEquals(
                 new Object[][]{
                         {1, "hello world", "ad"},

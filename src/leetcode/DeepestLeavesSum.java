@@ -55,7 +55,7 @@ public class DeepestLeavesSum {
     }
 
     @Test
-    public void test() throws NoSuchMethodException {
+    public void test() {
         TestUtil.testEquals( new Object[][]{
                 {15, TreeNode.tree("1,2,4,7,n,n,n,5,n,n,3,n,6,n,8,n,n")},
                 {19, TreeNode.tree("6,7,2,9,n,n,n,7,1,n,n,4,n,n,8,1,n,n,3,n,5,n,n")}

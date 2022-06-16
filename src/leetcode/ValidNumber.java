@@ -1,9 +1,9 @@
 package leetcode;
 
+import org.junit.Test;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
 
 public class ValidNumber {
 
@@ -22,7 +22,7 @@ public class ValidNumber {
   */
 
   public boolean isNumber(String s) {
-    return s.trim().matches("^[\\+-]?((\\d+(\\.\\d*)?)|(\\.\\d+))([Ee][\\+-]?\\d+)?$");
+    return s.trim().matches("^[+-]?((\\d+(\\.\\d*)?)|(\\.\\d+))([Ee][+-]?\\d+)?$");
   }
 
   @Test

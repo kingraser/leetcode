@@ -1,15 +1,10 @@
 package leetcode;
 
-import static org.junit.Assert.assertArrayEquals;
-
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.junit.Test;
+
+import java.util.*;
+
+import static org.junit.Assert.assertArrayEquals;
 
 public class CourseScheduleII {
 
@@ -32,26 +27,21 @@ public class CourseScheduleII {
   So one correct course order is [0,1,2,3]. Another correct ordering is[0,2,1,3].
   */
 
-  @Test
-  public void test() {
-    assertArrayEquals(new int[] { 0, 1 }, findOrder(2, new int[][] { { 1, 0 } }));
-    assertArrayEquals(new int[] { 0, 1, 2, 3 }, findOrder(4, new int[][] { { 1, 0 }, { 2, 0 }, { 3, 1 }, { 3, 2 } }));
-  }
-
-  //Topological Sort
-  public int[] findOrder(int numCourses, int[][] prerequisites) {
-    int[] result = new int[numCourses], indegree = new int[numCourses];
-    Map<Integer, List<Integer>> courses = new HashMap<>(numCourses);
-    for (int[] pair : prerequisites) {
-      indegree[pair[0]]++;
-      courses.computeIfAbsent(pair[1], k -> new ArrayList<>()).add(pair[0]);
+    @Test
+    public void test() {
+        assertArrayEquals(new int[]{0, 1}, findOrder(2, new int[][]{{1, 0}}));
+        assertArrayEquals(new int[]{0, 1, 2, 3}, findOrder(4, new int[][]{{1, 0}, {2, 0}, {3, 1}, {3, 2}}));
     }
-    Deque<Integer> zeroDegrees = new ArrayDeque<>();
-    for (int i = 0; i < indegree.length; i++)
-      if (indegree[i] == 0) zeroDegrees.add(i);
-    for (int node, i = 0; !zeroDegrees.isEmpty(); result[i++] = node, numCourses--)
-      for (int next : courses.getOrDefault(node = zeroDegrees.poll(), new ArrayList<>()))
-        if (--indegree[next] == 0) zeroDegrees.add(next);
-    return numCourses == 0 ? result : new int[] {};
-  }
+
+    //Topological Sort
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        int[] result = new int[numCourses], inDegree = new int[numCourses];
+        Map<Integer, List<Integer>> courses = new HashMap<>(numCourses);
+        Deque<Integer> zeroDegrees = CourseSchedule.getZeroDegrees(prerequisites, inDegree, courses);
+        for (int node, i = 0; !zeroDegrees.isEmpty(); result[i++] = node, numCourses--)
+            for (int next : courses.getOrDefault(node = zeroDegrees.poll(), new ArrayList<>()))
+                if (--inDegree[next] == 0) zeroDegrees.add(next);
+        return numCourses == 0 ? result : new int[]{};
+    }
+
 }

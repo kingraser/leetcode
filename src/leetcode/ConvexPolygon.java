@@ -38,7 +38,7 @@ public class ConvexPolygon {
   }
 
   public boolean isConvex(int[][] points) {
-    for (int i = 0, len = points.length, previous = 0, current = 0; i < len; i++)
+    for (int i = 0, len = points.length, previous = 0, current; i < len; i++)
       if ((current = (points[(i + 1) % len][0] - points[i][0]) * (points[(i + 2) % len][1] - points[i][1])
           - (points[(i + 2) % len][0] - points[i][0]) * (points[(i + 1) % len][1] - points[i][1])) != 0)
         if (current * previous < 0) return false;

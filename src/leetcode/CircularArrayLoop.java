@@ -39,7 +39,7 @@ public class CircularArrayLoop {
   }
 
   private boolean sameDirection(int direction, int n) {
-    return n == 0 ? false : (direction ^ (n >>> 31)) == 0;
+    return n != 0 && (direction ^ (n >>> 31)) == 0;
   }
 
   public boolean circularArrayLoop(int[] nums) {

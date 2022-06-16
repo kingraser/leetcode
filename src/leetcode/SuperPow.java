@@ -30,7 +30,7 @@ public class SuperPow {
 
   @Test
   public void test() {
-    assertEquals((1l << 50) % 1337, superPow(2, new int[] { 5, 0 }));
+    assertEquals((1L << 50) % 1337, superPow(2, new int[] { 5, 0 }));
   }
 
   public int superPow(int num, int[] powArray) {

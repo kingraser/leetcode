@@ -43,7 +43,7 @@ public class MaximumAscendingSubarraySum {
     }
 
     @Test
-    public void test() throws NoSuchMethodException {
+    public void test() {
         TestUtil.testEquals(
                 new Object[][]{
                         {65, new int[]{10, 20, 30, 5, 10, 50}},

@@ -1,12 +1,12 @@
 package leetcode;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 public class LonelyPixelII {
 
@@ -48,7 +48,7 @@ public class LonelyPixelII {
   @Test
   public void test() {
     assertEquals(6, findBlackPixel(
-        Stream.of("WBWBBW", "WBWBBW", "WBWBBW", "WWBWBW").map(s -> s.toCharArray()).toArray(l -> new char[l][]), 3));
+        Stream.of("WBWBBW", "WBWBBW", "WBWBBW", "WWBWBW").map(String::toCharArray).toArray(l -> new char[l][]), 3));
   }
 
   public int findBlackPixel(char[][] picture, int N) {
@@ -64,15 +64,13 @@ public class LonelyPixelII {
 
   private boolean hasNBlackPixelsInARow(char[] row, int N) {
     int count = 0;
-    for (int i = 0; i < row.length; i++)
-      if (row[i] == 'B' && ++count > N) return false;
+    for (char c : row) if (c == 'B' && ++count > N) return false;
     return count == N;
   }
 
   private boolean hasNBlackPixelsInACol(char[][] picture, int col, int N) {
     int result = 0;
-    for (int row = 0; row < picture.length; row++)
-      if (picture[row][col] == 'B' && ++result > N) return false;
+    for (char[] chars : picture) if (chars[col] == 'B' && ++result > N) return false;
     return result == N;
   }
 }

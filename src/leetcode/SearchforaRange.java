@@ -18,7 +18,7 @@ public class SearchforaRange {
   @Test
   public void test() {
     int[] a = { 5, 7, 7, 8, 8, 10 };
-    assertArrayEquals(new int[] { 3, 4 }, searchRange(a, 8));;
+    assertArrayEquals(new int[] { 3, 4 }, searchRange(a, 8));
   }
 
   public int[] searchRange(int[] nums, int target) {
