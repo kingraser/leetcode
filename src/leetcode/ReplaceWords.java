@@ -1,14 +1,13 @@
 package leetcode;
 
-import static org.junit.Assert.assertEquals;
+import leetcode.common.Trie;
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.junit.Test;
-
-import leetcode.common.Trie;
+import static org.junit.Assert.assertEquals;
 
 public class ReplaceWords {
 
@@ -44,8 +43,8 @@ public class ReplaceWords {
 
   public String replaceWords(List<String> dict, String sentence) {
     Trie trie = new Trie();
-    dict.forEach(s -> trie.add(s));
-    return Arrays.stream(sentence.split(" ")).map(s -> trie.getShortestPrefix(s)).collect(Collectors.joining(" "));
+    dict.forEach(trie::add);
+    return Arrays.stream(sentence.split(" ")).map(trie::getShortestPrefix).collect(Collectors.joining(" "));
   }
 
 }

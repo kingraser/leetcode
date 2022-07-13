@@ -1,0 +1,81 @@
+@startmindmap
+*[#orange] Algorithm & Data Structure
+	*[#yellow] HashMap
+		*_ linked
+		*_ linear probing
+		*_ ordered
+	*[#darkseagreen] LinkedList
+	*[#lawngreen] Tree(consider recursive algorithm)
+		*[#deepskyblue] Trie
+		*[#deepskyblue] Segment Tree
+		*[#deepskyblue] Binary Index Tree
+		*[#deepskyblue] Binary Tree
+			*[#deepskyblue] BST
+				*[#deepskyblue] Balanced BST
+					*_ RB tree
+					*_ AVL tree
+				*[#orangered] insert/search/size
+			*_ Complete Binary Tree
+				*[#deepskyblue] Heap
+		*[#deepskyblue] Union-Find
+		* Tree-Traversal
+			* Binary Tree Traversal
+				*[#orangered] Preorder
+				*[#orangered] Inorder
+					*_ Morris traversal
+				*[#orangered] Postorder
+			*[#orangered] BFS
+			*[#orangered] DFS
+	*[#pink] Graph
+		*[#deepskyblue] UnDirected Graph
+			* Spanning Tree
+				*[#orangered] Kruskal
+				*[#orangered] Prim
+		*[#deepskyblue] Directed Graph
+			*[#orangered] Topology Sort
+				*_ Circle Detection
+			*[#orangered] Strongly Connected Component(Trajan)
+		* Graph Traversal
+			*[#orangered] DFS
+			*[#orangered] BFS
+		* Shortest Path
+			*[#orangered] Floyd-Warshall
+			*[#orangered] Bellman-Ford
+			*[#orangered] Dijkstra
+				* A*
+left side
+	* String
+		*[#deepskyblue] String Builder
+		*[#orangered] Longest Common Substring
+		*[#orangered] Edit Distance
+	* Array
+		*[#deepskyblue] Resizeable Array
+		*[#deepskyblue] Bit Vector
+		* Sorting
+			*[#orangered] Elementary Sort
+				*[#orangered] Selection Sort
+				*[#orangered] Insertion Sort
+				*[#orangered] Bubble Sort
+			*[#orangered] Bucket Sort
+			*[#orangered] Heap Sort
+			*[#orangered] Merge Sort
+			*[#orangered] Quick Sort
+		* Searching
+			*[#orangered] Binary Search
+			*[#orangered] Quick Selection
+	* Stack
+		*_ ArrayStack
+		*_ LinkedStack
+		*[#orangered] Arithmetic expression Evaluation
+	* Queue
+		*_ ArrayQueue
+		*_ LinkedQueue
+
+*[#orange] Algorithm Thinking
+right side
+	*[#skyblue] Greedy
+	*[#skyblue] Dynamic Programming
+left side
+	*[#skyblue] Backtracking
+	*[#skyblue] Divide and Conquer
+@endmindmap

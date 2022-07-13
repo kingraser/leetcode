@@ -1,8 +1,8 @@
 package leetcode;
 
-import static org.junit.Assert.assertArrayEquals;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertArrayEquals;
 
 public class SingleNumberIII {
   /*
@@ -22,7 +22,7 @@ public class SingleNumberIII {
   */
 
   /*
-  First we exclusive or all number, we get a^b (a, b are what we want to find).
+  First we exclusive-or all number, we get a^b (a, b are what we want to find).
   The 1 bit of result represents a and b differ at the bit.       
   Find the bit, we can split the numbers by whether the bit is 0 or 1.
   For every part the problem is transform to <leetcode.SingleNumber> 
