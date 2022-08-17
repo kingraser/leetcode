@@ -1,0 +1,20 @@
+procedure BellmanFord(list vertices, list edges, vertex source)
+   // 该实现读入边和节点的列表，并向两个数组（distance和predecessor）中写入最短路径信息
+
+   // 步骤1：初始化图
+   for each vertex v in vertices:
+       if v is source then distance[v] := 0
+       else distance[v] := infinity
+       predecessor[v] := null
+
+   // 步骤2：重复对每一条边进行松弛操作
+   for i from 1 to size(vertices)-1:
+       for each edge (u, v) with weight w in edges:
+           if distance[u] + w < distance[v]:
+               distance[v] := distance[u] + w
+               predecessor[v] := u
+
+   // 步骤3：检查负权环
+   for each edge (u, v) with weight w in edges:
+       if distance[u] + w < distance[v]:
+           error "图包含了负权环"

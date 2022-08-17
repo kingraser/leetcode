@@ -32,6 +32,9 @@ public class CriticalConnectionsInANetwork {
 	ai != bi
 	There are no repeated connections.
 	*/
+	/*
+	trajan
+	*/
 	@Test
 	public void test() {
 		TestUtil.testEquals(new Object[][]{

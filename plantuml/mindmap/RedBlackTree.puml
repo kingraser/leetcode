@@ -1,0 +1,81 @@
+@startmindmap
+* Red Black Tree
+	* insert
+		*_ insert with color red
+		*_ [start] if no parent aka it is root
+			*_ change color to black
+		*_ if the parent is black
+			*_ do nothing and return
+		*_ else aka the parent is red
+			*_ if the uncle is red
+				*_ 1change parent and uncle from red to black
+				*_ 2change grandparent from black to red
+				*_ 3change the current node to grandparent and jump to [start]
+			*_ else aka the uncle is null or black
+				*_ note that every rotate operation should exchange color
+				*_ LL
+					*_ right rotate grandparent
+				*_ LR
+					*_ left rotate parent then we get into LL case
+				*_ RR
+					*_ left rotate grandparent
+				*_ RL
+					*_ right rotate parent then we get into RR case
+
+
+	* delete
+		*_ if delete has 2 non-null children
+			*_ get the successor of delete
+			*_ set delete value with successor value
+			*_ point delete to successor
+		*_ get replacement = delete.left!=null?delete.left:delete.right
+		*_ if replacement is null
+			*_ if delete is root aka no nodes left
+				*_ root = null
+			*_ else aka no child
+				*_ if delete is black
+					*_ fixAfterDelete(delete)
+		*_ else
+			*_ if delete is red
+				*_ do nothing and return
+			*_ else aka delete is black
+				*_ fixAfterDelete(replacement)
+		* fixAfterDelete(x)
+			*_ while x!= root && x is black
+				*_ if x is left
+					*_ if brother is red
+						*_ rotateLeft parent of x to enter [black brother] case
+					*_ [black brother] aka brother is black
+						*_ if both children of brother is black
+							*_ set brother red
+							*_ set x with x's parent
+							*_ continue
+						*_ if brother.right is black aka RL(enter RR after actions)
+							*_ rotateRight brother
+						*_ [RR]set brother.right black
+						*_ rotateLeft parent
+						*_ x=root
+				*_ else aka x is right(symmetric)
+					*_ if brother is red
+						*_ rotateRight parent of x to enter [black brother2] case
+					*_ [black brother2] aka brother is black
+						*_ if both children of brother is black
+							*_ set brother red
+							*_ set x with x's parent
+							*_ continue
+						*_ if brother.left is black aka LR(enter LL after actions)
+							*_ rotateLeft brother
+						*_ [LL]set brother.left black
+						*_ rotateRight parent
+						*_ x=root
+			*_ set x black
+left side
+	* search
+	* constraints
+		*_ Each node is either black or red
+		*_ Root node is black
+		*_ Red nodes can not be adjacent
+		*_ Every path from every node\n to the null nodes in their sub-trees\n has the same count of black nodes
+	* features
+		*_ the height of the root <= 2log(n+1)\n where n is the total count of nodes
+@endmindmap

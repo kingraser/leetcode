@@ -1,0 +1,15 @@
+@startmindmap
+* AVL Tree
+	* search
+	* insert
+left side
+	* delete
+		*_ check whether height diff is 2
+		*_ node and longer path child, grandchild
+		*_ LL rotateRight grandparent
+		*_ LR rotateLeft parent to enter LL
+		*_ RR rotateLeft grandparent
+		*_ RL rotateRight parent to enter RR
+	* constraints
+		*_ for each node\n the diff between left height and right height\n less than 2
+@endmindmap
