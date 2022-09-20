@@ -1,12 +1,12 @@
 package leetcode;
 
-import static org.junit.Assert.assertFalse;
-
-import java.util.Arrays;
-
+import leetcode.common.Interval;
 import org.junit.Test;
 
-import leetcode.common.Interval;
+import java.util.Arrays;
+import java.util.Comparator;
+
+import static org.junit.Assert.assertFalse;
 
 public class MeetingRooms {
 
@@ -23,7 +23,7 @@ public class MeetingRooms {
   }
 
   public boolean canAttendMeetings(Interval[] intervals) {
-    Arrays.sort(intervals, (i1, i2) -> i1.start - i2.start);
+    Arrays.sort(intervals, Comparator.comparingInt(i -> i.start));
     for (int i = 1; i < intervals.length; i++)
       if (intervals[i].start < intervals[i - 1].end) return false;
     return true;

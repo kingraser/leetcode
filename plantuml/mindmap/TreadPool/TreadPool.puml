@@ -1,0 +1,51 @@
+@startmindmap
+* ThreadPoolExecutor
+	* 存在意义
+		* 减少开销
+			* 大部分JVM上 线程在用户态和内核态是1对1
+			* 降低创建回收频率
+			* 防止开发无意识频繁创建线程
+		* 便于管理
+			* 维护线程状态
+				* new
+				* waiting
+				* timed_waiting
+				* blocked
+				* runnable
+				* terminated
+			* 维护任务执行状态
+	* 自身有哪些状态 如何维护
+		* 源码阅读顺序 继承关系->变量->内部类->方法
+		* 成员变量
+			* 状态
+				* 一个32位int组合表示 更好保证原子性
+					* 前三位状态
+					* 后29位是工作线程数
+				* running 111 -1 接受新任务,也能处理阻塞队列里的任务
+				* shutdown 000 0 不接受新任务,但是处理阻塞队列里的任务 从running经shutdown进入
+				* stop 001 1 不接受新任务,不处理阻塞队列里的任务,中断处理过程中的任务 从running&shutdown经shutdownNow进入
+				* tidying 010 2 当所有任务都执行完毕,当前线程池已经没有工作线程,进入tidying状态,即将调用terminated方法 从shutdown&stop经pool_is_empty进入
+				* terminated 011 3 terminated方法调用完成 从tidying经terminated进入
+			* Runnable阻塞队列(实现可以自己定义)
+			* mainLock(可重入锁)
+			* HashSet(Worker)
+			* 自定义线程工厂
+			* 拒绝策略
+			* keepAliveTime
+			* 核心线程数
+			* 最大线程数
+		* 内部类
+			* worker extends AQS implements Runnable
+	* 如何维护内部线程
+		* run
+			* if 获取任务!=null then lock and operate else 回收worker
+		* get task
+			* 阻塞队列有则返回 else 阻塞等待 if 需要回收 return null
+	* 如何处理提交任务
+		* 如何小于core then 创建线程 else 添加到队列
+		* if 添加阻塞队列失败 then try 创建线程
+			* 创建失败(大于最大线程) then 拒绝策略
+		* else 添加阻塞队列成功 then double check
+			* if(not running state) && remove success then reject
+			* else if(worker count==0) create new worker to consume
+@endmindmap
