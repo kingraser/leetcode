@@ -1,8 +1,8 @@
-package leetcode.common;
-
-import static org.junit.Assert.assertTrue;
+package leetcode;
 
 import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 
 public class ValidParenthesisString {
   /*
