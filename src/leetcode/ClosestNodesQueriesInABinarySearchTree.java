@@ -5,6 +5,7 @@ import leetcode.util.TestUtil;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -50,29 +51,23 @@ public class ClosestNodesQueriesInABinarySearchTree {
 		});
 	}
 
+	int nodes[], count, index;
+
 	public List<List<Integer>> closestNodes(TreeNode root, List<Integer> queries) {
-		List<List<Integer>> result = new ArrayList<>(queries.size());
-		for (Integer query : queries) result.add(List.of(min(root, query), max(root, query)));
-		return result;
+		count = 0;
+		nodes = new int[100_000];
+		inOrderTraverse(root);
+		List<List<Integer>> res = new ArrayList<>(queries.size());
+		for (Integer key : queries)
+			if ((index = Arrays.binarySearch(nodes, 0, count, key)) >= 0) res.add(List.of(key, key));
+			else res.add(List.of((index = -index - 1) < 1 ? -1 : nodes[index - 1], index < count ? nodes[index] : -1));
+		return res;
 	}
 
-	int min(TreeNode node, int num) {
-		if (node == null) return -1;
-		if (node.val == num) return num;
-		if (node.val < num) {
-			int val = min(node.right, num);
-			return val == -1 ? node.val : val;
-		}
-		return min(node.left, num);
-	}
-
-	int max(TreeNode node, int num) {
-		if (node == null) return -1;
-		if (node.val == num) return num;
-		if (node.val > num) {
-			int val = max(node.left, num);
-			return val == -1 ? node.val : val;
-		}
-		return max(node.right, num);
+	void inOrderTraverse(TreeNode root) {
+		if (root == null) return;
+		inOrderTraverse(root.left);
+		nodes[count++] = root.val;
+		inOrderTraverse(root.right);
 	}
 }
