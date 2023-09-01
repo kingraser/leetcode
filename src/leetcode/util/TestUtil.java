@@ -259,6 +259,15 @@ public class TestUtil {
 		return result;
 	}
 
+	public static char[][] getCharArray(String s) {
+		Object[][] result = getInputs(s);
+		char[][] finalResult = new char[result.length][result[0].length];
+		for (int row = 0; row < result.length; row++)
+			for (int col = 0; col < result[0].length; col++)
+				finalResult[row][col] = result[row][col].toString().charAt(0);
+		return finalResult;
+	}
+
 	public static class TestArray {
 		private static final Map<Class<?>, Function<String, Object>> DESERIALIZATION_MAP = new HashMap<>() {{
 			put(int.class, Integer::parseInt);
