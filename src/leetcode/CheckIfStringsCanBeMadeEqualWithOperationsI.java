@@ -37,13 +37,15 @@ public class CheckIfStringsCanBeMadeEqualWithOperationsI {
 		});
 	}
 
-	public boolean canBeEqual(String s1, String s2) {
-		int length1 = s1.length(), countEven = 0, countOdd = 0, mapEven[] = new int[128], mapOdd[] = new int[128];
-		if (length1 != s2.length()) return false;
-		for (int i = 0; i < length1; i += 2) if (mapEven[s1.charAt(i)]++ == 0) countEven++;
-		for (int i = 1; i < length1; i += 2) if (mapOdd[s1.charAt(i)]++ == 0) countOdd++;
-		for (int i = 0; i < length1; i += 2) if (--mapEven[s2.charAt(i)] == 0) countEven--;
-		for (int i = 1; i < length1; i += 2) if (--mapOdd[s2.charAt(i)] == 0) countOdd--;
-		return countEven == 0 && countOdd == 0;
+	public boolean canBeEqual(String s1, String s2) {return equals(s1, s2, 0) && equals(s1, s2, 1);}
+
+	private boolean equals(String s1, String s2, int start) {
+		int[] map = new int[128];
+		for (int i = start, length = s1.length(); i < length; i += 2) {
+			map[s1.charAt(i)]++;
+			map[s2.charAt(i)]--;
+		}
+		for (int i = 'a'; i <= 'z'; i++) if (map[i] != 0) return false;
+		return true;
 	}
 }
