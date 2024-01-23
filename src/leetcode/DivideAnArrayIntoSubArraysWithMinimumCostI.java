@@ -48,7 +48,7 @@ Constraints:
 	}
 
 	public int minimumCost(int[] nums) {
-		int min = 51, secMin = 52;
+		int min = 51, secMin = min + 1;
 		for (int i = 1; i < nums.length; i++)
 			if (nums[i] < min) {
 				secMin = min;
