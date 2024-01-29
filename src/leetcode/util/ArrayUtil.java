@@ -57,7 +57,7 @@ public class ArrayUtil {
 
     public static void reverse(char[] array, int left, int right) {
         rangeCheck(array, left, right);
-        for (; left < right; swap(array, left++, right--)) ;
+        while (left < right) {swap(array, left++, right--);}
     }
 
     private static <T> void rangeCheck(T[] A, int start, int end) {
