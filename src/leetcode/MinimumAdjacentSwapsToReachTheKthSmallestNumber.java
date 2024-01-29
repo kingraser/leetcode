@@ -75,8 +75,7 @@ public class MinimumAdjacentSwapsToReachTheKthSmallestNumber {
 		//find index which is just greater than that index value
 		while (j > i && nums[j] <= nums[i]) j--;
 		swap(nums, i, j);
-		//sort all element which index greater than <i>
-		Arrays.sort(nums, i + 1, nums.length);
+		reverse(nums, i + 1, nums.length - 1);
 	}
 
 	int getDifference(char[] origin, char[] target) {
@@ -84,9 +83,8 @@ public class MinimumAdjacentSwapsToReachTheKthSmallestNumber {
 		for (int i = 0; i < target.length; i++)
 			if (target[i] != origin[i]) for (int j = i + 1; j < origin.length; j++) {
 				if (origin[j] != target[i]) continue;
-				reverse(origin, i, j - 1);
-				reverse(origin, i, j);
 				result += j - i;
+				while (j > i) swap(origin, j, --j);
 				break;
 			}
 		return result;
