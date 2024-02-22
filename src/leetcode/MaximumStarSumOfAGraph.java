@@ -50,19 +50,20 @@ public class MaximumStarSumOfAGraph {
 	}
 
 	public int maxStarSum(int[] vals, int[][] edges, int k) {
-		if (k == 0) return Arrays.stream(vals).min().getAsInt();
 		int[] results = Arrays.copyOf(vals, vals.length);
 		PriorityQueue<Integer>[] graph = new PriorityQueue[vals.length];
 		for (int[] edge : edges) {
 			add(edge[0], vals[edge[1]], k, graph, results);
 			add(edge[1], vals[edge[0]], k, graph, results);
 		}
-		return Arrays.stream(results).min().getAsInt();
+		int result = results[0];
+		for (int i = 0; i < results.length; ) result = Integer.max(result, results[i++]);
+		return result;
 	}
 
 	private void add(int parent, int child, int maxSize, PriorityQueue<Integer>[] graph, int[] results) {
-		if (child < 0) return;
-		if (graph[parent] == null) graph[parent] = new PriorityQueue<>(maxSize);
+		if (child < 0 || maxSize == 0) return;
+		if (graph[parent] == null) graph[parent] = new PriorityQueue<>();
 		if (graph[parent].size() == maxSize) {
 			if (graph[parent].peek() > child) return;
 			results[parent] -= graph[parent].poll();

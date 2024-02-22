@@ -36,8 +36,8 @@ public class CountTheNumberOfGoodSubArrays {
 	@Test
 	public void test() {
 		TestUtil.testEquals(new Object[][]{
-				{1, new int[]{1, 1, 1, 1, 1}, 10},
-				{4, new int[]{3, 1, 4, 3, 2, 2, 4}, 2}
+				{1L, new int[]{1, 1, 1, 1, 1}, 10},
+				{4L, new int[]{3, 1, 4, 3, 2, 2, 4}, 2}
 		});
 	}
 

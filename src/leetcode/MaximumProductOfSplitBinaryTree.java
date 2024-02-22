@@ -35,9 +35,10 @@ public class MaximumProductOfSplitBinaryTree {
 		});
 	}
 
-	long res = 0, total = 0, module = 1_000_000_000 + 7;
+	long res, total, module = 1_000_000_000 + 7;
 
 	public int maxProduct(TreeNode root) {
+		res = total = 0;
 		total = sum(root);
 		sum(root);
 		return (int) (res % module);

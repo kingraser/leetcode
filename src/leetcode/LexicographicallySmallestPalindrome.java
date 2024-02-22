@@ -43,8 +43,9 @@ public class LexicographicallySmallestPalindrome {
 
 	public String makeSmallestPalindrome(String s) {
 		char[] result = s.toCharArray();
-		for (int left = 0, right = s.length() - 1; left < right; )
-			result[left] = result[right] = (char) Math.min(result[left++], result[right]--);
+		for (int left = 0, right = s.length() - 1; left < right; left++, right--)
+			if (result[left] < result[right]) result[right] = result[left];
+			else if (result[left] > result[right]) result[left] = result[right];
 		return new String(result);
 	}
 }

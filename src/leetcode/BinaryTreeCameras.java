@@ -71,13 +71,14 @@ public class BinaryTreeCameras {
 	If it's covered, we return 2.
 	Otherwise, we return 0.
 	*/
-	int res = 0;
+	int res;
 
 	public int minCameraCover(TreeNode root) {
+		res = 0;
 		return (dfs(root) < 1 ? 1 : 0) + res;
 	}
 
-	public int dfs(TreeNode root) {
+	private int dfs(TreeNode root) {
 		if (root == null) return 2;
 		int left = dfs(root.left), right = dfs(root.right);
 		if (left == 0 || right == 0) {
