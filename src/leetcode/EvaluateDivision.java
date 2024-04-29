@@ -2,15 +2,9 @@ package leetcode;
 
 import static org.junit.Assert.assertArrayEquals;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
 
 import leetcode.common.Pair;
 
@@ -53,11 +47,11 @@ public class EvaluateDivision {
       if (Objects.isNull(a) && Objects.isNull(b)) {
         map.put(aString, new Pair<>(bases.size(), values[i]));
         map.put(bString, new Pair<>(bases.size(), 1d));
-        bases.put(bases.size(), Lists.newArrayList(aString, bString));
+        bases.put(bases.size(), new ArrayList<>(List.of(aString, bString)));
       } else if (Objects.nonNull(a) && Objects.nonNull(b)) {
         if (Objects.equals(a.key, b.key)) continue;
         double val = values[i] * b.value;
-        bases.get(a.key).stream().map(name -> map.get(name)).forEach(pair -> {
+        bases.get(a.key).stream().map(map::get).forEach(pair -> {
           pair.value *= val;
           pair.key = b.key;
         });
@@ -72,7 +66,7 @@ public class EvaluateDivision {
     }
     return Arrays.stream(queries).mapToDouble(q -> {
       Pair<Integer, Double> a, b;
-      if (Objects.isNull(a = map.get(q[0])) || Objects.isNull(b = map.get(q[1])) || a.key != b.key) return -1d;
+      if (Objects.isNull(a = map.get(q[0])) || Objects.isNull(b = map.get(q[1])) || !Objects.equals(a.key, b.key)) return -1d;
       return a.value / b.value;
     }).toArray();
   }
