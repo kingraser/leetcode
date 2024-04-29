@@ -11,8 +11,6 @@ import java.util.stream.Stream;
 
 import org.junit.Test;
 
-import com.google.common.collect.ImmutableMap;
-
 public class DesignSnakeGame {
 
   /*
@@ -72,7 +70,8 @@ public class DesignSnakeGame {
     assertEquals(-1, snake.move("U"));
   }
 
-  public class SnakeGame {
+  public static class SnakeGame {
+    @SuppressWarnings("DataFlowIssue")
     public int move(String direction) {
       if (score == -1) return score;
       set.remove(body.peekLast());
@@ -102,7 +101,10 @@ public class DesignSnakeGame {
       this.food = food;
     }
 
-    final Map<String, Runnable> DIRECTION_MAP = ImmutableMap.of("U", () -> rowHead--, "D", () -> rowHead++, "L",
-        () -> colHead--, "R", () -> colHead++);
+    final Map<String, Runnable> DIRECTION_MAP = Map.of(
+            "U", () -> rowHead--,
+            "D", () -> rowHead++,
+            "L", () -> colHead--,
+            "R", () -> colHead++);
   }
 }
