@@ -1,9 +1,11 @@
 package leetcode.util;
 
+import java.lang.reflect.Array;
 import java.util.Objects;
 
 public class ArrayUtil {
 
+    @SafeVarargs
     public static <T> T[] of(T... args) {
         return args;
     }
@@ -47,17 +49,17 @@ public class ArrayUtil {
 
     public static <T> void reverse(T[] array, int left, int right) {
         rangeCheck(array, left, right);
-        for (; left < right; swap(array, left++, right--)) ;
+        while (left < right) swap(array, left++, right--);
     }
 
     public static void reverse(int[] array, int left, int right) {
         rangeCheck(array, left, right);
-        for (; left < right; swap(array, left++, right--)) ;
+        while (left < right) swap(array, left++, right--);
     }
 
     public static void reverse(char[] array, int left, int right) {
         rangeCheck(array, left, right);
-        while (left < right) {swap(array, left++, right--);}
+        while (left < right) swap(array, left++, right--);
     }
 
     private static <T> void rangeCheck(T[] A, int start, int end) {
@@ -260,6 +262,18 @@ public class ArrayUtil {
 
     public static <T> boolean equals(T[] A, T[] B) {
         return equals(A, 0, B, 0);
+    }
+
+    private static boolean isArrayEmpty(final Object array) {
+        return getLength(array) == 0;
+    }
+
+    public static int getLength(final Object array) {
+        return array != null ? Array.getLength(array) : 0;
+    }
+
+    public static boolean isEmpty(final Object[] array) {
+        return isArrayEmpty(array);
     }
 
 }
