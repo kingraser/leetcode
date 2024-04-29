@@ -15,8 +15,6 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import com.google.common.collect.Sets;
-
 public class InsertDeleteGetRandomO1Duplicatesallowed {
 
   /*
@@ -34,15 +32,15 @@ public class InsertDeleteGetRandomO1Duplicatesallowed {
     assertTrue(collection.insert(1));
     assertTrue(collection.insert(2));
     assertFalse(collection.insert(1));
-    assertTrue(Sets.newHashSet(1, 2).contains(collection.getRandom()));
+    assertTrue(Set.of(1, 2).contains(collection.getRandom()));
     assertTrue(collection.remove(1));
-    assertTrue(Sets.newHashSet(1, 2).contains(collection.getRandom()));
+    assertTrue(Set.of(1, 2).contains(collection.getRandom()));
     assertTrue(collection.remove(1));
     assertEquals(2, collection.getRandom());
     assertTrue(collection.remove(2));
   }
 
-  public class RandomizedCollection {
+  public static class RandomizedCollection {
     Map<Integer, Set<Integer>> map = new HashMap<>();
     List<Integer> list = new ArrayList<>();
     Random random = new Random();
