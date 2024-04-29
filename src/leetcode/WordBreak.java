@@ -7,8 +7,6 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import com.google.common.collect.Sets;
-
 public class WordBreak {
   /*
   Given a string s and a dictionary of words dict, 
@@ -28,7 +26,7 @@ public class WordBreak {
 
   @Test
   public void test() {
-    Set<String> dict = Sets.newHashSet("leet", "code");
+    Set<String> dict = Set.of("leet", "code");
     assertTrue(wordBreak("leetcode", dict));
   }
 
