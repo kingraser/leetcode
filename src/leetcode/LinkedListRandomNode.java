@@ -3,12 +3,11 @@ package leetcode;
 import static leetcode.common.ListNode.list;
 import static org.junit.Assert.assertTrue;
 
+import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
 import org.junit.Test;
-
-import com.google.common.collect.Sets;
 
 import leetcode.common.ListNode;
 
@@ -35,7 +34,7 @@ public class LinkedListRandomNode {
   @Test
   public void test() {
     RandomListNode node = new RandomListNode(list(1, 2, 3));
-    Set<Integer> set = Sets.newHashSet(1, 2, 3);
+    Set<Integer> set = new HashSet<>(Set.of(1, 2, 3));
     int count = 0;
     for (; !set.isEmpty(); count++)
       set.remove(node.getRandom());
@@ -43,7 +42,7 @@ public class LinkedListRandomNode {
     System.out.println(count);
   }
 
-  class RandomListNode {
+  static class RandomListNode {
     ListNode root;
     Random random = new Random();
 
@@ -51,6 +50,7 @@ public class LinkedListRandomNode {
       this.root = root;
     }
 
+    @SuppressWarnings("DataFlowIssue")
     public int getRandom() {
       ListNode result = null, current = root;
       for (int n = 1; current != null; current = current.next)
