@@ -10,8 +10,6 @@ import java.util.stream.Collectors;
 
 import org.junit.Test;
 
-import com.google.common.collect.Sets;
-
 public class MinimumGeneticMutation {
 
   /*
@@ -59,7 +57,7 @@ public class MinimumGeneticMutation {
 
   public int minMutation(String start, String end, String[] bank) {
     return Objects.equals(start, end) ? 0
-        : minMutation(Sets.newHashSet(start), Sets.newHashSet(end), Arrays.stream(bank).collect(Collectors.toSet()), 1);
+        : minMutation(Set.of(start), Set.of(end), Arrays.stream(bank).collect(Collectors.toSet()), 1);
   }
 
   private int minMutation(Set<String> starts, Set<String> ends, Set<String> set, int i) {
