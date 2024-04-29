@@ -13,8 +13,6 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import com.google.common.collect.Sets;
-
 import leetcode.common.Trie;
 import leetcode.common.Trie.TrieNode;
 
@@ -47,7 +45,7 @@ public class WordSearchII {
 
   @Test
   public void test() {
-    assertEquals(Sets.newHashSet("eat", "oath"),
+    assertEquals(Set.of("eat", "oath"),
         new HashSet<>(findWords(
             new char[][] { "oaan".toCharArray(), "etae".toCharArray(), "ihkr".toCharArray(), "iflv".toCharArray() },
             new String[] { "oath", "pea", "eat", "rain" })));
@@ -55,12 +53,12 @@ public class WordSearchII {
 
   public List<String> findWords(char[][] board, String[] words) {
     Trie trie = new Trie();
-    Arrays.stream(words).forEach(word -> trie.add(word));
+    Arrays.stream(words).forEach(trie::add);
     Set<String> result = new HashSet<>();
     for (int rowCount = board.length, colCount = rowCount > 0 ? board[0].length : 0, row = 0; row < rowCount; row++)
       for (int col = 0, cs[] = new int[rowCount * colCount]; col < colCount; col++)
         dfs(board, new BitSet(), trie.root, row, col, result, cs, 0);
-    return new ArrayList<String>(result);
+    return new ArrayList<>(result);
   }
 
   private void dfs(char[][] board, BitSet visited, TrieNode node, int row, int col, Set<String> result, int[] s,
