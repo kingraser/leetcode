@@ -6,10 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
+import java.util.Set;
 
 import org.junit.Test;
-
-import com.google.common.collect.Sets;
 
 public class SortCharactersByFrequency {
 
@@ -40,9 +39,9 @@ public class SortCharactersByFrequency {
 
   @Test
   public void test() {
-    assertTrue(Sets.newHashSet("eert", "eetr").contains(frequencySort("tree")));
-    assertTrue(Sets.newHashSet("aaaccc", "cccaaa").contains(frequencySort("cccaaa")));
-    assertTrue(Sets.newHashSet("bbAa", "bbaA").contains(frequencySort("Aabb")));
+    assertTrue(Set.of("eert", "eetr").contains(frequencySort("tree")));
+    assertTrue(Set.of("aaaccc", "cccaaa").contains(frequencySort("cccaaa")));
+    assertTrue(Set.of("bbAa", "bbaA").contains(frequencySort("Aabb")));
   }
 
   public String frequencySort(String s) {
@@ -54,7 +53,7 @@ public class SortCharactersByFrequency {
   }
 
   private void push(Entry<Integer, Integer> e, StringBuilder sb) {
-    for (int c = e.getKey(), times = e.getValue(); times-- > 0; sb.append((char) c));
+    for (int c = e.getKey(), times = e.getValue(); times-- > 0; ) sb.append((char) c);
   }
 
 }
