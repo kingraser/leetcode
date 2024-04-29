@@ -9,8 +9,6 @@ import java.util.PriorityQueue;
 
 import org.junit.Test;
 
-import com.google.common.collect.ImmutableMap;
-
 public class TheMazeIII {
 
   /*
@@ -81,18 +79,19 @@ public class TheMazeIII {
     for (queue.add(start); !queue.isEmpty();) {
       Position position = queue.poll(), next;
       reached[position.row][position.column] = true;
-      for (Entry<String, int[]> direction : DIRECTION_MAP.entrySet())
+      for (Entry<String, int[]> direction : DIRECTION_MAP.entrySet()) {
         if (reached[(next = roll(maze, hole, position, direction)).row][next.column]) continue;
-        else if (next.row == hole[0] && next.column == hole[1] && (next.distance < result.distance
-            || (next.distance == result.distance && next.path.compareTo(result.path) < 0))) {
+        if (next.row == hole[0] && next.column == hole[1] && (next.distance < result.distance
+                || (next.distance == result.distance && next.path.compareTo(result.path) < 0))) {
           result.distance = next.distance;
           result.path = next.path;
         } else if (next.distance < result.distance) queue.add(next);
+      }
     }
     return result.distance == Integer.MAX_VALUE ? "impossible" : result.path;
   }
 
-  private static final Map<String, int[]> DIRECTION_MAP = ImmutableMap.of("u", new int[] { -1, 0 }, "d",
+  private static final Map<String, int[]> DIRECTION_MAP = Map.of("u", new int[] { -1, 0 }, "d",
       new int[] { 1, 0 }, "l", new int[] { 0, -1 }, "r", new int[] { 0, 1 });
 
   private Position roll(int[][] maze, int[] hole, Position start, Entry<String, int[]> direction) {
@@ -107,7 +106,7 @@ public class TheMazeIII {
     return next;
   }
 
-  class Position implements Comparable<Position> {
+  static class Position implements Comparable<Position> {
     public int row, column, distance;
     public String path;
 
