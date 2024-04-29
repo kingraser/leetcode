@@ -7,8 +7,6 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.google.common.collect.ImmutableMap;
-
 public class RelativeRanks {
 
   /*
@@ -39,8 +37,8 @@ public class RelativeRanks {
     int[] sorted = Arrays.stream(nums).sorted().toArray();
     return Arrays.stream(nums).boxed().map(
         score -> medalMap.getOrDefault(idx = nums.length - Arrays.binarySearch(sorted, score), Integer.toString(idx)))
-        .toArray(size -> new String[size]);
+        .toArray(String[]::new);
   }
 
-  private Map<Integer, String> medalMap = ImmutableMap.of(1, "Gold Medal", 2, "Silver Medal", 3, "Bronze Medal");
+  private final Map<Integer, String> medalMap = Map.of(1, "Gold Medal", 2, "Silver Medal", 3, "Bronze Medal");
 }
