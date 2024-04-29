@@ -9,8 +9,6 @@ import java.util.Stack;
 
 import org.junit.Test;
 
-import com.google.common.collect.ImmutableMap;
-
 public class ValidParentheses {
 
   /*
@@ -24,7 +22,7 @@ public class ValidParentheses {
     assertFalse(isValid("(}"));
   }
 
-  private static final Map<Character, Character> MAP = ImmutableMap.of('}', '{', ')', '(', ']', '[');
+  private static final Map<Character, Character> MAP = Map.of('}', '{', ')', '(', ']', '[');
 
   public boolean isValid(String s) {
     if (s == null || (s.length() & 1) == 1) return false; // odd
