@@ -13,9 +13,6 @@ import java.util.stream.Stream;
 
 import org.junit.Test;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-
 public class WordLadderII {
   /*
   Given two words (beginWord and endWord), and a dictionary's word list, 
@@ -39,18 +36,18 @@ public class WordLadderII {
 
   @Test
   public void test() {
-    List<List<String>> expected = Arrays.asList(Arrays.asList("a", "c"));
-    Set<String> dict = Sets.newHashSet("a", "b", "c");
+    List<List<String>> expected = List.of(Arrays.asList("a", "c"));
+    Set<String> dict = new HashSet<>(Set.of("a", "b", "c"));
     assertEquals(expected, findLadders("a", "c", dict));
     expected = Arrays.asList(Arrays.asList("red", "ted", "tad", "tax"), Arrays.asList("red", "ted", "tex", "tax"),
         Arrays.asList("red", "rex", "tex", "tax"));
-    dict = Sets.newHashSet("ted", "tex", "red", "tax", "tad", "den", "rex", "pee");
+    dict = new HashSet<>(Set.of("ted", "tex", "red", "tax", "tad", "den", "rex", "pee"));
     assertEquals(new HashSet<>(expected), new HashSet<>(findLadders("red", "tax", dict)));
   }
 
   public List<List<String>> findLadders(String begin, String end, Set<String> set) {
     Map<String, List<String>> path = new HashMap<>();
-    Set<String> result = bfs(Sets.newHashSet(begin), Sets.newHashSet(end), set, path, new HashSet<>());//generate the ladder 
+    Set<String> result = bfs(new HashSet<>(Set.of(begin)), new HashSet<>(Set.of(end)), set, path, new HashSet<>());//generate the ladder
     return dfs(result, path, end);//find path
   }
 
@@ -83,7 +80,7 @@ public class WordLadderII {
     for (String s : set) {
       List<List<String>> lists = dfs(s, paths), head = new ArrayList<>(), end = new ArrayList<>();
       for (List<String> list : lists)
-        if (endWord.equals(list.get(0))) end.add(list);
+        if (endWord.equals(list.getFirst())) end.add(list);
         else head.add(list);
       result.addAll(end.isEmpty() ? head : join(head, end));//generate all possible paths
     }
@@ -100,13 +97,13 @@ public class WordLadderII {
 
   private List<String> joinString(List<String> head, List<String> ends) {
     List<String> result = new ArrayList<>(head);
-    for (int i = ends.size() - 2; i > -1; result.add(ends.get(i--)));
+    for (int i = ends.size() - 2; i > -1; i--) result.add(ends.get(i));
     return result;
   }
 
   private List<List<String>> dfs(String word, Map<String, List<String>> paths) {
     List<List<String>> result = new ArrayList<>();
-    if (!paths.containsKey(word)) result.add(Lists.newArrayList(word));
+    if (!paths.containsKey(word)) result.add(new ArrayList<>(List.of(word)));
     else for (String parent : paths.get(word)) {
       List<List<String>> lists = dfs(parent, paths);
       lists.forEach(l -> l.add(word));//get head/end parts of the ladder
