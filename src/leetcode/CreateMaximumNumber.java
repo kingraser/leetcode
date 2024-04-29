@@ -2,12 +2,11 @@ package leetcode;
 
 import static org.junit.Assert.assertArrayEquals;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
 
 public class CreateMaximumNumber {
 
@@ -83,71 +82,71 @@ public class CreateMaximumNumber {
   For i==1, we drop last number 8 and have [9]. 
   */
 
-  public int[] maxNumber(int[] A1, int[] A2, int k) {
-    int[] result = new int[k], tmp = new int[k];
-    List<int[]> dp1 = getMax(A1), dp2 = getMax(A2);
-    for (int i = Math.max(k - A2.length, 0), l = Math.min(A1.length, k); i <= l; i++) {
-      int[] B1 = dp1.get(dp1.size() - 1 - i), B2 = dp2.get(dp2.size() - 1 - k + i);
-      for (int p1 = 0, p2 = 0, p = 0; p < k; p++)
-        tmp[p] = greater(B1, p1, B2, p2) ? B1[p1++] : B2[p2++];
-      if (greater(tmp, 0, result, 0)) result = Arrays.copyOf(tmp, tmp.length);
+    public int[] maxNumber(int[] A1, int[] A2, int k) {
+        int[] result = new int[k], tmp = new int[k];
+        List<int[]> dp1 = getMax(A1), dp2 = getMax(A2);
+        for (int i = Math.max(k - A2.length, 0), l = Math.min(A1.length, k); i <= l; i++) {
+            int[] B1 = dp1.get(dp1.size() - 1 - i), B2 = dp2.get(dp2.size() - 1 - k + i);
+            for (int p1 = 0, p2 = 0, p = 0; p < k; p++)
+                tmp[p] = greater(B1, p1, B2, p2) ? B1[p1++] : B2[p2++];
+            if (greater(tmp, 0, result, 0)) result = Arrays.copyOf(tmp, tmp.length);
+        }
+        return result;
     }
-    return result;
-  }
 
-  private boolean greater(int[] A1, int i1, int[] A2, int i2) {
-    for (; i1 < A1.length && i2 < A2.length; i1++, i2++)
-      if (A1[i1] > A2[i2]) return true;
-      else if (A1[i1] < A2[i2]) return false;
-    return i1 != A1.length;
-  }
+    private boolean greater(int[] A1, int i1, int[] A2, int i2) {
+        for (; i1 < A1.length && i2 < A2.length; i1++, i2++)
+            if (A1[i1] > A2[i2]) return true;
+            else if (A1[i1] < A2[i2]) return false;
+        return i1 != A1.length;
+    }
 
-  private List<int[]> getMax(int[] A) {
-    List<int[]> res = Lists.newArrayList(A);
-    for (int idx = 0, len = A.length; res.size() < len; res.add(A = copy(A, idx = getOmitIdx(A, idx))));
-    res.add(new int[0]);
-    return res;
-  }
+    private List<int[]> getMax(int[] A) {
+        List<int[]> res = new ArrayList<>(List.of(A));
+        for (int idx = 0, len = A.length; res.size() < len; ) res.add(A = copy(A, idx = getOmitIdx(A, idx)));
+        res.add(new int[0]);
+        return res;
+    }
 
-  private int getOmitIdx(int[] A, int idx) {
-    if (idx >= A.length) idx = A.length - 1;
-    if (idx > 0 && A[idx - 1] < A[idx]) return --idx;
-    for (int end = A.length - 1; idx < end && A[idx] >= A[idx + 1]; idx++);
-    return idx;
-  }
+    private int getOmitIdx(int[] A, int idx) {
+        if (idx >= A.length) idx = A.length - 1;
+        if (idx > 0 && A[idx - 1] < A[idx]) return --idx;
+        for (int end = A.length - 1; idx < end && A[idx] >= A[idx + 1]; ) idx++;
+        return idx;
+    }
 
-  private int[] copy(int[] A, int omitIdx) {
-    int[] result = new int[A.length - 1];
-    for (int i = 0, j = 0; i < A.length; i++)
-      if (i != omitIdx) result[j++] = A[i];
-    return result;
-  }
+    private int[] copy(int[] A, int omitIdx) {
+        int[] result = new int[A.length - 1];
+        for (int i = 0, j = 0; i < A.length; i++)
+            if (i != omitIdx) result[j++] = A[i];
+        return result;
+    }
 
-  int[] expected = null, A = null, B = null;
+    int[] expected = null, A = null, B = null;
 
-  @Test
-  public void test() {
-    set(new int[] { 9, 8, 6, 5, 3 }, new int[] { 3, 4, 6, 5 }, new int[] { 9, 1, 2, 5, 8, 3 });
-    assertArrayEquals(expected, maxNumber(A, B, 5));
-    set(new int[] { 6, 7, 6, 0, 4 }, new int[] { 6, 7 }, new int[] { 6, 0, 4 });
-    assertArrayEquals(expected, maxNumber(A, B, 5));
-    set(new int[] { 9, 8, 9 }, new int[] { 3, 9 }, new int[] { 8, 9 });
-    assertArrayEquals(expected, maxNumber(A, B, 3));
-    set(new int[] { 5, 5, 4 }, new int[] { 5, 5, 1 }, new int[] { 4, 0, 1 });
-    assertArrayEquals(expected, maxNumber(A, B, 3));
-    expected = new int[] { 9, 9, 9, 9, 9, 8, 7, 5, 6, 3, 4, 2, 4, 7, 4, 5, 7, 7, 2, 5, 6, 3, 6, 7, 2, 2, 8, 4, 6, 0, 4,
-        7, 8, 9, 1, 7, 0, 3, 5, 3, 2, 8, 1, 6, 6, 1, 0, 8, 4, 0 };
-    A = new int[] { 8, 0, 4, 4, 1, 7, 3, 6, 5, 9, 3, 6, 6, 0, 2, 5, 1, 7, 7, 7, 8, 7, 1, 4, 4, 5, 4, 8, 7, 6, 2, 2, 9,
-        4, 7, 5, 6, 2, 2, 8, 4, 6, 0, 4, 7, 8, 9, 1, 7, 0 };
-    B = new int[] { 6, 9, 8, 1, 1, 5, 7, 3, 1, 3, 3, 4, 9, 2, 8, 0, 6, 9, 3, 3, 7, 8, 3, 4, 2, 4, 7, 4, 5, 7, 7, 2, 5,
-        6, 3, 6, 7, 0, 3, 5, 3, 2, 8, 1, 6, 6, 1, 0, 8, 4 };
-    assertArrayEquals(expected, maxNumber(A, B, 50));
-  }
+    @Test
+    public void test() {
+        set(new int[]{9, 8, 6, 5, 3}, new int[]{3, 4, 6, 5}, new int[]{9, 1, 2, 5, 8, 3});
+        assertArrayEquals(expected, maxNumber(A, B, 5));
+        set(new int[]{6, 7, 6, 0, 4}, new int[]{6, 7}, new int[]{6, 0, 4});
+        assertArrayEquals(expected, maxNumber(A, B, 5));
+        set(new int[]{9, 8, 9}, new int[]{3, 9}, new int[]{8, 9});
+        assertArrayEquals(expected, maxNumber(A, B, 3));
+        set(new int[]{5, 5, 4}, new int[]{5, 5, 1}, new int[]{4, 0, 1});
+        assertArrayEquals(expected, maxNumber(A, B, 3));
+        expected = new int[]{9, 9, 9, 9, 9, 8, 7, 5, 6, 3, 4, 2, 4, 7, 4, 5, 7, 7, 2, 5, 6, 3, 6, 7, 2, 2, 8, 4, 6, 0, 4,
+                7, 8, 9, 1, 7, 0, 3, 5, 3, 2, 8, 1, 6, 6, 1, 0, 8, 4, 0};
+        A = new int[]{8, 0, 4, 4, 1, 7, 3, 6, 5, 9, 3, 6, 6, 0, 2, 5, 1, 7, 7, 7, 8, 7, 1, 4, 4, 5, 4, 8, 7, 6, 2, 2, 9,
+                4, 7, 5, 6, 2, 2, 8, 4, 6, 0, 4, 7, 8, 9, 1, 7, 0};
+        B = new int[]{6, 9, 8, 1, 1, 5, 7, 3, 1, 3, 3, 4, 9, 2, 8, 0, 6, 9, 3, 3, 7, 8, 3, 4, 2, 4, 7, 4, 5, 7, 7, 2, 5,
+                6, 3, 6, 7, 0, 3, 5, 3, 2, 8, 1, 6, 6, 1, 0, 8, 4};
+        assertArrayEquals(expected, maxNumber(A, B, 50));
+    }
 
-  private void set(int[] expected, int[] A, int[] B) {
-    this.expected = expected;
-    this.A = A;
-    this.B = B;
-  }
+    private void set(int[] expected, int[] A, int[] B) {
+        this.expected = expected;
+        this.A = A;
+        this.B = B;
+    }
 
 }
