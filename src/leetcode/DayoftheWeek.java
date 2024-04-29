@@ -5,9 +5,6 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 
-import static com.google.common.base.CaseFormat.UPPER_CAMEL;
-import static com.google.common.base.CaseFormat.UPPER_UNDERSCORE;
-
 /**
  * @author Wit
  */
@@ -41,6 +38,7 @@ public class DayoftheWeek {
     }
 
     String dayOfTheWeek(int day, int month, int year) {
-        return UPPER_UNDERSCORE.to(UPPER_CAMEL, LocalDate.of(year, month, day).getDayOfWeek().name());
+        String result = LocalDate.of(year, month, day).getDayOfWeek().name();
+        return result.charAt(0) + result.substring(1).toLowerCase();
     }
 }
