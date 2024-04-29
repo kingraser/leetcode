@@ -2,15 +2,9 @@ package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeSet;
-import java.util.stream.IntStream;
+import java.util.*;
 
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
 
 public class ShortestWordDistanceIII {
 
@@ -26,25 +20,20 @@ public class ShortestWordDistanceIII {
 
   @Test
   public void test() {
-    WordDistance wordDistance = new WordDistance(new String[] { "practice", "makes", "perfect", "coding", "makes" });
+    WordDistance wordDistance = new WordDistance(new String[]{"practice", "makes", "perfect", "coding", "makes"});
     assertEquals(1, wordDistance.shortestDistance("coding", "makes"));
     assertEquals(3, wordDistance.shortestDistance("makes", "makes"));
   }
 
-  class WordDistance {
-    private Map<String, TreeSet<Integer>> map = new HashMap<>();
-
+  static class WordDistance extends ShortestWordDistanceII.WordDistance {
     public WordDistance(String[] words) {
-      IntStream.range(0, words.length).forEach(i -> map.computeIfAbsent(words[i], k -> new TreeSet<>()).add(i));
+      super(words);
     }
 
     public int shortestDistance(String word1, String word2) {
-      if (word1.equals(word2)) return shortestDistance(Lists.newArrayList(map.get(word1)));
-      if (map.get(word1).size() > map.get(word2).size()) return shortestDistance(word2, word1);
-      int result = Integer.MAX_VALUE;
-      for (int i : map.get(word1))
-        result = Math.min(result, compute(i, map.get(word2)));
-      return result;
+      return word1.equals(word2)
+              ? shortestDistance(new ArrayList<>(map.get(word1)))
+              : super.shortestDistance(word1, word2);
     }
 
     private int shortestDistance(List<Integer> list) {
@@ -52,12 +41,6 @@ public class ShortestWordDistanceIII {
       for (int i = 1; i < list.size(); i++)
         result = Math.min(result, list.get(i) - list.get(i - 1));
       return result;
-    }
-
-    private int compute(int i, TreeSet<Integer> set) {
-      Integer max = set.ceiling(i), min = set.floor(i);
-      return max == null ? Math.abs(min - i)
-          : min == null ? Math.abs(max - i) : Math.min(Math.abs(min - i), Math.abs(max - i));
     }
   }
 }

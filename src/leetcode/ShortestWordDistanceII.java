@@ -27,8 +27,8 @@ public class ShortestWordDistanceII {
     assertEquals(1, wordDistance.shortestDistance("coding", "makes"));
   }
 
-  class WordDistance {
-    private Map<String, TreeSet<Integer>> map = new HashMap<>();
+  static class WordDistance {
+    protected Map<String, TreeSet<Integer>> map = new HashMap<>();
 
     public WordDistance(String[] words) {
       IntStream.range(0, words.length).forEach(i -> map.computeIfAbsent(words[i], k -> new TreeSet<>()).add(i));
@@ -42,6 +42,7 @@ public class ShortestWordDistanceII {
       return result;
     }
 
+    @SuppressWarnings("DataFlowIssue")
     private int compute(int i, TreeSet<Integer> set) {
       Integer max = set.ceiling(i), min = set.floor(i);
       return max == null ? Math.abs(min - i)
