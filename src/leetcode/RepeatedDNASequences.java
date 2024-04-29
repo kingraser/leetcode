@@ -10,8 +10,6 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.google.common.collect.ImmutableMap;
-
 public class RepeatedDNASequences {
 
   /*
@@ -31,7 +29,7 @@ public class RepeatedDNASequences {
         findRepeatedDnaSequences("AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"));
   }
 
-  private Map<Character, Integer> map = ImmutableMap.of('A', 0, 'C', 1, 'G', 2, 'T', 3);
+  private final Map<Character, Integer> map = Map.of('A', 0, 'C', 1, 'G', 2, 'T', 3);
 
   public List<String> findRepeatedDnaSequences(String s) {
     Map<Integer, Integer> map = new HashMap<>();
@@ -43,7 +41,7 @@ public class RepeatedDNASequences {
 
   private int hashCode(int idx, String s) {
     int hashCode = 0;
-    for (int j = 0; j < 10; hashCode = (hashCode << 2) | map.get(s.charAt(idx + j++)));
+    for (int j = 0; j < 10; j++) hashCode = (hashCode << 2) | map.get(s.charAt(idx + j));
     return hashCode;
   }
 }
