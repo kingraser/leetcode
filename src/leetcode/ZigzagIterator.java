@@ -1,16 +1,12 @@
 package leetcode;
 
+import static leetcode.util.CollectionUtils.asList;
 import static org.junit.Assert.assertEquals;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
 
 public class ZigzagIterator {
 
@@ -31,38 +27,38 @@ public class ZigzagIterator {
   It should return [1,4,8,2,5,9,3,6,7].
   */
 
-  @Test
-  public void test() {
-    assertEquals(Arrays.asList(1, 4, 8, 2, 5, 9, 3, 6, 7),
-        Lists.newArrayList(new ZigZagIterator(Arrays.asList(Arrays.asList(1, 2, 3).iterator(),
-            Arrays.asList(4, 5, 6, 7).iterator(), Arrays.asList(8, 9).iterator()))));
+    @Test
+    public void test() {
+        assertEquals(List.of(1, 4, 8, 2, 5, 9, 3, 6, 7),
+                asList(new ZigZagIterator(List.of(List.of(1, 2, 3).iterator(),
+                        List.of(4, 5, 6, 7).iterator(), List.of(8, 9).iterator()))));
 
-    assertEquals(Arrays.asList(1, 3, 2, 4, 5, 6), Lists.newArrayList(
-        new ZigZagIterator(Arrays.asList(Arrays.asList(1, 2).iterator(), Arrays.asList(3, 4, 5, 6).iterator()))));
+        assertEquals(List.of(1, 3, 2, 4, 5, 6), asList(
+                new ZigZagIterator(List.of(List.of(1, 2).iterator(), List.of(3, 4, 5, 6).iterator()))));
 
-    assertEquals(Arrays.asList(1, 2, 4, 3, 5, 6), Lists.newArrayList(new ZigZagIterator(Arrays
-        .asList(Arrays.asList(1).iterator(), Arrays.asList(2, 3).iterator(), Arrays.asList(4, 5, 6).iterator()))));
-  }
-
-  public class ZigZagIterator implements Iterator<Integer> {
-    List<Iterator<Integer>> iterators;
-    int idx = 0;
-
-    public ZigZagIterator(List<Iterator<Integer>> list) {
-      this.iterators = list.stream().filter(i -> i.hasNext()).collect(Collectors.toList());
+        assertEquals(List.of(1, 2, 4, 3, 5, 6), asList(new ZigZagIterator(Arrays
+                .asList(new ArrayList<>(List.of(1)).iterator(), List.of(2, 3).iterator(), List.of(4, 5, 6).iterator()))));
     }
 
-    public Integer next() {
-      if (!hasNext()) throw new NoSuchElementException();
-      Iterator<Integer> iterator = iterators.get(idx %= iterators.size());
-      Integer result = iterator.next();
-      if (!iterator.hasNext()) iterators.remove(idx);
-      else idx++;
-      return result;
-    }
+    public static class ZigZagIterator implements Iterator<Integer> {
+        List<Iterator<Integer>> iterators;
+        int idx = 0;
 
-    public boolean hasNext() {
-      return iterators.size() > 0;
+        public ZigZagIterator(List<Iterator<Integer>> list) {
+            this.iterators = list.stream().filter(Iterator::hasNext).collect(Collectors.toList());
+        }
+
+        public Integer next() {
+            if (!hasNext()) throw new NoSuchElementException();
+            Iterator<Integer> iterator = iterators.get(idx %= iterators.size());
+            Integer result = iterator.next();
+            if (!iterator.hasNext()) iterators.remove(idx);
+            else idx++;
+            return result;
+        }
+
+        public boolean hasNext() {
+            return !iterators.isEmpty();
+        }
     }
-  }
 }
