@@ -1,20 +1,12 @@
 package leetcode;
 
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Random;
-
 import org.junit.Test;
-
-import com.google.common.collect.Sets;
 
 public class InsertDeleteGetRandomO1 {
 
@@ -32,18 +24,19 @@ public class InsertDeleteGetRandomO1 {
     assertTrue(set.insert(1));
     assertTrue(set.insert(2));
     assertFalse(set.insert(1));
-    assertTrue(Sets.newHashSet(1, 2).contains(set.getRandom()));
+    assertTrue(Set.of(1, 2).contains(set.getRandom()));
     assertTrue(set.remove(1));
     assertFalse(set.remove(1));
     assertEquals(2, set.getRandom());
     assertTrue(set.remove(2));
   }
 
-  public class RandomizedSet {
-    private Map<Integer, Integer> map = new HashMap<>();
-    private List<Integer> list = new ArrayList<>();
+  public static class RandomizedSet {
+    private final Map<Integer, Integer> map = new HashMap<>();
+    private final List<Integer> list = new ArrayList<>();
     Random random = new Random();
 
+    @SuppressWarnings("ConstantValue")
     public boolean insert(int val) {
       return Objects.isNull(map.putIfAbsent(val, list.size())) && list.add(val);
     }
@@ -51,9 +44,9 @@ public class InsertDeleteGetRandomO1 {
     public boolean remove(int val) {
       Integer idx = map.remove(val), last;
       if (Objects.isNull(idx)) return false;
-      map.computeIfPresent(last = list.get(list.size() - 1), (k, v) -> idx);
+      map.computeIfPresent(last = list.getLast(), (k, v) -> idx);
       list.set(idx, last);
-      list.remove(list.size() - 1);
+      list.removeLast();
       return true;
     }
 
