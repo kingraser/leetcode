@@ -2,7 +2,7 @@ package leetcode;
 
 import static org.junit.Assert.assertEquals;
 
-import org.apache.commons.lang3.StringUtils;
+import leetcode.util.StringUtils;
 import org.junit.Test;
 
 public class PalindromicSubstrings {
@@ -42,7 +42,7 @@ public class PalindromicSubstrings {
   }
 
   private void extendPalindrome(int[] result, String s, int left, int right) {
-    for (; left >= 0 && right < s.length() && s.charAt(left--) == s.charAt(right++); result[0]++);
+      while (left >= 0 && right < s.length() && s.charAt(left--) == s.charAt(right++)) result[0]++;
   }
 
 }
