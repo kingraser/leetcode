@@ -3,16 +3,12 @@ package leetcode;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
-
-import com.google.common.collect.Lists;
 
 public class GroupShiftedStrings {
 
@@ -35,33 +31,37 @@ public class GroupShiftedStrings {
   Note: For the return value, each inner list's elements must follow the lexicographic order.
   */
 
-  @Test
-  public void test() {
-    assertEquals(Arrays.asList(Arrays.asList("a", "z"), Arrays.asList("az", "ba"), Arrays.asList("abc", "bcd", "xyz"),
-        Arrays.asList("acef")), groupStrings(Arrays.asList("abc", "bcd", "acef", "xyz", "az", "ba", "a", "z")));
-  }
-
-  public List<List<String>> groupStrings(List<String> strings) {
-    Collections.sort(strings,
-        (s1, s2) -> s1.length() != s2.length() ? s1.length() - s2.length() : s1.charAt(0) - s2.charAt(0));
-    List<List<String>> result = new ArrayList<>();
-    Map<Integer, Map<String, List<String>>> map = new LinkedHashMap<>();
-    A: for (String s : strings) {
-      for (String key : map.computeIfAbsent(s.length(), k -> new HashMap<>()).keySet())
-        if (s.length() == 1 || isShifted(key, s)) {
-          map.get(s.length()).get(key).add(s);
-          continue A;
-        }
-      map.get(s.length()).put(s, Lists.newArrayList(s));
+    @Test
+    public void test() {
+        assertEquals(List.of(
+                        List.of("a", "z"),
+                        List.of("az", "ba"),
+                        List.of("abc", "bcd", "xyz"),
+                        List.of("acef")),
+                groupStrings(new ArrayList<>(List.of("abc", "bcd", "acef", "xyz", "az", "ba", "a", "z"))));
     }
-    map.values().forEach(m -> m.values().forEach(value -> result.add(value)));
-    return result;
-  }
 
-  private boolean isShifted(String s1, String s2) {
-    int step = s2.charAt(0) - s1.charAt(0);
-    for (int i = 1; i < s1.length(); i++)
-      if ((s2.charAt(i) - s1.charAt(i) + 26) % 26 != step) return false;
-    return true;
-  }
+    public List<List<String>> groupStrings(List<String> strings) {
+        strings.sort((s1, s2) -> s1.length() != s2.length() ? s1.length() - s2.length() : s1.charAt(0) - s2.charAt(0));
+        List<List<String>> result = new ArrayList<>();
+        Map<Integer, Map<String, List<String>>> map = new LinkedHashMap<>();
+        A:
+        for (String s : strings) {
+            for (String key : map.computeIfAbsent(s.length(), k -> new HashMap<>()).keySet())
+                if (s.length() == 1 || isShifted(key, s)) {
+                    map.get(s.length()).get(key).add(s);
+                    continue A;
+                }
+            map.get(s.length()).put(s, new ArrayList<>(List.of(s)));
+        }
+        map.values().forEach(m -> result.addAll(m.values()));
+        return result;
+    }
+
+    private boolean isShifted(String s1, String s2) {
+        int step = s2.charAt(0) - s1.charAt(0);
+        for (int i = 1; i < s1.length(); i++)
+            if ((s2.charAt(i) - s1.charAt(i) + 26) % 26 != step) return false;
+        return true;
+    }
 }
