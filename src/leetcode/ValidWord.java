@@ -52,16 +52,13 @@ Constraints:
 	}
 
 	public boolean isValid(String word) {
-		int length = word.length();
-		if (length < 3) return false;
+		if (word.length() < 3) return false;
 		boolean hasVowel = false, hasConsonant = false;
-		for (int i = 0, c; i < length; ) {
-			if ((c = word.charAt(i++)) >= '0' && c <= '9') continue;
-			if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
+		for (int i = 0, c; i < word.length(); )
+			if (((c = word.charAt(i++)) >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
 				if (!hasVowel) hasConsonant |= !(hasVowel = isVowel(c));
 				else if (!hasConsonant) hasConsonant = !isVowel(c);
-			} else return false;
-		}
+			} else if (c < '0' || c > '9') return false;
 		return hasVowel && hasConsonant;
 	}
 
