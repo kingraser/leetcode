@@ -1,9 +1,6 @@
 package leetcode;
 
-import java.util.AbstractMap;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -42,7 +39,7 @@ public class FindLuckyIntegerinanArray {
     1 <= arr[i] <= 500
     */
 
-    public int findLucky(int[] arr) {
-        return Arrays.stream(arr).boxed().collect(Collectors.toMap(k -> k, v -> 1, Integer::sum, () -> new TreeMap<>(Collections.reverseOrder()))).entrySet().stream().filter(e -> e.getKey().equals(e.getValue())).findFirst().orElse(new AbstractMap.SimpleEntry<>(-1, -1)).getKey();
-    }
+	public int findLucky(int[] arr) {
+		return Arrays.stream(arr).boxed().collect(Collectors.toMap(k -> k, v -> 1, Integer::sum, () -> new TreeMap<>(Collections.reverseOrder()))).entrySet().stream().filter(e -> e.getKey().equals(e.getValue())).map(Map.Entry::getKey).findFirst().orElse(-1);
+	}
 }
