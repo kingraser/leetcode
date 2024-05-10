@@ -45,12 +45,15 @@ Constraints:
 	public int minimumAddedInteger(int[] nums1, int[] nums2) {
 		Arrays.sort(nums1);
 		Arrays.sort(nums2);
-		for (int i = 2; i > 0; i--) {
-			int skip = i;
-			for (int j = i + 1; skip < 3 && j - skip < nums2.length; j++)
-				skip += (nums2[j - skip] - nums1[j] != nums2[0] - nums1[i]) ? 1 : 0;
-			if (skip < 3) return nums2[0] - nums1[i];
-		}
+		for (int start = 2, diff; start > 0; )
+			if (isRightStart(nums1, nums2, start, diff = nums2[0] - nums1[start--])) return diff;
 		return nums2[0] - nums1[0];
+	}
+
+	boolean isRightStart(int[] nums1, int[] nums2, int skip, int diff) {
+		for (int i1 = skip + 1, i2 = 1; i2 < nums2.length; )
+			if (nums2[i2] - nums1[i1++] == diff) i2++;
+			else if (++skip > 2) return false;
+		return true;
 	}
 }
