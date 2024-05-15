@@ -1,8 +1,8 @@
 package leetcode;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class MinimumSizeSubarraySum {
 
@@ -22,7 +22,7 @@ public class MinimumSizeSubarraySum {
     int result = 0;
     for (int i = 0, start = 0, sum = 0; i < nums.length;) {
       if ((sum += nums[i++]) < s) continue;
-      for (; sum >= s; sum -= nums[start++]);
+      while (sum >= s) {sum -= nums[start++];}
       result = result == 0 ? i - start + 1 : Math.min(result, i - start + 1);
     }
     return result;
