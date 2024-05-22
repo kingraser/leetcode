@@ -1,15 +1,11 @@
 package leetcode;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-
 import org.junit.Test;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static org.junit.Assert.assertEquals;
 
 public class SubstringwithConcatenationofAllWords {
 
@@ -30,8 +26,7 @@ public class SubstringwithConcatenationofAllWords {
 
   public List<Integer> findSubstring(String s, String[] words) {
     List<Integer> result = new ArrayList<>();
-    Map<String, Integer> dictionary = new HashMap<>();
-    Arrays.stream(words).forEach(str -> dictionary.compute(str, (k, v) -> v == null ? 1 : v + 1));
+    Map<String, Integer> dictionary = Arrays.stream(words).collect(Collectors.toMap(k -> k, k -> 1, Integer::sum, HashMap::new));
     for (int i = 0, size = words[0].length(), length = size * words.length; i <= s.length() - length; i++)
       if (isConcatenationofAllWords(s.substring(i, i + length), new HashMap<>(dictionary), size)) result.add(i);
     return result;
