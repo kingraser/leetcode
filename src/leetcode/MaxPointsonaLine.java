@@ -22,7 +22,7 @@ public class MaxPointsonaLine {
       for (same = 1, j = i + 1; j < p.length; j++)
         if (p[i].equals(p[j])) same++;
         else map.merge(getGradient(p[i], p[j]), 1, Integer::sum);
-      result = Math.max(result, same + map.values().stream().max((i1, i2) -> i1 - i2).orElse(0));
+      result = Math.max(result, same + map.values().stream().max(Integer::compare).orElse(0));
     }
     return result;
   }
