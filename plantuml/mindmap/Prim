@@ -1,8 +1,8 @@
 Greedy
 
-T = ∅;
+Target = ∅;
 U = { 1 };
 while (U ≠ V)
     let (u, v) be the lowest cost edge such that u ∈ U and v ∈ V - U;
-    T = T ∪ {(u, v)}
+    Target = Target ∪ {(u, v)}
     U = U ∪ {v}

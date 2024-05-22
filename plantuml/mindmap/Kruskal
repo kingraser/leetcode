@@ -1,12 +1,12 @@
 Greedy
 Union-Find
 
-KRUSKAL(G):
-A = ∅
-For each vertex v ∈ G.V:
+KRUSKAL(Graph):
+Answer = ∅
+For each vertex v ∈ Graph.Vertex:
     MAKE-SET(v)
-For each edge (u, v) ∈ G.E ordered by increasing order by weight(u, v):
+For each edge (u, v) ∈ Graph.Edges ordered by increasing order by weight(u, v):
     if FIND-SET(u) ≠ FIND-SET(v):       
-    A = A ∪ {(u, v)}
+    Answer = Answer ∪ {(u, v)}
     UNION(u, v)
-return A
+return Answer

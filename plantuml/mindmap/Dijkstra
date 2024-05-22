@@ -1,18 +1,19 @@
 Greedy
 BFS
+Get all shortest distance from start vertex
 
-function dijkstra(G, S)
-    for each vertex V in G
-        distance[V] <- infinite
-        previous[V] <- NULL
-        If V != S, add V to Priority Queue Q
-    distance[S] <- 0
+function dijkstra(Graph, Start)
+    for each vertex Vertex in Graph
+        distanceFromStart[Vertex] <- infinite
+        previous[Vertex] <- NULL
+        If Vertex != Start, add Vertex to Priority Queue PriorityQueue order by distance
+    distanceFromStart[Start] <- 0
 
-    while Q IS NOT EMPTY
-        U <- Extract MIN from Q
-        for each unvisited neighbour V of U
+    while PriorityQueue IS NOT EMPTY
+        Unvisited <- Extract MIN from Q
+        for each unvisited neighbour V of Unvisited
             tempDistance <- distance[U] + edge_weight(U, V)
             if tempDistance < distance[V]
-                distance[V] <- tempDistance
+                distanceFromStart[V] <- tempDistance
                 previous[V] <- U
     return distance[], previous[]

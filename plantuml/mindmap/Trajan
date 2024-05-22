@@ -1,7 +1,7 @@
 DFS
 
 algorithm Tarjan :
-    input: graph G = (V, E)
+    input: graph Graph = (Vertex, Edge)
     output: set of strongly connected components (sets of vertices)
 
     index := 0
