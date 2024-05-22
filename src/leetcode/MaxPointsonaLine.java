@@ -1,13 +1,12 @@
 package leetcode;
 
-import static org.junit.Assert.assertEquals;
+import leetcode.common.Point;
+import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.Test;
-
-import leetcode.common.Point;
+import static org.junit.Assert.assertEquals;
 
 public class MaxPointsonaLine {
 
@@ -22,7 +21,7 @@ public class MaxPointsonaLine {
       Map<Double, Integer> map = new HashMap<>();
       for (same = 1, j = i + 1; j < p.length; j++)
         if (p[i].equals(p[j])) same++;
-        else map.compute(getGradient(p[i], p[j]), (k, v) -> v == null ? 1 : v + 1);
+        else map.merge(getGradient(p[i], p[j]), 1, Integer::sum);
       result = Math.max(result, same + map.values().stream().max((i1, i2) -> i1 - i2).orElse(0));
     }
     return result;
