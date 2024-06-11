@@ -59,7 +59,7 @@ Constraints:
 	@Test
 	public void test() {
 		TestUtil.testEquals(new Object[][]{
-				//{7, "EEEEEEE"},
+				{7, "EEEEEEE"},
 				{2, "ELELEEL"},
 				{3, "ELEELEELLL"},
 		});
