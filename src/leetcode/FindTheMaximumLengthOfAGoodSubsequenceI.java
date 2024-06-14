@@ -5,7 +5,8 @@ import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
+
+import static java.util.Objects.requireNonNullElse;
 
 /**
  * @author Wit
@@ -52,10 +53,10 @@ Constraints:
 	public int maximumLength(int[] nums, int k) {
 		Map<Integer, Integer>[] dp = new HashMap[k + 1];
 		for (int i = 0; i < dp.length; i++) dp[i] = new HashMap<>();
-		int[] result = new int[k + 1], i = new int[1];
+		int[] result = new int[k + 1];
 		for (int num : nums) {
-			for (i[0] = k; i[0] > 0; )
-				result[i[0]] = Math.max(result[i[0]], dp[i[0]].compute(num, (key, v) -> 1 + Math.max(result[--i[0]], Objects.isNull(v) ? 0 : v)));
+			for (int[] i = new int[]{k}; i[0] > 0; )
+				result[i[0]] = Math.max(result[i[0]], dp[i[0]].compute(num, (key, v) -> 1 + Math.max(result[--i[0]], requireNonNullElse(v, 0))));
 			result[0] = Math.max(result[0], dp[0].merge(num, 1, Integer::sum));
 		}
 		return result[k];
