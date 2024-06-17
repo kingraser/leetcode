@@ -40,12 +40,6 @@ Constraints:
 	}
 
 	public int countCompleteDayPairs(int[] hours) {
-		int result = 0, map[] = new int[24];
-		for (int hour : hours) map[hour % 24]++;
-		for (int left = 1, right = 23; left < right; left++, right--)
-			if (map[left] > 0 && map[right] > 0) result += map[left] * map[right];
-		if (map[0] > 0) result += (map[0] * (map[0] - 1)) >> 1;
-		if (map[12] > 0) result += (map[12] * (map[12] - 1)) >> 1;
-		return result;
+		return (int) CountPairsThatFormACompleteDayII.countCompleteDayPairs(hours);
 	}
 }
