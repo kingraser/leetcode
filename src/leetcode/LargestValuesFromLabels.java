@@ -39,7 +39,7 @@ The subset chosen is the first and fourth items with the sum of values 9 + 7.
 Constraints:
     n == values.length == labels.length
     1 <= n <= 2 * 10^4
-    0 <= values[i], labels[i] <= 2 * 104
+    0 <= values[i], labels[i] <= 2 * 10^4
     1 <= numWanted, useLimit <= n
 */
 
