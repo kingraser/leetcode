@@ -48,15 +48,9 @@ Constraints:
 
 	public int maximumLength(int[] nums) {
 		// 00 for even and last even; 10 for even and last odd; 10 for odd and last even; 11 for odd and last odd
-		int length = nums.length, dp[] = new int[4];
-		for (int firstParity = nums[0] & 1, i = dp[2 | firstParity] = dp[firstParity] = 1; i < length; i++)
-			if ((nums[i] & 1) == 0) {
-				dp[0]++;
-				dp[2] = Math.max(dp[3] + 1, dp[2]);
-			} else {
-				dp[1]++;
-				dp[3] = Math.max(dp[3], dp[2] + 1);
-			}
+		int dp[] = new int[4];
+		for (int currentParity = nums[0] & 1, i = dp[2 | currentParity] = dp[currentParity] = 1, length = nums.length; i < length; dp[currentParity |= 2] = Math.max(dp[currentParity], dp[currentParity ^ 1] + 1))
+			dp[currentParity = nums[i++] & 1]++;
 		return Math.max(Math.max(dp[0], dp[1]), Math.max(dp[2], dp[3]));
 	}
 }
