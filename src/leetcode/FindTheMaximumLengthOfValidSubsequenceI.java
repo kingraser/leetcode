@@ -53,4 +53,41 @@ Constraints:
 			dp[currentParity = nums[i++] & 1]++;
 		return Math.max(Math.max(dp[0], dp[1]), Math.max(dp[2], dp[3]));
 	}
+/*
+Intuition
+
+	Dynamic programming is the commonest solution for the questions in the category of sub-sequence.
+
+Approach
+
+	Let dp[length][state] represents the max length of the valid sub-sequence which generated from the original sub-string[0, length] with the state.
+	state has 4 enumerations.
+    00 for the parity of the sum of the first 2 nums is even, and the last num's parity is even.
+    01 for the parity of the sum of the first 2 nums is even, and the last num's parity is odd.
+    10 for the parity of the sum of the first 2 nums is odd, and the last num's parity is even.
+    11 for the parity of the sum of the first 2 nums is odd, and the last num's parity is odd.
+
+	In short, the first bit represents the parity of the sum of the first 2 nums.
+	The second bit represents the parity of the last num.
+	0 for even, 1 for odd.
+
+	Let int[] current = dp[i], prev = dp[i - 1], then obviously we have.
+	    If nums[i] is even
+	        current[0b00] = prev[0b00] + 1
+	        current[0b10] = Math.max(prev[0b11] + 1, prev[0b10])
+	        current[0b01] = prev[0b01]
+	        current[0b11] = prev[0b11]
+	    Else if nums[i] is odd
+	        current[0b01] = prev[0b01] + 1
+	        current[0b11] = Math.max(prev[0b10] + 1, prev[0b11])
+	        current[0b00] = prev[0b00]
+	        current[0b10] = prev[0b10]
+
+Complexity
+    Time complexity:
+    O(n)
+    Space complexity:
+    O(1)
+    You can optimise the space to O(1).(actually 4 integers for the 4 enumerations of the state)
+*/
 }
