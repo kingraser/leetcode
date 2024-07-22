@@ -47,7 +47,6 @@ public class NumberOfBitChangesToMakeTwoIntegersEqual {
 	}
 
 	public int minChanges(int n, int k) {
-		int xor = n ^ k;
-		return xor == (xor & n) ? Integer.bitCount(xor) : -1;
+		return (n & k) != k ? -1 : Integer.bitCount(n ^ k);
 	}
 }
