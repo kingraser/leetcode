@@ -36,12 +36,9 @@ public class MaximumPossibleNumberByBinaryConcatenation {
     }
 
     public int maxGoodNumber(int[] nums) {
-        int l1 = getLength(nums[0]), l2 = getLength(nums[1]), l3 = getLength(nums[2]), result = (nums[0] << (l2 + l3)) | (nums[1] << l3) | nums[2];
-        result = Math.max(result, (nums[0] << (l2 + l3)) | (nums[2] << l2) | nums[1]);
-        result = Math.max(result, (nums[1] << (l1 + l3)) | (nums[0] << l3) | nums[2]);
-        result = Math.max(result, (nums[1] << (l1 + l3)) | (nums[2] << l1) | nums[0]);
-        result = Math.max(result, (nums[2] << (l1 + l2)) | (nums[0] << l2) | nums[1]);
-        result = Math.max(result, (nums[2] << (l1 + l2)) | (nums[1] << l1) | nums[0]);
+        int l1 = getLength(nums[0]), l2 = getLength(nums[1]), l3 = getLength(nums[2]), result = (nums[0] << (l2 + l3)) | Math.max((nums[1] << l3) | nums[2], (nums[2] << l2) | nums[1]);
+        result = Math.max(result, (nums[1] << (l1 + l3)) | Math.max((nums[0] << l3) | nums[2], (nums[2] << l1) | nums[0]));
+        result = Math.max(result, (nums[2] << (l1 + l2)) | Math.max((nums[0] << l2) | nums[1], (nums[1] << l1) | nums[0]));
         return result;
     }
 
