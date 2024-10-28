@@ -53,6 +53,4 @@ public class FindTheOriginalTypedStringI {
             for (start = ++index; index < length && (currentChar = word.charAt(index)) == startChar; ) index++;
         return result;
     }
-
-
 }
