@@ -53,9 +53,7 @@ public class FindSubtreeSizesAfterChanges {
         List<List<Integer>> tree = constructTree(parent);
         int[] result = new int[parent.length], lastSeen = new int[26];
         Arrays.fill(lastSeen, -1);
-        dfsAdjustParent(0, s, tree, lastSeen, parent);
-        tree = constructTree(parent);
-        dfsCountSubtreeSizes(0, tree, result);
+        dfsAdjustParent(0, s, tree, lastSeen, parent, result);
         return result;
     }
 
@@ -67,19 +65,14 @@ public class FindSubtreeSizesAfterChanges {
         return result;
     }
 
-    void dfsAdjustParent(int node, String s, List<List<Integer>> tree, int[] lastSeen, int[] newParent) {
+    int dfsAdjustParent(int node, String s, List<List<Integer>> tree, int[] lastSeen, int[] parent, int[] result) {
         int c = s.charAt(node) - 'a', prev = lastSeen[c];
-        if (prev != -1 && prev != newParent[node]) newParent[node] = prev;
         lastSeen[c] = node;
-        for (int child : tree.get(node)) dfsAdjustParent(child, s, tree, lastSeen, newParent);
-        lastSeen[c] = prev;
-    }
-
-    int dfsCountSubtreeSizes(int node, List<List<Integer>> tree, int[] result) {
-        if (result[node] != 0) return result[node];
-        int size = 1;
         for (int child : tree.get(node))
-            size += dfsCountSubtreeSizes(child, tree, result);
-        return result[node] = size;
+            result[node] = dfsAdjustParent(child, s, tree, lastSeen, parent, result) + result[node];
+        lastSeen[c] = prev;
+        if (prev == -1 || prev == parent[node]) return ++result[node];
+        result[prev] += ++result[node];
+        return 0;
     }
 }
