@@ -36,11 +36,9 @@ public class CheckBalancedString {
     }
 
     public boolean isBalanced(String num) {
-        int even = 0, odd = 0, length = num.length();
-        boolean isEven = true;
-        for (int i = 0; i < length; isEven = !isEven)
-            if (isEven) even += num.charAt(i++) - '0';
-            else odd += num.charAt(i++) - '0';
-        return even == odd;
+        int diff = 0;
+        for (int i = 0, length = num.length(), sign = 1; i < length; sign = -sign)
+            diff += sign * (num.charAt(i++) - '0');
+        return diff == 0;
     }
 }
