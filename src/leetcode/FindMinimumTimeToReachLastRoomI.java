@@ -61,14 +61,13 @@ Constraints:
         Queue<int[]> queue = new ArrayDeque<>(rowSize + colSize) {{
             add(new int[]{0, 0, 0});
         }};
-        for (int current[], time, row, col, newRow, newCol, newTime; !queue.isEmpty(); ) {
-            if (times[row = (current = queue.poll())[0]][col = current[1]] < (time = current[2])) continue;
-            for (int[] dir : dirs)
-                if ((newRow = row + dir[0]) >= 0 && newRow < rowSize && (newCol = col + dir[1]) >= 0 && newCol < colSize && (newTime = Math.max(moveTime[newRow][newCol], time) + 1) < times[newRow][newCol]) {
-                    times[newRow][newCol] = newTime;
-                    queue.add(new int[]{newRow, newCol, newTime});
-                }
-        }
+        for (int current[], time, row, col, newRow, newCol, newTime; !queue.isEmpty(); )
+            if (times[row = (current = queue.poll())[0]][col = current[1]] >= (time = current[2]))
+                for (int[] dir : dirs)
+                    if ((newRow = row + dir[0]) >= 0 && newRow < rowSize && (newCol = col + dir[1]) >= 0 && newCol < colSize && (newTime = Math.max(moveTime[newRow][newCol], time) + 1) < times[newRow][newCol]) {
+                        times[newRow][newCol] = newTime;
+                        queue.add(new int[]{newRow, newCol, newTime});
+                    }
         return times[rowSize - 1][colSize - 1];
     }
 }
