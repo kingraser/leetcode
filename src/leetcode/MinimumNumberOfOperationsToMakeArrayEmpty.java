@@ -3,6 +3,7 @@ package leetcode;
 import leetcode.util.TestUtil;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,6 +49,16 @@ public class MinimumNumberOfOperationsToMakeArrayEmpty {
         for (Integer count : map.values()) {
             if (count == 1) return -1;
             result += count / 3 + (count % 3 == 0 ? 0 : 1);
+        }
+        return result;
+    }
+
+    public int minOperationsII(int[] nums) {
+        Arrays.sort(nums);
+        int result = 0;
+        for (int i = 0, start, length = nums.length; i < length; result += (i - start - 1) / 3 + 1) {
+            for (int num = nums[start = i++]; i < length && nums[i] == num; ) i++;
+            if (i - start == 1) return -1;
         }
         return result;
     }
