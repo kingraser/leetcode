@@ -50,20 +50,20 @@ public class SmallestDivisibleDigitProductII {
     int primes[] = new int[]{2, 3, 5, 7}, maxPrime = primes[primes.length - 1];
 
     public String smallestNumber(String num, long t) {
-        int primeCount[] = new int[maxPrime + 1], numLength = num.length(), minLength, firstZeroIndexFromLeft = 0;
+        int primeCount[] = new int[maxPrime + 1], numLength = num.length(), last = numLength - 1, minLength, end = 0;
         for (int prime : primes) for (; t % prime == 0; t /= prime) primeCount[prime]++;
         if (t != 1) return "-1";
         if (numLength < (minLength = getMinLength(primeCount)))
             return buildSuffix(primeCount, minLength, new char[minLength]);
         char[] result = new char[numLength + 1];
-        for (int i = 0; firstZeroIndexFromLeft < numLength && (result[++i] = num.charAt(firstZeroIndexFromLeft)) != '0'; firstZeroIndexFromLeft++)
+        for (int i = 0; end < numLength && (result[++i] = num.charAt(end)) != '0'; end++)
             logNum(primeCount, result[i], -1);
         if (getMinLength(primeCount) == 0) {
-            if (firstZeroIndexFromLeft == numLength) return num;
-            Arrays.fill(result, ++firstZeroIndexFromLeft, result.length, '1');
+            if (end == numLength) return num;
+            Arrays.fill(result, ++end, result.length, '1');
             return new String(result, 1, numLength);
         }
-        for (int last = numLength - 1, end = Math.min(firstZeroIndexFromLeft, last); end >= 0; end--)
+        for (end = Math.min(end, last); end >= 0; end--)
             for (logNum(primeCount, result[end + 1], 1); ++result[end + 1] <= '9'; logNum(primeCount, result[end + 1], 1)) {
                 logNum(primeCount, result[end + 1], -1);
                 if (getMinLength(primeCount) <= last - end) return buildSuffix(primeCount, last - end, result);
@@ -96,7 +96,7 @@ public class SmallestDivisibleDigitProductII {
         for (; primeCount[2] > 1; primeCount[2] -= 2) result[--index] = '4';
         for (; primeCount[3] > 0; primeCount[3]--) result[--index] = '3';
         for (; primeCount[2] > 0; primeCount[2]--) result[--index] = '2';
-        while (index + targetLength != result.length) result[--index] = '1';
+        Arrays.fill(result, result.length - targetLength, index, '1');
         return targetLength == result.length ? new String(result) : new String(result, 1, result.length - 1);
     }
 
