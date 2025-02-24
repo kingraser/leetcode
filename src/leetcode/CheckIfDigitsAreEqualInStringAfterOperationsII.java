@@ -67,6 +67,10 @@ public class CheckIfDigitsAreEqualInStringAfterOperationsII {
     引入Lucas定理
     对于质数p
     有C(n,m）mod p == C(n/p, m/p) * C(n mod p, m mod p) mod p 当m==1时，返回1
+    将10质因数分解 2*5
+    分别计算mod2mod5的余数
+    再通过中国剩余定理
+    计算mod10的结果
     */
 
     int[][] t = {
@@ -80,7 +84,7 @@ public class CheckIfDigitsAreEqualInStringAfterOperationsII {
         return f0 == f1;
     }
 
-    private int binomMod10(int n, int k) {
+    int binomMod10(int n, int k) {
         int r2 = binomMod2(n, k), r5 = binomMod5(n, k);
         for (int x = 0; x < 10; x++) if (x % 2 == r2 && x % 5 == r5) return x;
         return 0;
