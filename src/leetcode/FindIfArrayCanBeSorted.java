@@ -46,7 +46,7 @@ public class FindIfArrayCanBeSorted {
     }
 
     public boolean canSortArray(int[] nums) {
-        int prevMax = 0, currentMin = 0, currentMax = 0, prevCount = 0, currentCount;
+        int prevMax = 0, currentMin = Integer.MAX_VALUE, currentMax = 0, prevCount = 0, currentCount;
         for (int num : nums)
             if (prevCount == (currentCount = Integer.bitCount(num))) {
                 currentMin = Math.min(currentMin, num);
