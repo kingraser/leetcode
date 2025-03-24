@@ -66,8 +66,7 @@ public class DesignSpreadsheet {
         }
 
         int getNumberOrCellValue(String cellOrNumber) {
-            if (cellOrNumber.charAt(0) < 'A') return Integer.parseInt(cellOrNumber);
-            return sheet[Integer.parseInt(cellOrNumber.substring(1)) - 1][cellOrNumber.charAt(0) - 'A'];
+            return cellOrNumber.charAt(0) < 'A' ? Integer.parseInt(cellOrNumber) : sheet[Integer.parseInt(cellOrNumber.substring(1)) - 1][cellOrNumber.charAt(0) - 'A'];
         }
     }
 }
