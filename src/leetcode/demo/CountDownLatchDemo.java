@@ -21,7 +21,7 @@ public class CountDownLatchDemo {
 
     @SneakyThrows
     static void sleep(long millis, CountDownLatch latch) {
-        TimeUnit.MILLISECONDS.sleep(millis);
+        Thread.sleep(millis);
         latch.countDown();
     }
 }

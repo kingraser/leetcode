@@ -3,7 +3,6 @@ package leetcode.demo;
 import lombok.SneakyThrows;
 
 import java.util.concurrent.CyclicBarrier;
-import java.util.concurrent.TimeUnit;
 
 public class CyclicBarrierDemo {
     public static void main(String[] args) {
@@ -21,7 +20,7 @@ public class CyclicBarrierDemo {
 
     @SneakyThrows
     static void sleep(long millis, CyclicBarrier barrier) {
-        TimeUnit.MILLISECONDS.sleep(millis);
+        Thread.sleep(millis);
         barrier.await();
     }
 }

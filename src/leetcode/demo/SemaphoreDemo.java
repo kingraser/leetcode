@@ -30,9 +30,8 @@ public class SemaphoreDemo {
             semaphore.acquire();
             try {
                 t = pool.removeFirst();
-                TimeUnit.MILLISECONDS.sleep(1000);
-                System.out.println("Value is:" + t);
-                System.out.println("Time is:" + System.currentTimeMillis());
+                Thread.sleep(1000);
+                System.out.println(Thread.currentThread().threadId() + " Value is:" + t + " Time is:" + System.currentTimeMillis());
             } finally {
                 if (t != -1) pool.add(t);
                 semaphore.release();

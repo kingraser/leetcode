@@ -4,7 +4,6 @@ import lombok.SneakyThrows;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -15,7 +14,7 @@ public class LockDemo {
         new Thread(() -> queue.enq(1)).start();
         new Thread(() -> queue.enq(2)).start();
         new Thread(() -> queue.enq(3)).start();
-        TimeUnit.SECONDS.sleep(1);
+        Thread.sleep(1000);
         new Thread(queue::deq).start();
         new Thread(queue::deq).start();
         new Thread(queue::deq).start();
