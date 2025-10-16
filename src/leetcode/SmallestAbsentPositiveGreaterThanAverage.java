@@ -52,7 +52,7 @@ public class SmallestAbsentPositiveGreaterThanAverage {
             if (num > 0) map[num] = 1;
         }
         int average = Math.max(1, (sum / nums.length) + 1);
-        while (average <= map.length && map[average] > 0) average++;
+        while (average < map.length && map[average] > 0) average++;
         return average;
     }
 }
