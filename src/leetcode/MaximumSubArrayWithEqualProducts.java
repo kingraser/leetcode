@@ -46,9 +46,10 @@ public class MaximumSubArrayWithEqualProducts {
 
     int getFlag(int[] nums, int[] flags, int index) {
         if (flags[index] != -1) return flags[index];
-        if (nums[index] == 1) return flags[index] = 0;
-        for (int i = 0; i < primes.length; i++) if (nums[index] % primes[i] == 0) flags[index] |= 1 << i;
-        return flags[index];
+        int result = 0, num = nums[index];
+        if (num == 1) return flags[index] = 0;
+        for (int i = 0; i < primes.length; i++) if (num % primes[i] == 0) result += 1 << i;
+        return flags[index] = result;
     }
 
     public int maxLength(int[] nums) {
