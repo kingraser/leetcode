@@ -62,19 +62,19 @@ public class FillASpecialGrid {
 
     public int[][] specialGrid(int n) {
         int size = 1 << n, result[][] = new int[size][size];
-        print(result, 0, 0, size - 1, size, n);
+        print(result, 0, 0, size - 1, n);
         return result;
     }
 
-    void print(int[][] result, int startNum, int startRow, int startCol, int size, int n) {
-        if (n == 0) {
+    void print(int[][] result, int startNum, int startRow, int startCol, int n) {
+        if (n-- == 0) {
             result[startRow][startCol] = startNum;
             return;
         }
-        int step = 1 << ((--n) << 1);
-        print(result, startNum, startRow, startCol, size >>= 1, n);
-        print(result, startNum += step, startRow + size, startCol, size, n);
-        print(result, startNum += step, startRow + size, startCol - size, size, n);
-        print(result, startNum + step, startRow, startCol - size, size, n);
+        int total = 1 << (n << 1), size = 1 << n;
+        print(result, startNum, startRow, startCol, n);
+        print(result, startNum += total, startRow + size, startCol, n);
+        print(result, startNum += total, startRow + size, startCol - size, n);
+        print(result, startNum + total, startRow, startCol - size, n);
     }
 }
