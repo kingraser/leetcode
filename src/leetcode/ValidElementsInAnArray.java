@@ -4,6 +4,7 @@ import leetcode.util.TestUtil;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ValidElementsInAnArray {
@@ -55,19 +56,15 @@ public class ValidElementsInAnArray {
     }
 
     public List<Integer> findValidElements(int[] nums) {
-        List<Integer> result = new ArrayList<>(nums.length);
-        int[] asc = new int[nums.length], desc = new int[nums.length];
-        int aSize = 0, dSize = 0;
+        int ascendingCount = 0, descendingCount = 0, stack[] = new int[nums.length];
         for (int num : nums)
-            if (aSize == 0 || asc[aSize - 1] < num) {
-                asc[aSize++] = num;
-                dSize = 0;
+            if (ascendingCount == 0 || stack[ascendingCount - 1] < num) {
+                stack[ascendingCount++] = num;
+                descendingCount = 0;
             } else {
-                while (dSize > 0 && desc[dSize - 1] <= num) dSize--;
-                desc[dSize++] = num;
+                while (descendingCount > 0 && stack[ascendingCount + descendingCount - 1] <= num) descendingCount--;
+                stack[ascendingCount + descendingCount++] = num;
             }
-        for (int i = 0; i < aSize; i++) result.add(asc[i]);
-        for (int i = 0; i < dSize; i++) result.add(desc[i]);
-        return result;
+        return Arrays.stream(stack, 0, ascendingCount + descendingCount).boxed().toList();
     }
 }
